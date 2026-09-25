@@ -53,7 +53,8 @@
         </div>
 
         {{-- Filtros --}}
-        <form method="GET" action="{{ route('ventas.index') }}" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-6">
+        <x-filter-bar action="{{ route('ventas.index') }}" :filters="['buscar','estado_pago','tipo_comprobante','fecha_desde','fecha_hasta']">
+            <x-slot:resultCount>{{ $ventas->total() }}</x-slot:resultCount>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
                 {{-- Búsqueda --}}
                 <div class="lg:col-span-2">
@@ -93,26 +94,11 @@
                            class="w-full py-2 px-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
             </div>
-            <div class="flex items-center gap-2 mt-3">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors">
-                    <i class="fas fa-search mr-1"></i>Filtrar
-                </button>
-                @if(request()->hasAny(['buscar','estado_pago','tipo_comprobante','fecha_desde','fecha_hasta']))
-                    <a href="{{ route('ventas.index') }}" class="text-sm text-gray-500 hover:text-gray-700 px-3 py-2 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
-                        <i class="fas fa-times mr-1"></i>Limpiar
-                    </a>
-                    <span class="text-xs text-blue-600 font-medium">
-                        {{ $ventas->total() }} resultado(s) encontrado(s)
-                    </span>
-                @endif
-            </div>
-        </form>
+        </x-filter-bar>
 
         {{-- Table card --}}
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-
-            {{-- Header --}}
-            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <x-data-table :paginator="$ventas">
+            <x-slot:cardHeader>
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm">
                         <i class="fas fa-receipt text-white text-sm"></i>
@@ -127,25 +113,19 @@
                     <i class="fas fa-plus"></i>
                     Nueva Venta
                 </a>
-            </div>
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Código</x-th>
+                <x-th>Fecha</x-th>
+                <x-th>Vendedor</x-th>
+                <x-th>Cliente</x-th>
+                <x-th>Almacén</x-th>
+                <x-th class="text-right">Total</x-th>
+                <x-th>Pago</x-th>
+                <x-th>Estado</x-th>
+                <x-th class="text-center">Ver</x-th>
+            </x-slot:head>
 
-            {{-- Table --}}
-            <div class="overflow-x-auto">
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="bg-gray-50 border-b border-gray-100">
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Código</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Fecha</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Vendedor</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Cliente</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Almacén</th>
-                            <th class="px-6 py-3.5 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Total</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Pago</th>
-                            <th class="px-6 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Estado</th>
-                            <th class="px-6 py-3.5 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Ver</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
                         @forelse($ventas as $venta)
                         <tr class="hover:bg-gray-50/70 transition-colors">
                             <td class="px-6 py-4">
@@ -196,10 +176,10 @@
                             </td>
                             <td class="px-6 py-4">
                                 @php
-                                    $badges = [
-                                        'pendiente' => 'bg-amber-50 text-amber-700 border-amber-200',
-                                        'pagado'    => 'bg-green-50 text-green-700 border-green-200',
-                                        'cancelado' => 'bg-red-50 text-red-700 border-red-200',
+                                    $tonos = [
+                                        'pendiente' => 'yellow',
+                                        'pagado'    => 'green',
+                                        'cancelado' => 'red',
                                     ];
                                     $iconsBadge = [
                                         'pendiente' => 'fa-clock',
@@ -207,10 +187,9 @@
                                         'cancelado' => 'fa-times-circle',
                                     ];
                                 @endphp
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border {{ $badges[$venta->estado_pago] ?? 'bg-gray-100 text-gray-600 border-gray-200' }}">
-                                    <i class="fas {{ $iconsBadge[$venta->estado_pago] ?? 'fa-circle' }} text-[10px]"></i>
+                                <x-badge :tone="$tonos[$venta->estado_pago] ?? 'gray'" :icon="$iconsBadge[$venta->estado_pago] ?? 'fa-circle'">
                                     {{ ucfirst($venta->estado_pago) }}
-                                </span>
+                                </x-badge>
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <a href="{{ route('ventas.show', $venta) }}"
@@ -236,16 +215,5 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            {{-- Pagination --}}
-            @if($ventas->hasPages())
-            <div class="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
-                {{ $ventas->links() }}
-            </div>
-            @endif
-
-        </div>
+        </x-data-table>
 @endsection

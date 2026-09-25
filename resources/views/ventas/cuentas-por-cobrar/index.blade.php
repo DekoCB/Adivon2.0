@@ -46,8 +46,7 @@
         </div>
 
         {{-- Filtros --}}
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
-            <form method="GET" class="flex flex-wrap gap-3 items-end">
+        <x-filter-bar :filters="['cliente_id','estado','fecha_desde','fecha_hasta']" class="flex flex-wrap gap-3 items-end">
                 <div>
                     <label class="block text-xs font-semibold text-gray-500 mb-1">Cliente</label>
                     <select name="cliente_id" class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500">
@@ -79,46 +78,35 @@
                     <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
                            class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500">
                 </div>
-                <button type="submit"
-                        class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
-                    <i class="fas fa-search mr-1"></i> Filtrar
-                </button>
-                @if(request()->hasAny(['cliente_id','estado','fecha_desde','fecha_hasta']))
-                <a href="{{ route('cuentas-por-cobrar.index') }}"
-                   class="border border-gray-200 text-gray-500 hover:bg-gray-50 px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
-                    Limpiar
-                </a>
-                @endif
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Tabla --}}
+        @if($cuentas->isEmpty())
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100">
                 <h2 class="text-base font-bold text-gray-900">Cuentas ({{ $cuentas->total() }})</h2>
             </div>
-
-            @if($cuentas->isEmpty())
             <div class="px-6 py-16 text-center text-gray-400">
                 <i class="fas fa-file-invoice-dollar text-4xl mb-3 opacity-30"></i>
                 <p class="text-sm">No hay cuentas por cobrar registradas</p>
             </div>
-            @else
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Cliente</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Venta</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Total</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Pagado</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Saldo</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Vencimiento</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
+        </div>
+        @else
+        <x-data-table :paginator="$cuentas">
+            <x-slot:cardHeader>
+                <h2 class="text-base font-bold text-gray-900">Cuentas ({{ $cuentas->total() }})</h2>
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Cliente</x-th>
+                <x-th>Venta</x-th>
+                <x-th class="text-right">Total</x-th>
+                <x-th class="text-right">Pagado</x-th>
+                <x-th class="text-right">Saldo</x-th>
+                <x-th class="text-center">Vencimiento</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th></x-th>
+            </x-slot:head>
+
                         @foreach($cuentas as $cuenta)
                         <tr class="hover:bg-gray-50/50 transition-colors">
                             <td class="px-4 py-3">
@@ -149,17 +137,14 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @php
-                                    $badge = match($cuenta->estado) {
-                                        'vigente' => 'bg-blue-50 text-blue-700 border-blue-200',
-                                        'vencido' => 'bg-red-50 text-red-700 border-red-200',
-                                        'pagado'  => 'bg-green-50 text-green-700 border-green-200',
-                                        'anulado' => 'bg-gray-100 text-gray-500 border-gray-200',
-                                        default   => 'bg-gray-100 text-gray-500 border-gray-200',
+                                    $tono = match($cuenta->estado) {
+                                        'vigente' => 'blue',
+                                        'vencido' => 'red',
+                                        'pagado'  => 'green',
+                                        default   => 'gray',
                                     };
                                 @endphp
-                                <span class="inline-flex items-center border {{ $badge }} px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize">
-                                    {{ $cuenta->estado }}
-                                </span>
+                                <x-badge :tone="$tono" class="capitalize">{{ $cuenta->estado }}</x-badge>
                             </td>
                             <td class="px-4 py-3 text-right">
                                 <a href="{{ route('ventas.credito.show', $cuenta->venta_id) }}"
@@ -169,14 +154,8 @@
                             </td>
                         </tr>
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="px-6 py-4 border-t border-gray-100">
-                {{ $cuentas->links() }}
-            </div>
-            @endif
-        </div>
+        </x-data-table>
+        @endif
 
     </div>
 @endsection

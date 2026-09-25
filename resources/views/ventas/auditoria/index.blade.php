@@ -25,8 +25,7 @@
     </div>
 
     {{-- Filtros --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-        <form method="GET" action="{{ route('ventas.auditoria') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <x-filter-bar action="{{ route('ventas.auditoria') }}" :filters="['accion','usuario_id','desde','hasta']" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Acción</label>
                 <select name="accion"
@@ -57,20 +56,11 @@
                 <input type="date" name="hasta" value="{{ request('hasta') }}"
                        class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
             </div>
-            <div class="md:col-span-4 flex gap-3">
-                <button type="submit"
-                        class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-sm font-semibold transition-colors">
-                    <i class="fas fa-search"></i> Filtrar
-                </button>
-                <a href="{{ route('ventas.auditoria') }}"
-                   class="inline-flex items-center gap-2 border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 px-5 py-2 rounded-xl text-sm font-medium transition-colors">
-                    <i class="fas fa-times"></i> Limpiar
-                </a>
-            </div>
-        </form>
-    </div>
+    </x-filter-bar>
 
-    {{-- Tabla --}}
+    {{-- Tabla — cada registro usa su propio <tbody x-data> para el expand/collapse
+         independiente del diff, así que no encaja en <x-data-table> (que asume un
+         único <tbody> compartido). Se deja como tabla manual, solo con <x-th>. --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         @if($registros->isEmpty())
         <div class="text-center py-16">
@@ -85,13 +75,13 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="bg-gray-50 border-b border-gray-100">
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Fecha / Hora</th>
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Comprobante</th>
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Acción</th>
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Usuario</th>
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Seguridad</th>
-                        <th class="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">IP</th>
-                        <th class="px-5 py-3.5 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Detalle</th>
+                        <x-th>Fecha / Hora</x-th>
+                        <x-th>Comprobante</x-th>
+                        <x-th>Acción</x-th>
+                        <x-th>Usuario</x-th>
+                        <x-th>Seguridad</x-th>
+                        <x-th>IP</x-th>
+                        <x-th class="text-center">Detalle</x-th>
                     </tr>
                 </thead>
                 {{-- Cada registro usa su propio <tbody> como scope Alpine --}}
