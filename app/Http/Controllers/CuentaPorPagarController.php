@@ -441,6 +441,6 @@ class CuentaPorPagarController extends Controller
             ->limit(10)
             ->get();
 
-        return view('cuentas-por-pagar.dashboard', compact('stats', 'proximosVencimientos'));
+        return view('compras.cuentas-por-pagar.dashboard', compact('stats', 'proximosVencimientos'));
     }
 }

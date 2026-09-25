@@ -91,7 +91,7 @@
                     <tr class="hover:bg-gray-50">
                         @if($i === 0)
                         <td class="px-6 py-4 align-top" rowspan="{{ $numFilas }}">
-                            <div class="text-sm font-medium text-gray-900">{{ $producto->nombre }}</div>
+                            <a href="{{ route('tienda.producto.ver', $producto) }}" class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">{{ $producto->nombre }}</a>
                             <div class="text-xs text-gray-500">{{ $producto->codigo }}</div>
                         </td>
                         @endif

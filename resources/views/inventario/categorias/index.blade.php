@@ -116,6 +116,9 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                 <div class="flex items-center justify-center space-x-2">
+                                    <a href="{{ route('inventario.categorias.show', $categoria) }}" class="text-gray-500 hover:text-gray-900" title="Ver productos">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     @if($canEdit)
                                         <a href="{{ route('inventario.categorias.edit', $categoria) }}" class="text-blue-600 hover:text-blue-900" title="Editar">
                                             <i class="fas fa-edit"></i>

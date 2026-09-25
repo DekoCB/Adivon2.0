@@ -226,6 +226,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('finanzas.dashboard') }}"
+                                    class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-blue-700 transition-colors {{ request()->routeIs('finanzas.*') ? 'bg-blue-600' : '' }}">
+                                    <i class="fas fa-chart-pie mr-3 text-sm"></i>Dashboard Financiero
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('pedidos.index') }}"
                                     class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-blue-700 transition-colors {{ request()->routeIs('pedidos.*') ? 'bg-blue-600' : '' }}">
                                     <i class="fas fa-clipboard-list mr-3 text-sm"></i>Pedidos a Proveedor
@@ -568,6 +574,12 @@
                                 <a href="{{ route('cuentas-por-pagar.index') }}"
                                     class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-blue-700 transition-colors {{ request()->routeIs('cuentas-por-pagar.*') ? 'bg-blue-600' : '' }}">
                                     <i class="fas fa-credit-card mr-3 text-sm"></i>Cuentas por Pagar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('finanzas.dashboard') }}"
+                                    class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-blue-700 transition-colors {{ request()->routeIs('finanzas.*') ? 'bg-blue-600' : '' }}">
+                                    <i class="fas fa-chart-pie mr-3 text-sm"></i>Dashboard Financiero
                                 </a>
                             </li>
                             <li>
