@@ -6,6 +6,7 @@ use App\Models\MovimientoInventario;
 use App\Models\Producto;
 use App\Models\Almacen;
 use App\Models\Catalogo\MotivoMovimiento;
+use App\Services\InventarioService;
 use Illuminate\Http\Request;
 
 class MovimientoInventarioController extends Controller
@@ -13,7 +14,7 @@ class MovimientoInventarioController extends Controller
     /**
      * Constructor - Solo Admin y Almacenero
      */
-    public function __construct()
+    public function __construct(private InventarioService $inventarioService)
     {
         $this->middleware('role:Administrador,Almacenero');
     }
@@ -152,7 +153,7 @@ class MovimientoInventarioController extends Controller
                 'user_id' => auth()->id(),
             ];
             
-            MovimientoInventario::registrarMovimiento($datos);
+            $this->inventarioService->registrarMovimiento($datos);
 
             return redirect()
                 ->route('inventario.movimientos.index')

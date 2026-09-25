@@ -14,6 +14,7 @@ use App\Models\Catalogo\UnidadMedida;
 use App\Models\Catalogo\ProductoSunat;
 use App\Services\CodigoBarrasService;
 use App\Services\VarianteService;
+use App\Services\InventarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,13 +23,13 @@ class ProductoController extends Controller
     /**
      * Constructor - Definir permisos por rol
      */
-    public function __construct()
+    public function __construct(private InventarioService $inventarioService)
     {
         // Solo Admin y Almacenero pueden crear/editar
         $this->middleware('role:Administrador,Almacenero')
                 ->except(['index', 'show', 'consultaTienda', 'buscarAjax']);
 
-        
+
         // Solo Admin puede eliminar
         $this->middleware('role:Administrador')->only(['destroy']);
     }
@@ -242,7 +243,7 @@ public function create()
             empty($request->variantes_iniciales)) {
 
             if ($request->filled('almacen_id')) {
-                \App\Models\MovimientoInventario::registrarMovimiento([
+                $this->inventarioService->registrarMovimiento([
                     'producto_id'     => $producto->id,
                     'almacen_id'      => $request->almacen_id,
                     'tipo_movimiento' => 'ingreso',
