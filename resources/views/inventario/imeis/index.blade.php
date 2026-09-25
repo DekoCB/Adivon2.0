@@ -100,8 +100,7 @@
         </div>
 
         <!-- Filtros -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <form action="{{ route('inventario.imeis.index') }}" method="GET" id="filterForm">
+        <x-filter-bar action="{{ route('inventario.imeis.index') }}" :filters="['buscar','producto_id','variante_id','almacen_id','estado']" id="filterForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Buscar IMEI/Serie</label>
@@ -163,57 +162,41 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end space-x-3 mt-4">
-                    <a href="{{ route('inventario.imeis.index') }}" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-redo mr-2"></i>Limpiar
-                    </a>
-                    <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800">
-                        <i class="fas fa-search mr-2"></i>Filtrar
-                    </button>
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         <!-- Tabla de IMEIs -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-bold text-gray-900">
-                        <i class="fas fa-list mr-2 text-blue-900"></i>
-                        Listado de IMEIs
-                    </h2>
-                    @if(auth()->user()->role->nombre != 'Tienda')
-                        <div class="flex space-x-2">
-                            <button onclick="generarEtiquetasMasivas()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
-                                <i class="fas fa-tags mr-2"></i>Etiquetas Masivas
-                            </button>
-                            <a href="{{ route('inventario.imeis.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800">
-                                <i class="fas fa-plus mr-2"></i>Registrar IMEI
-                            </a>
-                        </div>
-                    @endif
-                </div>
-            </div>
+        <x-data-table :paginator="$imeis">
+            <x-slot:cardHeader>
+                <h2 class="text-xl font-bold text-gray-900">
+                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    Listado de IMEIs
+                </h2>
+                @if(auth()->user()->role->nombre != 'Tienda')
+                    <div class="flex space-x-2">
+                        <button onclick="generarEtiquetasMasivas()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                            <i class="fas fa-tags mr-2"></i>Etiquetas Masivas
+                        </button>
+                        <a href="{{ route('inventario.imeis.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+                            <i class="fas fa-plus mr-2"></i>Registrar IMEI
+                        </a>
+                    </div>
+                @endif
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>
+                    <input type="checkbox" id="seleccionarTodos" onclick="toggleTodos()"
+                           class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                </x-th>
+                <x-th>IMEI</x-th>
+                <x-th>Producto</x-th>
+                <x-th>Variante</x-th>
+                <x-th>Almacén</x-th>
+                <x-th>Proveedor</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th class="text-center">Fecha Registro</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                <input type="checkbox" id="seleccionarTodos" onclick="toggleTodos()"
-                                       class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">IMEI</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Variante</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Almacén</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Proveedor</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Estado</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($imeis as $imei)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -268,35 +251,18 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                @if($imei->estado_imei == 'en_stock')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i>En Stock
-                                    </span>
-                                @elseif($imei->estado_imei == 'reservado')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
-                                        <i class="fas fa-clock mr-1"></i>Reservado
-                                    </span>
-                                @elseif($imei->estado_imei == 'vendido')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
-                                        <i class="fas fa-shopping-cart mr-1"></i>Vendido
-                                    </span>
-                                @elseif($imei->estado_imei == 'garantia')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
-                                        <i class="fas fa-shield-alt mr-1"></i>En Garantía
-                                    </span>
-                                @elseif($imei->estado_imei == 'devuelto')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-800">
-                                        <i class="fas fa-undo mr-1"></i>Devuelto
-                                    </span>
-                                @elseif($imei->estado_imei == 'reemplazado')
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
-                                        <i class="fas fa-exchange-alt mr-1"></i>Reemplazado
-                                    </span>
-                                @else
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
-                                        {{ $imei->estado_imei }}
-                                    </span>
-                                @endif
+                                @php
+                                    $estadoImeiConfig = [
+                                        'en_stock'    => ['green',  'fa-check-circle',   'En Stock'],
+                                        'reservado'   => ['yellow', 'fa-clock',          'Reservado'],
+                                        'vendido'     => ['red',    'fa-shopping-cart',  'Vendido'],
+                                        'garantia'    => ['blue',   'fa-shield-alt',     'En Garantía'],
+                                        'devuelto'    => ['orange', 'fa-undo',           'Devuelto'],
+                                        'reemplazado' => ['purple', 'fa-exchange-alt',   'Reemplazado'],
+                                    ];
+                                    [$eTono, $eIcono, $eLabel] = $estadoImeiConfig[$imei->estado_imei] ?? ['gray', null, $imei->estado_imei];
+                                @endphp
+                                <x-badge :tone="$eTono" :icon="$eIcono">{{ $eLabel }}</x-badge>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                 {{ $imei->created_at->format('d/m/Y') }}
@@ -379,16 +345,7 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            @if($imeis->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200">
-                    {{ $imeis->links() }}
-                </div>
-            @endif
-        </div>
+        </x-data-table>
     </div>
 
     <!-- Modal para mostrar QR -->

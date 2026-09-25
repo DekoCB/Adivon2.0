@@ -16,21 +16,17 @@
             </a>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nombre</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Almacén</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Creado por</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Progreso</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Fecha</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
+        <x-data-table :paginator="$conteos">
+            <x-slot:head>
+                <x-th>Nombre</x-th>
+                <x-th>Almacén</x-th>
+                <x-th>Creado por</x-th>
+                <x-th class="text-center">Progreso</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th class="text-center">Fecha</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
+
                         @forelse($conteos as $c)
                             @php
                                 $total    = $c->detalles_count;
@@ -51,13 +47,9 @@
                                 </td>
                                 <td class="px-4 py-3 text-center">
                                     @if($c->estado === 'exportado')
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                                            <i class="fas fa-check-circle"></i> Exportado
-                                        </span>
+                                        <x-badge tone="green" icon="fa-check-circle">Exportado</x-badge>
                                     @else
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                            <i class="fas fa-circle-notch"></i> Activo
-                                        </span>
+                                        <x-badge tone="blue" icon="fa-circle-notch">Activo</x-badge>
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 text-center text-gray-500 text-xs">{{ $c->created_at->format('d/m/Y') }}</td>
@@ -84,14 +76,6 @@
                                 </td>
                             </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-            @if($conteos->hasPages())
-                <div class="px-4 py-3 border-t border-gray-200">
-                    {{ $conteos->links() }}
-                </div>
-            @endif
-        </div>
+        </x-data-table>
     </div>
 @endsection

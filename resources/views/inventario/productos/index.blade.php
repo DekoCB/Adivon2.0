@@ -75,8 +75,7 @@
         </div>
 
         <!-- Filtros y búsqueda -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <form action="{{ route('inventario.productos.index') }}" method="GET" class="space-y-4">
+        <x-filter-bar action="{{ route('inventario.productos.index') }}" :filters="['buscar','categoria_id','estado','stock_estado','tipo_inventario','almacen_id']" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <!-- Búsqueda -->
                     <div>
@@ -146,56 +145,39 @@
                     </div>
                     <div class="md:col-span-2"></div>
                 </div>
-
-                <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <a href="{{ route('inventario.productos.index') }}" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-redo mr-2"></i>Limpiar filtros
-                    </a>
-                    <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800">
-                        <i class="fas fa-search mr-2"></i>Buscar
-                    </button>
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         <!-- Tabla de Productos -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-bold text-gray-900">
-                        <i class="fas fa-list mr-2 text-blue-900"></i>
-                        Listado de Productos
-                    </h2>
-                    @if($canCreate)
-                        <a href="{{ route('inventario.productos.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors flex items-center">
-                            <i class="fas fa-plus mr-2"></i>
-                            Nuevo Producto
-                        </a>
+        <x-data-table :paginator="$productos">
+            <x-slot:cardHeader>
+                <h2 class="text-xl font-bold text-gray-900">
+                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    Listado de Productos
+                </h2>
+                @if($canCreate)
+                    <a href="{{ route('inventario.productos.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i>
+                        Nuevo Producto
+                    </a>
+                @endif
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Código</x-th>
+                <x-th>Producto</x-th>
+                <x-th>Categoría</x-th>
+                <x-th>Marca/Modelo</x-th>
+                <x-th class="text-center">
+                    @if($almacenFiltro)
+                        Stock en {{ $almacenFiltro->nombre }}
+                    @else
+                        Stock total
                     @endif
-                </div>
-            </div>
+                </x-th>
+                <x-th class="text-center">Tipo</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marca/Modelo</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">
-                                @if($almacenFiltro)
-                                    Stock en {{ $almacenFiltro->nombre }}
-                                @else
-                                    Stock total
-                                @endif
-                            </th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Tipo</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Estado</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($productos as $producto)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -260,13 +242,11 @@
                                             $stockTotal = $producto->stock_actual ?? 0;
                                         }
                                     }
-                                    $colorClass = $stockTotal == 0
-                                        ? 'bg-red-100 text-red-800'
-                                        : ($stockTotal <= 5 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800');
+                                    $stockTono = $stockTotal == 0
+                                        ? 'red'
+                                        : ($stockTotal <= 5 ? 'yellow' : 'green');
                                 @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $colorClass }}">
-                                    {{ $stockTotal }} unt
-                                </span>
+                                <x-badge :tone="$stockTono">{{ $stockTotal }} unt</x-badge>
                                 @if(!$almacenFiltro && $producto->variantesActivas->count() > 0)
                                     <div class="flex items-center justify-center gap-1 mt-1 flex-wrap">
                                         @foreach($producto->variantesActivas as $v)
@@ -284,28 +264,18 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 @if($producto->tipo_inventario === 'serie')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        <i class="fas fa-mobile-alt mr-1"></i> IMEI
-                                    </span>
+                                    <x-badge tone="blue" icon="fa-mobile-alt">IMEI</x-badge>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="fas fa-boxes mr-1"></i> Cantidad
-                                    </span>
+                                    <x-badge tone="green" icon="fa-boxes">Cantidad</x-badge>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 @if($producto->estado === 'activo')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        Activo
-                                    </span>
+                                    <x-badge tone="green">Activo</x-badge>
                                 @elseif($producto->estado === 'inactivo')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                        Inactivo
-                                    </span>
+                                    <x-badge tone="gray">Inactivo</x-badge>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                        Descontinuado
-                                    </span>
+                                    <x-badge tone="red">Descontinuado</x-badge>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
@@ -383,12 +353,8 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
 
-            <!-- Información adicional del listado -->
-            <div class="px-6 py-3 bg-gray-50 border-t border-gray-200">
+            <x-slot:footer>
                 <div class="flex items-center justify-between text-sm text-gray-600">
                     <div>
                         <i class="fas fa-info-circle mr-1"></i>
@@ -409,20 +375,13 @@
                         </span>
                     </div>
                 </div>
-            </div>
-
-            <!-- Paginación -->
-            @if($productos->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200">
-                    {{ $productos->appends(request()->query())->links() }}
-                </div>
-            @endif
-        </div>
+            </x-slot:footer>
+        </x-data-table>
     </div>
 
     {{-- ══════════════ PANEL PRODUCTOS INACTIVOS ══════════════ --}}
     @if($productosInactivos->isNotEmpty())
-    <div class="md:ml-64 px-4 md:px-8 pb-10">
+    <div class="px-4 md:px-8 pb-10">
         <details class="group bg-white rounded-2xl shadow border border-gray-200 overflow-hidden">
             <summary class="flex items-center justify-between px-5 py-4 cursor-pointer select-none
                             bg-gray-50 hover:bg-gray-100 transition list-none">
@@ -440,14 +399,14 @@
 
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-100 text-sm">
-                    <thead class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3 text-left">Producto</th>
-                            <th class="px-4 py-3 text-left">Categoría</th>
-                            <th class="px-4 py-3 text-left">Estado</th>
-                            <th class="px-4 py-3 text-left">Desactivado</th>
+                            <x-th>Producto</x-th>
+                            <x-th>Categoría</x-th>
+                            <x-th>Estado</x-th>
+                            <x-th>Desactivado</x-th>
                             @if($canDelete)
-                            <th class="px-4 py-3 text-center">Acción</th>
+                            <x-th class="text-center">Acción</x-th>
                             @endif
                         </tr>
                     </thead>
@@ -472,13 +431,9 @@
                             <td class="px-4 py-3 text-gray-500">{{ $p->categoria?->nombre ?? '—' }}</td>
                             <td class="px-4 py-3">
                                 @if($p->estado === 'inactivo')
-                                    <span class="inline-flex items-center gap-1 text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">
-                                        <i class="fas fa-ban text-[10px]"></i> Inactivo
-                                    </span>
+                                    <x-badge tone="gray" icon="fa-ban">Inactivo</x-badge>
                                 @else
-                                    <span class="inline-flex items-center gap-1 text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-medium">
-                                        <i class="fas fa-exclamation-circle text-[10px]"></i> Descontinuado
-                                    </span>
+                                    <x-badge tone="orange" icon="fa-exclamation-circle">Descontinuado</x-badge>
                                 @endif
                             </td>
                             <td class="px-4 py-3 text-gray-400 text-xs">

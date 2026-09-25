@@ -18,6 +18,12 @@
         </table>
     </div>
 
+    @isset($footer)
+        <div class="px-6 py-3 bg-gray-50 border-t border-gray-200">
+            {{ $footer }}
+        </div>
+    @endisset
+
     @if($paginator && method_exists($paginator, 'hasPages') && $paginator->hasPages())
         <div class="px-6 py-4 border-t border-gray-200">
             {{ $paginator->appends(request()->query())->links() }}

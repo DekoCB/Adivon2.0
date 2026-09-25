@@ -1,25 +1,22 @@
-<div class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-gray-100">
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Código</th>
-                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Nombre</th>
-                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden md:table-cell">Sucursal</th>
-                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Tipo</th>
-                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Personal asignado</th>
-                <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-100">
+<x-data-table>
+    <x-slot:head>
+        <x-th>Código</x-th>
+        <x-th>Nombre</x-th>
+        <x-th class="hidden md:table-cell">Sucursal</x-th>
+        <x-th>Tipo</x-th>
+        <x-th>Personal asignado</x-th>
+        <x-th class="text-center">Estado</x-th>
+        <x-th class="text-center">Acciones</x-th>
+    </x-slot:head>
+
             @foreach($items as $almacen)
             @php
                 $tipoBadge = match($almacen->tipo) {
-                    'principal' => ['bg-purple-100 text-purple-800', 'fa-star',      'Principal'],
-                    'tienda'    => ['bg-orange-100 text-orange-800', 'fa-store',     'Tienda'],
-                    'deposito'  => ['bg-teal-100 text-teal-800',    'fa-boxes',     'Depósito'],
-                    'temporal'  => ['bg-gray-100 text-gray-700',    'fa-clock',     'Temporal'],
-                    default     => ['bg-gray-100 text-gray-600',    'fa-warehouse', ucfirst($almacen->tipo)],
+                    'principal' => ['purple', 'fa-star',      'Principal'],
+                    'tienda'    => ['orange', 'fa-store',     'Tienda'],
+                    'deposito'  => ['teal',   'fa-boxes',     'Depósito'],
+                    'temporal'  => ['gray',   'fa-clock',     'Temporal'],
+                    default     => ['gray',   'fa-warehouse', ucfirst($almacen->tipo)],
                 };
                 $roleBadge = [
                     'Administrador' => 'bg-purple-100 text-purple-700',
@@ -55,9 +52,7 @@
                     @endif
                 </td>
                 <td class="px-5 py-4 whitespace-nowrap">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $tipoBadge[0] }}">
-                        <i class="fas {{ $tipoBadge[1] }} text-[9px]"></i>{{ $tipoBadge[2] }}
-                    </span>
+                    <x-badge :tone="$tipoBadge[0]" :icon="$tipoBadge[1]">{{ $tipoBadge[2] }}</x-badge>
                 </td>
                 <td class="px-5 py-4">
                     @if($personal->isEmpty())
@@ -114,6 +109,4 @@
                 </td>
             </tr>
             @endforeach
-        </tbody>
-    </table>
-</div>
+</x-data-table>

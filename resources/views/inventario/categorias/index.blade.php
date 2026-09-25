@@ -66,36 +66,27 @@
         </div>
 
         <!-- Tabla de Categorías -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <!-- Header de la tabla -->
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-bold text-gray-900">
-                        <i class="fas fa-list mr-2 text-blue-900"></i>
-                        Listado de Categorías
-                    </h2>
-                    @if($canCreate)
-                        <a href="{{ route('inventario.categorias.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors flex items-center">
-                            <i class="fas fa-plus mr-2"></i>
-                            Nueva Categoría
-                        </a>
-                    @endif
-                </div>
-            </div>
+        <x-data-table>
+            <x-slot:cardHeader>
+                <h2 class="text-xl font-bold text-gray-900">
+                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    Listado de Categorías
+                </h2>
+                @if($canCreate)
+                    <a href="{{ route('inventario.categorias.create') }}" class="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i>
+                        Nueva Categoría
+                    </a>
+                @endif
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Código</x-th>
+                <x-th>Categoría</x-th>
+                <x-th class="text-center">Productos</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
 
-            <!-- Tabla -->
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Productos</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($categorias as $categoria)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -114,22 +105,13 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    <i class="fas fa-box mr-1"></i>
-                                    {{ $categoria->productos_count }}
-                                </span>
+                                <x-badge tone="blue" icon="fa-box">{{ $categoria->productos_count }}</x-badge>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 @if($categoria->estado === 'activo')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i>
-                                        Activo
-                                    </span>
+                                    <x-badge tone="green" icon="fa-check-circle">Activo</x-badge>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                        <i class="fas fa-times-circle mr-1"></i>
-                                        Inactivo
-                                    </span>
+                                    <x-badge tone="gray" icon="fa-times-circle">Inactivo</x-badge>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
@@ -169,9 +151,6 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </x-data-table>
     </div>
 @endsection

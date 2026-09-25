@@ -104,9 +104,7 @@
     </div>
 
     {{-- Filtros --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-5">
-        <form method="GET" action="{{ route('inventario.movimientos.index') }}"
-              class="flex flex-wrap gap-3 items-end">
+    <x-filter-bar action="{{ route('inventario.movimientos.index') }}" :filters="['tipo_movimiento','producto_id','almacen_id','fecha_desde','fecha_hasta']" class="flex flex-wrap gap-3 items-end">
             <div class="flex-1 min-w-36">
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Tipo</label>
                 <select name="tipo_movimiento"
@@ -156,60 +154,43 @@
                 <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="flex gap-2">
-                <button type="submit"
-                        class="px-4 py-2 bg-blue-900 text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition-colors flex items-center gap-2">
-                    <i class="fas fa-filter text-xs"></i> Filtrar
-                </button>
-                <a href="{{ route('inventario.movimientos.index') }}"
-                   class="px-4 py-2 bg-gray-100 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
-                    Limpiar
-                </a>
-            </div>
-        </form>
-    </div>
+    </x-filter-bar>
 
     {{-- Tabla de movimientos --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+    <x-data-table :paginator="$movimientos">
+        <x-slot:cardHeader>
             <h2 class="text-sm font-semibold text-gray-700">
                 Historial de movimientos
                 @if($movimientos->total() > 0)
                     <span class="ml-2 text-xs text-gray-400 font-normal">{{ $movimientos->total() }} registros</span>
                 @endif
             </h2>
-        </div>
+        </x-slot:cardHeader>
+        <x-slot:head>
+            <x-th>Fecha</x-th>
+            <x-th>Tipo</x-th>
+            <x-th>Producto</x-th>
+            <x-th>Almacén</x-th>
+            <x-th class="text-center">Cantidad</x-th>
+            <x-th class="text-center">Stock</x-th>
+            <x-th>Usuario</x-th>
+            <x-th>Motivo</x-th>
+            <x-th class="text-center">Detalle</x-th>
+        </x-slot:head>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-100">
-                <thead>
-                    <tr class="bg-gray-50">
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Fecha</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Tipo</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Producto</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Almacén</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Cantidad</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Stock</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Usuario</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Motivo</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Detalle</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
                     @forelse($movimientos as $mov)
                     @php
                         $esIngreso  = in_array($mov->tipo_movimiento, ['ingreso', 'devolucion']);
                         $esSalida   = in_array($mov->tipo_movimiento, ['salida', 'merma']);
                         $esTransfer = $mov->tipo_movimiento === 'transferencia';
                         $esAjuste   = $mov->tipo_movimiento === 'ajuste';
-                        $badgeClass = match($mov->tipo_movimiento) {
-                            'ingreso'       => 'bg-green-50 text-green-700 border-green-200',
-                            'salida'        => 'bg-red-50 text-red-700 border-red-200',
-                            'ajuste'        => 'bg-blue-50 text-blue-700 border-blue-200',
-                            'transferencia' => 'bg-purple-50 text-purple-700 border-purple-200',
-                            'devolucion'    => 'bg-orange-50 text-orange-700 border-orange-200',
-                            'merma'         => 'bg-gray-100 text-gray-600 border-gray-200',
-                            default         => 'bg-gray-100 text-gray-600 border-gray-200',
+                        $tono = match($mov->tipo_movimiento) {
+                            'ingreso'       => 'green',
+                            'salida'        => 'red',
+                            'ajuste'        => 'blue',
+                            'transferencia' => 'purple',
+                            'devolucion'    => 'orange',
+                            default         => 'gray',
                         };
                     @endphp
                     <tr class="hover:bg-blue-50/20 transition-colors">
@@ -218,14 +199,11 @@
                             <p class="text-xs text-gray-400">{{ $mov->created_at->format('H:i') }}</p>
                         </td>
                         <td class="px-5 py-3 whitespace-nowrap">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold border {{ $badgeClass }}">
-                                <i class="fas {{ $mov->icono_tipo_movimiento }} text-[10px]"></i>
-                                {{ $mov->tipo_movimiento_nombre }}
-                            </span>
+                            <x-badge :tone="$tono" :icon="$mov->icono_tipo_movimiento">{{ $mov->tipo_movimiento_nombre }}</x-badge>
                         </td>
                         <td class="px-5 py-3">
-                            <p class="text-sm font-medium text-gray-900">{{ $mov->producto->nombre }}</p>
-                            <p class="text-xs text-gray-400 font-mono">{{ $mov->producto->codigo }}</p>
+                            <p class="text-sm font-medium text-gray-900">{{ $mov->producto?->nombre ?? 'Producto eliminado' }}</p>
+                            <p class="text-xs text-gray-400 font-mono">{{ $mov->producto?->codigo }}</p>
                         </td>
                         <td class="px-5 py-3 whitespace-nowrap">
                             <span class="text-sm text-gray-700">{{ $mov->nombre_almacen }}</span>
@@ -278,16 +256,7 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        @if($movimientos->hasPages())
-        <div class="px-5 py-4 border-t border-gray-100">
-            {{ $movimientos->links() }}
-        </div>
-        @endif
-    </div>
+    </x-data-table>
 
 </div>
 @endsection

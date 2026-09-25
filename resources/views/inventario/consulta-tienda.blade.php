@@ -12,8 +12,7 @@
 @section('content')
 <div>
 <!-- Buscador -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <form action="{{ route('inventario.consulta-tienda') }}" method="GET">
+        <x-filter-bar action="{{ route('inventario.productos.consulta-tienda') }}" :filters="['buscar','categoria_id']">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Buscar Producto</label>
@@ -34,40 +33,25 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="flex justify-end space-x-3 mt-4">
-                    <a href="{{ route('inventario.consulta-tienda') }}" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-redo mr-2"></i>Limpiar
-                    </a>
-                    <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800">
-                        <i class="fas fa-search mr-2"></i>Buscar
-                    </button>
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         <!-- Tabla -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
+        <x-data-table :paginator="$productos">
+            <x-slot:cardHeader>
                 <h2 class="text-xl font-bold text-gray-900">
                     <i class="fas fa-boxes mr-2 text-blue-900"></i>
                     Productos Disponibles
                 </h2>
-            </div>
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Código</x-th>
+                <x-th>Producto</x-th>
+                <x-th>Tipo</x-th>
+                <x-th class="text-center">Stock</x-th>
+                <x-th class="text-right">Precio</x-th>
+                <x-th class="text-center">Estado</x-th>
+            </x-slot:head>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Stock</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Precio</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($productos as $producto)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -85,20 +69,16 @@
                                     <div>
                                         <p class="text-sm font-medium text-gray-900">{{ $producto->nombre }}</p>
                                         @if($producto->marca)
-                                            <p class="text-xs text-gray-500">{{ $producto->marca }} {{ $producto->modelo }}</p>
+                                            <p class="text-xs text-gray-500">{{ $producto->marca?->nombre }} {{ $producto->modelo?->nombre }}</p>
                                         @endif
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                @if($producto->tipo_producto == 'celular')
-                                    <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
-                                        <i class="fas fa-mobile-alt mr-1"></i>Celular
-                                    </span>
+                                @if($producto->tipo_inventario === 'serie')
+                                    <x-badge tone="blue" icon="fa-mobile-alt">Celular</x-badge>
                                 @else
-                                    <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
-                                        <i class="fas fa-headphones mr-1"></i>Accesorio
-                                    </span>
+                                    <x-badge tone="green" icon="fa-headphones">Accesorio</x-badge>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -109,7 +89,7 @@
                                     @endif">
                                     {{ $producto->stock_actual }}
                                 </span>
-                                <span class="text-xs text-gray-500 ml-1">{{ $producto->unidad_medida }}</span>
+                                <span class="text-xs text-gray-500 ml-1">{{ $producto->unidadMedida?->abreviatura }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right">
                                 <p class="text-lg font-bold text-gray-900">S/ {{ number_format($producto->precio_venta, 2) }}</p>
@@ -119,17 +99,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 @if($producto->stock_actual > $producto->stock_minimo)
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i>Disponible
-                                    </span>
+                                    <x-badge tone="green" icon="fa-check-circle">Disponible</x-badge>
                                 @elseif($producto->stock_actual > 0)
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
-                                        <i class="fas fa-exclamation-triangle mr-1"></i>Stock Bajo
-                                    </span>
+                                    <x-badge tone="yellow" icon="fa-exclamation-triangle">Stock Bajo</x-badge>
                                 @else
-                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
-                                        <i class="fas fa-times-circle mr-1"></i>Agotado
-                                    </span>
+                                    <x-badge tone="red" icon="fa-times-circle">Agotado</x-badge>
                                 @endif
                             </td>
                         </tr>
@@ -141,16 +115,7 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            @if($productos->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200">
-                    {{ $productos->links() }}
-                </div>
-            @endif
-        </div>
+        </x-data-table>
 
         <!-- Leyenda -->
         <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
