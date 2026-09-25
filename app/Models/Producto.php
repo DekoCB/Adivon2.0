@@ -80,22 +80,18 @@ class Producto extends Model
     }
 
     // Obtener precio de venta actual
+    /**
+     * Delega en PrecioRotativoService::obtenerPrecioVigente() — antes este
+     * accessor reimplementaba su propio filtro de fecha/activo/prioridad de
+     * forma ligeramente distinta (orderBy prioridad DESC en vez de ASC,
+     * sin considerar cantidad_minima/maxima), pudiendo devolver un precio
+     * distinto al que usa el resto del sistema para el mismo producto.
+     */
     public function getPrecioVentaAttribute(): float
     {
         try {
-            return (float) ($this->precios()
-                ->where('tipo_precio', 'venta_regular')
-                ->where('activo', true)
-                ->where(function ($q) {
-                    $q->whereNull('fecha_inicio')
-                      ->orWhere('fecha_inicio', '<=', now());
-                })
-                ->where(function ($q) {
-                    $q->whereNull('fecha_fin')
-                      ->orWhere('fecha_fin', '>=', now());
-                })
-                ->orderBy('prioridad', 'desc')
-                ->value('precio') ?? 0);
+            return (float) app(\App\Services\PrecioRotativoService::class)
+                ->obtenerPrecioVigente($this, tipoPrecio: 'venta_regular')['precio'];
         } catch (\Throwable) {
             return 0.0;
         }
@@ -105,13 +101,10 @@ class Producto extends Model
     public function getPrecioMayoristaAttribute(): ?float
     {
         try {
-            $precio = $this->precios()
-                ->where('tipo_precio', 'venta_mayorista')
-                ->where('activo', true)
-                ->orderBy('prioridad', 'desc')
-                ->value('precio');
+            $precio = app(\App\Services\PrecioRotativoService::class)
+                ->obtenerPrecioVigente($this, tipoPrecio: 'venta_mayorista')['precio'];
 
-            return $precio !== null ? (float) $precio : null;
+            return $precio > 0 ? (float) $precio : null;
         } catch (\Throwable) {
             return null;
         }

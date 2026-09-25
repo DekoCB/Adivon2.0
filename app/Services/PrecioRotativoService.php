@@ -22,16 +22,12 @@ class PrecioRotativoService
         float $cantidad = 1,
         string $tipoPrecio = 'venta_regular'
     ) {
+        // vigente()/tipo() son los mismos scopes que Producto::getPrecioVentaAttribute()
+        // usa (vía este mismo método, ver más abajo) — antes cada uno repetía
+        // por su cuenta el mismo filtro de fecha/activo inline.
         $query = ProductoPrecio::where('producto_id', $producto->id)
-            ->where('activo', true)
-            ->where(function($q) {
-                $q->whereNull('fecha_inicio')
-                  ->orWhere('fecha_inicio', '<=', now());
-            })
-            ->where(function($q) {
-                $q->whereNull('fecha_fin')
-                  ->orWhere('fecha_fin', '>=', now());
-            });
+            ->vigente()
+            ->tipo($tipoPrecio);
 
         // Prioridad 1: Precio específico para este proveedor
         if ($proveedor) {
@@ -42,9 +38,6 @@ class PrecioRotativoService
         if ($cliente) {
             $query->where('cliente_id', $cliente->id);
         }
-
-        // Prioridad 3: Precio por tipo
-        $query->where('tipo_precio', $tipoPrecio);
 
         // Filtrar por cantidad si aplica
         $query->where(function($q) use ($cantidad) {
@@ -72,12 +65,18 @@ class PrecioRotativoService
             ];
         }
 
-        // Si no hay precio configurado, usar el precio base del producto
+        // producto_precios es la única fuente de verdad del precio de venta
+        // (no existe una columna "precio base" separada en productos): si no
+        // hay ninguna fila vigente, el precio es 0, sin fallback alterno.
+        // Importante: NO devolver $producto->precio_venta aquí — ese accessor
+        // llama a este mismo método, y volver a leerlo en este punto sería
+        // una recursión infinita cada vez que un producto no tiene precio
+        // configurado todavía.
         return [
-            'precio' => $producto->precio_venta ?? 0,
+            'precio' => 0,
             'incluye_igv' => false,
             'moneda' => 'PEN',
-            'tipo' => 'base',
+            'tipo' => 'sin_precio',
             'proveedor_id' => null,
             'cliente_id' => null
         ];
@@ -111,6 +110,12 @@ class PrecioRotativoService
         // Calcular precio de venta sugerido
         $precioVenta = $precioCompra * (1 + $margen/100);
 
+        // Capturar el precio vigente ANTES de crear el nuevo — si se lee
+        // después de ProductoPrecio::create() de abajo, ya reflejaría el
+        // precio nuevo (la fila ya estaría activa), y el historial quedaría
+        // con precio_anterior == precio_nuevo.
+        $precioAnterior = $producto->precio_venta;
+
         // Crear o actualizar precio para este proveedor
         $precioExistente = ProductoPrecio::where('producto_id', $producto->id)
             ->where('proveedor_id', $proveedor->id)
@@ -140,17 +145,17 @@ class PrecioRotativoService
         \App\Models\ProductoPrecioHistorial::create([
             'producto_id' => $producto->id,
             'tipo_cambio' => 'compra',
-            'precio_anterior' => $producto->precio_venta,
+            'precio_anterior' => $precioAnterior,
             'precio_nuevo' => round($precioVenta, 2),
             'moneda' => 'PEN',
             'motivo' => 'Actualización por compra a proveedor: ' . $proveedor->nombre,
             'usuario_id' => auth()->id()
         ]);
 
-        // Actualizar precio base del producto
-        $producto->update([
-            'precio_venta' => round($precioVenta, 2)
-        ]);
+        // Nota: no existe una columna productos.precio_venta que actualizar
+        // aquí — producto_precios (recién escrito arriba) ya es la única
+        // fuente de verdad; el antiguo `$producto->update(['precio_venta'=>...])`
+        // no tenía ningún efecto (esa columna no existe en la tabla).
 
         return round($precioVenta, 2);
     }
