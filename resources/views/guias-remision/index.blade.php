@@ -19,8 +19,7 @@
     </div>
 
     {{-- Filtros --}}
-    <form method="GET" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+    <x-filter-bar :filters="['buscar','estado','motivo','origen']" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <input type="text" name="buscar" value="{{ request('buscar') }}"
                    placeholder="N° Guía..."
                    class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
@@ -44,16 +43,11 @@
                 <option value="traslado" {{ request('origen') === 'traslado' ? 'selected' : '' }}>Traslado</option>
                 <option value="manual"   {{ request('origen') === 'manual'   ? 'selected' : '' }}>Manual</option>
             </select>
-            <button type="submit"
-                    class="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition">
-                <i class="fas fa-search mr-1"></i> Filtrar
-            </button>
-        </div>
-    </form>
+    </x-filter-bar>
 
     {{-- Tabla --}}
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-        @if($guias->isEmpty())
+    @if($guias->isEmpty())
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
             <div class="py-16 text-center text-gray-400">
                 <i class="fas fa-file-invoice text-4xl mb-3 block"></i>
                 <p class="text-sm">No hay guías registradas.</p>
@@ -61,37 +55,30 @@
                     <i class="fas fa-plus-circle"></i> Crear primera guía
                 </a>
             </div>
-        @else
-            <table class="w-full text-sm">
-                <thead class="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">N° Guía</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Origen</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Motivo</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Almacén → Destino</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Fecha</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">SUNAT</th>
-                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @foreach($guias as $guia)
+        </div>
+    @else
+        <x-data-table :paginator="$guias">
+            <x-slot:head>
+                <x-th>N° Guía</x-th>
+                <x-th>Origen</x-th>
+                <x-th>Motivo</x-th>
+                <x-th>Almacén → Destino</x-th>
+                <x-th>Fecha</x-th>
+                <x-th>Estado</x-th>
+                <x-th class="text-center">SUNAT</x-th>
+                <x-th class="text-right">Acciones</x-th>
+            </x-slot:head>
+
+                @foreach($guias as $guia)
                     <tr class="hover:bg-gray-50 transition-colors">
                         <td class="px-4 py-3 font-mono font-semibold text-gray-800">{{ $guia->numero_guia }}</td>
                         <td class="px-4 py-3">
                             @if($guia->venta_id)
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 text-green-700">
-                                    <i class="fas fa-shopping-cart text-[8px]"></i> Venta
-                                </span>
+                                <x-badge tone="green" icon="fa-shopping-cart">Venta</x-badge>
                             @elseif($guia->movimientos_count > 0)
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-700">
-                                    <i class="fas fa-exchange-alt text-[8px]"></i> Traslado
-                                </span>
+                                <x-badge tone="blue" icon="fa-exchange-alt">Traslado</x-badge>
                             @else
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 text-gray-600">
-                                    <i class="fas fa-pencil-alt text-[8px]"></i> Manual
-                                </span>
+                                <x-badge tone="gray" icon="fa-pencil-alt">Manual</x-badge>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-gray-600">{{ $guia->motivo_label }}</td>
@@ -111,29 +98,15 @@
                         </td>
                         <td class="px-4 py-3 text-center">
                             @if($guia->sunat_estado === 'aceptado')
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 text-green-700"
-                                      title="{{ $guia->sunat_descripcion }}">
-                                    <i class="fas fa-check-circle"></i> Aceptado
-                                </span>
+                                <x-badge tone="green" icon="fa-check-circle" title="{{ $guia->sunat_descripcion }}">Aceptado</x-badge>
                             @elseif($guia->sunat_estado === 'enviado')
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-700"
-                                      title="{{ $guia->sunat_descripcion }}">
-                                    <i class="fas fa-clock"></i> Enviado
-                                </span>
+                                <x-badge tone="blue" icon="fa-clock" title="{{ $guia->sunat_descripcion }}">Enviado</x-badge>
                             @elseif($guia->sunat_estado === 'rechazado')
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-100 text-red-700"
-                                      title="{{ $guia->sunat_descripcion }}">
-                                    <i class="fas fa-times-circle"></i> Rechazado
-                                </span>
+                                <x-badge tone="red" icon="fa-times-circle" title="{{ $guia->sunat_descripcion }}">Rechazado</x-badge>
                             @elseif($guia->sunat_estado === 'error')
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-100 text-red-600"
-                                      title="{{ $guia->sunat_descripcion }}">
-                                    <i class="fas fa-exclamation-triangle"></i> Error
-                                </span>
+                                <x-badge tone="red" icon="fa-exclamation-triangle" title="{{ $guia->sunat_descripcion }}">Error</x-badge>
                             @else
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 text-gray-500">
-                                    <i class="fas fa-minus-circle"></i> No enviado
-                                </span>
+                                <x-badge tone="gray" icon="fa-minus-circle">No enviado</x-badge>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right">
@@ -169,13 +142,8 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="px-4 py-3 border-t border-gray-100">
-                {{ $guias->links() }}
-            </div>
-        @endif
-    </div>
+                @endforeach
+        </x-data-table>
+    @endif
 </div>
 @endsection

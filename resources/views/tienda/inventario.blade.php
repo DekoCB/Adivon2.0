@@ -41,8 +41,7 @@
     </div>
 
     <!-- Filtros -->
-    <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-        <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <x-filter-bar :filters="['buscar','categoria_id']" class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Buscar producto</label>
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
@@ -60,16 +59,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex items-end">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Filtrar
-                </button>
-                <a href="{{ route('tienda.inventario.ver') }}" class="ml-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                    Limpiar
-                </a>
-            </div>
-        </form>
-    </div>
+    </x-filter-bar>
 
     <!-- Tabla de productos -->
     <div class="bg-white rounded-lg shadow-sm overflow-hidden">

@@ -43,8 +43,7 @@
         </div>
 
         {{-- Filtros --}}
-        <div class="bg-white rounded-xl shadow-sm p-4 mb-5">
-            <form method="GET" action="{{ route('devoluciones.index') }}" class="flex flex-wrap gap-3 items-end">
+        <x-filter-bar action="{{ route('devoluciones.index') }}" :filters="['buscar','almacen_id','fecha_desde','fecha_hasta']" class="flex flex-wrap gap-3 items-end">
 
                 {{-- Búsqueda --}}
                 <div class="flex-1 min-w-50">
@@ -95,21 +94,7 @@
                            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
                 </div>
 
-                {{-- Botones --}}
-                <div class="flex gap-2 shrink-0">
-                    <button type="submit"
-                            class="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg flex items-center gap-2 transition">
-                        <i class="fas fa-filter"></i> Filtrar
-                    </button>
-                    @if(request()->hasAny(['buscar','almacen_id','fecha_desde','fecha_hasta']))
-                        <a href="{{ route('devoluciones.index') }}"
-                           class="px-4 py-2.5 border border-gray-300 text-gray-600 hover:bg-gray-50 text-sm rounded-lg flex items-center gap-2 transition">
-                            <i class="fas fa-times"></i> Limpiar
-                        </a>
-                    @endif
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Cabecera de tabla + botón nuevo --}}
         <div class="flex justify-between items-center mb-3">
@@ -126,21 +111,18 @@
         </div>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">N° Guía</th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Ítems</th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Unidades</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Almacén Destino</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Registrado por</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Observación</th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
+        <x-data-table :paginator="$devoluciones">
+            <x-slot:head>
+                <x-th>N° Guía</x-th>
+                <x-th class="text-center">Ítems</x-th>
+                <x-th class="text-center">Unidades</x-th>
+                <x-th>Almacén Destino</x-th>
+                <x-th>Registrado por</x-th>
+                <x-th>Fecha</x-th>
+                <x-th>Observación</x-th>
+                <x-th class="text-center">Acción</x-th>
+            </x-slot:head>
+
                     @forelse($devoluciones as $dev)
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-4 py-3">
@@ -193,12 +175,6 @@
                             </td>
                         </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mt-5">
-            {{ $devoluciones->links() }}
-        </div>
+        </x-data-table>
     </div>
 @endsection

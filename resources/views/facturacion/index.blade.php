@@ -49,8 +49,7 @@
     </div>
 
     {{-- Filtros --}}
-    <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
-        <form method="GET" action="{{ route('facturacion.index') }}" class="grid grid-cols-1 md:grid-cols-8 gap-3">
+    <x-filter-bar action="{{ route('facturacion.index') }}" :filters="['buscar','estado_sunat','tipo_comprobante','fecha_desde','fecha_hasta','sucursal_id','con_guia','estado_guia']" class="grid grid-cols-1 md:grid-cols-8 gap-3">
             <div class="md:col-span-2">
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
                        placeholder="Buscar cliente, RUC, serie..."
@@ -89,45 +88,29 @@
                 <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
                        class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
-            <div class="flex gap-2">
-                <button type="submit" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white text-sm px-3 py-2 rounded-lg transition">
-                    <i class="fas fa-search mr-1"></i>Filtrar
-                </button>
-                @if(request()->hasAny(['buscar','estado_sunat','tipo_comprobante','fecha_desde','fecha_hasta','sucursal_id','con_guia','estado_guia']))
-                    <a href="{{ route('facturacion.index') }}"
-                       class="flex-1 text-center text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50 transition">
-                        <i class="fas fa-times"></i>
-                    </a>
-                @endif
-            </div>
-        </form>
-    </div>
+    </x-filter-bar>
 
     {{-- Tabla comprobantes --}}
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 text-sm">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Comprobante</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente / RUC</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Total</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado SUNAT</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Guía</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($comprobantes as $comp)
+    <x-data-table :paginator="$comprobantes">
+        <x-slot:head>
+            <x-th>Comprobante</x-th>
+            <x-th>Tipo</x-th>
+            <x-th>Cliente / RUC</x-th>
+            <x-th>Fecha</x-th>
+            <x-th class="text-right">Total</x-th>
+            <x-th>Estado SUNAT</x-th>
+            <x-th>Guía</x-th>
+            <x-th>Acciones</x-th>
+        </x-slot:head>
+
+            @forelse($comprobantes as $comp)
                 @php
-                    $estadoCss = match($comp->estado_sunat) {
-                        'aceptado'       => 'bg-green-100 text-green-700',
-                        'rechazado'      => 'bg-red-100 text-red-700',
-                        'pendiente_envio'=> 'bg-amber-100 text-amber-700',
-                        'enviado'        => 'bg-blue-100 text-blue-700',
-                        'anulado_baja'   => 'bg-gray-100 text-gray-500',
-                        default          => 'bg-gray-100 text-gray-500',
+                    $estadoTono = match($comp->estado_sunat) {
+                        'aceptado'       => 'green',
+                        'rechazado'      => 'red',
+                        'pendiente_envio'=> 'amber',
+                        'enviado'        => 'blue',
+                        default          => 'gray',
                     };
                     $estadoLabel = match($comp->estado_sunat) {
                         'aceptado'       => 'Aceptado',
@@ -146,12 +129,12 @@
                         'anulado_baja'   => 'fa-ban',
                         default          => 'fa-minus-circle',
                     };
-                    $tipoCss = match($comp->tipo_comprobante) {
-                        'factura'    => 'bg-blue-100 text-blue-800',
-                        'boleta'     => 'bg-purple-100 text-purple-800',
-                        'nc_factura' => 'bg-orange-100 text-orange-700',
-                        'nc_boleta'  => 'bg-orange-100 text-orange-700',
-                        default      => 'bg-gray-100 text-gray-600',
+                    $tipoTono = match($comp->tipo_comprobante) {
+                        'factura'    => 'blue',
+                        'boleta'     => 'purple',
+                        'nc_factura' => 'orange',
+                        'nc_boleta'  => 'orange',
+                        default      => 'gray',
                     };
                     $tipoLabel = match($comp->tipo_comprobante) {
                         'factura'    => 'Factura',
@@ -174,7 +157,7 @@
                         @endif
                     </td>
                     <td class="px-4 py-3">
-                        <span class="px-2 py-0.5 rounded-full text-xs font-medium {{ $tipoCss }}">{{ $tipoLabel }}</span>
+                        <x-badge :tone="$tipoTono">{{ $tipoLabel }}</x-badge>
                         @if($tieneGuia)
                             <span class="block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-teal-100 text-teal-700 w-fit">
                                 <i class="fas fa-truck mr-0.5"></i>Guía Rem.
@@ -192,9 +175,7 @@
                         S/ {{ number_format($comp->total, 2) }}
                     </td>
                     <td class="px-4 py-3">
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium {{ $estadoCss }}">
-                            <i class="fas {{ $estadoIcono }}"></i>{{ $estadoLabel }}
-                        </span>
+                        <x-badge :tone="$estadoTono" :icon="$estadoIcono">{{ $estadoLabel }}</x-badge>
                     </td>
                     <td class="px-4 py-3">
                         @if($tieneGuia)
@@ -263,9 +244,6 @@
                     </td>
                 </tr>
                 @endforelse
-            </tbody>
-        </table>
-    </div>
-    <div class="mt-4">{{ $comprobantes->withQueryString()->links() }}</div>
+    </x-data-table>
 </div>
 @endsection

@@ -119,15 +119,15 @@
                     <table class="min-w-full divide-y divide-gray-100">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Fecha</th>
+                                <x-th>Fecha</x-th>
                                 @if($capacidades->isNotEmpty())
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Capacidad</th>
+                                <x-th>Capacidad</x-th>
                                 @endif
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Usuario</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">P. Anterior</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">P. Nuevo</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Variación</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Motivo</th>
+                                <x-th>Usuario</x-th>
+                                <x-th class="text-right">P. Anterior</x-th>
+                                <x-th class="text-right">P. Nuevo</x-th>
+                                <x-th class="text-right">Variación</x-th>
+                                <x-th>Motivo</x-th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
@@ -147,10 +147,7 @@
                                 @if($capacidades->isNotEmpty())
                                 <td class="px-4 py-3">
                                     @if($item->variante)
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
-                                            <i class="fas fa-microchip text-[9px]"></i>
-                                            {{ $item->variante->capacidad ?? 'Sin cap.' }}
-                                        </span>
+                                        <x-badge tone="blue" icon="fa-microchip">{{ $item->variante->capacidad ?? 'Sin cap.' }}</x-badge>
                                     @else
                                         <span class="text-xs text-gray-400">Base</span>
                                     @endif

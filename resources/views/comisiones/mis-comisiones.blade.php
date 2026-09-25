@@ -51,8 +51,7 @@
     </div>
 
     {{-- Filtros --}}
-    <form method="GET" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+    <x-filter-bar :filters="['estado','fecha_desde','fecha_hasta']" class="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <select name="estado" class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-blue-300 focus:outline-none">
                 <option value="">Todos los estados</option>
                 <option value="pendiente" {{ request('estado') === 'pendiente' ? 'selected' : '' }}>Pendiente</option>
@@ -62,18 +61,7 @@
                    class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-blue-300 focus:outline-none">
             <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
                    class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-blue-300 focus:outline-none">
-            <div class="flex gap-2">
-                <button type="submit" class="flex-1 bg-gray-800 text-white rounded-xl px-4 py-2 text-sm hover:bg-gray-700 transition-colors flex items-center justify-center gap-2">
-                    <i class="fas fa-search text-xs"></i> Filtrar
-                </button>
-                @if(request()->hasAny(['estado','fecha_desde','fecha_hasta']))
-                    <a href="{{ route('mis-comisiones') }}" class="w-9 h-9 flex items-center justify-center border border-gray-200 rounded-xl text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors">
-                        <i class="fas fa-times text-xs"></i>
-                    </a>
-                @endif
-            </div>
-        </div>
-    </form>
+    </x-filter-bar>
 
     {{-- Tabs --}}
     <div class="flex gap-2 mb-4">
@@ -98,28 +86,27 @@
     </div>
 
     {{-- Tab Comisiones --}}
-    <div x-show="tab==='comisiones'" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div x-show="tab==='comisiones'">
         @if($comisiones->isEmpty())
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="py-16 text-center text-gray-400">
                 <i class="fas fa-percentage text-4xl mb-3 block opacity-20"></i>
                 <p class="font-medium">No hay comisiones registradas.</p>
                 <p class="text-sm mt-1">Las comisiones se generan automáticamente al registrar ventas.</p>
             </div>
+        </div>
         @else
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Fecha</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Venta</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Producto</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Regla</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Venta S/</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Comisión</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
+            <x-data-table :paginator="$comisiones">
+                <x-slot:head>
+                    <x-th>Fecha</x-th>
+                    <x-th>Venta</x-th>
+                    <x-th>Producto</x-th>
+                    <x-th>Regla</x-th>
+                    <x-th class="text-right">Venta S/</x-th>
+                    <x-th class="text-right">Comisión</x-th>
+                    <x-th class="text-center">Estado</x-th>
+                </x-slot:head>
+
                         @foreach($comisiones as $c)
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
@@ -150,23 +137,19 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @if($c->estado === 'pagado')
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-green-100 text-green-700">
-                                        <i class="fas fa-check text-[8px]"></i> Cobrado
-                                    </span>
+                                    <x-badge tone="green" icon="fa-check">Cobrado</x-badge>
                                     @if($c->fecha_pago)
                                         <div class="text-[10px] text-gray-400 mt-0.5">{{ \Carbon\Carbon::parse($c->fecha_pago)->format('d/m/Y') }}</div>
                                     @endif
                                 @else
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700">
-                                        <i class="fas fa-clock text-[8px]"></i> Pendiente
-                                    </span>
+                                    <x-badge tone="amber" icon="fa-clock">Pendiente</x-badge>
                                 @endif
                             </td>
                         </tr>
                         @endforeach
-                    </tbody>
-                    <tfoot class="bg-blue-50 border-t border-blue-100">
-                        <tr>
+
+                <x-slot:tfoot>
+                        <tr class="bg-blue-50 border-t border-blue-100">
                             <td colspan="5" class="px-4 py-3 text-right text-xs font-semibold text-blue-700">
                                 Total página:
                             </td>
@@ -175,37 +158,32 @@
                             </td>
                             <td></td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div class="p-4 border-t border-gray-100">
-                {{ $comisiones->withQueryString()->links() }}
-            </div>
+                </x-slot:tfoot>
+            </x-data-table>
         @endif
     </div>
 
     {{-- Tab Bonos --}}
-    <div x-show="tab==='bonos'" style="display:none" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div x-show="tab==='bonos'" style="display:none">
         @if($bonos->isEmpty())
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="py-16 text-center text-gray-400">
                 <i class="fas fa-star text-4xl mb-3 block opacity-20"></i>
                 <p class="font-medium">No hay bonos registrados.</p>
                 <p class="text-sm mt-1">Los bonos se generan cuando vendes productos con reglas de bono activas.</p>
             </div>
+        </div>
         @else
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Fecha</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Tipo</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Regla / Detalle</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Producto</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Bono</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
+            <x-data-table :paginator="$bonos">
+                <x-slot:head>
+                    <x-th>Fecha</x-th>
+                    <x-th>Tipo</x-th>
+                    <x-th>Regla / Detalle</x-th>
+                    <x-th>Producto</x-th>
+                    <x-th class="text-right">Bono</x-th>
+                    <x-th class="text-center">Estado</x-th>
+                </x-slot:head>
+
                         @foreach($bonos as $b)
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
@@ -213,13 +191,9 @@
                             </td>
                             <td class="px-4 py-3">
                                 @if($b->tipo_origen === 'fijo')
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-green-100 text-green-700">
-                                        <i class="fas fa-bolt text-[8px]"></i> Fijo
-                                    </span>
+                                    <x-badge tone="green" icon="fa-bolt">Fijo</x-badge>
                                 @else
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-purple-100 text-purple-700">
-                                        <i class="fas fa-trophy text-[8px]"></i> Meta
-                                    </span>
+                                    <x-badge tone="purple" icon="fa-trophy">Meta</x-badge>
                                 @endif
                             </td>
                             <td class="px-4 py-3">
@@ -240,23 +214,19 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @if($b->estado === 'pagado')
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-green-100 text-green-700">
-                                        <i class="fas fa-check text-[8px]"></i> Cobrado
-                                    </span>
+                                    <x-badge tone="green" icon="fa-check">Cobrado</x-badge>
                                     @if($b->fecha_pago)
                                         <div class="text-[10px] text-gray-400 mt-0.5">{{ \Carbon\Carbon::parse($b->fecha_pago)->format('d/m/Y') }}</div>
                                     @endif
                                 @else
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700">
-                                        <i class="fas fa-clock text-[8px]"></i> Pendiente
-                                    </span>
+                                    <x-badge tone="amber" icon="fa-clock">Pendiente</x-badge>
                                 @endif
                             </td>
                         </tr>
                         @endforeach
-                    </tbody>
-                    <tfoot class="bg-amber-50 border-t border-amber-100">
-                        <tr>
+
+                <x-slot:tfoot>
+                        <tr class="bg-amber-50 border-t border-amber-100">
                             <td colspan="4" class="px-4 py-3 text-right text-xs font-semibold text-amber-700">
                                 Total página:
                             </td>
@@ -265,12 +235,8 @@
                             </td>
                             <td></td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div class="p-4 border-t border-gray-100">
-                {{ $bonos->withQueryString()->links() }}
-            </div>
+                </x-slot:tfoot>
+            </x-data-table>
         @endif
     </div>
 

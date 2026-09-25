@@ -34,8 +34,7 @@
         </div>
 
         {{-- Filtros --}}
-        <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
-            <form method="GET" class="flex flex-wrap gap-3 items-end">
+        <x-filter-bar :filters="['buscar','categoria_id']" class="flex flex-wrap gap-3 items-end">
                 <div class="flex-1 min-w-[180px]">
                     <label class="block text-xs font-medium text-gray-600 mb-1">Buscar producto</label>
                     <input type="text" name="buscar" value="{{ request('buscar') }}"
@@ -54,18 +53,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="flex gap-2">
-                    <button type="submit"
-                            class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg">
-                        <i class="fas fa-search mr-1"></i>Filtrar
-                    </button>
-                    <a href="{{ route('traslados.stock') }}"
-                       class="px-4 py-2 border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50">
-                        Limpiar
-                    </a>
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Leyenda --}}
         <div class="flex flex-wrap gap-4 mb-4 text-xs text-gray-500">
@@ -75,26 +63,23 @@
         </div>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-sm overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase sticky left-0 bg-gray-50 z-10 min-w-[220px]">
-                            Producto
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Categoría</th>
-                        @foreach($almacenes as $almacen)
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase whitespace-nowrap border-l border-gray-100">
-                                {{ $almacen->nombre }}
-                            </th>
-                        @endforeach
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase border-l border-gray-200">
-                            Total
-                        </th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Acción</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
+        <x-data-table :paginator="$productos">
+            <x-slot:head>
+                <x-th class="sticky left-0 bg-gray-50 z-10 min-w-[220px]">
+                    Producto
+                </x-th>
+                <x-th>Categoría</x-th>
+                @foreach($almacenes as $almacen)
+                    <x-th class="text-center whitespace-nowrap border-l border-gray-100">
+                        {{ $almacen->nombre }}
+                    </x-th>
+                @endforeach
+                <x-th class="text-center border-l border-gray-200">
+                    Total
+                </x-th>
+                <x-th class="text-center">Acción</x-th>
+            </x-slot:head>
+
                     @forelse($productos as $producto)
                         @php
                             $total = collect($producto->stocks)->sum('cantidad');
@@ -167,13 +152,6 @@
                             </td>
                         </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        {{-- Paginación --}}
-        <div class="mt-5">
-            {{ $productos->links() }}
-        </div>
+        </x-data-table>
     </div>
 @endsection

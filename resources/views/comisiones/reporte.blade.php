@@ -20,8 +20,7 @@
     </div>
 
     {{-- Filtros --}}
-    <form method="GET" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+    <x-filter-bar action="{{ route('comisiones.reporte') }}" :filters="['user_id','estado','fecha_desde','fecha_hasta']" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <select name="user_id" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
                 <option value="">Todos los vendedores</option>
                 @foreach($vendedores as $v)
@@ -37,16 +36,7 @@
                    class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
             <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
                    class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-            <div class="flex gap-2">
-                <button type="submit" class="flex-1 px-3 py-2 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition">
-                    <i class="fas fa-search mr-1"></i> Filtrar
-                </button>
-                <a href="{{ route('comisiones.reporte') }}" class="px-3 py-2 border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 flex items-center">
-                    <i class="fas fa-times"></i>
-                </a>
-            </div>
-        </div>
-    </form>
+    </x-filter-bar>
 
     {{-- Resumen por vendedor --}}
     @if($resumen->count())
@@ -121,12 +111,12 @@
                         <table class="w-full text-xs">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-semibold text-gray-500 uppercase">Vendedor</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-500 uppercase">Comisión Pend.</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-500 uppercase">Comisión Pag.</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-500 uppercase">Bono Pend.</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-500 uppercase">Bono Pag.</th>
-                                    <th class="px-4 py-2 text-right font-semibold text-gray-500 uppercase">Total mes</th>
+                                    <x-th>Vendedor</x-th>
+                                    <x-th class="text-right">Comisión Pend.</x-th>
+                                    <x-th class="text-right">Comisión Pag.</x-th>
+                                    <x-th class="text-right">Bono Pend.</x-th>
+                                    <x-th class="text-right">Bono Pag.</x-th>
+                                    <x-th class="text-right">Total mes</x-th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
@@ -170,29 +160,27 @@
     <div x-show="tab==='comisiones'" x-cloak>
         <form action="{{ route('comisiones.marcar-pagado') }}" method="POST">
             @csrf
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                 @if($comisiones->isEmpty())
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                     <div class="py-12 text-center text-gray-400">
                         <i class="fas fa-percentage text-3xl mb-2 block opacity-30"></i>
                         <p class="text-sm">No hay comisiones con estos filtros.</p>
                     </div>
+                </div>
                 @else
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-50 border-b border-gray-200">
-                            <tr>
-                                <th class="px-4 py-3 w-10">
-                                    <input type="checkbox" @change="toggleTodos('comision')" class="w-4 h-4 accent-blue-600 cursor-pointer">
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Vendedor</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Venta / Producto</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Regla</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Base</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Comisión</th>
-                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
+                <x-data-table :paginator="$comisiones">
+                    <x-slot:head>
+                        <x-th class="w-10">
+                            <input type="checkbox" @change="toggleTodos('comision')" class="w-4 h-4 accent-blue-600 cursor-pointer">
+                        </x-th>
+                        <x-th>Vendedor</x-th>
+                        <x-th>Venta / Producto</x-th>
+                        <x-th>Regla</x-th>
+                        <x-th>Base</x-th>
+                        <x-th class="text-right">Comisión</x-th>
+                        <x-th class="text-center">Estado</x-th>
+                    </x-slot:head>
+
                             @foreach($comisiones as $com)
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-4 py-3">
@@ -239,21 +227,15 @@
                                     <span class="font-bold text-gray-800">S/ {{ number_format($com->monto_comision, 2) }}</span>
                                 </td>
                                 <td class="px-4 py-3 text-center">
-                                    <span class="px-2.5 py-1 rounded-full text-xs font-semibold {{ $com->estado === 'pagado' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700' }}">
-                                        {{ $com->estado === 'pagado' ? 'Pagado' : 'Pendiente' }}
-                                    </span>
+                                    <x-badge :tone="$com->estado === 'pagado' ? 'green' : 'amber'">{{ $com->estado === 'pagado' ? 'Pagado' : 'Pendiente' }}</x-badge>
                                     @if($com->estado === 'pagado' && $com->fecha_pago)
                                         <p class="text-[10px] text-gray-400 mt-0.5">{{ \Carbon\Carbon::parse($com->fecha_pago)->format('d/m/Y') }}</p>
                                     @endif
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="px-4 py-3 border-t border-gray-100">{{ $comisiones->links() }}</div>
+                </x-data-table>
                 @endif
-            </div>
 
             {{-- Acción pagar comisiones --}}
             <div x-show="selComision > 0" x-cloak
@@ -273,29 +255,27 @@
     <div x-show="tab==='bonos'" x-cloak>
         <form action="{{ route('comisiones.marcar-bonus-pagado') }}" method="POST">
             @csrf
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                 @if($bonos->isEmpty())
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                     <div class="py-12 text-center text-gray-400">
                         <i class="fas fa-star text-3xl mb-2 block opacity-30"></i>
                         <p class="text-sm">No hay bonos con estos filtros.</p>
                     </div>
+                </div>
                 @else
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-50 border-b border-gray-200">
-                            <tr>
-                                <th class="px-4 py-3 w-10">
-                                    <input type="checkbox" @change="toggleTodos('bonus')" class="w-4 h-4 accent-amber-500 cursor-pointer">
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Vendedor</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Regla de bono</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Tipo</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Referencia</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Bono</th>
-                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
+                <x-data-table :paginator="$bonos">
+                    <x-slot:head>
+                        <x-th class="w-10">
+                            <input type="checkbox" @change="toggleTodos('bonus')" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                        </x-th>
+                        <x-th>Vendedor</x-th>
+                        <x-th>Regla de bono</x-th>
+                        <x-th>Tipo</x-th>
+                        <x-th>Referencia</x-th>
+                        <x-th class="text-right">Bono</x-th>
+                        <x-th class="text-center">Estado</x-th>
+                    </x-slot:head>
+
                             @foreach($bonos as $bonus)
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-4 py-3">
@@ -319,13 +299,9 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     @if($bonus->tipo_origen === 'fijo')
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 text-green-700">
-                                            <i class="fas fa-bolt text-[8px]"></i> Fijo
-                                        </span>
+                                        <x-badge tone="green" icon="fa-bolt">Fijo</x-badge>
                                     @else
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-100 text-purple-700">
-                                            <i class="fas fa-trophy text-[8px]"></i> Meta
-                                        </span>
+                                        <x-badge tone="purple" icon="fa-trophy">Meta</x-badge>
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 text-xs text-gray-500">
@@ -352,12 +328,8 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="px-4 py-3 border-t border-gray-100">{{ $bonos->links() }}</div>
+                </x-data-table>
                 @endif
-            </div>
 
             {{-- Acción pagar bonos --}}
             <div x-show="selBonus > 0" x-cloak

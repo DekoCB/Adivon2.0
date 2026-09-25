@@ -134,13 +134,13 @@
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nombre</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Tipo</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Destino</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cálculo</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Valor</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Activo</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Acciones</th>
+                            <x-th>Nombre</x-th>
+                            <x-th>Tipo</x-th>
+                            <x-th>Destino</x-th>
+                            <x-th>Cálculo</x-th>
+                            <x-th>Valor</x-th>
+                            <x-th class="text-center">Activo</x-th>
+                            <x-th class="text-right">Acciones</x-th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -148,17 +148,15 @@
                         <tr class="hover:bg-gray-50 transition-colors {{ $regla->activo ? '' : 'opacity-50' }}">
                             <td class="px-4 py-3 font-medium text-gray-800">{{ $regla->nombre }}</td>
                             <td class="px-4 py-3">
-                                @php $css = match($regla->tipo_aplicacion) {
-                                    'usuario'          => 'bg-purple-100 text-purple-700',
-                                    'categoria'        => 'bg-blue-100 text-blue-700',
-                                    'producto'         => 'bg-orange-100 text-orange-700',
-                                    'producto_usuario' => 'bg-pink-100 text-pink-700',
-                                    'categoria_usuario'=> 'bg-teal-100 text-teal-700',
-                                    default            => 'bg-gray-100 text-gray-600',
+                                @php $tono = match($regla->tipo_aplicacion) {
+                                    'usuario'          => 'purple',
+                                    'categoria'        => 'blue',
+                                    'producto'         => 'orange',
+                                    'producto_usuario' => 'pink',
+                                    'categoria_usuario'=> 'teal',
+                                    default            => 'gray',
                                 }; @endphp
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold {{ $css }}">
-                                    {{ $regla->tipo_aplicacion_label }}
-                                </span>
+                                <x-badge :tone="$tono">{{ $regla->tipo_aplicacion_label }}</x-badge>
                             </td>
                             <td class="px-4 py-3 text-gray-600 text-xs max-w-[160px] truncate">
                                 @if($regla->tipo_aplicacion === 'producto_usuario')
@@ -263,14 +261,14 @@
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nombre</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Aplica a</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Destino</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Tipo</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Valor</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Meta</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Activo</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Acciones</th>
+                            <x-th>Nombre</x-th>
+                            <x-th>Aplica a</x-th>
+                            <x-th>Destino</x-th>
+                            <x-th>Tipo</x-th>
+                            <x-th>Valor</x-th>
+                            <x-th>Meta</x-th>
+                            <x-th class="text-center">Activo</x-th>
+                            <x-th class="text-right">Acciones</x-th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -278,14 +276,12 @@
                         <tr class="hover:bg-gray-50 transition-colors {{ $bonus->activo ? '' : 'opacity-50' }}">
                             <td class="px-4 py-3 font-medium text-gray-800">{{ $bonus->nombre }}</td>
                             <td class="px-4 py-3">
-                                @php $bonusCss = match($bonus->tipo_aplicacion) {
-                                    'producto'         => 'bg-orange-100 text-orange-700',
-                                    'producto_usuario' => 'bg-pink-100 text-pink-700',
-                                    default            => 'bg-blue-100 text-blue-700',
+                                @php $bonusTono = match($bonus->tipo_aplicacion) {
+                                    'producto'         => 'orange',
+                                    'producto_usuario' => 'pink',
+                                    default            => 'blue',
                                 }; @endphp
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold {{ $bonusCss }}">
-                                    {{ $bonus->tipo_aplicacion_label }}
-                                </span>
+                                <x-badge :tone="$bonusTono">{{ $bonus->tipo_aplicacion_label }}</x-badge>
                             </td>
                             <td class="px-4 py-3 text-gray-600 text-xs max-w-[150px] truncate">
                                 @if($bonus->tipo_aplicacion === 'producto_usuario')
@@ -296,13 +292,9 @@
                             </td>
                             <td class="px-4 py-3">
                                 @if($bonus->tipo_bonus === 'fijo')
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 text-green-700">
-                                        <i class="fas fa-bolt text-[8px]"></i> Fijo
-                                    </span>
+                                    <x-badge tone="green" icon="fa-bolt">Fijo</x-badge>
                                 @else
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-100 text-purple-700">
-                                        <i class="fas fa-trophy text-[8px]"></i> Meta
-                                    </span>
+                                    <x-badge tone="purple" icon="fa-trophy">Meta</x-badge>
                                 @endif
                             </td>
                             <td class="px-4 py-3 font-mono font-bold text-gray-800">{{ $bonus->valor_formateado }}</td>

@@ -30,8 +30,7 @@
 
     <div class="p-6">
     <!-- Filtros -->
-    <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-        <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <x-filter-bar :filters="['estado']" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
                 <select name="estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
@@ -43,32 +42,20 @@
                     <option value="cancelado" {{ request('estado') == 'cancelado' ? 'selected' : '' }}>Cancelado</option>
                 </select>
             </div>
-            <div class="flex items-end">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Filtrar
-                </button>
-                <a href="{{ route('tienda.inventario.solicitudes') }}" class="ml-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                    Limpiar
-                </a>
-            </div>
-        </form>
-    </div>
+    </x-filter-bar>
 
     <!-- Tabla de solicitudes -->
-    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Origen</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cantidad</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Solicitud</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+    <x-data-table :paginator="$solicitudes">
+        <x-slot:head>
+            <x-th>Código</x-th>
+            <x-th>Producto</x-th>
+            <x-th>Origen</x-th>
+            <x-th>Cantidad</x-th>
+            <x-th>Fecha Solicitud</x-th>
+            <x-th>Estado</x-th>
+            <x-th class="text-center">Acciones</x-th>
+        </x-slot:head>
+
                 @forelse($solicitudes as $solicitud)
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 text-sm font-mono text-gray-900">
@@ -88,15 +75,15 @@
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $solicitud->created_at->format('d/m/Y H:i') }}</td>
                     <td class="px-6 py-4">
                         @if($solicitud->estado == 'pendiente')
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Pendiente</span>
+                            <x-badge tone="yellow">Pendiente</x-badge>
                         @elseif($solicitud->estado == 'aprobado')
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Aprobado</span>
+                            <x-badge tone="blue">Aprobado</x-badge>
                         @elseif($solicitud->estado == 'en_transito')
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">En tránsito</span>
+                            <x-badge tone="purple">En tránsito</x-badge>
                         @elseif($solicitud->estado == 'completado')
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Completado</span>
+                            <x-badge tone="green">Completado</x-badge>
                         @elseif($solicitud->estado == 'cancelado')
-                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Cancelado</span>
+                            <x-badge tone="red">Cancelado</x-badge>
                         @endif
                     </td>
                     <td class="px-6 py-4 text-center">
@@ -117,13 +104,8 @@
                     </td>
                 </tr>
                 @endforelse
-            </tbody>
-        </table>
-    </div>
+    </x-data-table>
 
-    <div class="mt-6">
-        {{ $solicitudes->links() }}
-    </div>
     </div>{{-- /p-6 --}}
     </div>{{-- /md:ml-64 --}}
 
