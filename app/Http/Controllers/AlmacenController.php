@@ -1,0 +1,184 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Almacen;
+use App\Models\Imei;
+use App\Models\StockAlmacen;
+use App\Models\Sucursal;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class AlmacenController extends Controller
+{
+    /**
+     * Constructor - Solo Admin y Almacenero
+     */
+    public function __construct()
+    {
+        $this->middleware('role:Administrador,Almacenero');
+    }
+
+    /**
+     * Mostrar listado de almacenes
+     */
+    public function index(Request $request)
+    {
+        $estado = $request->get('estado');
+
+        $base = fn() => Almacen::with(['encargado.role', 'sucursal', 'trabajadores.role'])
+            ->when($estado, fn($q) => $q->where('estado', $estado));
+
+        $tiendas   = $base()->where('tipo', 'tienda')->orderBy('nombre')->get();
+        $depositos  = $base()->whereIn('tipo', ['principal', 'deposito', 'temporal'])->orderBy('nombre')->get();
+
+        $stats = [
+            'total'    => Almacen::count(),
+            'activos'  => Almacen::activos()->count(),
+            'principal'=> Almacen::principal()->count(),
+            'tiendas'  => Almacen::tiendas()->count(),
+            'depositos'=> Almacen::depositos()->count(),
+        ];
+
+        $canCreate = in_array(auth()->user()->role->nombre, ['Administrador', 'Almacenero']);
+        $canEdit   = in_array(auth()->user()->role->nombre, ['Administrador', 'Almacenero']);
+        $canDelete  = auth()->user()->role->nombre === 'Administrador';
+
+        // Datos de todos los almacenes para poblar el modal de editar vía JS
+        $almacenesData = Almacen::with('sucursal')->get()->map(fn($a) => [
+            'id'             => $a->id,
+            'nombre'         => $a->nombre,
+            'estado'         => $a->estado,
+            'telefono'       => $a->telefono ?? '',
+            'direccion'      => $a->direccion ?? '',
+            'codigo'         => $a->codigo,
+            'es_tienda'      => $a->tipo === 'tienda',
+            'sucursal_nombre'=> $a->sucursal?->nombre ?? '',
+        ])->keyBy('id');
+
+        return view('inventario.almacenes.index', compact(
+            'tiendas', 'depositos', 'stats',
+            'canCreate', 'canEdit', 'canDelete',
+            'almacenesData'
+        ));
+    }
+
+    /**
+     * Redirigir a crear sucursal — todo almacén debe pertenecer a una sucursal (SUNAT)
+     */
+    public function create()
+    {
+        return redirect()
+            ->route('admin.sucursales.create')
+            ->with('info', 'Para crear un nuevo almacén, primero crea el establecimiento (sucursal) en SUNAT. El almacén se genera automáticamente.');
+    }
+
+    /**
+     * Redirigir al flujo correcto
+     */
+    public function store(Request $request)
+    {
+        return redirect()
+            ->route('admin.sucursales.create')
+            ->with('info', 'Los almacenes se crean automáticamente al registrar un establecimiento (sucursal).');
+    }
+
+    /**
+     * Mostrar detalle de un almacén con su stock
+     */
+    public function show(Almacen $almacen)
+    {
+        $almacen->load(['encargado', 'sucursal', 'movimientos' => fn($q) => $q->with('producto')->latest()->limit(20)]);
+
+        $almacenId = $almacen->id;
+
+        // Stock de productos tipo "cantidad" desde stock_almacen
+        $stockCantidad = StockAlmacen::where('almacen_id', $almacenId)
+            ->where('cantidad', '>', 0)
+            ->get()
+            ->keyBy('producto_id');
+
+        // Stock de productos tipo "serie" contando IMEIs en_stock
+        $stockImeis = Imei::where('almacen_id', $almacenId)
+            ->where('estado_imei', Imei::ESTADO_EN_STOCK)
+            ->selectRaw('producto_id, COUNT(*) as total')
+            ->groupBy('producto_id')
+            ->pluck('total', 'producto_id');
+
+        // Juntar todos los producto_id con stock
+        $todosIds = $stockCantidad->keys()->merge($stockImeis->keys())->unique();
+
+        if ($todosIds->isEmpty()) {
+            $stockDetalle = collect();
+        } else {
+            $productos = \App\Models\Producto::with(['categoria', 'marca'])
+                ->whereIn('id', $todosIds)
+                ->get()
+                ->keyBy('id');
+
+            $stockDetalle = $todosIds->map(function ($pid) use ($productos, $stockCantidad, $stockImeis) {
+                $producto = $productos->get($pid);
+                if (!$producto) return null;
+
+                $esSerie = $producto->tipo_inventario === 'serie';
+                $stock = $esSerie
+                    ? (int) ($stockImeis[$pid] ?? 0)
+                    : (int) ($stockCantidad[$pid]?->cantidad ?? 0);
+
+                return [
+                    'producto' => $producto,
+                    'stock'    => $stock,
+                    'es_serie' => $esSerie,
+                ];
+            })->filter()->sortByDesc('stock')->values();
+        }
+
+        return view('inventario.almacenes.show', compact('almacen', 'stockDetalle'));
+    }
+
+    /**
+     * Mostrar formulario para editar almacén
+     */
+    public function edit(Almacen $almacen)
+    {
+        return view('inventario.almacenes.edit', compact('almacen'));
+    }
+
+    /**
+     * Actualizar almacén
+     */
+    public function update(Request $request, Almacen $almacen)
+    {
+        $validated = $request->validate([
+            'nombre'    => 'required|string|max:100',
+            'direccion' => 'nullable|string|max:255',
+            'telefono'  => 'nullable|string|max:20',
+            'estado'    => 'required|in:activo,inactivo',
+        ]);
+
+        $almacen->update($validated);
+
+        return redirect()
+            ->route('inventario.almacenes.index')
+            ->with('success', 'Almacén actualizado exitosamente');
+    }
+
+    /**
+     * Eliminar almacén
+     */
+    public function destroy(Almacen $almacen)
+    {
+        try {
+            $almacen->delete();
+            
+            return redirect()
+                ->route('inventario.almacenes.index')
+                ->with('success', 'Almacén eliminado exitosamente');
+                
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('inventario.almacenes.index')
+                ->with('error', 'No se puede eliminar el almacén porque tiene movimientos registrados');
+        }
+    }
+}
