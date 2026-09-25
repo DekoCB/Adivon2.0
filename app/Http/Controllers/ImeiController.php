@@ -26,6 +26,15 @@ class ImeiController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Imei::class);
+
+        // Un Almacenero solo ve/filtra dentro de su propio almacén asignado.
+        // Administrador no tiene restricción. Se ignora cualquier almacen_id
+        // que venga por query string si el usuario no es Administrador, para
+        // que no pueda forzar la vista de otro almacén editando la URL.
+        $user = auth()->user();
+        $almacenIdForzado = $user->hasRole('Administrador') ? null : $user->almacen_id;
+
         $query = Imei::with(['producto', 'almacen', 'color', 'variante.color', 'compra.proveedor']);
 
         if ($request->filled('buscar')) {
@@ -40,7 +49,9 @@ class ImeiController extends Controller
         if ($request->filled('variante_id')) {
             $query->where('variante_id', $request->variante_id);
         }
-        if ($request->filled('almacen_id')) {
+        if ($almacenIdForzado !== null) {
+            $query->where('almacen_id', $almacenIdForzado);
+        } elseif ($request->filled('almacen_id')) {
             $query->where('almacen_id', $request->almacen_id);
         }
         if ($request->filled('estado')) {
@@ -49,15 +60,19 @@ class ImeiController extends Controller
 
         $imeis = $query->orderBy('created_at', 'desc')->paginate(20);
 
-        // Estadísticas completas
+        // Estadísticas: también acotadas al almacén cuando corresponde.
+        $statsQuery = fn() => $almacenIdForzado !== null
+            ? Imei::where('almacen_id', $almacenIdForzado)
+            : Imei::query();
+
         $stats = [
-            'total'       => Imei::count(),
-            'disponibles' => Imei::where('estado_imei', 'en_stock')->count(),
-            'reservados'  => Imei::where('estado_imei', 'reservado')->count(),
-            'vendidos'    => Imei::where('estado_imei', 'vendido')->count(),
-            'garantia'    => Imei::where('estado_imei', 'garantia')->count(),
-            'devueltos'   => Imei::where('estado_imei', 'devuelto')->count(),
-            'reemplazados'=> Imei::where('estado_imei', 'reemplazado')->count(),
+            'total'       => $statsQuery()->count(),
+            'disponibles' => $statsQuery()->where('estado_imei', 'en_stock')->count(),
+            'reservados'  => $statsQuery()->where('estado_imei', 'reservado')->count(),
+            'vendidos'    => $statsQuery()->where('estado_imei', 'vendido')->count(),
+            'garantia'    => $statsQuery()->where('estado_imei', 'garantia')->count(),
+            'devueltos'   => $statsQuery()->where('estado_imei', 'devuelto')->count(),
+            'reemplazados'=> $statsQuery()->where('estado_imei', 'reemplazado')->count(),
         ];
 
         $productos = Producto::where('tipo_inventario', 'serie')
@@ -65,11 +80,13 @@ class ImeiController extends Controller
                     ->where('estado', 'activo')
                     ->orderBy('nombre')
                     ->get();
-        
-        $almacenes = Almacen::where('estado', 'activo')
-                    ->orderBy('nombre')
-                    ->get();
-        
+
+        $almacenesQuery = Almacen::where('estado', 'activo');
+        if ($almacenIdForzado !== null) {
+            $almacenesQuery->where('id', $almacenIdForzado);
+        }
+        $almacenes = $almacenesQuery->orderBy('nombre')->get();
+
         return view('inventario.imeis.index', compact('imeis', 'stats', 'productos', 'almacenes'));
     }
 
@@ -184,6 +201,8 @@ class ImeiController extends Controller
      */
     public function show(Imei $imei)
     {
+        $this->authorize('view', $imei);
+
         $imei->load([
             'producto.categoria',
             'producto.marca',
@@ -284,6 +303,8 @@ class ImeiController extends Controller
      */
     public function edit(Imei $imei)
     {
+        $this->authorize('update', $imei);
+
         $imei->load(['producto', 'variante.color', 'almacen', 'color']);
 
         $almacenes = Almacen::activos()->orderBy('nombre')->get();
@@ -313,6 +334,8 @@ class ImeiController extends Controller
     */
     public function update(Request $request, Imei $imei)
     {
+        $this->authorize('update', $imei);
+
         $validated = $request->validate([
             'variante_id'   => 'nullable|exists:producto_variantes,id',
             'almacen_id'    => 'required|exists:almacenes,id',
@@ -649,6 +672,8 @@ class ImeiController extends Controller
      */
     public function cambiarEstado(Request $request, Imei $imei)
     {
+        $this->authorize('changeState', $imei);
+
         $request->validate([
             'estado' => 'required|in:en_stock,reservado,vendido,garantia,devuelto,reemplazado'
         ]);

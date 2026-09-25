@@ -140,12 +140,9 @@ class CajaController extends Controller
      */
     public function show(Caja $caja)
     {
-        $user = auth()->user();
-        $isAdmin = $user->role->nombre === 'Administrador';
+        $this->authorize('view', $caja);
 
-        if (!$isAdmin && $caja->user_id !== $user->id) {
-            abort(403, 'No tienes acceso a esta caja.');
-        }
+        $isAdmin = auth()->user()->role->nombre === 'Administrador';
 
         $caja->load(['usuario', 'almacen', 'sucursal', 'movimientos.venta', 'movimientos.usuario']);
         $arqueo = $this->cajaService->getArqueo($caja);
@@ -165,10 +162,7 @@ class CajaController extends Controller
         ]);
 
         $caja = Caja::findOrFail($validated['caja_id']);
-
-        if ($caja->user_id !== auth()->id() && auth()->user()->role->nombre !== 'Administrador') {
-            abort(403);
-        }
+        $this->authorize('close', $caja);
 
         try {
             $this->cajaService->cerrarCaja(
@@ -197,6 +191,8 @@ class CajaController extends Controller
             'referencia'  => 'nullable|string|max:100',
             'observaciones' => 'nullable|string|max:500',
         ]);
+
+        $this->authorize('registerMovement', Caja::findOrFail($validated['caja_id']));
 
         try {
             $this->cajaService->registrarMovimiento(
@@ -232,6 +228,8 @@ class CajaController extends Controller
         ]);
 
         $conceptoCompleto = '[' . ucfirst($validated['categoria_gasto']) . '] ' . $validated['concepto'];
+
+        $this->authorize('registerMovement', Caja::findOrFail($validated['caja_id']));
 
         try {
             $this->cajaService->registrarMovimiento(
