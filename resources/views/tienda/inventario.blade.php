@@ -35,7 +35,7 @@
             <i class="fas fa-store text-blue-600 mr-3 text-xl"></i>
             <div>
                 <p class="text-sm text-gray-600">Tu tienda actual:</p>
-                <p class="font-semibold text-blue-900">{{ $tiendaActual->nombre }}</p>
+                <p class="font-semibold text-blue-900">{{ $tiendaActual?->nombre ?? 'Sin tienda asignada — contacta al administrador' }}</p>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
                             @php
                                 $stock = $fila->stocks[$almacen->id] ?? null;
                                 $cantidad = $stock ? $stock->cantidad : 0;
-                                $esMiTienda = $almacen->id == $tiendaActual->id;
+                                $esMiTienda = $almacen->id == $tiendaActual?->id;
                                 $esSerie = $producto->es_serie ?? false;
                             @endphp
                             <td class="px-3 py-4 text-center">
@@ -147,7 +147,7 @@
                         <td class="px-6 py-4 text-center">
                             @php
                                 $otrasTiendas = collect($fila->stocks)
-                                    ->filter(fn($stock, $almacenId) => $almacenId != $tiendaActual->id && $stock->cantidad > 0);
+                                    ->filter(fn($stock, $almacenId) => $almacenId != $tiendaActual?->id && $stock->cantidad > 0);
                                 $etiqueta = $producto->nombre . ($fila->variante ? ' — ' . $fila->variante->nombre_completo : '');
                             @endphp
 
@@ -205,7 +205,7 @@
                             required>
                         <option value="">Seleccionar...</option>
                         @foreach($almacenes as $almacen)
-                            @if($almacen->id != $tiendaActual->id)
+                            @if($almacen->id != $tiendaActual?->id)
                                 <option value="{{ $almacen->id }}">{{ $almacen->nombre }}</option>
                             @endif
                         @endforeach

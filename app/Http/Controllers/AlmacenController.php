@@ -141,7 +141,9 @@ class AlmacenController extends Controller
      */
     public function edit(Almacen $almacen)
     {
-        return view('inventario.almacenes.edit', compact('almacen'));
+        $usuarios = User::orderBy('name')->get();
+
+        return view('inventario.almacenes.edit', compact('almacen', 'usuarios'));
     }
 
     /**
