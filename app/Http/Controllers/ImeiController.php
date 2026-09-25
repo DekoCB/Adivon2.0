@@ -6,17 +6,17 @@ use App\Models\Imei;
 use App\Models\Producto;
 use App\Models\Almacen;
 use App\Models\Catalogo\Color;
+use App\Services\ImeiService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use SimpleSoftwareIO\QrCode\Facades\QrCode; // Instalar: composer require simplesoftwareio/simple-qrcode
+use SimpleSoftwareIO\QrCode\Facades\QrCode; // usado por generarQR() (variante con metadata JSON, no delegada a ImeiService)
 
 class ImeiController extends Controller
 {
     /**
      * Constructor - Solo Admin y Almacenero
      */
-    public function __construct()
+    public function __construct(private ImeiService $imeiService)
     {
         $this->middleware('role:Administrador,Almacenero');
     }
@@ -162,34 +162,7 @@ class ImeiController extends Controller
             return back()->withErrors(['producto_id' => 'Solo se pueden registrar IMEIs para productos tipo serie/celular']);
         }
 
-        DB::transaction(function () use ($validated, $producto) {
-            // Crear IMEI
-            $imei = Imei::create([
-                'codigo_imei' => $validated['codigo_imei'],
-                'producto_id' => $validated['producto_id'],
-                'variante_id' => $validated['variante_id'] ?? null,
-                'almacen_id'  => $validated['almacen_id'],
-                'color_id'    => $validated['color_id'] ?? null,
-                'serie'       => $validated['serie'] ?? null,
-                'estado_imei' => $validated['estado_imei'],
-                'fecha_ingreso' => now(),
-                'usuario_registro_id' => auth()->id(),
-            ]);
-            
-            if ($validated['estado_imei'] === 'en_stock') {
-                $producto->increment('stock_actual');
-                \App\Models\StockAlmacen::obtenerOCrear($validated['producto_id'], $validated['almacen_id'])
-                    ->incrementar(1);
-                // Incrementar stock en la variante si está asignada
-                if (!empty($validated['variante_id'])) {
-                    \App\Models\ProductoVariante::where('id', $validated['variante_id'])
-                        ->increment('stock_actual');
-                }
-            }
-            
-            // Generar QR para el IMEI (opcional)
-            $this->generarQRParaIMEI($imei);
-        });
+        $this->imeiService->registrar($validated);
 
         return redirect()
             ->route('inventario.imeis.index')
@@ -229,8 +202,8 @@ class ImeiController extends Controller
                 \Storage::disk('public')->delete($imei->qr_path);
             }
 
-            // Generar nuevo QR usando el método privado existente
-            $path = $this->generarQRParaIMEI($imei->fresh());
+            // Generar nuevo QR usando el servicio
+            $path = $this->imeiService->generarQRParaIMEI($imei->fresh());
 
             if ($request->wantsJson()) {
                 return response()->json([
@@ -265,7 +238,7 @@ class ImeiController extends Controller
     {
         try {
             $imei->load('producto');
-            $svg = $this->generarQRSvg($imei);
+            $svg = $this->imeiService->generarQRSvg($imei);
             return response($svg)->header('Content-Type', 'image/svg+xml');
         } catch (\Exception $e) {
             \Log::error('Error mostrando QR', ['imei_id' => $imei->id, 'error' => $e->getMessage()]);
@@ -280,7 +253,7 @@ class ImeiController extends Controller
     {
         try {
             $imei->load('producto');
-            $svg = $this->generarQRSvg($imei);
+            $svg = $this->imeiService->generarQRSvg($imei);
             return response($svg)
                 ->header('Content-Type', 'image/svg+xml')
                 ->header('Content-Disposition', 'attachment; filename="IMEI_' . $imei->codigo_imei . '.svg"');
@@ -290,14 +263,6 @@ class ImeiController extends Controller
         }
     }
 
-    /**
-     * Genera el SVG del QR — no requiere Imagick ni GD
-     */
-    private function generarQRSvg(Imei $imei): string
-    {
-        // Usamos solo el IMEI como contenido del QR (texto legible por lectores)
-        return (string) QrCode::format('svg')->size(300)->margin(2)->generate($imei->codigo_imei);
-    }
     /**
      * Mostrar formulario para editar IMEI
      */
@@ -347,42 +312,7 @@ class ImeiController extends Controller
         ]);
 
         try {
-            DB::transaction(function () use ($validated, $imei) {
-                $oldEstado     = $imei->estado_imei;
-                $oldAlmacen    = $imei->almacen_id;
-                $stockAnterior = \App\Models\Producto::find($imei->producto_id)->stock_actual;
-
-                // Si cambió la variante, sincronizar color_id desde la variante
-                if (isset($validated['variante_id']) && $validated['variante_id'] != $imei->variante_id) {
-                    $variante = \App\Models\ProductoVariante::find($validated['variante_id']);
-                    if ($variante) {
-                        $validated['color_id'] = $variante->color_id;
-                    }
-                }
-
-                $imei->update($validated);
-
-                // Actualizar stocks si es necesario (antes de registrar el movimiento,
-                // para poder guardar el stock_nuevo real).
-                $this->actualizarStocksPorCambio($imei, $oldEstado, $oldAlmacen);
-
-                // Registrar movimiento si cambió el estado
-                if ($oldEstado !== $validated['estado_imei']) {
-                    \App\Models\MovimientoInventario::create([
-                        'imei_id' => $imei->id,
-                        'producto_id' => $imei->producto_id,
-                        'almacen_id' => $imei->almacen_id,
-                        'tipo_movimiento' => 'ajuste',
-                        'cantidad' => 1,
-                        'stock_anterior' => $stockAnterior,
-                        'stock_nuevo' => \App\Models\Producto::find($imei->producto_id)->stock_actual,
-                        'motivo' => "Cambio de estado: " .
-                                str_replace('_', ' ', $oldEstado) . " -> " .
-                                str_replace('_', ' ', $validated['estado_imei']),
-                        'user_id' => auth()->id(),
-                    ]);
-                }
-            });
+            $this->imeiService->actualizar($imei, $validated);
 
             return redirect()
                 ->route('inventario.imeis.show', $imei)
@@ -434,16 +364,12 @@ class ImeiController extends Controller
      */
     public function generarImei()
     {
-        do {
-            // Generar IMEI con algoritmo Luhn
-            $imei = $this->generarImeiAleatorio();
-            $existe = Imei::where('codigo_imei', $imei)->exists();
-        } while ($existe);
-        
+        $imei = $this->imeiService->generarImeiAleatorioUnico();
+
         return response()->json([
             'success' => true,
             'imei' => $imei,
-            'formateado' => $this->formatearIMEI($imei)
+            'formateado' => $this->imeiService->formatearIMEI($imei)
         ]);
     }
 
@@ -536,81 +462,6 @@ class ImeiController extends Controller
     }
 
     /**
-     * Generar IMEI aleatorio válido con algoritmo Luhn
-     */
-    private function generarImeiAleatorio(): string
-    {
-        // Generar 14 dígitos aleatorios
-        $digitos = [];
-        for ($i = 0; $i < 14; $i++) {
-            $digitos[] = random_int(0, 9);
-        }
-        
-        // Calcular dígito verificador (algoritmo de Luhn)
-        $suma = 0;
-        for ($i = 0; $i < 14; $i++) {
-            $valor = $digitos[$i];
-            if ($i % 2 === 0) { // Posiciones impares (empezando desde 0)
-                $valor *= 2;
-                if ($valor > 9) {
-                    $valor = $valor - 9;
-                }
-            }
-            $suma += $valor;
-        }
-        
-        $digitoVerificador = (10 - ($suma % 10)) % 10;
-        $digitos[] = $digitoVerificador;
-        
-        return implode('', $digitos);
-    }
-
-    /**
-     * Formatear IMEI para mostrar (XX-XXXXXX-XXXXXX-X)
-     */
-    private function formatearIMEI(string $imei): string
-    {
-        if (strlen($imei) !== 15) return $imei;
-        
-        return substr($imei, 0, 2) . '-' . 
-               substr($imei, 2, 6) . '-' . 
-               substr($imei, 8, 6) . '-' . 
-               substr($imei, 14, 1);
-    }
-
-    /**
-     * Generar QR para IMEI y guardar referencia
-     */
-    private function generarQRParaIMEI(Imei $imei): ?string
-    {
-        try {
-            // Asegurar que existe el directorio
-            if (!\Storage::disk('public')->exists('qrs')) {
-                \Storage::disk('public')->makeDirectory('qrs');
-            }
-
-            $data = json_encode([
-                'imei'     => $imei->codigo_imei,
-                'id'       => $imei->id,
-                'producto' => $imei->producto->nombre ?? '',
-                'fecha'    => now()->format('Y-m-d'),
-            ]);
-
-            $qrCode = QrCode::format('svg')->size(200)->generate($data);
-
-            $path = "qrs/imei_{$imei->id}.svg";
-            \Storage::disk('public')->put($path, $qrCode);
-
-            $imei->update(['qr_path' => $path]);
-
-            return $path;
-
-        } catch (\Exception $e) {
-            Log::warning('No se pudo generar QR', ['imei_id' => $imei->id, 'error' => $e->getMessage()]);
-            return null;
-        }
-    }
-    /**
      * Generar etiqueta para imprimir
      */
     public function generarEtiqueta(Imei $imei)
@@ -679,62 +530,12 @@ class ImeiController extends Controller
         ]);
 
         try {
-            DB::transaction(function() use ($request, $imei) {
-                $oldEstado     = $imei->estado_imei;
-                $oldAlmacen    = $imei->almacen_id;
-                $stockAnterior = \App\Models\Producto::find($imei->producto_id)->stock_actual;
-
-                $imei->update(['estado_imei' => $request->estado]);
-
-                // Mantener producto.stock_actual / producto_variante.stock_actual sincronizados
-                // (antes este endpoint solo cambiaba estado_imei sin tocar esas columnas).
-                $this->actualizarStocksPorCambio($imei, $oldEstado, $oldAlmacen);
-
-                // Registrar movimiento
-                \App\Models\MovimientoInventario::create([
-                    'imei_id' => $imei->id,
-                    'producto_id' => $imei->producto_id,
-                    'almacen_id' => $imei->almacen_id,
-                    'tipo_movimiento' => $request->estado === 'vendido' ? 'salida' : 'ajuste',
-                    'cantidad' => 1,
-                    'stock_anterior' => $stockAnterior,
-                    'stock_nuevo' => \App\Models\Producto::find($imei->producto_id)->stock_actual,
-                    'motivo' => "Cambio de estado: $oldEstado -> $request->estado",
-                    'user_id' => auth()->id()
-                ]);
-            });
+            $this->imeiService->cambiarEstado($imei, $request->estado);
 
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-        }
-    }
-    /**
-     * Actualizar stocks cuando cambia estado/almacén
-     */
-    private function actualizarStocksPorCambio(Imei $imei, string $oldEstado, ?int $oldAlmacen): void
-    {
-        // Los IMEIs son siempre de productos tipo "serie": su stock real vive en la tabla
-        // imeis (conteo por estado_imei/almacen_id), no en stock_almacen (esa tabla es para
-        // productos tipo "cantidad"). Por eso aquí solo se recalcula producto.stock_actual /
-        // producto_variante.stock_actual — nunca se toca stock_almacen, para no contaminarla
-        // con filas de productos serie ni reventar por falta de un registro previo ahí.
-        if ($oldEstado === $imei->estado_imei && $oldAlmacen === $imei->almacen_id) {
-            return;
-        }
-
-        $totalProducto = Imei::where('producto_id', $imei->producto_id)
-            ->where('estado_imei', 'en_stock')
-            ->count();
-        $imei->producto()->update(['stock_actual' => $totalProducto]);
-
-        if ($imei->variante_id) {
-            $totalVariante = Imei::where('variante_id', $imei->variante_id)
-                ->where('estado_imei', 'en_stock')
-                ->count();
-            \App\Models\ProductoVariante::where('id', $imei->variante_id)
-                ->update(['stock_actual' => $totalVariante]);
         }
     }
 }
