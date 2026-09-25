@@ -59,7 +59,8 @@
         </div>
 
         {{-- Filtros --}}
-        <form method="GET" action="{{ route('compras.index') }}" class="bg-white rounded-xl shadow-sm p-4 mb-6">
+        <x-filter-bar action="{{ route('compras.index') }}" :filters="['buscar','proveedor_id','tipo_compra','estado','fecha_desde','fecha_hasta']">
+            <x-slot:resultCount>{{ $compras->total() }}</x-slot:resultCount>
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
                 {{-- Búsqueda --}}
                 <div class="lg:col-span-2">
@@ -111,25 +112,11 @@
                            class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
             </div>
-
-            <div class="flex items-center gap-2 mt-3">
-                <button type="submit" class="bg-blue-900 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
-                    <i class="fas fa-search mr-1"></i>Filtrar
-                </button>
-                @if(request()->hasAny(['buscar','proveedor_id','tipo_compra','estado','fecha_desde','fecha_hasta']))
-                    <a href="{{ route('compras.index') }}" class="text-sm text-gray-500 hover:text-gray-700 px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
-                        <i class="fas fa-times mr-1"></i>Limpiar
-                    </a>
-                    <span class="text-xs text-blue-600 font-medium">
-                        {{ $compras->total() }} resultado(s) encontrado(s)
-                    </span>
-                @endif
-            </div>
-        </form>
+        </x-filter-bar>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <x-data-table :paginator="$compras">
+            <x-slot:cardHeader>
                 <h3 class="text-lg font-semibold text-gray-800">
                     <i class="fas fa-list mr-2 text-blue-600"></i>Historial de Compras
                     <span class="text-sm font-normal text-gray-500 ml-2">({{ $compras->total() }} en total)</span>
@@ -137,26 +124,22 @@
                 <a href="{{ route('compras.create') }}" class="bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">
                     <i class="fas fa-plus mr-2"></i>Nueva Compra
                 </a>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedor</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factura</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado Compra</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado Pago</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vencimiento</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($compras as $compra)
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Código</x-th>
+                <x-th>Proveedor</x-th>
+                <x-th>Factura</x-th>
+                <x-th>Fecha</x-th>
+                <x-th>Tipo</x-th>
+                <x-th>Total</x-th>
+                <x-th>Estado Compra</x-th>
+                <x-th>Estado Pago</x-th>
+                <x-th>Saldo</x-th>
+                <x-th>Vencimiento</x-th>
+                <x-th>Acciones</x-th>
+            </x-slot:head>
+
+            @forelse($compras as $compra)
                             @php
                                 $cuenta = $compra->cuentaPorPagar;
                             @endphp
@@ -170,58 +153,44 @@
                                 <td class="px-6 py-4">
                                     @php
                                         $tc = match($compra->tipo_compra ?? 'local') {
-                                            'local'       => ['label' => 'Local',       'class' => 'bg-green-100 text-green-800',  'icon' => 'fa-store'],
-                                            'importacion' => ['label' => 'Importación', 'class' => 'bg-orange-100 text-orange-800', 'icon' => 'fa-ship'],
-                                            default       => ['label' => ucfirst($compra->tipo_compra ?? 'local'), 'class' => 'bg-gray-100 text-gray-800', 'icon' => 'fa-tag'],
+                                            'local'       => ['label' => 'Local',       'tone' => 'green',  'icon' => 'fa-store'],
+                                            'importacion' => ['label' => 'Importación', 'tone' => 'orange', 'icon' => 'fa-ship'],
+                                            default       => ['label' => ucfirst($compra->tipo_compra ?? 'local'), 'tone' => 'gray', 'icon' => 'fa-tag'],
                                         };
                                     @endphp
-                                    <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full {{ $tc['class'] }}">
-                                        <i class="fas {{ $tc['icon'] }} mr-1"></i>{{ $tc['label'] }}
-                                    </span>
+                                    <x-badge :tone="$tc['tone']" :icon="$tc['icon']">{{ $tc['label'] }}</x-badge>
                                 </td>
 
                                 <td class="px-6 py-4 text-sm font-semibold text-gray-900">S/ {{ number_format($compra->total, 2) }}</td>
-                                
+
                                 {{-- Estado Compra --}}
                                 <td class="px-6 py-4">
                                     @php
-                                        $ec = match($compra->estado) {
-                                            'completado' => 'bg-green-100 text-green-800',
-                                            'pendiente' => 'bg-yellow-100 text-yellow-800',
-                                            'anulado' => 'bg-red-100 text-red-800',
-                                            'registrado' => 'bg-blue-100 text-blue-800',
-                                            default => 'bg-gray-100 text-gray-800',
+                                        $ecTone = match($compra->estado) {
+                                            'completado' => 'green',
+                                            'pendiente' => 'yellow',
+                                            'anulado' => 'red',
+                                            'registrado' => 'blue',
+                                            default => 'gray',
                                         };
                                     @endphp
-                                    <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $ec }}">
-                                        {{ ucfirst($compra->estado) }}
-                                    </span>
+                                    <x-badge :tone="$ecTone">{{ ucfirst($compra->estado) }}</x-badge>
                                 </td>
-                                
+
                                 {{-- Estado Pago --}}
                                 <td class="px-6 py-4">
                                     @if($cuenta)
                                         @if($cuenta->estado == 'pagado')
-                                            <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                                <i class="fas fa-check-circle mr-1"></i>Pagado
-                                            </span>
+                                            <x-badge tone="green" icon="fa-check-circle">Pagado</x-badge>
                                         @elseif($cuenta->estado == 'pendiente')
-                                            <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                <i class="fas fa-clock mr-1"></i>Pendiente
-                                            </span>
+                                            <x-badge tone="yellow" icon="fa-clock">Pendiente</x-badge>
                                         @elseif($cuenta->estado == 'parcial')
-                                            <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-800">
-                                                <i class="fas fa-adjust mr-1"></i>Parcial
-                                            </span>
+                                            <x-badge tone="orange" icon="fa-adjust">Parcial</x-badge>
                                         @elseif($cuenta->estado == 'vencido')
-                                            <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                                <i class="fas fa-exclamation-circle mr-1"></i>Vencido
-                                            </span>
+                                            <x-badge tone="red" icon="fa-exclamation-circle">Vencido</x-badge>
                                         @endif
                                     @else
-                                        <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            Sin cuenta
-                                        </span>
+                                        <x-badge tone="gray">Sin cuenta</x-badge>
                                     @endif
                                 </td>
                                 
@@ -277,14 +246,5 @@
                                 </td>
                             </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-            {{-- Paginación --}}
-            @if($compras->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200">
-                    {{ $compras->links() }}
-                </div>
-            @endif
-        </div>
+        </x-data-table>
 @endsection
