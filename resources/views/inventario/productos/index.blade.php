@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <!-- Sidebar -->
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
+@section('title', 'Productos')
+
+@section('content')
     <!-- Main Content -->
-    <div class="md:ml-64 p-4 md:p-8">
+    
+<div>
+
         <!-- Header -->
         <x-header 
             title="Gestión de Productos" 
@@ -21,24 +14,6 @@
         />
 
         <!-- Mensajes -->
-        @if(session('success'))
-            <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-check-circle text-xl mr-3"></i>
-                    <p>{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-exclamation-circle text-xl mr-3"></i>
-                    <p>{{ session('error') }}</p>
-                </div>
-            </div>
-        @endif
-
         @if(session('info'))
             <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 text-blue-700 p-4 rounded-lg">
                 <div class="flex items-center gap-3">
@@ -534,5 +509,4 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {});
     </script>
-</body>
-</html>
+@endsection

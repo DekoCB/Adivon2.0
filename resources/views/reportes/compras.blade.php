@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Compras — {{ $label }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+@extends('layouts.app-layout')
+
+@push('styles')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .chart-container { position: relative; height: 260px; }
         @media print {
@@ -16,11 +10,14 @@
             .md\:ml-64 { margin-left: 0 !important; }
         }
     </style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@endpush
 
-    <div class="md:ml-64 min-h-screen">
+@section('title') Reporte de Compras — {{ $label }} @endsection
+
+@section('content')
+    
+<div class="min-h-screen">
+
 
         {{-- HEADER --}}
         <div class="bg-white shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
@@ -306,5 +303,4 @@
         document.getElementById('custom-hasta').classList.toggle('hidden', !show);
     }
     </script>
-</body>
-</html>
+@endsection

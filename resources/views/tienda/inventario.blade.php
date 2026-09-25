@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario Tiendas - {{ config('app.name') }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 min-h-screen bg-gray-100">
+@push('styles')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush
+
+@section('title', 'Inventario Tiendas')
+
+@section('content')
+    
+<div class="min-h-screen bg-gray-100">
+
     {{-- Top Bar --}}
     <div class="bg-white shadow-sm sticky top-0 z-10">
         <div class="px-6 py-3 flex justify-between items-center">
@@ -32,17 +29,6 @@
     </div>
 
     <div class="p-6">
-    @if(session('success'))
-        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-            <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
-        </div>
-    @endif
-
     <!-- Información de tienda actual -->
     <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg mb-6">
         <div class="flex items-center">
@@ -329,5 +315,4 @@ document.getElementById('formTraslado').addEventListener('submit', function(e) {
 });
 </script>
     </div>{{-- /md:ml-64 --}}
-</body>
-</html>
+@endsection

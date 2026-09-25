@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apertura Remota de Caja</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 min-h-screen">
+@section('title', 'Apertura Remota de Caja')
+
+@section('content')
+<div class="min-h-screen">
+
     {{-- Header --}}
     <div class="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
@@ -28,12 +21,6 @@
             <i class="fas fa-arrow-left mr-1"></i> Volver
         </a>
     </div>
-
-    @if(session('error'))
-        <div class="mx-6 mt-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm flex items-center gap-2">
-            <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-        </div>
-    @endif
 
     <div class="p-6 max-w-2xl" x-data="aperturaRemotaApp()">
 
@@ -133,5 +120,4 @@ function aperturaRemotaApp() {
     };
 }
 </script>
-</body>
-</html>
+@endsection

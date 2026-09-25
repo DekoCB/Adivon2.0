@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Solicitudes - {{ config('app.name') }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 min-h-screen bg-gray-100">
+@push('styles')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush
+
+@section('title', 'Mis Solicitudes')
+
+@section('content')
+    
+<div class="min-h-screen bg-gray-100">
+
     {{-- Top Bar --}}
     <div class="bg-white shadow-sm sticky top-0 z-10">
         <div class="px-6 py-3 flex justify-between items-center">
@@ -32,12 +29,6 @@
     </div>
 
     <div class="p-6">
-    @if(session('success'))
-        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-            <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-        </div>
-    @endif
-
     <!-- Filtros -->
     <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
         <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -170,5 +161,4 @@ function cancelarSolicitud(id) {
     });
 }
 </script>
-</body>
-</html>
+@endsection

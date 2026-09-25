@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Variantes · {{ $producto->nombre }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50" x-data="editModal()">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
+@section('title') Variantes · {{ $producto->nombre }} @endsection
+
+@section('content')
     {{-- Modal Editar Variante --}}
     <div x-show="open" x-cloak
          class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -72,7 +62,9 @@
         </div>
     </div>
 
-    <div class="md:ml-64 p-4 md:p-8">
+    
+<div>
+
         {{-- Breadcrumb --}}
         <div class="flex items-center text-sm text-gray-500 mb-4">
             <a href="{{ route('inventario.productos.index') }}" class="hover:text-blue-900">Productos</a>
@@ -81,18 +73,6 @@
             <i class="fas fa-chevron-right mx-2 text-xs"></i>
             <span class="text-gray-700 font-medium">Variantes</span>
         </div>
-
-        {{-- Mensajes --}}
-        @if(session('success'))
-            <div class="mb-4 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-                <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
-            </div>
-        @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -505,5 +485,4 @@ function editModal() {
         if (e.target === this) cerrarModalColor();
     });
 </script>
-</body>
-</html>
+@endsection

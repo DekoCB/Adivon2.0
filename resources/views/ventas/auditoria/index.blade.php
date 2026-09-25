@@ -1,5 +1,9 @@
 @extends('layouts.app-layout')
 
+@push('styles')
+    <style>[x-cloak]{display:none!important}</style>
+@endpush
+
 @section('title', 'Bitácora de Ventas')
 
 @section('content')

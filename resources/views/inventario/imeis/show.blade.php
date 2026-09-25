@@ -1,5 +1,62 @@
 @extends('layouts.app-layout')
 
+@push('styles')
+    <style>
+        .estado-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .estado-en-stock { background-color: #d1fae5; color: #065f46; }
+        .estado-reservado { background-color: #fef3c7; color: #92400e; }
+        .estado-vendido { background-color: #fee2e2; color: #991b1b; }
+        .estado-garantia { background-color: #dbeafe; color: #1e40af; }
+        .estado-devuelto { background-color: #ffedd5; color: #9a3412; }
+        .estado-reemplazado { background-color: #f3e8ff; color: #6b21a8; }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 1.5rem;
+            border-left: 2px solid #e5e7eb;
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 2px solid white;
+        }
+        .qr-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        @media print {
+            .no-print, .sidebar, .header-actions, footer {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background-color: white;
+                padding: 1rem;
+            }
+        }
+    </style>
+@endpush
+
 @section('title') Detalle de IMEI - {{ $imei->codigo_imei }} @endsection
 
 @section('content')

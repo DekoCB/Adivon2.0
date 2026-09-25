@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Nueva Compra - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@extends('layouts.app-layout')
+
+@push('styles')
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
+@endpush
 
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@section('title', 'Nueva Compra')
 
-    <div class="md:ml-64 p-4 md:p-5">
+@section('content')
+    
+<div class="md:p-5">
+
         <!-- Header con breadcrumb -->
         <div class="mb-4">
             <div class="flex items-center text-xs text-gray-500 mb-1">
@@ -35,13 +30,6 @@
                 </span>
             </div>
         </div>
-
-        @if(session('error'))
-            <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded-lg flex items-start text-sm">
-                <i class="fas fa-exclamation-circle mt-0.5 mr-2"></i>
-                <span>{{ session('error') }}</span>
-            </div>
-        @endif
 
         @if($errors->any())
             <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded-lg">
@@ -3576,5 +3564,4 @@ function guardarNuevoProducto() {
     </div>
 </div>
 
-</body>
-</html>
+@endsection

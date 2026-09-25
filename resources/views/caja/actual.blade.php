@@ -1,5 +1,16 @@
 @extends('layouts.app-layout')
 
+@push('styles')
+    <style>
+        [x-cloak] { display: none !important; }
+        .modal-overlay { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+    </style>
+@endpush
+
 @section('title', 'Caja Actual')
 
 @section('header')

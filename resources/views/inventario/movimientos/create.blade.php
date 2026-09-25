@@ -1,19 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Movimiento · ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@extends('layouts.app-layout')
+
+@push('styles')
     <style>[x-cloak] { display: none !important; }</style>
-</head>
-<body class="bg-gray-50 font-sans">
+@endpush
 
-<x-sidebar :role="auth()->user()->role->nombre" />
+@section('title', 'Nuevo Movimiento · ADIVON SAC')
 
+@section('content')
 @php
 $catalogoJson = $productos->map(fn($p) => [
     'id'              => $p->id,
@@ -24,9 +17,7 @@ $catalogoJson = $productos->map(fn($p) => [
     'unidad'          => $p->unidadMedida?->abreviatura ?? 'UND',
 ])->values();
 @endphp
-
-<div class="md:ml-64 p-4 md:p-8"
-     x-data="{
+<div x-data="{
          /* ── Tipo de movimiento ───────────────────── */
          tipoMovimiento: '{{ old('tipo_movimiento', '') }}',
 
@@ -86,7 +77,8 @@ $catalogoJson = $productos->map(fn($p) => [
              }
              const q = this.query.toLowerCase();
              this.resultados = this.catalogo
-                 .filter(p => p.nombre.toLowerCase().includes(q) || p.codigo.toLowerCase().includes(q))
+                 .filter(p =>
+ p.nombre.toLowerCase().includes(q) || p.codigo.toLowerCase().includes(q))
                  .slice(0, 10);
              this.abierto = this.resultados.length > 0;
          },
@@ -563,5 +555,4 @@ $catalogoJson = $productos->map(fn($p) => [
         </div>
     </form>
 </div>
-</body>
-</html>
+@endsection

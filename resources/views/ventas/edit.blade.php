@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Comprobante {{ $venta->codigo }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>[x-cloak] { display: none !important; }</style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-10 max-w-2xl">
+@push('styles')
+    <style>[x-cloak] { display: none !important; }</style>
+@endpush
+
+@section('title') Editar Comprobante {{ $venta->codigo }} @endsection
+
+@section('content')
+    
+<div class="md:p-10 max-w-2xl">
+
 
         <div class="flex items-center gap-2 text-sm text-gray-400 mb-1">
             <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 transition-colors">Ventas</a>
@@ -293,5 +289,4 @@
         </form>
 
     </div>
-</body>
-</html>
+@endsection

@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorización con Prorrateo — Inventario</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@extends('layouts.app-layout')
+
+@push('styles')
     <style>
         @media print {
             .no-print { display: none !important; }
@@ -14,11 +8,14 @@
             .md\:ml-64 { margin-left: 0 !important; }
         }
     </style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@endpush
 
-    <div class="md:ml-64 min-h-screen">
+@section('title', 'Valorización con Prorrateo — Inventario')
+
+@section('content')
+    
+<div class="min-h-screen">
+
 
         {{-- HEADER --}}
         <div class="bg-white shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
@@ -217,5 +214,4 @@
 
         </div>
     </div>
-</body>
-</html>
+@endsection

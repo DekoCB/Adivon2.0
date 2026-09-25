@@ -1,29 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Precios · ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50 font-sans">
+@extends('layouts.app-layout')
 
-<x-sidebar :role="auth()->user()->role->nombre" />
+@section('title', 'Gestión de Precios · ADIVON SAC')
 
-<div class="md:ml-64 p-4 md:p-6">
+@section('header')
     <x-header title="Gestión de Precios" subtitle="Administra los precios de venta y márgenes por producto" />
+@endsection
 
-    {{-- Alerta --}}
-    @if(session('success'))
-    <div class="mb-5 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm">
-        <i class="fas fa-check-circle text-green-500"></i>
-        <span>{{ session('success') }}</span>
-    </div>
-    @endif
-
+@section('content')
+<div class="md:p-6">
     {{-- ── STATS ── --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center gap-3">
@@ -448,5 +432,4 @@
         @endif
     </div>
 </div>
-</body>
-</html>
+@endsection

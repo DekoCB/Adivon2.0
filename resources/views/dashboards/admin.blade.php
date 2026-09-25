@@ -1,14 +1,7 @@
-{{-- resources/views/dashboards/admin.blade.php --}}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Administrador - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+@extends('layouts.app-layout')
+
+@push('styles')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         [x-cloak] { display: none !important; }
         .hover-scale { transition: transform 0.2s ease-in-out; }
@@ -21,11 +14,14 @@
         .trend-down { color: #ef4444; background: #fee2e2; padding: .25rem .5rem; border-radius: .375rem; font-size: .75rem; font-weight: 600; }
         .trend-flat { color: #6b7280; background: #f3f4f6; padding: .25rem .5rem; border-radius: .375rem; font-size: .75rem; font-weight: 600; }
     </style>
-</head>
-<body class="bg-gray-100">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@endpush
 
-    <div class="md:ml-64 min-h-screen bg-gray-100">
+@section('title', 'Dashboard Administrador')
+
+@section('content')
+    
+<div class="min-h-screen bg-gray-100">
+
 
         {{-- Top Bar --}}
         <div class="bg-white shadow-sm sticky top-0 z-20">
@@ -684,5 +680,4 @@
         });
     });
     </script>
-</body>
-</html>
+@endsection

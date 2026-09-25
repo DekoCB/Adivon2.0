@@ -1,5 +1,9 @@
 @extends('layouts.app-layout')
 
+@push('styles')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush
+
 @section('title', 'Editar Compra')
 
 @section('content')

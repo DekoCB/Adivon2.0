@@ -1,5 +1,60 @@
 @extends('layouts.app-layout')
 
+@push('styles')
+    <style>
+        .qr-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .qr-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .close:hover {
+            color: #000;
+        }
+        .etiqueta-imei {
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #etiquetaImprimir, #etiquetaImprimir * {
+                visibility: visible;
+            }
+            #etiquetaImprimir {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+@endpush
+
 @section('title', 'Gestión de IMEIs')
 
 @section('header')
