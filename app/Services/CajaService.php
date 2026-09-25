@@ -6,6 +6,7 @@ use App\Models\Almacen;
 use App\Models\Caja;
 use App\Models\MovimientoCaja;
 use App\Models\User;
+use App\Models\Auditoria;
 use Illuminate\Support\Facades\DB;
 
 class CajaService
@@ -231,6 +232,10 @@ class CajaService
         $tipo === 'ingreso' ? $caja->increment('monto_final', $monto) : $caja->decrement('monto_final', $monto);
 
         $this->recalcularDiferenciaCierre($caja);
+
+        Auditoria::registrar($caja, 'correccion_retroactiva', null, [
+            'tipo' => $tipo, 'monto' => $monto, 'concepto' => $concepto,
+        ], ['movimiento_caja_id' => $movimiento->id]);
 
         return $movimiento;
     }

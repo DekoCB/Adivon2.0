@@ -9,6 +9,7 @@ use App\Models\StockAlmacen;
 use App\Models\Imei;
 use App\Models\TrasladoImei;
 use App\Models\Producto;
+use App\Models\Auditoria;
 use Illuminate\Support\Facades\DB;
 
 class TrasladoService
@@ -378,6 +379,8 @@ class TrasladoService
                 throw new \Exception('No se encontraron movimientos para este traslado.');
             }
 
+            $estadosAntes = $grupo->pluck('estado', 'id')->toArray();
+
             // 1) Validar TODO antes de mover nada: si un producto ya no puede
             //    devolverse, se aborta completo en vez de dejar el traslado
             //    revertido a medias.
@@ -488,6 +491,14 @@ class TrasladoService
                     'observaciones'      => $obsActual ? "{$obsActual}\n{$observacionEliminacion}" : $observacionEliminacion,
                 ]);
             }
+
+            Auditoria::registrar(
+                $representante,
+                'eliminar',
+                ['estados' => $estadosAntes],
+                ['estado' => 'anulado', 'motivo' => $motivo],
+                ['numero_guia' => $representante->numero_guia, 'movimiento_ids' => $grupo->pluck('id')->toArray()]
+            );
         });
     }
 

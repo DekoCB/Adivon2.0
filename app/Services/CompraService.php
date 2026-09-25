@@ -12,6 +12,7 @@ use App\Models\ProductoVariante;
 use App\Models\Catalogo\Modelo;
 use App\Models\Catalogo\Color;
 use App\Models\CuentaPorPagar;
+use App\Models\Auditoria;
 use App\Services\VarianteService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -544,6 +545,12 @@ class CompraService
     {
         DB::transaction(function () use ($compra, $datos, $detalles) {
 
+            $datosAnteriores = $compra->only([
+                'proveedor_id', 'numero_factura', 'almacen_id', 'fecha',
+                'forma_pago', 'condicion_pago', 'incluye_igv',
+                'subtotal', 'igv', 'total',
+            ]);
+
             // Al crear la compra con "el precio ya incluye IGV" marcado, el
             // subtotal de CADA detalle se guarda tal cual se ingresó (con IGV
             // incluido), mientras que la cabecera (compra.subtotal) sí queda
@@ -687,6 +694,12 @@ class CompraService
                     $compra->cuentaPorPagar->update($syncCuenta);
                 }
             }
+
+            Auditoria::registrar($compra, 'editar', $datosAnteriores, $compra->fresh()->only([
+                'proveedor_id', 'numero_factura', 'almacen_id', 'fecha',
+                'forma_pago', 'condicion_pago', 'incluye_igv',
+                'subtotal', 'igv', 'total',
+            ]));
 
             Log::info('Compra actualizada (cabecera + detalles)', ['compra_id' => $compra->id]);
         });
@@ -834,6 +847,11 @@ class CompraService
                 throw new \Exception('No se puede eliminar una compra ya anulada');
             }
 
+            // Es un hard delete (Compra no usa SoftDeletes): sin esto, la
+            // fila desaparece de "compras" sin dejar ningún rastro de que
+            // existió, quién la borró, ni qué contenía.
+            $snapshot = $compra->load('detalles')->toArray();
+
             // Si tiene stock registrado, revertirlo antes de eliminar
             if ($compra->estado === 'registrado') {
                 $this->anularCompra($compra, 'Eliminación de compra');
@@ -850,6 +868,8 @@ class CompraService
 
             // Eliminar la compra
             $compra->delete();
+
+            Auditoria::registrar($compra, 'eliminar', $snapshot, null);
 
             Log::info('Compra eliminada', ['compra_id' => $compra->id]);
         });

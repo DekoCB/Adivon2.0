@@ -7,6 +7,7 @@ use App\Models\Caja;
 use App\Models\MovimientoCaja;
 use App\Models\Sucursal;
 use App\Models\User;
+use App\Models\Auditoria;
 use App\Services\CajaService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -178,6 +179,8 @@ class AdminCajaController extends Controller
             'metodo_pago'   => 'efectivo',
         ]);
 
+        $datosAnteriores = $caja->only(['estado', 'fecha_cierre', 'monto_real_cierre', 'diferencia_cierre']);
+
         $caja->update([
             'estado'               => 'cerrada',
             'fecha_cierre'         => now(),
@@ -185,6 +188,10 @@ class AdminCajaController extends Controller
             'diferencia_cierre'    => 0,
             'observaciones_cierre' => '[FORZADO por ' . auth()->user()->name . '] ' . $request->observaciones,
         ]);
+
+        Auditoria::registrar($caja, 'forzar_cierre', $datosAnteriores, [
+            'estado' => 'cerrada', 'monto_real_cierre' => $caja->monto_final,
+        ], ['observaciones' => $request->observaciones]);
 
         return redirect()->route('admin.cajas.show', $caja)->with('success', 'Caja cerrada forzosamente.');
     }
@@ -211,6 +218,10 @@ class AdminCajaController extends Controller
         if ($caja->estado === 'cerrada') {
             $caja->update(['diferencia_cierre' => ($caja->diferencia_cierre ?? 0) + (float) $request->monto_ajuste]);
         }
+
+        Auditoria::registrar($caja, 'ajustar_diferencia', null, [
+            'monto_ajuste' => (float) $request->monto_ajuste,
+        ], ['motivo' => $request->motivo_ajuste]);
 
         return back()->with('success', 'Ajuste de S/ ' . number_format($monto, 2) . ' registrado.');
     }
@@ -256,6 +267,10 @@ class AdminCajaController extends Controller
             'monto_final'            => $request->monto_inicial,
             'estado'                 => 'abierta',
             'observaciones_apertura' => $obs,
+        ]);
+
+        Auditoria::registrar($caja, 'apertura_remota', null, [
+            'user_id' => $caja->user_id, 'sucursal_id' => $sucursal->id, 'monto_inicial' => $caja->monto_inicial,
         ]);
 
         return redirect()->route('admin.cajas.show', $caja)

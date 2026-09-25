@@ -24,6 +24,20 @@ class ProductoPrecioHistorial extends Model
         'precio_nuevo' => 'decimal:2'
     ];
 
+    protected static function booted(): void
+    {
+        // Es el único rastro de "quién cambió este precio y por qué"; sin
+        // esto, nada impedía editar o borrar una fila y perder ese
+        // historial (mismo patrón de protección que MovimientoInventario).
+        static::updating(function () {
+            throw new \RuntimeException('El historial de precios no se puede modificar.');
+        });
+
+        static::deleting(function () {
+            throw new \RuntimeException('El historial de precios no se puede eliminar.');
+        });
+    }
+
     public function producto()
     {
         return $this->belongsTo(Producto::class);
