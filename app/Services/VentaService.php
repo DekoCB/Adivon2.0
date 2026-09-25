@@ -907,8 +907,12 @@ class VentaService
                 continue;
             }
 
+            // lockForUpdate: bloquea la fila hasta que termine esta transacción,
+            // para que una venta concurrente del mismo producto/almacén espere
+            // y vuelva a leer el stock ya descontado (evita vender en negativo).
             $stock = StockAlmacen::where('producto_id', $detalle['producto_id'])
                 ->where('almacen_id', $almacenId)
+                ->lockForUpdate()
                 ->first();
 
             if (!$stock || $stock->cantidad < $detalle['cantidad']) {
@@ -925,9 +929,13 @@ class VentaService
     {
         $codigosImei = array_column($imeis, 'codigo_imei');
 
+        // lockForUpdate: mismo motivo que en validarStockDisponible, aplicado
+        // por IMEI individual — evita que dos ventas concurrentes se lleven
+        // el mismo IMEI.
         $existentes = Imei::whereIn('codigo_imei', $codigosImei)
             ->where('almacen_id', $almacenId)
             ->where('estado_imei', 'en_stock')
+            ->lockForUpdate()
             ->get();
 
         if ($existentes->count() !== count($codigosImei)) {
@@ -943,12 +951,21 @@ class VentaService
     private function marcarImeisVendidos(array $imeis, int $ventaId, int $detalleVentaId)
     {
         foreach ($imeis as $imeiData) {
-            Imei::where('codigo_imei', $imeiData['codigo_imei'])
+            // Guard estado_imei='en_stock' en el propio UPDATE: además del lock
+            // adquirido en validarImeisDisponibles(), si por cualquier motivo
+            // el IMEI ya no está en_stock esto actualiza 0 filas en vez de
+            // "revender" un IMEI que ya cambió de estado.
+            $actualizado = Imei::where('codigo_imei', $imeiData['codigo_imei'])
+                ->where('estado_imei', 'en_stock')
                 ->update([
                     'estado_imei' => 'vendido',
                     'fecha_venta'  => now(),
                     'venta_id'     => $ventaId,
                 ]);
+
+            if ($actualizado === 0) {
+                throw new \Exception("El IMEI {$imeiData['codigo_imei']} ya no está disponible (fue vendido o movido por otra operación).");
+            }
         }
     }
 

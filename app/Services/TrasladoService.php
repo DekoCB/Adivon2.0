@@ -81,11 +81,15 @@ class TrasladoService
             throw new \Exception("Producto «{$producto->nombre}»: debe seleccionar al menos un IMEI.");
         }
 
-        // Validar que todos los IMEIs pertenecen al producto + almacén + en_stock
+        // Validar que todos los IMEIs pertenecen al producto + almacén + en_stock.
+        // lockForUpdate: bloquea estas filas hasta el commit, para que un
+        // traslado o venta concurrente del mismo IMEI espere y vea el estado
+        // ya actualizado (evita mover/vender el mismo IMEI dos veces).
         $validos = Imei::whereIn('id', $imeiIds)
             ->where('producto_id', $producto->id)
             ->where('almacen_id', $origenId)
             ->where('estado_imei', Imei::ESTADO_EN_STOCK)
+            ->lockForUpdate()
             ->count();
 
         if ($validos !== $cantidad) {
@@ -132,8 +136,18 @@ class TrasladoService
             ]);
         }
 
-        Imei::whereIn('id', $imeiIds)
+        // Guard estado_imei=en_stock en el propio UPDATE: además del lock de
+        // arriba, si algún IMEI ya cambió de estado esto actualiza menos filas
+        // de las esperadas en vez de "mover" un IMEI que ya no corresponde.
+        $actualizados = Imei::whereIn('id', $imeiIds)
+            ->where('estado_imei', Imei::ESTADO_EN_STOCK)
             ->update(['estado_imei' => Imei::ESTADO_EN_TRANSITO]);
+
+        if ($actualizados !== $cantidad) {
+            throw new \Exception(
+                "Producto «{$producto->nombre}»: uno o más IMEIs dejaron de estar disponibles durante el traslado."
+            );
+        }
     }
 
     // ── Línea accesorio (cantidad) ──────────────────────────────────────────
@@ -146,8 +160,10 @@ class TrasladoService
             throw new \Exception("Producto «{$producto->nombre}»: la cantidad debe ser al menos 1.");
         }
 
+        // lockForUpdate: mismo motivo que en crearLineaImei, para stock por cantidad.
         $stockOrigen = StockAlmacen::where('producto_id', $producto->id)
             ->where('almacen_id', $origenId)
+            ->lockForUpdate()
             ->first();
 
         if (!$stockOrigen || $stockOrigen->cantidad < $cantidad) {
