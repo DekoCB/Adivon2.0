@@ -7,15 +7,11 @@ use App\Models\Venta;
 use App\Models\DetalleVenta;
 use App\Models\GuiaRemision;
 use App\Models\SerieComprobante;
-use App\Models\Imei;
-use App\Models\StockAlmacen;
-use App\Models\MovimientoInventario;
 use App\Models\CuentaPorCobrar;
 use App\Models\CuotaCobro;
 use App\Models\PagoCredito;
 use App\Models\AuditoriaVenta;
 use App\Models\Caja;
-use App\Models\MovimientoCaja;
 use App\Models\ComisionDetalleVenta;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +19,10 @@ use Illuminate\Support\Facades\Log;
 
 class VentaService
 {
-    protected $precioRotativoService;
-
-    public function __construct(PrecioRotativoService $precioRotativoService)
-    {
-        $this->precioRotativoService = $precioRotativoService;
+    public function __construct(
+        private VentaStockService $ventaStockService,
+        private VentaCajaService $ventaCajaService,
+    ) {
     }
 
     private function calcularComisiones(Venta $venta): void
@@ -103,7 +98,7 @@ class VentaService
             $esCredito = ($datosVenta['condicion_pago'] ?? 'contado') === 'credito' || !empty($creditoData);
 
             // Validar stock antes de procesar
-            $this->validarStockDisponible($detalles, $datosVenta['almacen_id']);
+            $this->ventaStockService->validarStockDisponible($detalles, $datosVenta['almacen_id']);
 
             // Para ventas a crédito, el estado inicial es 'credito' (sin pago inmediato)
             if ($esCredito) {
@@ -157,11 +152,11 @@ class VentaService
 
                 // Si es producto con IMEI, marcar los IMEIs como vendidos
                 if (!empty($detalle['imeis'])) {
-                    $this->marcarImeisVendidos($detalle['imeis'], $venta->id, $detalleVenta->id);
+                    $this->ventaStockService->marcarImeisVendidos($detalle['imeis'], $venta->id, $detalleVenta->id);
                 }
 
                 // Descontar del stock
-                $this->descontarStock(
+                $this->ventaStockService->descontarStock(
                     $detalle['producto_id'],
                     $datosVenta['almacen_id'],
                     $detalle['cantidad'],
@@ -210,7 +205,7 @@ class VentaService
                 // Si hay pago, procesarlo y registrar en caja
                 if ($pago) {
                     $this->procesarPago($venta, $pago);
-                    $this->registrarEnCaja($venta, 'venta');
+                    $this->ventaCajaService->registrarEnCaja($venta, 'venta');
                 }
             }
 
@@ -381,10 +376,10 @@ class VentaService
                     'usuario_confirma_id' => auth()->id(),
                 ]);
                 // Registrar en caja el ingreso total (monto de este pago)
-                $this->registrarEnCajaCredito($cuenta->venta, $monto, $pagoData['metodo_pago']);
+                $this->ventaCajaService->registrarEnCajaCredito($cuenta->venta, $monto, $pagoData['metodo_pago']);
             } else {
                 // Registrar el pago parcial en caja
-                $this->registrarEnCajaCredito($cuenta->venta, $monto, $pagoData['metodo_pago']);
+                $this->ventaCajaService->registrarEnCajaCredito($cuenta->venta, $monto, $pagoData['metodo_pago']);
             }
 
             Log::info('Pago de crédito registrado', [
@@ -491,7 +486,7 @@ class VentaService
                 'codigo', 'estado_pago', 'estado_sunat', 'total', 'cliente_id', 'fecha', 'tipo_comprobante',
             ]);
 
-            $this->revertirStock($venta, 'Eliminación de venta #' . $venta->codigo);
+            $this->ventaStockService->revertirStock($venta, 'Eliminación de venta #' . $venta->codigo);
             $this->eliminarComisionesPendientes($venta);
 
             // Si es crédito sin pagos, anular la cuenta por cobrar y sus cuotas
@@ -503,7 +498,7 @@ class VentaService
             // Si estaba pagada, revertir el ingreso original en su caja
             $cajaActualizada = true;
             if ($venta->estado_pago === 'pagado') {
-                $cajaActualizada = $this->revertirIngresoEnCaja($venta);
+                $cajaActualizada = $this->ventaCajaService->revertirIngresoEnCaja($venta);
             }
 
             $this->registrarAuditoria($venta, 'eliminar', $datosAnteriores, null, $requirioClave);
@@ -645,7 +640,7 @@ class VentaService
             // Si la NC es por anulación (motivo 01 o 06 = devolución total) → revertir stock
             $cajaActualizada = true;
             if (in_array($motivoCodigo, ['01', '02', '06'])) {
-                $this->revertirStock($venta, 'Nota de Crédito #' . $nc->codigo);
+                $this->ventaStockService->revertirStock($venta, 'Nota de Crédito #' . $nc->codigo);
                 $this->eliminarComisionesPendientes($venta);
 
                 // Estado ANTES de marcar el comprobante como anulado — el update()
@@ -668,7 +663,7 @@ class VentaService
 
                 // Si estaba pagada → registrar egreso en caja
                 if ($estabaPagada) {
-                    $cajaActualizada = $this->registrarEnCaja($venta, 'nota_credito');
+                    $cajaActualizada = $this->ventaCajaService->registrarEnCaja($venta, 'nota_credito');
                 }
             }
 
@@ -735,7 +730,7 @@ class VentaService
                 'codigo', 'estado_pago', 'estado_sunat', 'total', 'cliente_id', 'fecha', 'tipo_comprobante',
             ]);
 
-            $this->revertirStock($venta, 'Anulación de venta #' . $venta->codigo);
+            $this->ventaStockService->revertirStock($venta, 'Anulación de venta #' . $venta->codigo);
             $this->eliminarComisionesPendientes($venta);
 
             // Si es crédito sin pagos, anular la cuenta por cobrar y sus cuotas
@@ -747,7 +742,7 @@ class VentaService
             // Si estaba pagada, registrar egreso en caja (devolución)
             $cajaActualizada = true;
             if ($venta->estado_pago === 'pagado') {
-                $cajaActualizada = $this->registrarEnCaja($venta, 'anulacion');
+                $cajaActualizada = $this->ventaCajaService->registrarEnCaja($venta, 'anulacion');
             }
 
             $venta->update(['estado_pago' => 'anulado']);
@@ -756,97 +751,6 @@ class VentaService
 
             return $cajaActualizada;
         });
-    }
-
-    /**
-     * Revertir stock de todos los detalles de una venta.
-     * Reutilizado por anularVenta, eliminarVenta y generarNotaCredito.
-     */
-    private function revertirStock(Venta $venta, string $motivo): void
-    {
-        $venta->load('detalles.producto');
-        foreach ($venta->detalles as $detalle) {
-            $esSerie = $detalle->producto?->tipo_inventario === 'serie';
-
-            // NOTA: detalle_ventas.imei_id nunca se llena al crear la venta (bug
-            // histórico), así que NO se puede usar para ubicar el IMEI vendido.
-            // En su lugar se busca por venta_id + producto_id (+ variante_id),
-            // tomando como máximo la cantidad de esta línea — así, si la venta
-            // tiene varias líneas del mismo producto, cada una reclama solo los
-            // IMEIs que le corresponden y no se pisan entre sí.
-            if ($esSerie) {
-                // Producto tipo "serie": el stock real vive en imeis (conteo por estado_imei),
-                // no en stock_almacen — esa tabla es solo para productos tipo "cantidad".
-                // Tocarla aquí para productos serie la contamina con filas que nadie
-                // mantiene y que reportes futuros podrían sumar por error.
-                $stockAnterior = Imei::where('producto_id', $detalle->producto_id)
-                    ->where('estado_imei', 'en_stock')
-                    ->count();
-
-                $imeisVendidos = Imei::where('venta_id', $venta->id)
-                    ->where('producto_id', $detalle->producto_id)
-                    ->when($detalle->variante_id, fn($q) => $q->where('variante_id', $detalle->variante_id))
-                    ->where('estado_imei', 'vendido')
-                    ->limit($detalle->cantidad)
-                    ->pluck('id');
-
-                Imei::whereIn('id', $imeisVendidos)->update([
-                    'estado_imei' => 'en_stock',
-                    'venta_id'    => null,
-                    'fecha_venta' => null,
-                ]);
-
-                // Recontar desde la fuente real (imeis) en vez de incrementar/decrementar:
-                // así producto.stock_actual y producto_variante.stock_actual quedan exactos
-                // sin importar el estado previo de esas columnas (evita el arrastre de
-                // desincronizaciones de otros flujos).
-                $stockNuevo = Imei::where('producto_id', $detalle->producto_id)
-                    ->where('estado_imei', 'en_stock')
-                    ->count();
-                \App\Models\Producto::where('id', $detalle->producto_id)
-                    ->update(['stock_actual' => $stockNuevo]);
-
-                if ($detalle->variante_id) {
-                    $totalVariante = Imei::where('variante_id', $detalle->variante_id)
-                        ->where('estado_imei', 'en_stock')
-                        ->count();
-                    \App\Models\ProductoVariante::where('id', $detalle->variante_id)
-                        ->update(['stock_actual' => $totalVariante]);
-                }
-            } else {
-                $stock = StockAlmacen::firstOrCreate(
-                    ['producto_id' => $detalle->producto_id, 'almacen_id' => $venta->almacen_id],
-                    ['cantidad' => 0]
-                );
-
-                $stockAnterior = $stock->cantidad;
-                $stock->increment('cantidad', $detalle->cantidad);
-                $stockNuevo = $stock->cantidad;
-
-                // Igual que descontarStock() al vender: mantener sincronizados
-                // producto.stock_actual y producto_variante.stock_actual con el
-                // total real de stock_almacen, si no quedan desfasados tras cada
-                // anulación/eliminación/NC.
-                if ($detalle->variante_id) {
-                    $detalle->variante?->incrementarStock($detalle->cantidad);
-                } else {
-                    $totalStock = StockAlmacen::where('producto_id', $detalle->producto_id)->sum('cantidad');
-                    \App\Models\Producto::where('id', $detalle->producto_id)->update(['stock_actual' => $totalStock]);
-                }
-            }
-
-            MovimientoInventario::create([
-                'producto_id'     => $detalle->producto_id,
-                'almacen_id'      => $venta->almacen_id,
-                'user_id'         => auth()->id(),
-                'tipo_movimiento' => 'ingreso',
-                'cantidad'        => $detalle->cantidad,
-                'stock_anterior'  => $stockAnterior,
-                'stock_nuevo'     => $stockNuevo,
-                'motivo'          => $motivo,
-                'estado'          => 'completado',
-            ]);
-        }
     }
 
     /**
@@ -871,169 +775,6 @@ class VentaService
     }
 
     /**
-     * Registrar ingreso en caja por pago parcial de crédito
-     */
-    private function registrarEnCajaCredito(Venta $venta, float $monto, string $metodoPago): void
-    {
-        $caja = \App\Models\Caja::where('user_id', auth()->id())
-            ->where('estado', 'abierta')
-            ->first();
-
-        if ($caja) {
-            $cajaService = app(CajaService::class);
-            $cajaService->registrarMovimiento(
-                $caja->id,
-                'ingreso',
-                $monto,
-                'Pago crédito venta #' . $venta->codigo,
-                $venta->id,
-                null,
-                null,
-                $metodoPago,
-                null
-            );
-        }
-    }
-
-    /**
-     * Validar stock disponible antes de la venta
-     */
-    private function validarStockDisponible(array $detalles, int $almacenId)
-    {
-        foreach ($detalles as $detalle) {
-            // Productos serie/IMEI: el stock se controla por unidad individual
-            if (!empty($detalle['imeis'])) {
-                $this->validarImeisDisponibles($detalle['imeis'], $almacenId);
-                continue;
-            }
-
-            // lockForUpdate: bloquea la fila hasta que termine esta transacción,
-            // para que una venta concurrente del mismo producto/almacén espere
-            // y vuelva a leer el stock ya descontado (evita vender en negativo).
-            $stock = StockAlmacen::where('producto_id', $detalle['producto_id'])
-                ->where('almacen_id', $almacenId)
-                ->lockForUpdate()
-                ->first();
-
-            if (!$stock || $stock->cantidad < $detalle['cantidad']) {
-                $producto = \App\Models\Producto::find($detalle['producto_id']);
-                throw new \Exception("Stock insuficiente para {$producto->nombre}. Disponible: " . ($stock->cantidad ?? 0));
-            }
-        }
-    }
-
-    /**
-     * Validar que los IMEIs estén disponibles
-     */
-    private function validarImeisDisponibles(array $imeis, int $almacenId)
-    {
-        $codigosImei = array_column($imeis, 'codigo_imei');
-
-        // lockForUpdate: mismo motivo que en validarStockDisponible, aplicado
-        // por IMEI individual — evita que dos ventas concurrentes se lleven
-        // el mismo IMEI.
-        $existentes = Imei::whereIn('codigo_imei', $codigosImei)
-            ->where('almacen_id', $almacenId)
-            ->where('estado_imei', 'en_stock')
-            ->lockForUpdate()
-            ->get();
-
-        if ($existentes->count() !== count($codigosImei)) {
-            $encontrados = $existentes->pluck('codigo_imei')->toArray();
-            $faltantes   = array_diff($codigosImei, $encontrados);
-            throw new \Exception("Los siguientes IMEIs no están disponibles: " . implode(', ', $faltantes));
-        }
-    }
-
-    /**
-     * Marcar IMEIs como vendidos
-     */
-    private function marcarImeisVendidos(array $imeis, int $ventaId, int $detalleVentaId)
-    {
-        foreach ($imeis as $imeiData) {
-            // Guard estado_imei='en_stock' en el propio UPDATE: además del lock
-            // adquirido en validarImeisDisponibles(), si por cualquier motivo
-            // el IMEI ya no está en_stock esto actualiza 0 filas en vez de
-            // "revender" un IMEI que ya cambió de estado.
-            $actualizado = Imei::where('codigo_imei', $imeiData['codigo_imei'])
-                ->where('estado_imei', 'en_stock')
-                ->update([
-                    'estado_imei' => 'vendido',
-                    'fecha_venta'  => now(),
-                    'venta_id'     => $ventaId,
-                ]);
-
-            if ($actualizado === 0) {
-                throw new \Exception("El IMEI {$imeiData['codigo_imei']} ya no está disponible (fue vendido o movido por otra operación).");
-            }
-        }
-    }
-
-    /**
-     * Descontar stock del almacén
-     */
-    private function descontarStock(int $productoId, int $almacenId, int $cantidad, array $imeis = [], ?int $varianteId = null)
-    {
-        $producto      = \App\Models\Producto::find($productoId);
-        $stockAnterior = 0;
-        $stockNuevo    = 0;
-
-        if (!empty($imeis)) {
-            $stockNuevo    = Imei::where('producto_id', $productoId)
-                                 ->where('almacen_id', $almacenId)
-                                 ->where('estado_imei', 'en_stock')
-                                 ->count();
-            $stockAnterior = $stockNuevo + $cantidad;
-
-            $totalStock = Imei::where('producto_id', $productoId)
-                               ->where('estado_imei', 'en_stock')
-                               ->count();
-            $producto->update(['stock_actual' => $totalStock]);
-
-            if ($varianteId) {
-                $stockVariante = Imei::where('variante_id', $varianteId)
-                                     ->where('estado_imei', 'en_stock')
-                                     ->count();
-                \App\Models\ProductoVariante::where('id', $varianteId)
-                    ->update(['stock_actual' => $stockVariante]);
-            }
-        } else {
-            $stock = StockAlmacen::where('producto_id', $productoId)
-                ->where('almacen_id', $almacenId)
-                ->first();
-
-            if ($stock) {
-                $stockAnterior = $stock->cantidad;
-                $stock->decrement('cantidad', $cantidad);
-                $stockNuevo = $stock->cantidad;
-
-                $totalStock = StockAlmacen::where('producto_id', $productoId)->sum('cantidad');
-                $producto->update(['stock_actual' => $totalStock]);
-            }
-
-            if ($varianteId) {
-                $variante = \App\Models\ProductoVariante::find($varianteId);
-                if ($variante) {
-                    $variante->decrementarStock($cantidad);
-                }
-            }
-        }
-
-        MovimientoInventario::create([
-            'producto_id'     => $productoId,
-            'almacen_id'      => $almacenId,
-            'user_id'         => auth()->id(),
-            'tipo_movimiento' => 'salida',
-            'cantidad'        => $cantidad,
-            'stock_anterior'  => $stockAnterior,
-            'stock_nuevo'     => $stockNuevo,
-            'motivo'          => 'Venta',
-            'estado'          => 'completado',
-            'imeis'           => !empty($imeis) ? json_encode($imeis) : null,
-        ]);
-    }
-
-    /**
      * Procesar pago de la venta
      */
     private function procesarPago(Venta $venta, array $pago)
@@ -1044,105 +785,6 @@ class VentaService
             'fecha_confirmacion'  => now(),
             'usuario_confirma_id' => auth()->id(),
         ]);
-    }
-
-    /**
-     * Registrar en caja.
-     * $contexto: 'venta' (ingreso) | 'anulacion' | 'eliminacion' | 'nota_credito' (egreso/devolución)
-     *
-     * @return bool true si el movimiento quedó registrado; false si no hay
-     *              ninguna caja a la que atribuirlo (ni la caja original de
-     *              la venta, ni una caja abierta del usuario actual).
-     */
-    private function registrarEnCaja(Venta $venta, string $contexto): bool
-    {
-        $cajaService = app(CajaService::class);
-
-        // Para devoluciones (anular/eliminar/NC) el movimiento debe caer en
-        // la caja donde se registró originalmente el ingreso de esta venta
-        // — no en "la que esté abierta ahora", que puede ser otra sesión de
-        // caja distinta (u otro día). Para una venta nueva ('venta') todavía
-        // no existe ese ingreso, así que cae directo al fallback.
-        $caja = $cajaService->cajaDeVenta($venta->id)
-            ?? Caja::where('user_id', auth()->id())->where('estado', 'abierta')->first();
-
-        if (!$caja) {
-            return false;
-        }
-
-        $esDevolucion = in_array($contexto, ['anulacion', 'eliminacion', 'nota_credito']);
-        $tipo         = $esDevolucion ? 'egreso' : 'ingreso';
-
-        $metodosValidos = ['efectivo', 'yape', 'plin', 'transferencia', 'mixto'];
-        $metodoPago     = in_array($venta->metodo_pago, $metodosValidos)
-            ? $venta->metodo_pago
-            : 'efectivo';
-
-        $conceptos = [
-            'venta'       => 'Venta #' . $venta->codigo,
-            'anulacion'   => 'Anulación venta #' . $venta->codigo,
-            'eliminacion' => 'Eliminación venta #' . $venta->codigo,
-            'nota_credito'=> 'Nota Crédito venta #' . $venta->codigo,
-        ];
-        $concepto = $conceptos[$contexto] ?? 'Venta #' . $venta->codigo;
-
-        // Para pagos mixtos: un movimiento por cada método con su referencia
-        $pagosDetalle = $venta->pagos_detalle ?? [];
-        if ($tipo === 'ingreso' && count($pagosDetalle) > 1) {
-            foreach ($pagosDetalle as $pd) {
-                $mp  = in_array($pd['metodo'] ?? '', $metodosValidos) ? $pd['metodo'] : 'efectivo';
-                $ref = $pd['referencia'] ?? null;
-                $cajaService->registrarCorreccion($caja, $tipo, (float) $pd['monto'], $concepto, $venta->id, $mp, $ref);
-            }
-            return true;
-        }
-
-        // Pago único: extraer referencia si existe
-        $referencia = null;
-        if ($tipo === 'ingreso' && count($pagosDetalle) === 1) {
-            $referencia = $pagosDetalle[0]['referencia'] ?? null;
-        }
-
-        $cajaService->registrarCorreccion($caja, $tipo, (float) $venta->total, $concepto, $venta->id, $metodoPago, $referencia);
-
-        return true;
-    }
-
-    /**
-     * Revierte (borra) el/los movimiento(s) de ingreso original de una venta
-     * en su caja, dejando la caja como si esa venta nunca se hubiera pagado
-     * — sin crear ningún movimiento nuevo. Usado por eliminarVenta(); a
-     * diferencia de anular/NC, aquí no debe quedar rastro de compensación.
-     *
-     * @return bool true si se encontró y revirtió el ingreso; false si la
-     *              venta no tenía ningún ingreso de caja que revertir.
-     */
-    private function revertirIngresoEnCaja(Venta $venta): bool
-    {
-        $ingresos = MovimientoCaja::where('venta_id', $venta->id)
-            ->where('tipo', 'ingreso')
-            ->get();
-
-        if ($ingresos->isEmpty()) {
-            return false;
-        }
-
-        $caja = Caja::find($ingresos->first()->caja_id);
-        if (!$caja) {
-            return false;
-        }
-
-        $total = (float) $ingresos->sum('monto');
-
-        MovimientoCaja::whereIn('id', $ingresos->pluck('id'))->delete();
-
-        $caja->decrement('monto_final', $total);
-
-        if ($caja->estado === 'cerrada') {
-            app(CajaService::class)->recalcularDiferenciaCierre($caja);
-        }
-
-        return true;
     }
 
     /**
@@ -1229,14 +871,14 @@ class VentaService
                 ];
             })->toArray();
 
-            $this->validarStockDisponible($detalles, $venta->almacen_id);
+            $this->ventaStockService->validarStockDisponible($detalles, $venta->almacen_id);
 
             foreach ($detalles as $i => $detalle) {
                 if (!empty($detalle['imeis'])) {
-                    $this->marcarImeisVendidos($detalle['imeis'], $venta->id, $detallesVenta[$i]->id);
+                    $this->ventaStockService->marcarImeisVendidos($detalle['imeis'], $venta->id, $detallesVenta[$i]->id);
                 }
 
-                $this->descontarStock(
+                $this->ventaStockService->descontarStock(
                     $detalle['producto_id'],
                     $venta->almacen_id,
                     $detalle['cantidad'],
@@ -1253,7 +895,7 @@ class VentaService
                 'usuario_confirma_id' => auth()->id(),
             ], $this->asignarSerieYCorrelativo($venta->sucursal_id, $tipoComprobante)));
 
-            $this->registrarEnCaja($venta, 'venta');
+            $this->ventaCajaService->registrarEnCaja($venta, 'venta');
 
             Log::info('Cotización convertida a venta', [
                 'venta_id'         => $venta->id,
@@ -1288,7 +930,7 @@ class VentaService
             }
 
             $venta->update($update);
-            $this->registrarEnCaja($venta, 'venta');
+            $this->ventaCajaService->registrarEnCaja($venta, 'venta');
         });
 
         $ventaFresh = $venta->fresh();
