@@ -48,7 +48,9 @@
                     <i class="fas fa-plus"></i>Nuevo Color
                 </button>
             </div>
-            <form method="GET" action="{{ route('catalogo.colores.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        </div>
+
+        <x-filter-bar action="{{ route('catalogo.colores.index') }}" :filters="['buscar','estado']" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
                        placeholder="Buscar por nombre o código..."
                        class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
@@ -57,34 +59,19 @@
                     <option value="activo"   {{ request('estado') == 'activo'   ? 'selected' : '' }}>Activo</option>
                     <option value="inactivo" {{ request('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                 </select>
-                <div class="flex gap-2">
-                    <button type="submit" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white text-sm px-3 py-2 rounded-lg transition">
-                        <i class="fas fa-search mr-1"></i>Filtrar
-                    </button>
-                    @if(request()->hasAny(['buscar','estado']))
-                        <a href="{{ route('catalogo.colores.index') }}"
-                           class="flex-1 text-center text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50 transition">
-                            <i class="fas fa-times mr-1"></i>Limpiar
-                        </a>
-                    @endif
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Color</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hex</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+        <x-data-table :paginator="$colores">
+            <x-slot:head>
+                <x-th>Color</x-th>
+                <x-th>Nombre</x-th>
+                <x-th>Código</x-th>
+                <x-th>Hex</x-th>
+                <x-th>Estado</x-th>
+                <x-th>Acciones</x-th>
+            </x-slot:head>
+
                     @forelse($colores as $color)
                     <tr class="hover:bg-gray-50 transition">
                         <td class="px-6 py-4">
@@ -134,10 +121,7 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-4">{{ $colores->withQueryString()->links() }}</div>
+        </x-data-table>
 
         {{-- Modal Crear / Editar --}}
         <div x-show="modalAbierto" x-cloak

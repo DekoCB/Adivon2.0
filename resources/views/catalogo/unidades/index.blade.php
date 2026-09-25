@@ -48,7 +48,9 @@
                     <i class="fas fa-plus"></i>Nueva Unidad
                 </button>
             </div>
-            <form method="GET" action="{{ route('catalogo.unidades.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        </div>
+
+        <x-filter-bar action="{{ route('catalogo.unidades.index') }}" :filters="['buscar','estado']" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
                        placeholder="Buscar por nombre o abreviatura..."
                        class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
@@ -57,52 +59,35 @@
                     <option value="activo"   {{ request('estado') == 'activo'   ? 'selected' : '' }}>Activo</option>
                     <option value="inactivo" {{ request('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                 </select>
-                <div class="flex gap-2">
-                    <button type="submit" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white text-sm px-3 py-2 rounded-lg transition">
-                        <i class="fas fa-search mr-1"></i>Filtrar
-                    </button>
-                    @if(request()->hasAny(['buscar','estado']))
-                        <a href="{{ route('catalogo.unidades.index') }}"
-                           class="flex-1 text-center text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50 transition">
-                            <i class="fas fa-times mr-1"></i>Limpiar
-                        </a>
-                    @endif
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Abreviatura</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Decimales</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+        <x-data-table :paginator="$unidades">
+            <x-slot:head>
+                <x-th>Nombre</x-th>
+                <x-th>Abreviatura</x-th>
+                <x-th>Categoría</x-th>
+                <x-th>Decimales</x-th>
+                <x-th>Estado</x-th>
+                <x-th>Acciones</x-th>
+            </x-slot:head>
+
                     @forelse($unidades as $unidad)
                     <tr class="hover:bg-gray-50 transition">
                         <td class="px-6 py-4 font-medium text-gray-900">{{ $unidad->nombre }}</td>
                         <td class="px-6 py-4 font-mono text-sm font-bold text-blue-700">{{ $unidad->abreviatura }}</td>
                         <td class="px-6 py-4">
                             @php
-                                $tipoColors = [
-                                    'unidad'   => 'bg-blue-100 text-blue-700',
-                                    'peso'     => 'bg-amber-100 text-amber-700',
-                                    'volumen'  => 'bg-cyan-100 text-cyan-700',
-                                    'longitud' => 'bg-purple-100 text-purple-700',
-                                    'otros'    => 'bg-gray-100 text-gray-600',
+                                $tipoTonos = [
+                                    'unidad'   => 'blue',
+                                    'peso'     => 'amber',
+                                    'volumen'  => 'cyan',
+                                    'longitud' => 'purple',
+                                    'otros'    => 'gray',
                                 ];
-                                $colorBadge = $tipoColors[$unidad->categoria] ?? 'bg-gray-100 text-gray-600';
+                                $tipoTono = $tipoTonos[$unidad->categoria] ?? 'gray';
                             @endphp
-                            <span class="px-2.5 py-1 rounded-full text-xs font-medium {{ $colorBadge }}">
-                                {{ ucfirst($unidad->categoria) }}
-                            </span>
+                            <x-badge :tone="$tipoTono">{{ ucfirst($unidad->categoria) }}</x-badge>
                         </td>
                         <td class="px-6 py-4">
                             @if($unidad->permite_decimales)
@@ -152,10 +137,7 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-4">{{ $unidades->withQueryString()->links() }}</div>
+        </x-data-table>
 
         {{-- Modal --}}
         <div x-show="modalAbierto" x-cloak

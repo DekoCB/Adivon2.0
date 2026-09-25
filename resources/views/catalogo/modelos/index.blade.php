@@ -46,7 +46,9 @@
                     <i class="fas fa-plus"></i>Nuevo Modelo
                 </button>
             </div>
-            <form method="GET" action="{{ route('catalogo.modelos.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        </div>
+
+        <x-filter-bar action="{{ route('catalogo.modelos.index') }}" :filters="['marca_id','categoria_id','estado']" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
                 <select name="marca_id" class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                     <option value="">Todas las marcas</option>
                     @foreach($marcas as $marca)
@@ -68,34 +70,19 @@
                     <option value="activo"   {{ request('estado') == 'activo'   ? 'selected' : '' }}>Activo</option>
                     <option value="inactivo" {{ request('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                 </select>
-                <div class="flex gap-2">
-                    <button type="submit" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white text-sm px-3 py-2 rounded-lg transition">
-                        <i class="fas fa-search mr-1"></i>Filtrar
-                    </button>
-                    @if(request()->hasAny(['marca_id','categoria_id','estado']))
-                        <a href="{{ route('catalogo.modelos.index') }}"
-                           class="flex-1 text-center text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50 transition">
-                            <i class="fas fa-times mr-1"></i>Limpiar
-                        </a>
-                    @endif
-                </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Imagen</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Modelo</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marca</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+        <x-data-table :paginator="$modelos">
+            <x-slot:head>
+                <x-th>Imagen</x-th>
+                <x-th>Modelo</x-th>
+                <x-th>Marca</x-th>
+                <x-th>Categoría</x-th>
+                <x-th>Código</x-th>
+                <x-th>Estado</x-th>
+                <x-th>Acciones</x-th>
+            </x-slot:head>
+
                     @forelse($modelos as $modelo)
                     <tr class="hover:bg-gray-50 transition">
                         <td class="px-6 py-4">
@@ -152,10 +139,7 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-4">{{ $modelos->withQueryString()->links() }}</div>
+        </x-data-table>
 
         {{-- Modal --}}
         <div x-show="modalAbierto" x-cloak
