@@ -58,7 +58,8 @@
                         $esGuia    = !str_starts_with($guia, 'id:');
                         $todosPendientes = $movimientos->every(fn($m) => $m->estado === 'pendiente');
                         $todosConfirmados = $movimientos->every(fn($m) => $m->estado === 'confirmado');
-                        $estado = $todosConfirmados ? 'confirmado' : ($todosPendientes ? 'pendiente' : 'mixto');
+                        $todosAnulados = $movimientos->every(fn($m) => $m->estado === 'anulado');
+                        $estado = $todosConfirmados ? 'confirmado' : ($todosPendientes ? 'pendiente' : ($todosAnulados ? 'anulado' : 'mixto'));
                         $puedeAnular = $todosPendientes && $puedeGestionarAnulacion;
                     @endphp
                         <tr class="hover:bg-gray-50" @if($puedeAnular || $puedeEliminar) x-data="{ showAnular: false, showEliminar: false }" @endif>

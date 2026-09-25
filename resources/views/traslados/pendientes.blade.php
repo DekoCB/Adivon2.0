@@ -45,8 +45,12 @@
                                           ->contains(fn($m) => $m->imeisTrasladados->isEmpty());
         @endphp
 
+        @php
+            $rolActual = auth()->user()->role->nombre;
+            $puedeRechazar = in_array($rolActual, ['Administrador', 'Almacenero']);
+        @endphp
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 mb-4 overflow-hidden"
-             x-data="{ detalleAbierto: false }">
+             x-data="{ detalleAbierto: false, showRechazar: false }">
 
             {{-- ── Cabecera ── --}}
             <div class="px-6 py-4">
@@ -131,6 +135,13 @@
                             <i class="fas fa-chevron-down text-xs transition-transform duration-200" :class="{ 'rotate-180': detalleAbierto }"></i>
                         </button>
 
+                        @if($puedeRechazar)
+                            <button type="button" @click="showRechazar = true"
+                                    class="flex items-center gap-1.5 border border-red-300 bg-red-50 hover:bg-red-100 text-red-700 font-semibold px-4 py-2 rounded-lg text-sm transition-colors">
+                                <i class="fas fa-times"></i> Rechazar
+                            </button>
+                        @endif
+
                         <form action="{{ route('traslados.confirmar', $primero) }}" method="POST"
                               onsubmit="return confirm('¿Confirmar la recepción del traslado {{ str_starts_with($guia, "id:") ? "" : $guia }}?\n\n{{ $movimientos->count() }} producto(s) de {{ $primero->almacen->nombre }} → {{ $primero->almacenDestino->nombre ?? "destino" }}')">
                             @csrf
@@ -148,6 +159,53 @@
                         </form>
                     </div>
                 </div>
+
+                @if($puedeRechazar)
+                {{-- Modal: rechazar recepción (usa la misma acción de anular; el stock vuelve al origen) --}}
+                <div x-show="showRechazar" x-cloak
+                     class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display:none"
+                     @click.self="showRechazar = false">
+                    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+                    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 text-left">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-red-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">Rechazar Recepción</h3>
+                                <p class="text-sm text-gray-500">{{ str_starts_with($guia, 'id:') ? 'Sin guía' : $guia }}</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-sm text-amber-800">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                            No vas a recibir esta mercadería: el stock volverá al almacén de origen ({{ $primero->almacen->nombre }}) y la guía de remisión asociada quedará anulada.
+                        </div>
+
+                        <form action="{{ route('traslados.anular', $primero) }}" method="POST">
+                            @csrf
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                    Motivo del rechazo <span class="text-red-500">*</span>
+                                </label>
+                                <textarea name="motivo" rows="3" required
+                                          class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 resize-none"
+                                          placeholder="Ej: productos dañados, cantidad no coincide, ya no se necesita..."></textarea>
+                            </div>
+                            <div class="flex gap-3">
+                                <button type="button" @click="showRechazar = false"
+                                        class="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition">
+                                    Cancelar
+                                </button>
+                                <button type="submit"
+                                        class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition">
+                                    <i class="fas fa-times mr-1"></i> Confirmar Rechazo
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @endif
             </div>
 
             {{-- ── Panel detalle ── --}}
