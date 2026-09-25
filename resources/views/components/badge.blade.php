@@ -16,6 +16,7 @@
         'teal'              => 'bg-teal-100 text-teal-800',
         'amber'             => 'bg-amber-100 text-amber-700',
         'cyan'              => 'bg-cyan-100 text-cyan-700',
+        'emerald'           => 'bg-emerald-100 text-emerald-800',
         default             => 'bg-gray-100 text-gray-800',
     };
 @endphp

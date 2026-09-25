@@ -87,9 +87,7 @@
         </div>
 
         {{-- ===== FILTROS ===== --}}
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
-            <form method="GET" action="{{ route('cuentas-por-pagar.index') }}"
-                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+        <x-filter-bar action="{{ route('cuentas-por-pagar.index') }}" :filters="['proveedor_id','estado','fecha_desde','fecha_hasta']" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
 
                 <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Proveedor</label>
@@ -128,27 +126,11 @@
                            class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-100">
                 </div>
 
-                <div class="flex gap-2">
-                    <button type="submit"
-                            class="flex-1 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-sm font-medium transition flex items-center justify-center gap-1.5">
-                        <i class="fas fa-search"></i>Filtrar
-                    </button>
-                    @if(request()->hasAny(['proveedor_id','estado','fecha_desde','fecha_hasta']))
-                        <a href="{{ route('cuentas-por-pagar.index') }}"
-                           class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl text-sm font-medium transition flex items-center justify-center"
-                           title="Limpiar filtros">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    @endif
-                </div>
-
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- ===== TABLA DE CUENTAS ===== --}}
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-
-            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <x-data-table :paginator="$cuentas">
+            <x-slot:cardHeader>
                 <h2 class="text-base font-semibold text-gray-800 flex items-center gap-2">
                     <i class="fas fa-list text-blue-900"></i>
                     Listado de Cuentas
@@ -156,23 +138,18 @@
                 <span class="text-sm text-gray-500">
                     {{ $cuentas->total() }} resultado{{ $cuentas->total() !== 1 ? 's' : '' }}
                 </span>
-            </div>
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>Factura</x-th>
+                <x-th>Proveedor</x-th>
+                <x-th>Vencimiento</x-th>
+                <x-th class="text-right">Total</x-th>
+                <x-th class="min-w-[140px]">Avance pago</x-th>
+                <x-th class="text-right">Saldo</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-100 text-sm">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Factura</th>
-                            <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Proveedor</th>
-                            <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Vencimiento</th>
-                            <th class="px-5 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wide">Total</th>
-                            <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide min-w-[140px]">Avance pago</th>
-                            <th class="px-5 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wide">Saldo</th>
-                            <th class="px-5 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wide">Estado</th>
-                            <th class="px-5 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wide">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
                         @forelse($cuentas as $cuenta)
                         @php
                             $dias  = now()->startOfDay()->diffInDays(
@@ -196,7 +173,7 @@
 
                             {{-- Proveedor --}}
                             <td class="px-5 py-3.5 text-gray-700 max-w-[200px] truncate">
-                                {{ $cuenta->proveedor->razon_social }}
+                                {{ $cuenta->proveedor?->razon_social ?? 'Proveedor eliminado' }}
                             </td>
 
                             {{-- Vencimiento + días --}}
@@ -240,16 +217,14 @@
                             <td class="px-5 py-3.5 text-center">
                                 @php
                                     $badgeCfg = [
-                                        'pagado'    => ['bg-green-100 text-green-800',  'fa-check-circle',        'Pagado'],
-                                        'pendiente' => ['bg-yellow-100 text-yellow-800','fa-clock',               'Pendiente'],
-                                        'parcial'   => ['bg-orange-100 text-orange-800','fa-adjust',              'Parcial'],
-                                        'vencido'   => ['bg-red-100 text-red-800',      'fa-exclamation-circle',  'Vencido'],
+                                        'pagado'    => ['green',  'fa-check-circle',        'Pagado'],
+                                        'pendiente' => ['yellow', 'fa-clock',               'Pendiente'],
+                                        'parcial'   => ['orange', 'fa-adjust',               'Parcial'],
+                                        'vencido'   => ['red',    'fa-exclamation-circle',  'Vencido'],
                                     ];
-                                    [$cls, $ico, $lbl] = $badgeCfg[$cuenta->estado] ?? ['bg-gray-100 text-gray-700','fa-question','—'];
+                                    [$tono, $ico, $lbl] = $badgeCfg[$cuenta->estado] ?? ['gray','fa-question','—'];
                                 @endphp
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium {{ $cls }}">
-                                    <i class="fas {{ $ico }}"></i>{{ $lbl }}
-                                </span>
+                                <x-badge :tone="$tono" :icon="$ico">{{ $lbl }}</x-badge>
                             </td>
 
                             {{-- Acciones --}}
@@ -273,18 +248,7 @@
                             </td>
                         </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            {{-- Paginación --}}
-            @if($cuentas->hasPages())
-            <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
-                {{ $cuentas->withQueryString()->links() }}
-            </div>
-            @endif
-
-        </div>{{-- fin tabla --}}
+        </x-data-table>
     </div>{{-- fin container --}}
 
 @endsection

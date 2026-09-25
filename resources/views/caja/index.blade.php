@@ -21,8 +21,7 @@
 
     {{-- Filtros (solo admin) --}}
     @if($isAdmin)
-    <form method="GET" action="{{ route('caja.index') }}"
-          class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+    <x-filter-bar action="{{ route('caja.index') }}" :filters="['sucursal_id','user_id','estado','fecha_desde','fecha_hasta']">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             <div>
                 <label class="block text-xs font-medium text-gray-500 mb-1">Sucursal</label>
@@ -59,47 +58,31 @@
                 <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}"
                        class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="flex flex-col">
+            <div>
                 <label class="block text-xs font-medium text-gray-500 mb-1">Hasta</label>
-                <div class="flex gap-2">
-                    <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
-                           class="flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
-                    <button type="submit"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
+                       class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
             </div>
         </div>
-        @if(request()->hasAny(['sucursal_id', 'user_id', 'estado', 'fecha_desde', 'fecha_hasta']))
-            <div class="mt-2 text-right">
-                <a href="{{ route('caja.index') }}" class="text-xs text-gray-400 hover:text-gray-600">
-                    <i class="fas fa-times mr-1"></i>Limpiar filtros
-                </a>
-            </div>
-        @endif
-    </form>
+    </x-filter-bar>
     @endif
 
     {{-- Tabla --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
-                    @if($isAdmin)
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Usuario</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sucursal</th>
-                    @endif
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Almacén</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Inicial</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Final</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Diferencia</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Ver</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
+    <x-data-table :paginator="$cajas">
+        <x-slot:head>
+            <x-th>Fecha</x-th>
+            @if($isAdmin)
+                <x-th>Usuario</x-th>
+                <x-th>Sucursal</x-th>
+            @endif
+            <x-th>Almacén</x-th>
+            <x-th class="text-right">Inicial</x-th>
+            <x-th class="text-right">Final</x-th>
+            <x-th class="text-right">Diferencia</x-th>
+            <x-th>Estado</x-th>
+            <x-th class="text-right">Ver</x-th>
+        </x-slot:head>
+
                 @forelse($cajas as $caja)
                 <tr class="hover:bg-gray-50 transition-colors">
                     <td class="px-4 py-3">
@@ -138,9 +121,7 @@
                                 <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5 animate-pulse"></span>Abierta
                             </span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
-                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400 mr-1.5"></span>Cerrada
-                            </span>
+                            <x-badge tone="gray">Cerrada</x-badge>
                         @endif
                     </td>
                     <td class="px-4 py-3 text-right">
@@ -166,16 +147,7 @@
                     </td>
                 </tr>
                 @endforelse
-            </tbody>
-        </table>
-    </div>
-
-    {{-- Paginación --}}
-    @if($cajas->hasPages())
-        <div class="mt-4">
-            {{ $cajas->links() }}
-        </div>
-    @endif
+    </x-data-table>
 
 </div>
 @endsection

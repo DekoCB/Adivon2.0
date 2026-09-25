@@ -31,9 +31,7 @@
     <div class="p-6 space-y-4">
 
         {{-- Filtros --}}
-        <div class="bg-white rounded-xl shadow-sm p-5">
-            <form method="GET" action="{{ route('admin.cajas.index') }}"
-                  class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
+        <x-filter-bar action="{{ route('admin.cajas.index') }}" :filters="['fecha_desde','fecha_hasta','sucursal_id','user_id','estado']" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
 
                 <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Fecha desde</label>
@@ -75,17 +73,6 @@
                         <option value="cerrada" {{ request('estado') === 'cerrada' ? 'selected' : '' }}>Cerrada</option>
                     </select>
                 </div>
-                <div class="flex gap-2">
-                    <button type="submit"
-                            class="flex-1 bg-blue-600 text-white text-sm rounded-lg px-3 py-2 hover:bg-blue-700 transition font-medium">
-                        <i class="fas fa-search mr-1"></i> Filtrar
-                    </button>
-                    <a href="{{ route('admin.cajas.index') }}"
-                       class="px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition text-sm">
-                        <i class="fas fa-times"></i>
-                    </a>
-                </div>
-
                 {{-- Exportar --}}
                 <div class="col-span-2 md:col-span-3 lg:col-span-6 flex justify-end items-center gap-2 border-t pt-3 mt-1">
                     <span class="text-xs text-gray-500">Exportar con filtros actuales:</span>
@@ -98,32 +85,27 @@
                         <i class="fas fa-file-pdf"></i> PDF
                     </button>
                 </div>
-            </form>
-        </div>
+        </x-filter-bar>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">#</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cajero</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Sucursal</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Apertura</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cierre</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">M. Inicial</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Ventas</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-green-700 uppercase">Efectivo</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-purple-700 uppercase">Yape</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-blue-700 uppercase">Plin</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-teal-700 uppercase">Transfer</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Diferencia</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
+        <x-data-table :paginator="$cajas">
+            <x-slot:head>
+                <x-th>#</x-th>
+                <x-th>Cajero</x-th>
+                <x-th>Sucursal</x-th>
+                <x-th>Apertura</x-th>
+                <x-th>Cierre</x-th>
+                <x-th class="text-right">M. Inicial</x-th>
+                <x-th class="text-right">Ventas</x-th>
+                <x-th class="text-right text-green-700">Efectivo</x-th>
+                <x-th class="text-right text-purple-700">Yape</x-th>
+                <x-th class="text-right text-blue-700">Plin</x-th>
+                <x-th class="text-right text-teal-700">Transfer</x-th>
+                <x-th class="text-right">Diferencia</x-th>
+                <x-th class="text-center">Estado</x-th>
+                <x-th></x-th>
+            </x-slot:head>
+
                         @forelse($cajas as $caja)
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-4 py-3 text-gray-400 text-xs">{{ $caja->id }}</td>
@@ -185,9 +167,9 @@
                                 </td>
                             </tr>
                         @endforelse
-                    </tbody>
-                    @if($cajas->count() > 0)
-                    <tfoot class="bg-gray-50 border-t border-gray-200">
+
+            @if($cajas->count() > 0)
+            <x-slot:tfoot>
                         <tr>
                             <td colspan="5" class="px-4 py-2 text-xs text-gray-500">
                                 {{ $cajas->total() }} registros
@@ -215,16 +197,9 @@
                             </td>
                             <td colspan="2"></td>
                         </tr>
-                    </tfoot>
-                    @endif
-                </table>
-            </div>
-            @if($cajas->hasPages())
-                <div class="px-4 py-3 border-t border-gray-100">
-                    {{ $cajas->links() }}
-                </div>
+            </x-slot:tfoot>
             @endif
-        </div>
+        </x-data-table>
     </div>
 </div>
 @endsection

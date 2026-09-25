@@ -59,8 +59,8 @@
         </div>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <x-data-table>
+            <x-slot:cardHeader>
                 <h3 class="text-lg font-semibold text-gray-800">
                     <i class="fas fa-list mr-2 text-blue-600"></i>Lista de Proveedores
                 </h3>
@@ -69,20 +69,17 @@
                         <i class="fas fa-plus mr-2"></i>Nuevo Proveedor
                     </a>
                 @endif
-            </div>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RUC</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Razón Social</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Compras</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+            </x-slot:cardHeader>
+            <x-slot:head>
+                <x-th>RUC</x-th>
+                <x-th>Razón Social</x-th>
+                <x-th>Teléfono</x-th>
+                <x-th>Email</x-th>
+                <x-th>Estado</x-th>
+                <x-th>Compras</x-th>
+                <x-th>Acciones</x-th>
+            </x-slot:head>
+
                     @forelse($proveedores as $proveedor)
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-6 py-4 text-sm font-mono font-semibold text-gray-700">{{ $proveedor->ruc }}</td>
@@ -90,9 +87,7 @@
                             <td class="px-6 py-4 text-sm text-gray-500">{{ $proveedor->telefono ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm text-gray-500">{{ $proveedor->email ?? '-' }}</td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $proveedor->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                    {{ ucfirst($proveedor->estado) }}
-                                </span>
+                                <x-badge :tone="$proveedor->estado === 'activo' ? 'green' : 'red'">{{ ucfirst($proveedor->estado) }}</x-badge>
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-500">{{ $proveedor->compras_count }}</td>
                             <td class="px-6 py-4 text-sm space-x-3">
@@ -123,7 +118,5 @@
                             </td>
                         </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
+        </x-data-table>
 @endsection

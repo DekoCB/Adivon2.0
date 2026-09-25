@@ -49,7 +49,7 @@
     </div>
 
     {{-- Filtros --}}
-    <form method="GET" class="bg-white rounded-xl shadow-sm border border-gray-100 px-5 py-4 mb-5 flex flex-wrap gap-3 items-end">
+    <x-filter-bar :filters="['q','tipo','estado']" class="flex flex-wrap gap-3 items-end">
         <div class="flex-1 min-w-48">
             <label class="block text-xs font-medium text-gray-600 mb-1">Buscar cliente / número</label>
             <input type="text" name="q" value="{{ request('q') }}"
@@ -74,42 +74,28 @@
                 <option value="anulado"  {{ request('estado') === 'anulado'  ? 'selected' : '' }}>Anulado</option>
             </select>
         </div>
-        <div class="flex gap-2">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                <i class="fas fa-search mr-1"></i> Filtrar
-            </button>
-            @if(request()->hasAny(['q','tipo','estado']))
-                <a href="{{ route('admin.sucursales.comprobantes', $sucursal) }}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
-                    <i class="fas fa-times mr-1"></i> Limpiar
-                </a>
-            @endif
-        </div>
-    </form>
+    </x-filter-bar>
 
     {{-- Tabla --}}
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+    <x-data-table :paginator="$ventas">
+        <x-slot:cardHeader>
             <h3 class="font-semibold text-gray-700 flex items-center gap-2">
                 <i class="fas fa-file-invoice text-blue-600"></i>
                 Documentos SUNAT emitidos en esta sucursal
             </h3>
             <span class="text-sm text-gray-500">{{ $ventas->total() }} comprobante(s)</span>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Número / Código</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
-                        <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Total</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado SUNAT</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado Pago</th>
-                        <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
+        </x-slot:cardHeader>
+        <x-slot:head>
+            <x-th>Número / Código</x-th>
+            <x-th>Tipo</x-th>
+            <x-th>Fecha</x-th>
+            <x-th>Cliente</x-th>
+            <x-th class="text-right">Total</x-th>
+            <x-th>Estado SUNAT</x-th>
+            <x-th>Estado Pago</x-th>
+            <x-th class="text-center">Acciones</x-th>
+        </x-slot:head>
+
                     @forelse($ventas as $venta)
                         <tr class="hover:bg-gray-50">
                             <td class="px-4 py-3 font-mono font-medium text-gray-900">
@@ -123,15 +109,13 @@
                             <td class="px-4 py-3">
                                 @php
                                     $tipoBadge = match($venta->tipo_comprobante) {
-                                        'boleta'       => ['bg-green-100 text-green-800', 'Boleta'],
-                                        'factura'      => ['bg-purple-100 text-purple-800', 'Factura'],
-                                        'nota_credito' => ['bg-orange-100 text-orange-800', 'N. Crédito'],
-                                        default        => ['bg-gray-100 text-gray-600', ucfirst($venta->tipo_comprobante)],
+                                        'boleta'       => ['green', 'Boleta'],
+                                        'factura'      => ['purple', 'Factura'],
+                                        'nota_credito' => ['orange', 'N. Crédito'],
+                                        default        => ['gray', ucfirst($venta->tipo_comprobante)],
                                     };
                                 @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $tipoBadge[0] }}">
-                                    {{ $tipoBadge[1] }}
-                                </span>
+                                <x-badge :tone="$tipoBadge[0]">{{ $tipoBadge[1] }}</x-badge>
                             </td>
                             <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ $venta->fecha->format('d/m/Y') }}</td>
                             <td class="px-4 py-3 text-gray-700">
@@ -145,23 +129,15 @@
                             </td>
                             <td class="px-4 py-3">
                                 {{-- Estado SUNAT: pendiente hasta integrar API --}}
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
-                                    <i class="fas fa-clock mr-1"></i> Pendiente envío
-                                </span>
+                                <x-badge tone="yellow" icon="fa-clock">Pendiente envío</x-badge>
                             </td>
                             <td class="px-4 py-3">
                                 @if($venta->estado_pago === 'pagado')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i> Pagado
-                                    </span>
+                                    <x-badge tone="green" icon="fa-check-circle">Pagado</x-badge>
                                 @elseif($venta->estado_pago === 'anulado')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
-                                        <i class="fas fa-times-circle mr-1"></i> Anulado
-                                    </span>
+                                    <x-badge tone="red" icon="fa-times-circle">Anulado</x-badge>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
-                                        <i class="fas fa-hourglass-half mr-1"></i> Pendiente
-                                    </span>
+                                    <x-badge tone="amber" icon="fa-hourglass-half">Pendiente</x-badge>
                                 @endif
                             </td>
                             <td class="px-4 py-3 text-center">
@@ -191,13 +167,7 @@
                             </td>
                         </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-        @if($ventas->hasPages())
-            <div class="px-4 py-4 border-t">{{ $ventas->links() }}</div>
-        @endif
-    </div>
+    </x-data-table>
 
     {{-- Nota sobre integración SUNAT --}}
     <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 flex gap-3">

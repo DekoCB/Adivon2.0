@@ -24,29 +24,26 @@
         </div>
 
         {{-- Tabla --}}
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-100">
-                <thead>
-                    <tr class="bg-gradient-to-r from-blue-900 to-blue-700">
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-blue-100 uppercase tracking-wider">Usuario</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-blue-100 uppercase tracking-wider hidden md:table-cell">Email</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-blue-100 uppercase tracking-wider">Rol</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-blue-100 uppercase tracking-wider hidden lg:table-cell">Sucursal / Almacén</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-blue-100 uppercase tracking-wider">Estado</th>
-                        <th class="px-6 py-3.5 text-center text-xs font-semibold text-blue-100 uppercase tracking-wider">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
+        <x-data-table :paginator="$users">
+            <x-slot:head>
+                <x-th>Usuario</x-th>
+                <x-th class="hidden md:table-cell">Email</x-th>
+                <x-th>Rol</x-th>
+                <x-th class="hidden lg:table-cell">Sucursal / Almacén</x-th>
+                <x-th>Estado</x-th>
+                <x-th class="text-center">Acciones</x-th>
+            </x-slot:head>
+
                     @forelse($users as $user)
                     @php
                         $avatarColors = ['from-blue-600 to-blue-400','from-purple-600 to-purple-400','from-emerald-600 to-emerald-400','from-orange-500 to-orange-300','from-rose-500 to-rose-300','from-teal-600 to-teal-400'];
-                        $roleBadge = [
-                            'Administrador' => 'bg-purple-100 text-purple-800 border-purple-200',
-                            'Almacenero'    => 'bg-blue-100 text-blue-800 border-blue-200',
-                            'Cajero'        => 'bg-orange-100 text-orange-800 border-orange-200',
-                            'Proveedor'     => 'bg-teal-100 text-teal-800 border-teal-200',
-                            'Tienda'        => 'bg-emerald-100 text-emerald-800 border-emerald-200',
-                            'Vendedor'      => 'bg-amber-100 text-amber-800 border-amber-200',
+                        $roleTono = [
+                            'Administrador' => 'purple',
+                            'Almacenero'    => 'blue',
+                            'Cajero'        => 'orange',
+                            'Proveedor'     => 'teal',
+                            'Tienda'        => 'emerald',
+                            'Vendedor'      => 'amber',
                         ];
                         $roleIcon = [
                             'Administrador' => 'fa-crown',
@@ -57,7 +54,7 @@
                             'Vendedor'      => 'fa-handshake',
                         ];
                         $rn  = $user->role?->nombre ?? '';
-                        $rc  = $roleBadge[$rn] ?? 'bg-gray-100 text-gray-700 border-gray-200';
+                        $rc  = $roleTono[$rn] ?? 'gray';
                         $ri  = $roleIcon[$rn]   ?? 'fa-user';
                     @endphp
                     <tr class="hover:bg-blue-50/40 transition-colors">
@@ -75,11 +72,9 @@
                         <td class="px-6 py-4 text-sm text-gray-600 hidden md:table-cell">{{ $user->email }}</td>
                         <td class="px-6 py-4">
                             @if($user->role)
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full border {{ $rc }}">
-                                    <i class="fas {{ $ri }} text-[9px]"></i>{{ $rn }}
-                                </span>
+                                <x-badge :tone="$rc" :icon="$ri">{{ $rn }}</x-badge>
                             @else
-                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border bg-red-100 text-red-700 border-red-200">Sin rol</span>
+                                <x-badge tone="red">Sin rol</x-badge>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm hidden lg:table-cell">
@@ -132,10 +127,7 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-6">{{ $users->links() }}</div>
+        </x-data-table>
     </div>
 
     {{-- ====================================================================

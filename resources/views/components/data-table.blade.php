@@ -15,6 +15,11 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 {{ $slot }}
             </tbody>
+            @isset($tfoot)
+                <tfoot class="bg-gray-50 border-t border-gray-200">
+                    {{ $tfoot }}
+                </tfoot>
+            @endisset
         </table>
     </div>
 
