@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta {{ $venta->codigo }} - Sistema de Importaciones</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; }
-            .md\:ml-64 { margin-left: 0 !important; }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" class="no-print" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-10">
+@section('title') Venta {{ $venta->codigo }} @endsection
+
+@push('styles')
+<style>
+    @media print {
+        .no-print { display: none !important; }
+        body { background: white !important; }
+        .md\:ml-64 { margin-left: 0 !important; }
+        {{-- El layout compartido no permite pasarle una clase "no-print" al
+             <x-sidebar> (y el propio componente tampoco la aplicaba antes de
+             esta vista compartir layout), así que se oculta por selector
+             directo en vez de depender de esa clase. --}}
+        .fixed.left-0.top-0.h-full.w-64,
+        button.md\:hidden.fixed.top-4.left-4 { display: none !important; }
+    }
+</style>
+@endpush
+
+@section('content')
+<div class="md:p-10">
+
 
         {{-- Modal de confirmación de venta nueva --}}
         @if(request()->has('nuevo'))
@@ -135,17 +136,6 @@
         </div>
         @endif
 
-        {{-- Flash --}}
-        @if(session('success'))
-            <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl mb-6 flex items-center gap-2 shadow-sm">
-                <i class="fas fa-check-circle text-green-500"></i> {{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl mb-6 flex items-center gap-2 shadow-sm">
-                <i class="fas fa-exclamation-circle text-red-500"></i> {{ session('error') }}
-            </div>
-        @endif
 
         {{-- Page header --}}
         <div class="flex items-start justify-between mb-6 no-print">
@@ -177,7 +167,7 @@
                     default      => ucfirst($venta->tipo_comprobante),
                 };
 
-                $waMsg = "Hola {$venta->cliente->nombre}, le compartimos su comprobante de compra 🧾\n\n"
+                $waMsg = "Hola {$venta->cliente?->nombre}, le compartimos su comprobante de compra 🧾\n\n"
                        . "📄 *{$tipoDoc} {$venta->codigo}*\n"
                        . "📅 " . $venta->fecha->format('d/m/Y') . "\n"
                        . "💰 Total: S/ " . number_format($venta->total, 2) . "\n\n"
@@ -1299,6 +1289,5 @@
         </div>
         @endif
 
-    </div>
-</body>
-</html>
+
+@endsection
