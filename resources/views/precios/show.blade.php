@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Precios · {{ $producto->nombre }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>[x-cloak] { display: none !important; }</style>
-</head>
-<body class="bg-gray-50 font-sans">
+@extends('layouts.app-layout')
 
-<x-sidebar :role="auth()->user()->role->nombre" />
+@section('title') Precios · {{ $producto->nombre }} @endsection
 
-<div class="md:ml-64 p-4 md:p-8">
+@section('content')
+<div>
+
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
@@ -40,19 +30,6 @@
             </a>
         </div>
     </div>
-
-    @if(session('success'))
-        <div class="mb-5 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl">
-            <i class="fas fa-check-circle text-green-500"></i>
-            <span class="text-sm">{{ session('success') }}</span>
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl">
-            <i class="fas fa-exclamation-circle text-red-500"></i>
-            <span class="text-sm">{{ session('error') }}</span>
-        </div>
-    @endif
 
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
@@ -1171,5 +1148,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection

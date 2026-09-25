@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Pedido - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Nuevo Pedido')
+
+@section('header')
+    <x-header
             title="Crear Pedido"
             subtitle="Solicitud de mercadería a proveedor"
         />
+@endsection
 
-        @if($errors->any())
+@section('content')
+<div>
+@if($errors->any())
             <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg">
                 <p class="font-medium"><i class="fas fa-exclamation-circle mr-2"></i>Se encontraron errores:</p>
                 <ul class="mt-2 list-disc list-inside text-sm">
@@ -342,5 +335,4 @@
         }
     }
     </script>
-</body>
-</html>
+@endsection

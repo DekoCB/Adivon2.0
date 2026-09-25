@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comisiones & Bonos</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 p-4 md:p-8" x-data="comisionesApp()">
+@section('title', 'Comisiones & Bonos')
 
+@section('header')
     <x-header title="Comisiones & Bonos" subtitle="Configuración maestra de reglas de comisión y bonos por producto / categoría" />
+@endsection
 
-    {{-- KPIs --}}
+@section('content')
+<div x-data="comisionesApp()">
+{{-- KPIs --}}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
@@ -55,12 +48,6 @@
         </div>
     </div>
 
-    {{-- Alertas --}}
-    @if(session('success'))
-        <div class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 rounded-lg mb-5 flex items-center gap-2">
-            <i class="fas fa-check-circle"></i> {{ session('success') }}
-        </div>
-    @endif
     @if(session('error'))
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-5 flex items-center gap-2">
             <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
@@ -858,5 +845,4 @@ function comisionesApp() {
     };
 }
 </script>
-</body>
-</html>
+@endsection

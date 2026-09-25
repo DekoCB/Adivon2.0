@@ -1,86 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de IMEIs - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        .qr-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .qr-modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-        }
-        .close {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-        }
-        .close:hover {
-            color: #000;
-        }
-        .etiqueta-imei {
-            border: 1px dashed #ccc;
-            padding: 15px;
-            border-radius: 8px;
-            background: white;
-        }
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #etiquetaImprimir, #etiquetaImprimir * {
-                visibility: visible;
-            }
-            #etiquetaImprimir {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header 
+@section('title', 'Gestión de IMEIs')
+
+@section('header')
+    <x-header 
             title="Gestión de IMEIs" 
             subtitle="Control individual de celulares por IMEI" 
         />
+@endsection
 
-        @if(session('success'))
-            <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-                <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
-            </div>
-        @endif
-
+@section('content')
+<div>
         <!-- Estadísticas con tabs visuales -->
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
             <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-900 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('')">
@@ -597,5 +527,4 @@
         // Disparar al cargar si viene filtro activo
         document.getElementById('filtroProducto')?.dispatchEvent(new Event('change'));
     </script>
-</body>
-</html>
+@endsection

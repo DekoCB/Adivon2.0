@@ -1,26 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conteo de Inventario - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header title="Conteo Físico de Inventario" subtitle="Registra y controla el stock físico de tus almacenes" />
+@section('title', 'Conteo de Inventario')
 
-        @if(session('success'))
-            <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm flex items-center gap-2">
-                <i class="fas fa-check-circle text-green-500"></i> {{ session('success') }}
-            </div>
-        @endif
+@section('header')
+    <x-header title="Conteo Físico de Inventario" subtitle="Registra y controla el stock físico de tus almacenes" />
+@endsection
 
+@section('content')
+<div>
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-lg font-bold text-gray-800">Conteos registrados</h2>
             <a href="{{ route('inventario-fisico.create') }}"
@@ -107,5 +94,4 @@
             @endif
         </div>
     </div>
-</body>
-</html>
+@endsection

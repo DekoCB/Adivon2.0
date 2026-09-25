@@ -1,72 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de IMEI - {{ $imei->codigo_imei }} - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        .estado-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .estado-en-stock { background-color: #d1fae5; color: #065f46; }
-        .estado-reservado { background-color: #fef3c7; color: #92400e; }
-        .estado-vendido { background-color: #fee2e2; color: #991b1b; }
-        .estado-garantia { background-color: #dbeafe; color: #1e40af; }
-        .estado-devuelto { background-color: #ffedd5; color: #9a3412; }
-        .estado-reemplazado { background-color: #f3e8ff; color: #6b21a8; }
-        
-        .timeline-item {
-            position: relative;
-            padding-left: 2rem;
-            padding-bottom: 1.5rem;
-            border-left: 2px solid #e5e7eb;
-        }
-        .timeline-item:last-child {
-            border-left-color: transparent;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -0.5rem;
-            top: 0;
-            width: 1rem;
-            height: 1rem;
-            border-radius: 50%;
-            background-color: #3b82f6;
-            border: 2px solid white;
-        }
-        .qr-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1.5rem;
-            border-radius: 1rem;
-        }
-        @media print {
-            .no-print, .sidebar, .header-actions, footer {
-                display: none !important;
-            }
-            .print-only {
-                display: block !important;
-            }
-            body {
-                background-color: white;
-                padding: 1rem;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
+@section('title') Detalle de IMEI - {{ $imei->codigo_imei }} @endsection
+
+@section('content')
+<div>
+
         <!-- Header con navegación -->
         <div class="mb-6">
             <div class="flex items-center justify-between">
@@ -91,12 +29,6 @@
         </div>
 
         <!-- Mensajes -->
-        @if(session('success'))
-            <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-            </div>
-        @endif
-
         <!-- Grid principal -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Columna izquierda: QR y acciones rápidas -->
@@ -492,5 +424,4 @@
             });
         }
     </script>
-</body>
-</html>
+@endsection

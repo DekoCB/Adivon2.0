@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Pedidos - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header 
+@section('title', 'Mis Pedidos')
+
+@section('header')
+    <x-header 
             title="Mis Pedidos" 
             subtitle="Pedidos asignados a su cuenta de proveedor" 
         />
+@endsection
 
-        @if(session('success'))
-            <div class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg">
-                <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-            </div>
-        @endif
-
+@section('content')
+<div>
         @if($pedidos->isEmpty())
             <div class="bg-white rounded-xl shadow-sm p-12 text-center">
                 <i class="fas fa-inbox text-5xl text-gray-300 mb-4 block"></i>
@@ -138,5 +126,4 @@
             </div>
         @endif
     </div>
-</body>
-</html>
+@endsection

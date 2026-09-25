@@ -1,18 +1,10 @@
-{{-- resources/views/catalogo/colores/create.blade.php --}}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Color - Catálogo</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
+@section('title', 'Nuevo Color')
+
+@section('content')
+<div>
+
         <div class="mb-4">
             <a href="{{ route('catalogo.colores.index') }}" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 w-fit">
                 <i class="fas fa-arrow-left text-xs"></i> Volver a Colores
@@ -152,5 +144,4 @@
             document.getElementById('colorSquare').style.background = hexInit;
         }
     </script>
-</body>
-</html>
+@endsection

@@ -1,24 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Caja #{{ $caja->id }}</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white; }
-            .md\:ml-64 { margin-left: 0 !important; }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 p-4 md:p-8">
+@section('title') Detalle de Caja #{{ $caja->id }} @endsection
+
+@section('content')
+<div>
+
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -256,5 +242,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection

@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almacenes y Tiendas - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Almacenes y Tiendas')
+
+@section('header')
+    <x-header
             title="Almacenes"
             subtitle="Almacenes centrales y almacenes de tienda"
         />
+@endsection
 
-        @if(session('success'))
-            <div id="flash-ok" class="mb-6 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 p-4 rounded-xl shadow-sm">
-                <i class="fas fa-check-circle text-green-500 text-lg"></i>
-                <span>{{ session('success') }}</span>
-                <button onclick="this.parentElement.remove()" class="ml-auto text-green-400 hover:text-green-600"><i class="fas fa-times"></i></button>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl shadow-sm">
-                <i class="fas fa-exclamation-circle text-red-500 text-lg"></i>
-                <span>{{ session('error') }}</span>
-            </div>
-        @endif
-
+@section('content')
+<div>
         {{-- Estadísticas --}}
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-900">
@@ -361,5 +341,4 @@
 
     setTimeout(() => document.getElementById('flash-ok')?.remove(), 4000);
     </script>
-</body>
-</html>
+@endsection

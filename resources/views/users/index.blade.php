@@ -1,37 +1,16 @@
-{{-- resources/views/users/index.blade.php --}}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Usuarios')
+
+@section('header')
+    <x-header
             title="Gestión de Usuarios"
             subtitle="Administra los usuarios del sistema"
         />
+@endsection
 
-        @if(session('success'))
-            <div id="flash-ok" class="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 p-4 mb-6 rounded-xl shadow-sm">
-                <i class="fas fa-check-circle text-green-500 text-lg"></i>
-                <span>{{ session('success') }}</span>
-                <button onclick="this.parentElement.remove()" class="ml-auto text-green-400 hover:text-green-600"><i class="fas fa-times"></i></button>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 p-4 mb-6 rounded-xl shadow-sm">
-                <i class="fas fa-exclamation-circle text-red-500 text-lg"></i>
-                <span>{{ session('error') }}</span>
-            </div>
-        @endif
-
+@section('content')
+<div>
         {{-- Barra superior --}}
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
@@ -680,5 +659,4 @@
     // Auto-cerrar flash de éxito
     setTimeout(() => document.getElementById('flash-ok')?.remove(), 4000);
     </script>
-</body>
-</html>
+@endsection

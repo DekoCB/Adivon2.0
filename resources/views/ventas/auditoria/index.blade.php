@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Bitácora de Ventas</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>[x-cloak]{display:none!important}</style>
-</head>
-<body class="bg-gray-100 min-h-screen">
+@extends('layouts.app-layout')
 
-<x-sidebar :role="auth()->user()->role->nombre" />
+@section('title', 'Bitácora de Ventas')
 
-<div class="md:ml-64 p-4 md:p-8">
+@section('content')
+<div>
+
 
     {{-- Cabecera --}}
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
@@ -216,5 +206,4 @@
     </div>
 
 </div>
-</body>
-</html>
+@endsection

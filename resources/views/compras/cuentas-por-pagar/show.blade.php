@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuenta por Pagar - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
+@section('title', 'Cuenta por Pagar')
+
+@section('content')
+<div>
+
 
         <!-- Breadcrumb + título -->
         <div class="mb-6">
@@ -40,17 +32,6 @@
                 </div>
             </div>
         </div>
-
-        @if(session('success'))
-            <div class="mb-4 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-                <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
-            </div>
-        @endif
 
         <!-- Grid 3 columnas -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -888,5 +869,4 @@ function verVoucher(url, nombre) {
     m.classList.add('flex');
 }
 </script>
-</body>
-</html>
+@endsection

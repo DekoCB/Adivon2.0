@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock por Almacén - Traslados</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Stock por Almacén')
+
+@section('header')
+    <x-header
             title="Stock por Almacén"
             subtitle="Vista consolidada del inventario en todos los almacenes y tiendas"
         />
+@endsection
 
-        {{-- Navegación rápida --}}
+@section('content')
+<div>
+{{-- Navegación rápida --}}
         <div class="flex flex-wrap gap-3 mb-6">
             <a href="{{ route('traslados.index') }}"
                class="text-sm text-gray-600 hover:text-blue-700 flex items-center gap-1">
@@ -182,5 +176,4 @@
             {{ $productos->links() }}
         </div>
     </div>
-</body>
-</html>
+@endsection

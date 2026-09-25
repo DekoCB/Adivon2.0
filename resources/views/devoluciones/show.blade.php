@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle Devolución - Sistema de Importaciones</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header title="Detalle de Devolución" subtitle="Información del movimiento de devolución" />
+@section('title', 'Detalle Devolución')
 
-        <div class="flex items-center justify-between mb-6 gap-2">
+@section('header')
+    <x-header title="Detalle de Devolución" subtitle="Información del movimiento de devolución" />
+@endsection
+
+@section('content')
+<div>
+<div class="flex items-center justify-between mb-6 gap-2">
             <a href="{{ route('devoluciones.index') }}" class="text-blue-600 hover:text-blue-800">
                 <i class="fas fa-arrow-left mr-1"></i> Volver
             </a>
@@ -161,5 +155,4 @@
         </div>
         @endif
     </div>
-</body>
-</html>
+@endsection

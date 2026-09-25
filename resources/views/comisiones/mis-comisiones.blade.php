@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Comisiones & Bonos</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 p-4 md:p-8" x-data="{ tab: 'comisiones' }">
+@section('title', 'Mis Comisiones & Bonos')
 
+@section('header')
     <x-header title="Mis Comisiones & Bonos" subtitle="Tu historial de comisiones y bonos generados" />
+@endsection
 
-    {{-- KPIs --}}
+@section('content')
+<div x-data="{ tab: 'comisiones' }">
+{{-- KPIs --}}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
@@ -291,5 +284,4 @@
     </div>
 
 </div>
-</body>
-</html>
+@endsection

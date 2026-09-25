@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Conteo - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header title="Nuevo Conteo Físico" subtitle="Inicia un conteo de inventario para un almacén" />
+@section('title', 'Nuevo Conteo')
 
-        <div class="max-w-lg mx-auto">
+@section('header')
+    <x-header title="Nuevo Conteo Físico" subtitle="Inicia un conteo de inventario para un almacén" />
+@endsection
+
+@section('content')
+<div>
+<div class="max-w-lg mx-auto">
             <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                 <div class="bg-gradient-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5">
@@ -75,5 +68,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

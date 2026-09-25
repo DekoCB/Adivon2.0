@@ -1,33 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traslados - Sistema de Importaciones</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Traslados')
+
+@section('header')
+    <x-header
             title="Gestión de Traslados"
             subtitle="Historial de traslados entre almacenes"
         />
+@endsection
 
-        @if(session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg flex items-center gap-2">
-                <i class="fas fa-check-circle"></i> {{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg flex items-center gap-2">
-                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-            </div>
-        @endif
-
+@section('content')
+<div>
         {{-- Nav --}}
         <div class="flex flex-wrap gap-3 mb-6">
             <span class="text-sm font-semibold text-blue-700 flex items-center gap-1">
@@ -244,5 +227,4 @@
             </table>
         </div>
     </div>
-</body>
-</html>
+@endsection

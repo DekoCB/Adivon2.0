@@ -1,42 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caja Actual</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        [x-cloak] { display: none !important; }
-        .modal-overlay { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-        @media print {
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 p-4 md:p-8"
-     x-data="{ showGastoModal: false, showIngresoModal: false, showCierreModal: false, montoReal: '', saldoSistema: {{ $arqueo['saldo_esperado'] }} }">
+@section('title', 'Caja Actual')
 
+@section('header')
     <x-header title="Mi Caja" subtitle="{{ now()->locale('es')->isoFormat('dddd D [de] MMMM') }} — {{ auth()->user()->name }}" />
+@endsection
 
-    @if(session('success'))
-        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg flex justify-between items-center">
-            <span><i class="fas fa-check-circle mr-2"></i>{{ session('success') }}</span>
-            <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg flex justify-between items-center">
-            <span><i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}</span>
-            <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-        </div>
-    @endif
-
+@section('content')
+<div x-data="{ showGastoModal: false, showIngresoModal: false, showCierreModal: false, montoReal: '', saldoSistema: {{ $arqueo['saldo_esperado'] }} }">
     {{-- Tarjetas de resumen --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl p-5 text-white shadow-lg">
@@ -592,5 +563,4 @@
     </div>
 
 </div>
-</body>
-</html>
+@endsection

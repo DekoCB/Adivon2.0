@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Almacén - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header 
+@section('title', 'Editar Almacén')
+
+@section('header')
+    <x-header 
             title="Editar Almacén" 
             subtitle="Actualiza la información de {{ $almacen->nombre }}" 
         />
+@endsection
 
-        <div class="max-w-3xl mx-auto">
+@section('content')
+<div>
+<div class="max-w-3xl mx-auto">
             <!-- Info del almacén -->
             <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <div class="grid grid-cols-2 gap-4 text-sm">
@@ -123,5 +117,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

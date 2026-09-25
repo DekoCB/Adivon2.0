@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Cajero</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header title="Mi Panel de Caja" subtitle="Bienvenido, {{ auth()->user()->name }}" />
+@section('title', 'Dashboard Cajero')
 
-        {{-- Caja atrasada --}}
+@section('header')
+    <x-header title="Mi Panel de Caja" subtitle="Bienvenido, {{ auth()->user()->name }}" />
+@endsection
+
+@section('content')
+<div>
+{{-- Caja atrasada --}}
         @if($cajaAtrasada)
             <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded-xl text-red-800 text-sm flex items-center gap-3">
                 <i class="fas fa-exclamation-triangle text-red-500 text-xl shrink-0"></i>
@@ -107,5 +101,4 @@
             </a>
         </div>
     </div>
-</body>
-</html>
+@endsection

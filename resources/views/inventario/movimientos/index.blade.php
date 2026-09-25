@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movimientos de Inventario · ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50 font-sans">
+@extends('layouts.app-layout')
 
-<x-sidebar :role="auth()->user()->role->nombre" />
+@section('title', 'Movimientos de Inventario · ADIVON SAC')
 
-<div class="md:ml-64 p-4 md:p-8">
+@section('content')
+<div>
+
 
     {{-- Header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
@@ -25,18 +17,6 @@
             <i class="fas fa-plus"></i> Nuevo Movimiento
         </a>
     </div>
-
-    {{-- Alertas --}}
-    @if(session('success'))
-        <div class="mb-5 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm">
-            <i class="fas fa-check-circle text-green-500"></i> {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm">
-            <i class="fas fa-exclamation-circle text-red-500"></i> {{ session('error') }}
-        </div>
-    @endif
 
     {{-- Stats cards --}}
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
@@ -310,5 +290,4 @@
     </div>
 
 </div>
-</body>
-</html>
+@endsection

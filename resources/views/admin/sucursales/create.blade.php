@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva Sucursal</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-<x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-<div class="md:ml-64 p-4 md:p-8">
+@section('title', 'Nueva Sucursal')
+
+@section('header')
     <x-header title="Nueva Sucursal" subtitle="Se creará automáticamente con sus series de comprobantes y un almacén vinculado" />
+@endsection
 
-    <div class="max-w-2xl">
+@section('content')
+<div>
+<div class="max-w-2xl">
         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 flex gap-3">
             <i class="fas fa-info-circle text-blue-500 mt-0.5"></i>
             <div class="text-sm text-blue-700">
@@ -148,5 +142,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection

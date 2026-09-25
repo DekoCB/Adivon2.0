@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Códigos de Barras - {{ $producto->nombre }} - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
+@section('title') Códigos de Barras - {{ $producto->nombre }} @endsection
+
+@section('content')
+<div>
+
         <!-- Header -->
         <div class="mb-6">
             <div class="flex items-center justify-between">
@@ -26,24 +19,6 @@
         </div>
 
         <!-- Mensajes -->
-        @if(session('success'))
-            <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-check-circle text-xl mr-3"></i>
-                    <p>{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-exclamation-circle text-xl mr-3"></i>
-                    <p>{{ session('error') }}</p>
-                </div>
-            </div>
-        @endif
-
         <!-- Mostrar código principal actual del producto -->
         @if($producto->codigo_barras)
         <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
@@ -690,5 +665,4 @@ ${etiquetasHTML}
             win.document.close();
         }
     </script>
-</body>
-</html>
+@endsection

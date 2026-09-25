@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Proveedor - CORPORACIÓN ADIVON SAC</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-gray-50">
-    <x-sidebar :role="auth()->user()->role->nombre" />
+@extends('layouts.app-layout')
 
-    <div class="md:ml-64 p-4 md:p-8">
-        <x-header
+@section('title', 'Editar Proveedor')
+
+@section('header')
+    <x-header
             title="Editar Proveedor"
             subtitle="Actualiza la información del proveedor"
         />
+@endsection
 
-        <div class="max-w-4xl mx-auto">
+@section('content')
+<div>
+<div class="max-w-4xl mx-auto">
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 {{-- Información del Proveedor --}}
                 <div class="bg-blue-900 px-6 py-4">
@@ -123,5 +116,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection
