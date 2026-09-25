@@ -7,6 +7,7 @@ export default defineConfig({
         tailwindcss(),
         laravel({
             input: [
+                'resources/js/pos.ts',
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
