@@ -13,7 +13,19 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Hanken Grotesk', ...defaultTheme.fontFamily.sans],
+                display: ['Bricolage Grotesque', ...defaultTheme.fontFamily.sans],
+                mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
+            },
+            colors: {
+                // Acento de marca para la firma de códigos (producto, IMEI,
+                // comprobante) — distinto del azul institucional, usado con
+                // disciplina solo donde hay un código real que mostrar.
+                coral: {
+                    50: '#fbe9e4',
+                    600: '#c6452e',
+                    700: '#a83a26',
+                },
             },
         },
     },

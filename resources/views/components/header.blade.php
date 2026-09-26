@@ -3,7 +3,7 @@
 <div class="mb-8 bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-900">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900">{{ $title }}</h1>
+            <h1 class="font-display text-3xl font-bold text-gray-900">{{ $title }}</h1>
             @if($subtitle)
                 <p class="text-gray-600 mt-1">{{ $subtitle }}</p>
             @endif
