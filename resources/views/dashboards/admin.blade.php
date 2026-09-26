@@ -27,7 +27,7 @@
         <div class="bg-white shadow-sm sticky top-0 z-20">
             <div class="px-6 py-3 flex justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800">
+                    <h1 class="font-display text-2xl font-bold text-gray-800">
                         <i class="fas fa-chart-line text-blue-900 mr-2"></i>
                         ¡Hola, {{ auth()->user()->name }}!
                     </h1>

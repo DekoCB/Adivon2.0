@@ -56,7 +56,7 @@
         {{-- Top Bar --}}
         <div class="bg-white shadow-sm sticky top-0 z-10">
             <div class="px-6 py-3 flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-800">
+                <h1 class="font-display text-2xl font-bold text-gray-800">
                     <i class="fas fa-store text-blue-900 mr-2"></i>
                     Panel de Tienda
                 </h1>
