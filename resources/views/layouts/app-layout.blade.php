@@ -19,7 +19,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 dark:bg-slate-900">
+<body class="bg-gray-50 dark:bg-slate-900 dark:text-slate-300">
     <x-sidebar :role="auth()->user()->role->nombre" />
 
     <div class="md:ml-64 p-4 md:p-8">
