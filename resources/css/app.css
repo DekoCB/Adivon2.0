@@ -2,6 +2,10 @@
 @config "../../tailwind.config.js";
 @variant dark (&:where(.dark, .dark *));
 
+/* x-cloak ya se usaba en varias vistas sin esta regla — nunca ocultaba
+   nada antes de que Alpine inicialice. La agrega para todas de una vez. */
+[x-cloak] { display: none !important; }
+
 /* Scroll del menú lateral: sobre fondo navy/oscuro en ambos temas, así que
    un pulgar blanco translúcido funciona sin necesitar variante dark: propia. */
 .sidebar-scroll {
