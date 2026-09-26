@@ -214,7 +214,7 @@
                  x-transition:enter-end="opacity-100 translate-y-0"
                  x-transition:leave="transition ease-in duration-150"
                  x-transition:leave-end="opacity-0"
-                 class="border-t border-gray-100 dark:border-slate-700 bg-gray-50/50"
+                 class="border-t border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50"
                  style="display:none">
 
                 <div class="px-6 py-5 space-y-4">

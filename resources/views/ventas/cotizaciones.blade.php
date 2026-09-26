@@ -80,7 +80,7 @@
                 </x-slot:head>
 
                 @foreach($cotizaciones as $cot)
-                <tr class="hover:bg-gray-50/60 transition-colors">
+                <tr class="hover:bg-gray-50/60 dark:hover:bg-slate-800/60 transition-colors">
                     <td class="px-6 py-4">
                         <x-code>{{ $cot->codigo }}</x-code>
                     </td>

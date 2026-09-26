@@ -43,7 +43,7 @@
                                            {{ $tipoOld == $valor ? 'checked' : '' }}
                                            onchange="sugerirCodigo()"
                                            class="sr-only peer">
-                                    <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 {{ $info['color'] }} hover:border-gray-300 transition text-gray-500 dark:text-slate-400 text-center">
+                                    <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 {{ $info['color'] }} hover:border-gray-300 dark:hover:border-slate-500 transition text-gray-500 dark:text-slate-400 text-center">
                                         <i class="fas {{ $info['icono'] }} text-xl mb-1"></i>
                                         <span class="text-xs font-medium">{{ $info['label'] }}</span>
                                     </div>

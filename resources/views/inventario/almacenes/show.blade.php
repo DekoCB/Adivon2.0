@@ -75,11 +75,11 @@
                 </div>
                 <div class="p-5 space-y-3">
                     @foreach([
-                        ['Código',    $almacen->codigo,       'font-mono text-xs bg-gray-100 px-2 py-0.5 rounded'],
+                        ['Código',    $almacen->codigo,       'font-mono text-xs bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded'],
                         ['Tipo',      $almacen->tipo_label,   ''],
-                        ['Sucursal',  $almacen->sucursal?->nombre ?? '—', 'text-blue-700'],
-                        ['Estado',    ucfirst($almacen->estado), $almacen->estado === 'activo' ? 'text-green-700 font-semibold' : 'text-gray-500'],
-                        ['Creado',    $almacen->created_at->format('d/m/Y'), 'text-gray-500 text-xs'],
+                        ['Sucursal',  $almacen->sucursal?->nombre ?? '—', 'text-blue-700 dark:text-blue-300'],
+                        ['Estado',    ucfirst($almacen->estado), $almacen->estado === 'activo' ? 'text-green-700 dark:text-green-300 font-semibold' : 'text-gray-500 dark:text-slate-400'],
+                        ['Creado',    $almacen->created_at->format('d/m/Y'), 'text-gray-500 dark:text-slate-400 text-xs'],
                     ] as [$label, $value, $extra])
                     <div class="flex items-center justify-between text-sm">
                         <span class="text-gray-500 dark:text-slate-400">{{ $label }}</span>
@@ -176,7 +176,7 @@
                                 $esSerie   = $item['es_serie'] ?? false;
                                 $unidad    = $esSerie ? 'IMEI' : ($item['producto']->unidadMedida?->abreviatura ?? 'UND');
                             @endphp
-                            <tr class="hover:bg-gray-50/60 transition-colors">
+                            <tr class="hover:bg-gray-50/60 dark:hover:bg-slate-800/60 transition-colors">
                                 <td class="px-5 py-3">
                                     <div class="flex items-center gap-3">
                                         <div class="w-9 h-9 rounded-lg {{ $esSerie ? 'bg-purple-100' : 'bg-gray-100' }} flex items-center justify-center shrink-0 overflow-hidden">
@@ -279,7 +279,7 @@
                         $esIngreso = in_array($mov->tipo_movimiento, ['ingreso', 'devolucion']);
                         $esSalida  = in_array($mov->tipo_movimiento, ['salida', 'merma']);
                     @endphp
-                    <tr class="hover:bg-gray-50/60 transition-colors">
+                    <tr class="hover:bg-gray-50/60 dark:hover:bg-slate-800/60 transition-colors">
                         <td class="px-5 py-3 whitespace-nowrap">
                             <p class="text-sm text-gray-800 dark:text-slate-200">{{ $mov->created_at->format('d/m/Y') }}</p>
                             <p class="text-xs text-gray-400 dark:text-slate-500">{{ $mov->created_at->format('H:i') }}</p>

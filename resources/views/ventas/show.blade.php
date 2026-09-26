@@ -188,7 +188,7 @@
                     <i class="fas fa-receipt"></i> Ticket 80mm
                 </a>
                 <button onclick="window.print()"
-                        class="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 hover:border-gray-300 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                        class="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 hover:border-gray-300 dark:hover:border-slate-500 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
                     <i class="fas fa-print"></i> Imprimir
                 </button>
                 @endif

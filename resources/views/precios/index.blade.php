@@ -137,7 +137,7 @@
         <div class="overflow-x-auto">
             <table class="min-w-full">
                 <thead>
-                    <tr class="bg-gray-50/70 border-b border-gray-100 dark:border-slate-700">
+                    <tr class="bg-gray-50/70 dark:bg-slate-800/70 border-b border-gray-100 dark:border-slate-700">
                         <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Producto</th>
                         <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">P. Compra</th>
                         <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">P. Venta</th>
@@ -421,7 +421,7 @@
 
         {{-- Paginación --}}
         @if($productos->hasPages())
-        <div class="px-5 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50/50">
+        <div class="px-5 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
             {{ $productos->links() }}
         </div>
         @endif

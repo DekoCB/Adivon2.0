@@ -87,11 +87,11 @@
                 </div>
                 <div class="p-5 space-y-3">
                     @foreach([
-                        ['Código', $producto->codigo, 'font-mono text-xs bg-gray-100 px-2 py-0.5 rounded'],
+                        ['Código', $producto->codigo, 'font-mono text-xs bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded'],
                         ['Categoría', $producto->categoria->nombre ?? '—', ''],
                         ['Marca', $producto->marca->nombre ?? '—', ''],
                         ['Modelo', $producto->modelo->nombre ?? '—', ''],
-                        ['Stock', ($producto->stock_actual ?? 0) . ' und.', 'font-semibold text-blue-700'],
+                        ['Stock', ($producto->stock_actual ?? 0) . ' und.', 'font-semibold text-blue-700 dark:text-blue-300'],
                     ] as [$label, $value, $extra])
                     <div class="flex items-center justify-between text-sm">
                         <span class="text-gray-500 dark:text-slate-400">{{ $label }}</span>
@@ -402,13 +402,13 @@
                                 <div class="flex rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden w-full">
                                     <button type="button"
                                             @click="modoCalculo='margen'; calcularPrecioVenta()"
-                                            :class="modoCalculo==='margen' ? 'bg-yellow-500 text-white' : 'bg-white text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
+                                            :class="modoCalculo==='margen' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
                                             class="flex-1 py-2 text-xs font-semibold transition-colors border-r border-gray-200 dark:border-slate-700">
                                         <i class="fas fa-percentage mr-1"></i> Margen %
                                     </button>
                                     <button type="button"
                                             @click="modoCalculo='precio'; calcularMargen()"
-                                            :class="modoCalculo==='precio' ? 'bg-yellow-500 text-white' : 'bg-white text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
+                                            :class="modoCalculo==='precio' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
                                             class="flex-1 py-2 text-xs font-semibold transition-colors">
                                         <i class="fas fa-tag mr-1"></i> Precio de venta
                                     </button>

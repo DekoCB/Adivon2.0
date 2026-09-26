@@ -127,7 +127,7 @@
             </x-slot:head>
 
                         @forelse($ventas as $venta)
-                        <tr class="hover:bg-gray-50/70 transition-colors">
+                        <tr class="hover:bg-gray-50/70 dark:hover:bg-slate-800/70 transition-colors">
                             <td class="px-6 py-4">
                                 <x-code>{{ $venta->codigo }}</x-code>
                             </td>

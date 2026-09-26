@@ -153,8 +153,8 @@
                                 $rows[] = ['Transportista', $compra->transportista, ''];
                             }
                             if ($compra->estado === 'anulado') {
-                                $rows[] = ['Fecha anulación', $compra->fecha_anulacion ? \Carbon\Carbon::parse($compra->fecha_anulacion)->format('d/m/Y H:i') : '—', 'text-red-600'];
-                                $rows[] = ['Motivo anulación', $compra->motivo_anulacion ?? '—', 'text-red-600'];
+                                $rows[] = ['Fecha anulación', $compra->fecha_anulacion ? \Carbon\Carbon::parse($compra->fecha_anulacion)->format('d/m/Y H:i') : '—', 'text-red-600 dark:text-red-400'];
+                                $rows[] = ['Motivo anulación', $compra->motivo_anulacion ?? '—', 'text-red-600 dark:text-red-400'];
                             }
                         @endphp
                         @foreach($rows as [$label, $value, $cls])

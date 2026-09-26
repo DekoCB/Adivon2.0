@@ -61,3 +61,14 @@ html.dark ::-webkit-scrollbar-thumb {
 html.dark ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.28);
 }
+
+/* Fallback para inputs/selects/textareas sin su propia clase bg-*: a
+   diferencia de color (que sí heredan por el preflight de Tailwind),
+   background-color NO se hereda, así que sin esto se quedan con el
+   blanco nativo del navegador en modo oscuro. Todo envuelto en :where()
+   para que la especificidad quede en 0 — cualquier dark:bg-* explícito
+   que ya tenga un input sigue ganando siempre. */
+:where(.dark) :where(input, select, textarea) {
+    background-color: rgb(30 41 59); /* slate-800 */
+    border-color: rgb(71 85 105); /* slate-600 */
+}

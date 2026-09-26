@@ -499,7 +499,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                     <label class="cursor-pointer block">
                                         <input type="radio" name="motivo_movimiento_id" :value="m.id"
                                                x-model="motivoId" class="peer hidden">
-                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-gray-300 transition-all">
+                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-gray-300 dark:hover:border-slate-500 transition-all">
                                             <i class="fas fa-tag text-gray-300 shrink-0"></i>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-semibold text-gray-800 dark:text-slate-200" x-text="m.nombre"></p>

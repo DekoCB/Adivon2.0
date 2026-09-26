@@ -307,7 +307,7 @@
                         <label class="flex flex-col items-center justify-center cursor-pointer">
                             <input type="radio" name="metodo_pago" value="{{ $val }}" class="sr-only peer"
                                    {{ $val === 'efectivo' ? 'checked' : '' }}>
-                            <div class="w-full text-center py-2 px-1 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-xs font-medium peer-checked:border-green-500 peer-checked:bg-green-50 peer-checked:text-green-700 hover:border-gray-300 transition-colors cursor-pointer">
+                            <div class="w-full text-center py-2 px-1 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-xs font-medium peer-checked:border-green-500 peer-checked:bg-green-50 peer-checked:text-green-700 hover:border-gray-300 dark:hover:border-slate-500 transition-colors cursor-pointer">
                                 {{ $lbl }}
                             </div>
                         </label>

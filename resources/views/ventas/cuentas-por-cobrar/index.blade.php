@@ -108,7 +108,7 @@
             </x-slot:head>
 
                         @foreach($cuentas as $cuenta)
-                        <tr class="hover:bg-gray-50/50 transition-colors">
+                        <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-800/50 transition-colors">
                             <td class="px-4 py-3">
                                 <p class="font-medium text-gray-800 dark:text-slate-200">{{ $cuenta->cliente?->nombre }}</p>
                                 <p class="text-xs text-gray-400 dark:text-slate-500">{{ $cuenta->cliente?->numero_documento }}</p>

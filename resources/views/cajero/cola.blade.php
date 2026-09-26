@@ -181,7 +181,7 @@
                             {{-- Filas de pago (una por cada pago agregado) --}}
                             <div class="space-y-3">
                                 <template x-for="(p, i) in pagos" :key="i">
-                                    <div class="rounded-2xl border border-gray-200 dark:border-slate-700 p-3 space-y-2 bg-gray-50/50">
+                                    <div class="rounded-2xl border border-gray-200 dark:border-slate-700 p-3 space-y-2 bg-gray-50/50 dark:bg-slate-800/50">
 
                                         {{-- Header fila: etiqueta + monto + quitar --}}
                                         <div class="flex items-center gap-2">

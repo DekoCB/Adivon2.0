@@ -37,11 +37,11 @@
                 </div>
                 <div class="p-5 space-y-3">
                     @foreach([
-                        ['Código', $producto->codigo, 'font-mono text-xs bg-gray-100 px-2 py-0.5 rounded'],
+                        ['Código', $producto->codigo, 'font-mono text-xs bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded'],
                         ['Categoría', $producto->categoria->nombre ?? '—', ''],
                         ['Marca', $producto->marca->nombre ?? '—', ''],
                         ['Modelo', $producto->modelo->nombre ?? '—', ''],
-                        ['Stock', ($producto->stock_actual ?? 0) . ' und.', 'font-semibold text-blue-700'],
+                        ['Stock', ($producto->stock_actual ?? 0) . ' und.', 'font-semibold text-blue-700 dark:text-blue-300'],
                     ] as [$label, $value, $extra])
                     <div class="flex items-center justify-between text-sm">
                         <span class="text-gray-500 dark:text-slate-400">{{ $label }}</span>
