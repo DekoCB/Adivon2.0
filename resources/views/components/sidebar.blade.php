@@ -19,7 +19,7 @@
 
     {{-- Sidebar --}}
     <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
-            class="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-blue-900 to-blue-800 text-white shadow-xl z-50 transition-transform duration-300 ease-in-out"
+            class="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-blue-900 to-blue-800 dark:from-blue-950 dark:to-slate-900 text-white shadow-xl z-50 transition-transform duration-300 ease-in-out"
             x-data="{
                 inventarioOpen: {{ request()->routeIs('inventario.*') ? 'true' : 'false' }},
                 comprasOpen: {{ request()->routeIs('compras.*') || request()->routeIs('pedidos.*') || request()->routeIs('proveedores.*') || request()->routeIs('cuentas-por-pagar.*') ? 'true' : 'false' }},
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <nav class="flex-1 overflow-y-auto p-4" style="max-height: calc(100vh - 220px);">
+        <nav class="sidebar-scroll flex-1 overflow-y-auto p-4" style="max-height: calc(100vh - 220px);">
             <ul class="space-y-2">
 
                 @if($role == 'Administrador')
