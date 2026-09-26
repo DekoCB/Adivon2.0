@@ -9,23 +9,23 @@
 @section('content')
 <div x-data="seriesPage()">
     {{-- Breadcrumb --}}
-    <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+    <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-6">
         <a href="{{ route('facturacion.index') }}" class="hover:text-blue-600 transition">Facturación Electrónica</a>
         <i class="fas fa-chevron-right text-xs"></i>
-        <span class="text-gray-800 font-medium">Series de Comprobantes</span>
+        <span class="text-gray-800 dark:text-slate-200 font-medium">Series de Comprobantes</span>
     </div>
 
     {{-- Filtro + Nuevo --}}
-    <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 mb-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-            <h2 class="text-lg font-bold text-gray-800">Series Configuradas</h2>
+            <h2 class="text-lg font-bold text-gray-800 dark:text-slate-200">Series Configuradas</h2>
             <button @click="abrirCrear()"
                 class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition">
                 <i class="fas fa-plus"></i>Nueva Serie
             </button>
         </div>
         <form method="GET" class="flex gap-3">
-            <select name="sucursal_id" class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+            <select name="sucursal_id" class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <option value="">Todas las sucursales</option>
                 @foreach($sucursales as $suc)
                     <option value="{{ $suc->id }}" {{ request('sucursal_id') == $suc->id ? 'selected' : '' }}>{{ $suc->nombre }}</option>
@@ -38,42 +38,42 @@
     </div>
 
     {{-- Tabla --}}
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 text-sm">
-            <thead class="bg-gray-50">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700 text-sm">
+            <thead class="bg-gray-50 dark:bg-slate-900/60">
                 <tr>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sucursal</th>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Serie</th>
-                    <th class="px-5 py-3 text-right text-xs font-medium text-gray-500 uppercase">Correlativo</th>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Formato</th>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Sucursal</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Tipo</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Serie</th>
+                    <th class="px-5 py-3 text-right text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Correlativo</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Formato</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Estado</th>
+                    <th class="px-5 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                 @forelse($series as $serie)
                 @php
                     $tipoCodes = ['01'=>'bg-blue-100 text-blue-800','03'=>'bg-purple-100 text-purple-800','07'=>'bg-orange-100 text-orange-700','08'=>'bg-red-100 text-red-700','09'=>'bg-teal-100 text-teal-700','NE'=>'bg-gray-100 text-gray-600'];
                     $tipoCss = $tipoCodes[$serie->tipo_comprobante] ?? 'bg-gray-100 text-gray-600';
                 @endphp
-                <tr class="hover:bg-gray-50">
-                    <td class="px-5 py-3 font-medium text-gray-900">{{ $serie->sucursal?->nombre ?? 'N/A' }}</td>
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                    <td class="px-5 py-3 font-medium text-gray-900 dark:text-slate-100">{{ $serie->sucursal?->nombre ?? 'N/A' }}</td>
                     <td class="px-5 py-3">
                         <span class="px-2 py-0.5 rounded-full text-xs font-medium {{ $tipoCss }}">
                             {{ $serie->tipo_nombre }}
                         </span>
                     </td>
                     <td class="px-5 py-3"><x-code>{{ $serie->serie }}</x-code></td>
-                    <td class="px-5 py-3 text-right font-mono text-gray-800">{{ str_pad($serie->correlativo_actual, 8, '0', STR_PAD_LEFT) }}</td>
-                    <td class="px-5 py-3 text-gray-600">{{ $serie->formato_impresion }}</td>
+                    <td class="px-5 py-3 text-right font-mono text-gray-800 dark:text-slate-200">{{ str_pad($serie->correlativo_actual, 8, '0', STR_PAD_LEFT) }}</td>
+                    <td class="px-5 py-3 text-gray-600 dark:text-slate-400">{{ $serie->formato_impresion }}</td>
                     <td class="px-5 py-3">
                         @if($serie->activo)
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">
                                 <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Activa
                             </span>
                         @else
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400">
                                 <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Inactiva
                             </span>
                         @endif
@@ -81,7 +81,7 @@
                     <td class="px-5 py-3">
                         <div class="flex items-center gap-3">
                             <button @click="abrirEditar({{ $serie->id }}, '{{ addslashes($serie->tipo_nombre) }}', {{ $serie->correlativo_actual }}, '{{ $serie->formato_impresion }}', {{ $serie->activo ? 'true' : 'false' }}, '{{ $serie->serie }}')"
-                                class="text-yellow-600 hover:text-yellow-800 transition" title="Editar">
+                                class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 transition" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <form action="{{ route('facturacion.series.destroy', $serie) }}" method="POST" class="inline">
@@ -96,10 +96,10 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="px-6 py-12 text-center text-gray-400">
+                    <td colspan="7" class="px-6 py-12 text-center text-gray-400 dark:text-slate-500">
                         <i class="fas fa-list-ol text-4xl mb-3 block"></i>
                         <p class="font-medium">No hay series configuradas</p>
-                        <button @click="abrirCrear()" class="text-blue-600 text-sm mt-1 inline-block hover:underline">
+                        <button @click="abrirCrear()" class="text-blue-600 dark:text-blue-400 text-sm mt-1 inline-block hover:underline">
                             Crear la primera serie
                         </button>
                     </td>
@@ -113,10 +113,10 @@
     <div x-show="modalAbierto" x-cloak
          class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
          @keydown.escape.window="modalAbierto = false">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg" @click.stop>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg" @click.stop>
             <div class="flex items-center justify-between px-6 py-4 border-b">
-                <h3 class="text-lg font-bold text-gray-800" x-text="titulo"></h3>
-                <button @click="modalAbierto = false" class="text-gray-400 hover:text-gray-600 text-xl">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-slate-200" x-text="titulo"></h3>
+                <button @click="modalAbierto = false" class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 text-xl">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -128,9 +128,9 @@
                 <template x-if="formMethod === 'POST'">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Sucursal <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Sucursal <span class="text-red-500">*</span></label>
                             <select name="sucursal_id" required
-                                    class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="">Seleccionar...</option>
                                 @foreach($sucursales as $suc)
                                     <option value="{{ $suc->id }}">{{ $suc->nombre }}</option>
@@ -138,68 +138,68 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Tipo <span class="text-red-500">*</span></label>
                             <select name="tipo_comprobante" x-model="form.tipo_comprobante" required
                                     @change="actualizarTipoNombre()"
-                                    class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                                 @foreach($tiposComprobante as $codigo => $info)
                                     <option value="{{ $codigo }}">{{ $info['nombre'] }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Serie <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Serie <span class="text-red-500">*</span></label>
                             <input type="text" name="serie" x-model="form.serie" required maxlength="5"
-                                   class="w-full rounded-lg border-gray-300 shadow-sm text-sm font-mono uppercase focus:border-blue-500 focus:ring-blue-500"
+                                   class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm font-mono uppercase focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="Ej: FA01">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Correlativo inicial</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Correlativo inicial</label>
                             <input type="number" name="correlativo_actual" x-model="form.correlativo_actual" min="1" required
-                                   class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                                   class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                 </template>
 
                 <template x-if="formMethod === 'PUT'">
-                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-700">
+                    <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-3 text-sm text-blue-700 dark:text-blue-300">
                         <i class="fas fa-info-circle mr-1"></i>
                         Editando serie: <strong x-text="form.serie"></strong>
                     </div>
                 </template>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del tipo <span class="text-red-500">*</span></label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre del tipo <span class="text-red-500">*</span></label>
                     <input type="text" name="tipo_nombre" x-model="form.tipo_nombre" required
-                           class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+                           class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500"
                            placeholder="Ej: Factura Electrónica">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Formato de impresión</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Formato de impresión</label>
                         <select name="formato_impresion" x-model="form.formato_impresion"
-                                class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                                class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                             <option value="A4">A4</option>
                             <option value="ticket">Ticket</option>
                             <option value="A5">A5</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Estado</label>
                         <div class="flex items-center gap-2 mt-1">
                             <input type="hidden" name="activo" value="0">
                             <input type="checkbox" name="activo" id="serie_activa" value="1"
                                    x-model="form.activo"
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                            <label for="serie_activa" class="text-sm text-gray-700">Serie activa</label>
+                                   class="rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500">
+                            <label for="serie_activa" class="text-sm text-gray-700 dark:text-slate-300">Serie activa</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-2">
                     <button type="button" @click="modalAbierto = false"
-                            class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                            class="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                         Cancelar
                     </button>
                     <button type="submit"

@@ -13,31 +13,31 @@
 <div>
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-red-500 flex items-center gap-4">
-                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center shrink-0">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 border-red-500 flex items-center gap-4">
+                <div class="w-10 h-10 bg-red-100 dark:bg-red-900/40 rounded-lg flex items-center justify-center shrink-0">
                     <i class="fas fa-undo-alt text-red-500"></i>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-medium tracking-wide">Total Devoluciones</p>
-                    <p class="text-2xl font-bold text-gray-800">{{ number_format($stats['total_guias']) }}</p>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium tracking-wide">Total Devoluciones</p>
+                    <p class="text-2xl font-bold text-gray-800 dark:text-slate-200">{{ number_format($stats['total_guias']) }}</p>
                 </div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-orange-500 flex items-center gap-4">
-                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center shrink-0">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 border-orange-500 flex items-center gap-4">
+                <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/40 rounded-lg flex items-center justify-center shrink-0">
                     <i class="fas fa-boxes text-orange-500"></i>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-medium tracking-wide">Unidades Devueltas</p>
-                    <p class="text-2xl font-bold text-gray-800">{{ number_format($stats['total_unidades']) }}</p>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium tracking-wide">Unidades Devueltas</p>
+                    <p class="text-2xl font-bold text-gray-800 dark:text-slate-200">{{ number_format($stats['total_unidades']) }}</p>
                 </div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500 flex items-center gap-4">
-                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 border-blue-500 flex items-center gap-4">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center shrink-0">
                     <i class="fas fa-calendar-day text-blue-500"></i>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-medium tracking-wide">Devoluciones Hoy</p>
-                    <p class="text-2xl font-bold text-gray-800">{{ number_format($stats['hoy']) }}</p>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium tracking-wide">Devoluciones Hoy</p>
+                    <p class="text-2xl font-bold text-gray-800 dark:text-slate-200">{{ number_format($stats['hoy']) }}</p>
                 </div>
             </div>
         </div>
@@ -47,26 +47,26 @@
 
                 {{-- Búsqueda --}}
                 <div class="flex-1 min-w-50">
-                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                         Buscar
                     </label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-400 dark:text-slate-500">
                             <i class="fas fa-search text-xs"></i>
                         </span>
                         <input type="text" name="buscar" value="{{ request('buscar') }}"
                                placeholder="N° guía, documento, producto, observación..."
-                               class="w-full pl-8 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
+                               class="w-full pl-8 pr-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
                     </div>
                 </div>
 
                 {{-- Almacén --}}
                 <div class="min-w-45">
-                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                         Almacén destino
                     </label>
                     <select name="almacen_id"
-                            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400 bg-white">
+                            class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400 bg-white dark:bg-slate-800">
                         <option value="">Todos los almacenes</option>
                         @foreach($almacenes as $alm)
                             <option value="{{ $alm->id }}" {{ request('almacen_id') == $alm->id ? 'selected' : '' }}>
@@ -78,27 +78,27 @@
 
                 {{-- Fecha desde --}}
                 <div class="min-w-40">
-                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                         Desde
                     </label>
                     <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}"
-                           class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
+                           class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
                 </div>
 
                 {{-- Fecha hasta --}}
                 <div class="min-w-40">
-                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                         Hasta
                     </label>
                     <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
-                           class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
+                           class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-red-400">
                 </div>
 
         </x-filter-bar>
 
         {{-- Cabecera de tabla + botón nuevo --}}
         <div class="flex justify-between items-center mb-3">
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-slate-400">
                 {{ $devoluciones->total() }} resultado(s)
                 @if(request()->hasAny(['buscar','almacen_id','fecha_desde','fecha_hasta']))
                     <span class="text-red-500 font-medium">· filtro activo</span>
@@ -124,38 +124,38 @@
             </x-slot:head>
 
                     @forelse($devoluciones as $dev)
-                        <tr class="hover:bg-gray-50 transition-colors">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                             <td class="px-4 py-3">
-                                <span class="font-mono text-xs text-gray-700 bg-gray-100 px-2 py-1 rounded">
+                                <span class="font-mono text-xs text-gray-700 dark:text-slate-300 bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded">
                                     {{ $dev->numero_guia }}
                                 </span>
                                 @if($dev->anulada)
-                                    <span class="ml-1 bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">Anulada</span>
+                                    <span class="ml-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold px-2 py-1 rounded">Anulada</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3 text-center">
-                                <span class="inline-flex items-center justify-center w-7 h-7 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">
+                                <span class="inline-flex items-center justify-center w-7 h-7 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-bold rounded-full">
                                     {{ $dev->total_items }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3 text-center font-semibold text-gray-700">
+                            <td class="px-4 py-3 text-center font-semibold text-gray-700 dark:text-slate-300">
                                 {{ number_format($dev->total_cantidad) }}
                             </td>
-                            <td class="px-4 py-3 text-gray-600">
+                            <td class="px-4 py-3 text-gray-600 dark:text-slate-400">
                                 {{ $almacenesMap[$dev->almacen_id] ?? '—' }}
                             </td>
-                            <td class="px-4 py-3 text-gray-500">
+                            <td class="px-4 py-3 text-gray-500 dark:text-slate-400">
                                 {{ $usersMap[$dev->user_id] ?? '—' }}
                             </td>
-                            <td class="px-4 py-3 text-gray-500 whitespace-nowrap">
+                            <td class="px-4 py-3 text-gray-500 dark:text-slate-400 whitespace-nowrap">
                                 {{ \Carbon\Carbon::parse($dev->created_at)->format('d/m/Y H:i') }}
                             </td>
-                            <td class="px-4 py-3 text-gray-400 text-xs max-w-40 truncate" title="{{ $dev->observaciones }}">
+                            <td class="px-4 py-3 text-gray-400 dark:text-slate-500 text-xs max-w-40 truncate" title="{{ $dev->observaciones }}">
                                 {{ $dev->observaciones ?: '—' }}
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <a href="{{ route('devoluciones.show', $dev->id) }}"
-                                   class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg transition">
+                                   class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-lg transition">
                                     <i class="fas fa-eye"></i> Ver
                                 </a>
                             </td>
@@ -165,12 +165,12 @@
                             <td colspan="8" class="px-4 py-16 text-center">
                                 <i class="fas fa-undo-alt text-4xl text-gray-200 block mb-3"></i>
                                 @if(request()->hasAny(['buscar','almacen_id','fecha_desde','fecha_hasta']))
-                                    <p class="text-gray-500 font-medium">Sin resultados para los filtros aplicados</p>
-                                    <a href="{{ route('devoluciones.index') }}" class="text-sm text-red-600 hover:underline mt-1 inline-block">
+                                    <p class="text-gray-500 dark:text-slate-400 font-medium">Sin resultados para los filtros aplicados</p>
+                                    <a href="{{ route('devoluciones.index') }}" class="text-sm text-red-600 dark:text-red-400 hover:underline mt-1 inline-block">
                                         Limpiar filtros
                                     </a>
                                 @else
-                                    <p class="text-gray-400 font-medium">No hay devoluciones registradas</p>
+                                    <p class="text-gray-400 dark:text-slate-500 font-medium">No hay devoluciones registradas</p>
                                 @endif
                             </td>
                         </tr>

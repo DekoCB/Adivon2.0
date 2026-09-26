@@ -7,7 +7,7 @@
     <div x-show="open" x-cloak
          class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
         <div @click.outside="open = false"
-             class="bg-white rounded-2xl shadow-xl w-full max-w-md">
+             class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md">
             <div class="bg-gradient-to-r from-indigo-700 to-indigo-600 px-5 py-4 rounded-t-2xl flex items-center justify-between">
                 <h3 class="text-white font-bold flex items-center gap-2">
                     <i class="fas fa-pencil-alt"></i> Editar Variante
@@ -22,9 +22,9 @@
 
                 {{-- Color --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Color</label>
                     <select name="color_id" x-model="form.color_id"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                         <option value="">Sin color específico</option>
                         @foreach($colores as $color)
                             <option value="{{ $color->id }}">{{ $color->nombre }}</option>
@@ -34,23 +34,23 @@
 
                 {{-- Capacidad --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Capacidad / Almacenamiento</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Capacidad / Almacenamiento</label>
                     <input type="text" name="capacidad" x-model="form.capacidad"
                            placeholder="Ej: 64GB, 128GB, 256GB"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                 </div>
 
                 {{-- Stock Mínimo --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Stock Mínimo</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Stock Mínimo</label>
                     <input type="number" name="stock_minimo" x-model="form.stock_minimo"
                            min="0"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                 </div>
 
                 <div class="flex gap-3 pt-1">
                     <button type="button" @click="open = false"
-                            class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm hover:bg-gray-50">
+                            class="flex-1 px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-slate-700/60">
                         Cancelar
                     </button>
                     <button type="submit"
@@ -66,19 +66,19 @@
 <div>
 
         {{-- Breadcrumb --}}
-        <div class="flex items-center text-sm text-gray-500 mb-4">
+        <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-4">
             <a href="{{ route('inventario.productos.index') }}" class="hover:text-blue-900">Productos</a>
             <i class="fas fa-chevron-right mx-2 text-xs"></i>
             <a href="{{ route('inventario.productos.show', $producto) }}" class="hover:text-blue-900 truncate max-w-xs">{{ $producto->nombre }}</a>
             <i class="fas fa-chevron-right mx-2 text-xs"></i>
-            <span class="text-gray-700 font-medium">Variantes</span>
+            <span class="text-gray-700 dark:text-slate-300 font-medium">Variantes</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {{-- ─── INFO DEL PRODUCTO BASE ─────────────────────────── --}}
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
                     <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-5 py-4">
                         <h2 class="text-base font-bold text-white flex items-center gap-2">
                             <i class="fas fa-box"></i> Producto Base
@@ -86,18 +86,17 @@
                     </div>
                     <div class="p-5 space-y-3 text-sm">
                         <div>
-                            <p class="text-xs text-gray-400 uppercase tracking-wide">Nombre</p>
-                            <p class="font-semibold text-gray-900">{{ $producto->nombre }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Nombre</p>
+                            <p class="font-semibold text-gray-900 dark:text-slate-100">{{ $producto->nombre }}</p>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide">Código</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Código</p>
                                 <x-code>{{ $producto->codigo }}</x-code>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide">Tipo</p>
-                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold
-                                    {{ $producto->tipo_inventario === 'serie' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' }}">
+                                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Tipo</p>
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold {{ $producto->tipo_inventario === 'serie' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' }}">
                                     {{ $producto->tipo_inventario === 'serie' ? 'Serie/IMEI' : 'Cantidad' }}
                                 </span>
                             </div>
@@ -106,23 +105,23 @@
                         <div class="grid grid-cols-2 gap-3">
                             @if($producto->marca)
                             <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide">Marca</p>
-                                <p class="text-gray-700">{{ $producto->marca->nombre }}</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Marca</p>
+                                <p class="text-gray-700 dark:text-slate-300">{{ $producto->marca->nombre }}</p>
                             </div>
                             @endif
                             @if($producto->modelo)
                             <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide">Modelo</p>
-                                <p class="text-gray-700">{{ $producto->modelo->nombre }}</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Modelo</p>
+                                <p class="text-gray-700 dark:text-slate-300">{{ $producto->modelo->nombre }}</p>
                             </div>
                             @endif
                         </div>
                         @endif
                         <div>
-                            <p class="text-xs text-gray-400 uppercase tracking-wide">Stock Total</p>
-                            <p class="text-2xl font-bold text-gray-900">
+                            <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Stock Total</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">
                                 {{ $stockTotalReal }}
-                                <span class="text-sm font-normal text-gray-400">unidades</span>
+                                <span class="text-sm font-normal text-gray-400 dark:text-slate-500">unidades</span>
                             </p>
                             @if($producto->tipo_inventario === 'serie')
                                 <p class="text-xs text-indigo-500 mt-0.5">
@@ -139,20 +138,20 @@
 
                 {{-- ─── Mensajes flash ──────────────────────────────── --}}
                 @if(session('success'))
-                <div class="mt-4 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm">
+                <div class="mt-4 flex items-center gap-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 px-4 py-3 rounded-xl text-sm">
                     <i class="fas fa-check-circle text-green-500"></i>
                     {{ session('success') }}
                 </div>
                 @endif
                 @if(session('error'))
-                <div class="mt-4 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm">
+                <div class="mt-4 flex items-center gap-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 px-4 py-3 rounded-xl text-sm">
                     <i class="fas fa-exclamation-circle text-red-500"></i>
                     {{ session('error') }}
                 </div>
                 @endif
 
                 {{-- ─── AGREGAR VARIANTE ─────────────────────────────── --}}
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden mt-4"
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mt-4"
                      x-data="{ abierto: {{ $errors->any() || session('error') ? 'true' : 'false' }} }">
                     <button @click="abierto = !abierto"
                             class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-4 flex items-center justify-between">
@@ -169,12 +168,12 @@
 
                             {{-- Color --}}
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Color <span class="text-gray-400 text-xs">(opcional)</span>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                    Color <span class="text-gray-400 dark:text-slate-500 text-xs">(opcional)</span>
                                 </label>
                                 <div class="flex gap-2 items-center">
                                     <select id="color_id_variante" name="color_id"
-                                            class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                            class="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                                         <option value="">Sin color específico</option>
                                         @foreach($colores as $color)
                                             <option value="{{ $color->id }}"
@@ -184,38 +183,38 @@
                                         @endforeach
                                     </select>
                                     <button type="button" onclick="abrirModalColor()"
-                                            class="shrink-0 px-3 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-lg text-sm font-medium transition"
+                                            class="shrink-0 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 hover:bg-indigo-200 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium transition"
                                             title="Agregar nuevo color">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                                 @error('color_id')
-                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             {{-- Capacidad --}}
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Capacidad / Almacenamiento <span class="text-gray-400 text-xs">(opcional)</span>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                    Capacidad / Almacenamiento <span class="text-gray-400 dark:text-slate-500 text-xs">(opcional)</span>
                                 </label>
                                 <input type="text" name="capacidad" value="{{ old('capacidad') }}"
                                        placeholder="Ej: 64GB, 128GB, 256GB"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                       class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                                 @error('capacidad')
-                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             @if($producto->tipo_inventario === 'cantidad')
                             {{-- Stock inicial (solo para tipo cantidad) --}}
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Stock Inicial <span class="text-gray-400 text-xs">(opcional)</span>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                    Stock Inicial <span class="text-gray-400 dark:text-slate-500 text-xs">(opcional)</span>
                                 </label>
                                 <input type="number" name="stock_inicial" value="{{ old('stock_inicial', 0) }}"
                                        min="0"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                       class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
                             @endif
 
@@ -230,7 +229,7 @@
 
             {{-- ─── LISTA DE VARIANTES ──────────────────────────────── --}}
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
                     <div class="bg-gradient-to-r from-gray-800 to-gray-700 px-5 py-4 flex items-center justify-between">
                         <h2 class="text-base font-bold text-white flex items-center gap-2">
                             <i class="fas fa-layer-group"></i>
@@ -242,16 +241,15 @@
                     </div>
 
                     @if($producto->variantes->isEmpty())
-                        <div class="p-10 text-center text-gray-400">
+                        <div class="p-10 text-center text-gray-400 dark:text-slate-500">
                             <i class="fas fa-layer-group text-4xl mb-3 text-gray-200"></i>
                             <p class="font-medium">Sin variantes registradas</p>
                             <p class="text-sm mt-1">Agrega la primera variante usando el formulario</p>
                         </div>
                     @else
-                        <div class="divide-y divide-gray-100">
+                        <div class="divide-y divide-gray-100 dark:divide-slate-700">
                             @foreach($producto->variantes->sortBy('estado') as $variante)
-                                <div class="p-4 flex items-center justify-between gap-4
-                                    {{ $variante->estado === 'inactivo' ? 'opacity-50 bg-gray-50' : '' }}">
+                                <div class="p-4 flex items-center justify-between gap-4 {{ $variante->estado === 'inactivo' ? 'opacity-50 bg-gray-50' : '' }}">
                                     <div class="flex items-center gap-4 min-w-0">
                                         {{-- Color dot --}}
                                         @if($variante->color && $variante->color->codigo_hex)
@@ -259,20 +257,20 @@
                                                  style="background-color: {{ $variante->color->codigo_hex }};"
                                                  title="{{ $variante->color->nombre }}"></div>
                                         @else
-                                            <div class="w-9 h-9 rounded-full bg-gray-200 border-2 border-white shadow flex-shrink-0 flex items-center justify-center">
-                                                <i class="fas fa-palette text-gray-400 text-xs"></i>
+                                            <div class="w-9 h-9 rounded-full bg-gray-200 dark:bg-slate-700 border-2 border-white shadow flex-shrink-0 flex items-center justify-center">
+                                                <i class="fas fa-palette text-gray-400 dark:text-slate-500 text-xs"></i>
                                             </div>
                                         @endif
 
                                         <div class="min-w-0">
                                             <div class="flex items-center gap-2 flex-wrap">
-                                                <span class="font-semibold text-gray-900 text-sm">{{ $variante->nombre_completo }}</span>
-                                                <span class="font-mono text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded">{{ $variante->sku }}</span>
+                                                <span class="font-semibold text-gray-900 dark:text-slate-100 text-sm">{{ $variante->nombre_completo }}</span>
+                                                <span class="font-mono text-xs text-gray-400 dark:text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ $variante->sku }}</span>
                                                 @if($variante->estado === 'inactivo')
-                                                    <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">Inactiva</span>
+                                                    <span class="text-xs bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full font-medium">Inactiva</span>
                                                 @endif
                                             </div>
-                                            <div class="flex items-center gap-4 mt-1 text-xs text-gray-500">
+                                            <div class="flex items-center gap-4 mt-1 text-xs text-gray-500 dark:text-slate-400">
                                                 @if($variante->color)
                                                     <span><i class="fas fa-circle mr-1 text-gray-300"></i>{{ $variante->color->nombre }}</span>
                                                 @endif
@@ -294,7 +292,7 @@
                                             <p class="text-lg font-bold {{ $stockVar <= $variante->stock_minimo ? 'text-red-600' : 'text-gray-900' }}">
                                                 {{ $stockVar }}
                                             </p>
-                                            <p class="text-xs text-gray-400">
+                                            <p class="text-xs text-gray-400 dark:text-slate-500">
                                                 en stock
                                             </p>
                                         </div>
@@ -362,7 +360,7 @@ function editModal() {
 
 <!-- Modal Nuevo Color -->
 <div id="modalColor" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50">
-    <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-sm">
         <div class="bg-linear-to-r from-indigo-600 to-indigo-500 px-6 py-4 rounded-t-2xl flex items-center justify-between">
             <h3 class="font-bold text-white flex items-center gap-2">
                 <i class="fas fa-palette"></i> Nuevo Color
@@ -371,26 +369,26 @@ function editModal() {
         </div>
         <div class="p-6 space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nombre <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre <span class="text-red-500">*</span></label>
                 <input type="text" id="colorNombre" placeholder="Ej: Azul medianoche"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400">
+                       class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Color HEX <span class="text-gray-400 text-xs">(opcional)</span></label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Color HEX <span class="text-gray-400 dark:text-slate-500 text-xs">(opcional)</span></label>
                 <div class="flex gap-3 items-center">
                     <input type="color" id="colorHexPicker" value="#3b82f6"
-                           class="h-10 w-14 rounded-lg border border-gray-300 cursor-pointer p-0.5"
+                           class="h-10 w-14 rounded-lg border border-gray-300 dark:border-slate-600 cursor-pointer p-0.5"
                            oninput="document.getElementById('colorHexText').value = this.value">
                     <input type="text" id="colorHexText" value="#3b82f6" maxlength="7"
                            placeholder="#rrggbb"
-                           class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
+                           class="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
                            oninput="sincronizarHex(this.value)">
                 </div>
             </div>
-            <div id="colorError" class="hidden text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-3 py-2"></div>
+            <div id="colorError" class="hidden text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2"></div>
             <div class="flex justify-end gap-3 pt-1">
                 <button type="button" onclick="cerrarModalColor()"
-                        class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                        class="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                     Cancelar
                 </button>
                 <button type="button" id="btnGuardarColor" onclick="guardarColor()"

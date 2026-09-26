@@ -13,8 +13,8 @@
         <div class="mb-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Registrar Nuevo IMEI</h1>
-                    <p class="text-sm text-gray-600 mt-1">Ingresa los datos del celular paso a paso</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Registrar Nuevo IMEI</h1>
+                    <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">Ingresa los datos del celular paso a paso</p>
                 </div>
                 <div class="flex items-center space-x-3">
                     <button type="button" 
@@ -23,7 +23,7 @@
                         <i class="fas fa-qrcode"></i>
                         <span class="hidden md:inline">Escanear QR</span>
                     </button>
-                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium">
                         <i class="fas fa-sim-card mr-1"></i>
                         Registro Individual
                     </span>
@@ -32,7 +32,7 @@
         </div>
 
         @if ($errors->any())
-            <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
+            <div class="mb-6 bg-red-100 dark:bg-red-900/40 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 rounded-lg">
                 <div class="flex items-center mb-2">
                     <i class="fas fa-exclamation-circle text-xl mr-3"></i>
                     <p class="font-medium">Por favor corrige los siguientes errores:</p>
@@ -50,7 +50,7 @@
                 @csrf
 
                 <!-- Tarjeta principal -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
                     <!-- Cabecera decorativa con gradiente -->
                     <div class="bg-gradient-to-r from-blue-900 to-blue-700 px-6 py-4">
                         <h2 class="text-xl font-bold text-white flex items-center">
@@ -63,19 +63,19 @@
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             <!-- Columna izquierda: QR Code (si existe) -->
                             <div class="lg:col-span-1">
-                                <div class="bg-gray-50 p-4 rounded-lg border-2 border-dashed border-gray-300 text-center sticky top-4">
+                                <div class="bg-gray-50 dark:bg-slate-900/60 p-4 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 text-center sticky top-4">
                                     <div id="qrContainer" class="mb-3">
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=IMEI-{{ uniqid() }}" 
                                              alt="QR Code"
                                              class="mx-auto w-32 h-32">
                                     </div>
-                                    <p class="text-xs text-gray-500 mb-2">
+                                    <p class="text-xs text-gray-500 dark:text-slate-400 mb-2">
                                         <i class="fas fa-qrcode mr-1"></i>
                                         Código QR del IMEI
                                     </p>
                                     <button type="button" 
                                             id="btnRegenerarQR"
-                                            class="text-xs text-blue-600 hover:text-blue-800">
+                                            class="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800">
                                         <i class="fas fa-sync-alt mr-1"></i> Regenerar
                                     </button>
                                 </div>
@@ -84,10 +84,10 @@
                             <!-- Columna derecha: Formulario -->
                             <div class="lg:col-span-2 space-y-6">
                                 <!-- Campo IMEI con generador -->
-                                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                                         Código IMEI <span class="text-red-500">*</span>
-                                        <span class="ml-2 text-xs font-normal text-gray-500">(15 dígitos numéricos)</span>
+                                        <span class="ml-2 text-xs font-normal text-gray-500 dark:text-slate-400">(15 dígitos numéricos)</span>
                                     </label>
                                     
                                     <div class="flex gap-2">
@@ -96,7 +96,7 @@
                                                    name="codigo_imei" 
                                                    id="codigo_imei"
                                                    value="{{ old('codigo_imei') }}"
-                                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 font-mono text-lg tracking-wider"
+                                                   class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 font-mono text-lg tracking-wider"
                                                    placeholder="123456789012345" 
                                                    maxlength="15"
                                                    inputmode="numeric"
@@ -116,15 +116,15 @@
 
                                     <!-- Validación en tiempo real -->
                                     <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
-                                        <div id="valid-longitud" class="text-gray-400 flex items-center">
+                                        <div id="valid-longitud" class="text-gray-400 dark:text-slate-500 flex items-center">
                                             <i class="fas fa-circle mr-1 text-[8px]"></i>
                                             <span>15 dígitos</span>
                                         </div>
-                                        <div id="valid-numeros" class="text-gray-400 flex items-center">
+                                        <div id="valid-numeros" class="text-gray-400 dark:text-slate-500 flex items-center">
                                             <i class="fas fa-circle mr-1 text-[8px]"></i>
                                             <span>Solo números</span>
                                         </div>
-                                        <div id="valid-unico" class="text-gray-400 flex items-center">
+                                        <div id="valid-unico" class="text-gray-400 dark:text-slate-500 flex items-center">
                                             <i class="fas fa-circle mr-1 text-[8px]"></i>
                                             <span>IMEI único</span>
                                         </div>
@@ -133,7 +133,7 @@
 
                                 <!-- Producto con búsqueda inteligente -->
                                 <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                                         Producto (Celular) <span class="text-red-500">*</span>
                                     </label>
                                     
@@ -166,33 +166,33 @@
 
                                     <!-- Vista previa del producto seleccionado -->
                                     <div id="productoPreview" class="mt-4 hidden">
-                                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
                                             <div class="flex items-start gap-4">
-                                                <div class="bg-white p-3 rounded-lg shadow-sm">
-                                                    <i class="fas fa-mobile-alt text-3xl text-blue-600"></i>
+                                                <div class="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm">
+                                                    <i class="fas fa-mobile-alt text-3xl text-blue-600 dark:text-blue-400"></i>
                                                 </div>
                                                 <div class="flex-1">
                                                     <div class="flex items-center justify-between">
-                                                        <h4 class="font-bold text-gray-900 text-lg" id="previewNombre"></h4>
-                                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                                                        <h4 class="font-bold text-gray-900 dark:text-slate-100 text-lg" id="previewNombre"></h4>
+                                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 rounded-full text-xs font-medium">
                                                             <i class="fas fa-check-circle mr-1"></i>Seleccionado
                                                         </span>
                                                     </div>
                                                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 text-sm">
                                                         <div>
-                                                            <span class="text-gray-500 text-xs">Marca</span>
+                                                            <span class="text-gray-500 dark:text-slate-400 text-xs">Marca</span>
                                                             <p class="font-medium" id="previewMarca">-</p>
                                                         </div>
                                                         <div>
-                                                            <span class="text-gray-500 text-xs">Modelo</span>
+                                                            <span class="text-gray-500 dark:text-slate-400 text-xs">Modelo</span>
                                                             <p class="font-medium" id="previewModelo">-</p>
                                                         </div>
                                                         <div>
-                                                            <span class="text-gray-500 text-xs">Color</span>
+                                                            <span class="text-gray-500 dark:text-slate-400 text-xs">Color</span>
                                                             <p class="font-medium" id="previewColor">-</p>
                                                         </div>
                                                         <div>
-                                                            <span class="text-gray-500 text-xs">Capacidad</span>
+                                                            <span class="text-gray-500 dark:text-slate-400 text-xs">Capacidad</span>
                                                             <p class="font-medium" id="previewCapacidad">-</p>
                                                         </div>
                                                     </div>
@@ -204,25 +204,25 @@
 
                                 <!-- Variante del producto -->
                                 <div id="seccionVariante" class="hidden">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                                         <i class="fas fa-layer-group mr-1 text-indigo-500"></i>
                                         Variante <span class="text-red-500">*</span>
-                                        <span class="ml-1 text-xs font-normal text-gray-500">(color + capacidad)</span>
+                                        <span class="ml-1 text-xs font-normal text-gray-500 dark:text-slate-400">(color + capacidad)</span>
                                     </label>
                                     <input type="hidden" name="variante_id" id="variante_id" value="{{ old('variante_id') }}">
                                     <input type="hidden" name="color_id" id="color_id" value="{{ old('color_id') }}">
                                     <div id="variantesGrid" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
-                                    <p id="varianteError" class="hidden mt-1 text-xs text-red-600">Debes seleccionar una variante</p>
+                                    <p id="varianteError" class="hidden mt-1 text-xs text-red-600 dark:text-red-400">Debes seleccionar una variante</p>
                                 </div>
 
                                 <!-- Almacén -->
                                 <div>
-                                    <label for="almacen_id" class="block text-sm font-medium text-gray-700 mb-2">
-                                        <i class="fas fa-warehouse mr-1 text-gray-500"></i>
+                                    <label for="almacen_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                        <i class="fas fa-warehouse mr-1 text-gray-500 dark:text-slate-400"></i>
                                         Almacén <span class="text-red-500">*</span>
                                     </label>
                                     <select name="almacen_id" id="almacen_id"
-                                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                             required>
                                         <option value="">Seleccionar ubicación</option>
                                         @foreach($almacenes as $almacen)
@@ -237,22 +237,22 @@
 
                                 <!-- Número de Serie (opcional) -->
                                 <div>
-                                    <label for="serie" class="block text-sm font-medium text-gray-700 mb-2">
-                                        <i class="fas fa-barcode mr-1 text-gray-500"></i>
+                                    <label for="serie" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                        <i class="fas fa-barcode mr-1 text-gray-500 dark:text-slate-400"></i>
                                         Número de Serie
                                     </label>
                                     <input type="text" 
                                            name="serie" 
                                            id="serie" 
                                            value="{{ old('serie') }}"
-                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                           class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                            placeholder="Número de serie adicional (opcional)">
                                 </div>
 
                                 <!-- Estado (con badges) -->
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        <i class="fas fa-tag mr-1 text-gray-500"></i>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                        <i class="fas fa-tag mr-1 text-gray-500 dark:text-slate-400"></i>
                                         Estado <span class="text-red-500">*</span>
                                     </label>
                                     <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
@@ -260,7 +260,7 @@
                                             <input type="radio" name="estado_imei" value="en_stock" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei', 'en_stock') == 'en_stock' ? 'checked' : '' }} required>
-                                            <div class="border-2 border-gray-300 rounded-lg p-2 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-check-circle text-green-500"></i>
                                                 <span class="block text-xs font-medium">En Stock</span>
                                             </div>
@@ -269,7 +269,7 @@
                                             <input type="radio" name="estado_imei" value="vendido" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'vendido' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 rounded-lg p-2 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-shopping-cart text-red-500"></i>
                                                 <span class="block text-xs font-medium">Vendido</span>
                                             </div>
@@ -278,7 +278,7 @@
                                             <input type="radio" name="estado_imei" value="garantia" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'garantia' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 rounded-lg p-2 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-shield-alt text-blue-500"></i>
                                                 <span class="block text-xs font-medium">Garantía</span>
                                             </div>
@@ -287,7 +287,7 @@
                                             <input type="radio" name="estado_imei" value="devuelto" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'devuelto' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 rounded-lg p-2 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-undo text-yellow-500"></i>
                                                 <span class="block text-xs font-medium">Devuelto</span>
                                             </div>
@@ -296,7 +296,7 @@
                                             <input type="radio" name="estado_imei" value="reemplazado" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'reemplazado' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 rounded-lg p-2 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-exchange-alt text-purple-500"></i>
                                                 <span class="block text-xs font-medium">Reemplazado</span>
                                             </div>
@@ -307,12 +307,12 @@
                         </div>
 
                         <!-- Notas informativas -->
-                        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+                        <div class="mt-6 bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-lg">
                             <div class="flex items-start">
                                 <i class="fas fa-info-circle text-blue-500 mt-0.5 mr-3 text-lg"></i>
                                 <div>
                                     <p class="font-medium text-blue-900 mb-1">Información importante:</p>
-                                    <ul class="text-sm text-blue-800 space-y-1 list-disc list-inside">
+                                    <ul class="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
                                         <li>Use esta pantalla para registros individuales o ajustes manuales</li>
                                         <li>Para compras en volumen, registre los IMEIs desde el módulo de Compras</li>
                                         <li>El IMEI debe ser único (15 dígitos numéricos)</li>
@@ -323,9 +323,9 @@
                         </div>
 
                         <!-- Botones de acción -->
-                        <div class="flex items-center justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center justify-end space-x-3 mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
                             <a href="{{ route('inventario.imeis.index') }}"
-                               class="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+                               class="px-6 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 font-medium">
                                 <i class="fas fa-times mr-2"></i>Cancelar
                             </a>
                             <button type="submit" 
@@ -352,7 +352,7 @@
                 width: '100%',
                 templateResult: function(p) {
                     if (!p.id) return p.text;
-                    return $('<div class="flex items-center p-2"><div class="w-8 h-8 bg-gray-200 rounded flex items-center justify-center mr-2"><i class="fas fa-mobile-alt text-gray-600 text-sm"></i></div><div><div class="font-medium text-sm">' + p.text.split('|')[0] + '</div><div class="text-xs text-gray-500">' + (p.text.split('|')[1] || '') + '</div></div></div>');
+                    return $('<div class="flex items-center p-2"><div class="w-8 h-8 bg-gray-200 dark:bg-slate-700 rounded flex items-center justify-center mr-2"><i class="fas fa-mobile-alt text-gray-600 dark:text-slate-400 text-sm"></i></div><div><div class="font-medium text-sm">' + p.text.split('|')[0] + '</div><div class="text-xs text-gray-500 dark:text-slate-400">' + (p.text.split('|')[1] || '') + '</div></div></div>');
                 },
                 templateSelection: function(p) { return p.text.split('|')[0] || p.text; }
             });
@@ -394,17 +394,17 @@
                 grid.empty();
                 variantes.forEach(function(v) {
                     var colorBox = v.color_hex
-                        ? '<div style="background:' + v.color_hex + '" class="w-4 h-4 rounded-full shrink-0 border border-gray-300"></div>'
-                        : '<i class="fas fa-circle text-gray-400 text-xs shrink-0"></i>';
+                        ? '<div style="background:' + v.color_hex + '" class="w-4 h-4 rounded-full shrink-0 border border-gray-300 dark:border-slate-600"></div>'
+                        : '<i class="fas fa-circle text-gray-400 dark:text-slate-500 text-xs shrink-0"></i>';
                     var nombre = v.nombre || ((v.color_nombre || '') + (v.capacidad ? ' / ' + v.capacidad : ''));
                     var card = $(
                         '<button type="button" data-id="' + v.id + '" data-color-id="' + (v.color_id || '') + '" ' +
                         'data-color-nombre="' + (v.color_nombre || '') + '" data-capacidad="' + (v.capacidad || '') + '" ' +
-                        'class="variante-card text-left border-2 rounded-xl p-3 transition hover:border-indigo-400 hover:bg-indigo-50 border-gray-200">' +
+                        'class="variante-card text-left border-2 rounded-xl p-3 transition hover:border-indigo-400 hover:bg-indigo-50 border-gray-200 dark:border-slate-700">' +
                             '<div class="flex items-center gap-2 mb-1">' + colorBox +
-                                '<span class="text-sm font-semibold text-gray-800 truncate">' + nombre + '</span>' +
+                                '<span class="text-sm font-semibold text-gray-800 dark:text-slate-200 truncate">' + nombre + '</span>' +
                             '</div>' +
-                            '<span class="text-xs font-mono text-gray-400">' + v.sku + '</span>' +
+                            '<span class="text-xs font-mono text-gray-400 dark:text-slate-500">' + v.sku + '</span>' +
                         '</button>'
                     );
                     grid.append(card);

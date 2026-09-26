@@ -10,18 +10,18 @@
 <div x-data="{ sel: 0 }">
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
         <a href="{{ route('comisiones.index') }}"
-           class="text-sm text-gray-500 hover:text-blue-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
             <i class="fas fa-arrow-left"></i> Volver a configuración
         </a>
         <a href="{{ route('comisiones.reporte') }}"
-           class="text-sm text-gray-500 hover:text-blue-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
             <i class="fas fa-chart-bar"></i> Ver reporte de pagos
         </a>
     </div>
 
     <form action="{{ route('comisiones.marcar-bonus-pagado') }}" method="POST">
         @csrf
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
             <div class="bg-linear-to-r from-purple-700 to-purple-500 px-6 py-4 flex items-center gap-3">
                 <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-trophy text-white text-xl"></i></div>
                 <div>
@@ -31,32 +31,32 @@
             </div>
 
             @if($progreso->isEmpty())
-                <div class="py-12 text-center text-gray-400">
+                <div class="py-12 text-center text-gray-400 dark:text-slate-500">
                     <i class="fas fa-trophy text-3xl mb-2 block opacity-30"></i>
                     <p class="text-sm">No hay ventas registradas todavía en el período actual de ninguna regla de bono por meta activa.</p>
                 </div>
             @else
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
                         <tr>
                             <th class="px-4 py-3 w-10"></th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Vendedor</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Regla de bono</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Período</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Progreso</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Bono</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Vendedor</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Regla de bono</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Período</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Progreso</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Bono</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Estado</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                         @foreach($progreso as $fila)
                         @php
                             $regla = $fila['regla'];
                             $vendedor = $fila['vendedor'];
                             $liquidacion = $fila['liquidacion'];
                         @endphp
-                        <tr class="hover:bg-gray-50 transition-colors">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                             <td class="px-4 py-3">
                                 @if($fila['estado'] === 'logrado')
                                     <input type="checkbox" name="ids[]" value="{{ $liquidacion->id }}"
@@ -66,33 +66,33 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-7 h-7 rounded-lg bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-xs shrink-0">
+                                    <div class="w-7 h-7 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-purple-700 dark:text-purple-300 font-bold text-xs shrink-0">
                                         {{ strtoupper(substr($vendedor->name ?? '?', 0, 1)) }}
                                     </div>
-                                    <span class="text-gray-700 text-xs font-medium">{{ $vendedor->name ?? '—' }}</span>
+                                    <span class="text-gray-700 dark:text-slate-300 text-xs font-medium">{{ $vendedor->name ?? '—' }}</span>
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-xs">
-                                <p class="font-medium text-gray-700">{{ $regla->nombre }}</p>
-                                <p class="text-gray-400">
+                                <p class="font-medium text-gray-700 dark:text-slate-300">{{ $regla->nombre }}</p>
+                                <p class="text-gray-400 dark:text-slate-500">
                                     {{ $regla->tipo_aplicacion === 'categoria' ? $regla->categoria?->nombre : $regla->producto?->nombre }}
                                 </p>
                             </td>
-                            <td class="px-4 py-3 text-xs text-gray-500">
+                            <td class="px-4 py-3 text-xs text-gray-500 dark:text-slate-400">
                                 {{ $fila['periodo_inicio']->format('d/m') }} – {{ $fila['periodo_fin']->format('d/m/Y') }}
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center gap-2 w-40">
-                                    <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="flex-1 h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                                         <div class="h-full rounded-full {{ $fila['estado'] === 'en_progreso' ? 'bg-amber-400' : 'bg-emerald-500' }}"
                                              style="width: {{ $fila['pct'] }}%"></div>
                                     </div>
-                                    <span class="text-xs font-semibold text-gray-600 shrink-0">{{ $fila['unidades'] }}/{{ $fila['meta'] }}</span>
+                                    <span class="text-xs font-semibold text-gray-600 dark:text-slate-400 shrink-0">{{ $fila['unidades'] }}/{{ $fila['meta'] }}</span>
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-right">
                                 @if($liquidacion)
-                                    <span class="font-bold text-gray-800">S/ {{ number_format($liquidacion->monto_bonus, 2) }}</span>
+                                    <span class="font-bold text-gray-800 dark:text-slate-200">S/ {{ number_format($liquidacion->monto_bonus, 2) }}</span>
                                 @else
                                     <span class="text-gray-300 text-xs">—</span>
                                 @endif
@@ -121,9 +121,9 @@
 
         {{-- Acción pagar bonos logrados --}}
         <div x-show="sel > 0" x-cloak
-             class="fixed bottom-6 right-6 bg-white border border-gray-200 shadow-2xl rounded-2xl px-5 py-4 flex items-center gap-4 z-40">
-            <div class="text-sm text-gray-700">
-                <span class="font-bold text-purple-700" x-text="sel"></span> bonos seleccionados
+             class="fixed bottom-6 right-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-2xl rounded-2xl px-5 py-4 flex items-center gap-4 z-40">
+            <div class="text-sm text-gray-700 dark:text-slate-300">
+                <span class="font-bold text-purple-700 dark:text-purple-300" x-text="sel"></span> bonos seleccionados
             </div>
             <button type="submit"
                     class="px-5 py-2.5 bg-purple-700 hover:bg-purple-800 text-white text-sm font-semibold rounded-xl flex items-center gap-2 transition">

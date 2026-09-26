@@ -13,26 +13,26 @@
 
         <!-- Header con breadcrumb -->
         <div class="mb-4">
-            <div class="flex items-center text-xs text-gray-500 mb-1">
+            <div class="flex items-center text-xs text-gray-500 dark:text-slate-400 mb-1">
                 <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
                 <i class="fas fa-chevron-right mx-1.5 text-[10px]"></i>
                 <a href="{{ route('compras.index') }}" class="hover:text-blue-900">Compras</a>
                 <i class="fas fa-chevron-right mx-1.5 text-[10px]"></i>
-                <span class="text-gray-700 font-medium">Nueva Compra</span>
+                <span class="text-gray-700 dark:text-slate-300 font-medium">Nueva Compra</span>
             </div>
             <div class="flex items-center justify-between">
-                <h1 class="text-xl font-bold text-gray-900 flex items-center">
+                <h1 class="text-xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
                     <i class="fas fa-file-invoice mr-2 text-blue-900 text-lg"></i>
                     Registrar Nueva Compra
                 </h1>
-                <span class="px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                <span class="px-2.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full text-xs font-medium">
                     <i class="fas fa-clock mr-1"></i>{{ now()->format('d/m/Y H:i') }}
                 </span>
             </div>
         </div>
 
         @if($errors->any())
-            <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded-lg">
+            <div class="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-3 rounded-lg">
                 <div class="flex items-center mb-1">
                     <i class="fas fa-exclamation-triangle mr-2"></i>
                     <strong class="text-sm">Por favor corrige los siguientes errores:</strong>
@@ -46,7 +46,7 @@
         @endif
 
         @if($pedidoOrigen ?? null)
-            <div class="mb-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 p-3 rounded-lg flex items-start text-sm">
+            <div class="mb-4 bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg flex items-start text-sm">
                 <i class="fas fa-clipboard-check mt-0.5 mr-2"></i>
                 <span>
                     Recibiendo mercadería del pedido <strong>{{ $pedidoOrigen['codigo'] }}</strong> —
@@ -57,7 +57,7 @@
         @endif
 
         <!-- Formulario principal -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden">
             <!-- Cabecera decorativa -->
             <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-5 py-3">
                 <h2 class="text-base font-bold text-white flex items-center">
@@ -74,9 +74,9 @@
 
                 <!-- TIPO DE COMPRA -->
                 <div class="mb-5">
-                    <h3 class="text-sm font-semibold text-gray-900 mb-2 flex items-center">
-                        <span class="w-6 h-6 bg-purple-100 rounded flex items-center justify-center mr-1.5">
-                            <i class="fas fa-tag text-purple-700 text-xs"></i>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2 flex items-center">
+                        <span class="w-6 h-6 bg-purple-100 dark:bg-purple-900/40 rounded flex items-center justify-center mr-1.5">
+                            <i class="fas fa-tag text-purple-700 dark:text-purple-300 text-xs"></i>
                         </span>
                         Tipo de Compra
                     </h3>
@@ -86,13 +86,13 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('local')"
                                    {{ old('tipo_compra', 'local') === 'local' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 border border-gray-200 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300">
-                                <div class="w-8 h-8 bg-green-100 rounded flex items-center justify-center shrink-0">
-                                    <i class="fas fa-store text-green-700 text-sm"></i>
+                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/40 rounded flex items-center justify-center shrink-0">
+                                    <i class="fas fa-store text-green-700 dark:text-green-300 text-sm"></i>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-gray-900 text-xs">Compra Local</p>
-                                    <p class="text-[11px] text-gray-500">Sin documentos aduaneros</p>
+                                    <p class="font-semibold text-gray-900 dark:text-slate-100 text-xs">Compra Local</p>
+                                    <p class="text-[11px] text-gray-500 dark:text-slate-400">Sin documentos aduaneros</p>
                                 </div>
                             </div>
                         </label>
@@ -101,13 +101,13 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('importacion')"
                                    {{ old('tipo_compra') === 'importacion' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 border border-gray-200 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300">
-                                <div class="w-8 h-8 bg-orange-100 rounded flex items-center justify-center shrink-0">
-                                    <i class="fas fa-ship text-orange-700 text-sm"></i>
+                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300">
+                                <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900/40 rounded flex items-center justify-center shrink-0">
+                                    <i class="fas fa-ship text-orange-700 dark:text-orange-300 text-sm"></i>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-gray-900 text-xs">Importación</p>
-                                    <p class="text-[11px] text-gray-500">DUA, manifiesto y costos CIF</p>
+                                    <p class="font-semibold text-gray-900 dark:text-slate-100 text-xs">Importación</p>
+                                    <p class="text-[11px] text-gray-500 dark:text-slate-400">DUA, manifiesto y costos CIF</p>
                                 </div>
                             </div>
                         </label>
@@ -116,164 +116,164 @@
 
                 <!-- SECCIÓN IMPORTACIÓN (condicional) -->
                 <div id="seccion_importacion" class="{{ old('tipo_compra') === 'importacion' ? '' : 'hidden' }} mb-5">
-                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                    <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
                         <h3 class="text-sm font-semibold text-orange-900 mb-3 flex items-center">
-                            <i class="fas fa-ship mr-1.5 text-orange-600 text-xs"></i>
+                            <i class="fas fa-ship mr-1.5 text-orange-600 dark:text-orange-400 text-xs"></i>
                             Datos de Importación
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             <!-- Número DUA -->
                             <div>
-                                <label for="numero_dua" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="numero_dua" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Número DUA <span class="text-orange-500">*</span>
-                                    <span class="text-xs text-gray-400 font-normal">(Declaración Única de Aduanas)</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">(Declaración Única de Aduanas)</span>
                                 </label>
                                 <input type="text" name="numero_dua" id="numero_dua"
                                        value="{{ old('numero_dua') }}"
-                                       class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                       class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                        placeholder="Ej: 117-2026-00001234">
                                 @error('numero_dua')
-                                    <p class="mt-1 text-xs text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600 dark:text-red-400"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                                 @enderror
                             </div>
                             <!-- Número Manifiesto -->
                             <div>
-                                <label for="numero_manifiesto" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="numero_manifiesto" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     N° Manifiesto / Carga
                                 </label>
                                 <input type="text" name="numero_manifiesto" id="numero_manifiesto"
                                        value="{{ old('numero_manifiesto') }}"
-                                       class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                       class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                        placeholder="Ej: MAN-2026-001">
                             </div>
                             <!-- Agente de Aduanas -->
                             <div>
-                                <label for="agente_aduanas" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="agente_aduanas" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Agente de Aduanas
                                 </label>
                                 <input type="text" name="agente_aduanas" id="agente_aduanas"
                                        value="{{ old('agente_aduanas') }}"
-                                       class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                       class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                        placeholder="Nombre del agente o empresa">
                             </div>
                             <!-- Flete USD -->
                             <div>
-                                <label for="flete_usd" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="flete_usd" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Flete (USD)
-                                    <span class="text-xs text-gray-400 font-normal">Costo de transporte internacional</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Costo de transporte internacional</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">$</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">$</span>
                                     <input type="number" name="flete_usd" id="flete_usd"
                                            value="{{ old('flete_usd', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Seguro USD -->
                             <div>
-                                <label for="seguro_usd" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="seguro_usd" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Seguro (USD)
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">$</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">$</span>
                                     <input type="number" name="seguro_usd" id="seguro_usd"
                                            value="{{ old('seguro_usd', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Otros Gastos USD -->
                             <div>
-                                <label for="otros_usd" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="otros_usd" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Otros Gastos (USD)
-                                    <span class="text-xs text-gray-400 font-normal">Almacenaje, etc.</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Almacenaje, etc.</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">$</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">$</span>
                                     <input type="number" name="otros_usd" id="otros_usd"
                                            value="{{ old('otros_usd', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Impuestos USD (Ad Valorem, etc.) -->
                             <div>
-                                <label for="impuestos_usd" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="impuestos_usd" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Impuestos (USD)
-                                    <span class="text-xs text-gray-400 font-normal">Ad Valorem, etc.</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Ad Valorem, etc.</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">$</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">$</span>
                                     <input type="number" name="impuestos_usd" id="impuestos_usd"
                                            value="{{ old('impuestos_usd', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Impuestos PEN (IGV importación, etc.) -->
                             <div>
-                                <label for="impuestos_pen" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="impuestos_pen" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Impuestos (S/)
-                                    <span class="text-xs text-gray-400 font-normal">IGV importación, ISC</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">IGV importación, ISC</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">S/</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">S/</span>
                                     <input type="number" name="impuestos_pen" id="impuestos_pen"
                                            value="{{ old('impuestos_pen', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Transporte Local PEN -->
                             <div>
-                                <label for="transporte_local_pen" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="transporte_local_pen" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Transporte Local (S/)
-                                    <span class="text-xs text-gray-400 font-normal">Puerto → almacén</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Puerto → almacén</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">S/</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">S/</span>
                                     <input type="number" name="transporte_local_pen" id="transporte_local_pen"
                                            value="{{ old('transporte_local_pen', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Percepción PEN -->
                             <div>
-                                <label for="percepcion_pen" class="block text-xs font-medium text-gray-700 mb-1">
+                                <label for="percepcion_pen" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Percepción (S/)
-                                    <span class="text-xs text-gray-400 font-normal">Percepción SUNAT</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Percepción SUNAT</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-2.5 text-gray-500 text-sm font-medium">S/</span>
+                                    <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">S/</span>
                                     <input type="number" name="percepcion_pen" id="percepcion_pen"
                                            value="{{ old('percepcion_pen', 0) }}" min="0" step="0.01"
                                            oninput="calcularTotales()"
-                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                           class="w-full pl-8 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
                                            placeholder="0.00">
                                 </div>
                             </div>
                             <!-- Resumen CIF -->
                             <div class="flex items-center">
-                                <div class="w-full bg-white border border-orange-200 rounded-lg p-3 text-sm">
-                                    <p class="text-xs font-semibold text-orange-700 uppercase tracking-wide mb-1.5">
+                                <div class="w-full bg-white dark:bg-slate-800 border border-orange-200 dark:border-orange-800 rounded-lg p-3 text-sm">
+                                    <p class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-1.5">
                                         <i class="fas fa-calculator mr-1"></i>Costos CIF / Totales
                                     </p>
-                                    <div class="space-y-1 text-xs text-gray-600">
+                                    <div class="space-y-1 text-xs text-gray-600 dark:text-slate-400">
                                         <div class="flex justify-between"><span>Flete (USD):</span><span id="cif_flete" class="font-medium">$ 0.00</span></div>
                                         <div class="flex justify-between"><span>Seguro (USD):</span><span id="cif_seguro" class="font-medium">$ 0.00</span></div>
                                         <div class="flex justify-between"><span>Otros (USD):</span><span id="cif_otros" class="font-medium">$ 0.00</span></div>
                                         <div class="flex justify-between"><span>Imp. (S/):</span><span id="cif_impuestos_pen" class="font-medium">S/ 0.00</span></div>
                                         <div class="flex justify-between"><span>Transp. (S/):</span><span id="cif_transporte" class="font-medium">S/ 0.00</span></div>
                                         <div class="flex justify-between"><span>Percepción (S/):</span><span id="cif_percepcion" class="font-medium">S/ 0.00</span></div>
-                                        <div class="flex justify-between pt-1 border-t border-orange-200 font-semibold text-orange-800">
+                                        <div class="flex justify-between pt-1 border-t border-orange-200 dark:border-orange-800 font-semibold text-orange-800 dark:text-orange-300">
                                             <span>Total CIF:</span><span id="cif_total">S/ 0.00</span>
                                         </div>
                                     </div>
@@ -282,12 +282,12 @@
                         </div>
 
                         <!-- Prorrateo -->
-                        <div id="prorrateo_section" class="hidden mt-3 bg-white border border-orange-200 rounded-lg p-3">
-                            <p class="text-xs font-semibold text-orange-700 uppercase tracking-wide mb-3">
+                        <div id="prorrateo_section" class="hidden mt-3 bg-white dark:bg-slate-800 border border-orange-200 dark:border-orange-800 rounded-lg p-3">
+                            <p class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-3">
                                 <i class="fas fa-divide mr-1"></i>Distribución de Costos por Producto (Prorrateo)
                             </p>
-                            <div id="prorrateo_tabla" class="text-xs text-gray-700 space-y-1">
-                                <p class="text-gray-400 italic">Agrega productos para ver el prorrateo...</p>
+                            <div id="prorrateo_tabla" class="text-xs text-gray-700 dark:text-slate-300 space-y-1">
+                                <p class="text-gray-400 dark:text-slate-500 italic">Agrega productos para ver el prorrateo...</p>
                             </div>
                         </div>
                     </div>
@@ -295,8 +295,8 @@
 
                 <!-- SECCIÓN 1: INFORMACIÓN PRINCIPAL -->
                 <div class="mb-6">
-                    <h3 class="text-sm font-semibold text-gray-900 mb-2 flex items-center">
-                        <span class="w-6 h-6 bg-blue-100 rounded flex items-center justify-center mr-1.5">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2 flex items-center">
+                        <span class="w-6 h-6 bg-blue-100 dark:bg-blue-900/40 rounded flex items-center justify-center mr-1.5">
                             <i class="fas fa-file-invoice text-blue-900 text-xs"></i>
                         </span>
                         Información de la Factura
@@ -305,7 +305,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Proveedor (búsqueda en vivo) -->
                         <div class="relative" id="proveedor_container">
-                            <label class="block text-xs font-medium text-gray-700 mb-1">
+                            <label class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Proveedor <span class="text-red-500">*</span>
                             </label>
                             {{-- Campo oculto que envía el ID al servidor --}}
@@ -313,17 +313,17 @@
 
                             {{-- Input de búsqueda --}}
                             <div class="relative" id="proveedor_busqueda_wrap" style="{{ old('proveedor_id', $pedidoOrigen['proveedor_id'] ?? null) ? 'display:none' : '' }}">
-                                <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 pointer-events-none text-sm"></i>
+                                <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 pointer-events-none text-sm"></i>
                                 <input type="text"
                                        id="buscar_proveedor"
                                        placeholder="RUC, razón social o nombre (mín. 3 car.)..."
                                        autocomplete="off"
-                                       class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
+                                       class="w-full pl-9 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
                             </div>
 
                             {{-- Dropdown de resultados --}}
                             <div id="proveedor_resultados"
-                                 class="absolute z-50 w-full bg-white border border-gray-200 rounded-xl shadow-xl mt-1 hidden max-h-64 overflow-y-auto">
+                                 class="absolute z-50 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-xl mt-1 hidden max-h-64 overflow-y-auto">
                             </div>
 
                             {{-- Proveedor seleccionado (card) --}}
@@ -332,14 +332,14 @@
                                 $provSeleccionado = $provSeleccionadoId ? $proveedores->firstWhere('id', $provSeleccionadoId) : null;
                             @endphp
                             <div id="proveedor_seleccionado"
-                                 class="{{ $provSeleccionado ? '' : 'hidden' }} mt-1.5 p-2 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
+                                 class="{{ $provSeleccionado ? '' : 'hidden' }} mt-1.5 p-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg flex items-center justify-between">
                                 <div class="flex items-center gap-2 min-w-0">
-                                    <i class="fas fa-building text-blue-700 text-sm shrink-0"></i>
+                                    <i class="fas fa-building text-blue-700 dark:text-blue-300 text-sm shrink-0"></i>
                                     <div class="min-w-0">
                                         <p id="proveedor_nombre_display" class="text-sm font-semibold text-blue-900 truncate">
                                             {{ $provSeleccionado?->nombre_comercial ?? $provSeleccionado?->razon_social ?? '' }}
                                         </p>
-                                        <p id="proveedor_ruc_display" class="text-xs text-blue-600">
+                                        <p id="proveedor_ruc_display" class="text-xs text-blue-600 dark:text-blue-400">
                                             @if($provSeleccionado)
                                                 {{ $provSeleccionado->razon_social !== $provSeleccionado->nombre_comercial ? $provSeleccionado->razon_social . ' · ' : '' }}RUC: {{ $provSeleccionado->ruc }}
                                             @endif
@@ -347,13 +347,13 @@
                                     </div>
                                 </div>
                                 <button type="button" onclick="limpiarProveedorSeleccionado()"
-                                        class="shrink-0 ml-2 text-xs text-blue-600 hover:text-red-600 transition flex items-center gap-1 border border-blue-300 hover:border-red-400 rounded-lg px-2 py-1">
+                                        class="shrink-0 ml-2 text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 transition flex items-center gap-1 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
                                     <i class="fas fa-times"></i> Cambiar
                                 </button>
                             </div>
 
                             @error('proveedor_id')
-                                <p class="mt-1 text-xs text-red-600 flex items-center">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center">
                                     <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
                                 </p>
                             @enderror
@@ -361,15 +361,15 @@
 
                         <!-- Número de Factura -->
                         <div>
-                            <label for="numero_factura" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="numero_factura" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 N° Factura/Boleta <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="numero_factura" id="numero_factura"
                                    value="{{ old('numero_factura') }}" required
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
+                                   class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
                                    placeholder="Ej: F001-000001">
                             @error('numero_factura')
-                                <p class="mt-1 text-xs text-red-600 flex items-center">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center">
                                     <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
                                 </p>
                             @enderror
@@ -377,13 +377,13 @@
 
                         <!-- Almacén de Destino -->
                         <div class="relative">
-                            <label for="almacen_id" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="almacen_id" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Almacén de Destino <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 @php $almacenSeleccionado = old('almacen_id', $pedidoOrigen['almacen_id'] ?? null); @endphp
                                 <select name="almacen_id" id="almacen_id" required
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white text-sm">
+                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800 text-sm">
                                     <option value="">— Seleccione un almacén —</option>
                                     @if($almacenesCentral->isNotEmpty())
                                         <optgroup label="── Almacenes Centrales">
@@ -404,10 +404,10 @@
                                         </optgroup>
                                     @endif
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none text-xs"></i>
+                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                             </div>
                             @error('almacen_id')
-                                <p class="mt-1 text-xs text-red-600 flex items-center">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center">
                                     <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
                                 </p>
                             @enderror
@@ -415,76 +415,76 @@
 
                         <!-- Fecha -->
                         <div>
-                            <label for="fecha" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="fecha" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Fecha de Compra <span class="text-red-500">*</span>
                             </label>
                             <input type="date" name="fecha" id="fecha" required
                                    value="{{ old('fecha', date('Y-m-d')) }}"
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
+                                   class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
                         </div>
 
                         <!-- Tipo Comprobante -->
                         <div class="relative">
-                            <label for="tipo_comprobante" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="tipo_comprobante" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Tipo Comprobante
                             </label>
                             <div class="relative">
                                 <select name="tipo_comprobante" id="tipo_comprobante"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white">
+                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800">
                                     <option value="factura">Factura</option>
                                     <option value="boleta">Boleta</option>
                                     <option value="nota_credito">Nota de Crédito</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none text-xs"></i>
+                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                             </div>
                         </div>
 
                         <!-- Forma de Pago -->
                         <div class="relative">
-                            <label for="forma_pago" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="forma_pago" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Forma de Pago <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <select name="forma_pago" id="forma_pago" required
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white"
+                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800"
                                         onchange="toggleCondicionPago(this.value)">
                                     <option value="contado" {{ old('forma_pago') == 'contado' ? 'selected' : '' }}>Contado</option>
                                     <option value="credito" {{ old('forma_pago') == 'credito' ? 'selected' : '' }}>Crédito</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none text-xs"></i>
+                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                             </div>
                         </div>
 
                         <!-- Condición de Pago (crédito) -->
                         <div id="condicion_pago_div" class="{{ old('forma_pago') == 'credito' ? '' : 'hidden' }}">
-                            <label for="condicion_pago" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="condicion_pago" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Días de Crédito
                             </label>
                             <input type="number" name="condicion_pago" id="condicion_pago"
                                 value="{{ old('condicion_pago', 30) }}" min="1" max="90"
-                                class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
+                                class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
                                 {{ old('forma_pago') == 'credito' ? '' : 'disabled' }}>
                         </div>
 
                         <!-- Moneda -->
                         <div class="relative">
-                            <label for="tipo_moneda" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="tipo_moneda" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Moneda
                             </label>
                             <div class="relative">
                                 <select name="tipo_moneda" id="tipo_moneda"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white"
+                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800"
                                         onchange="toggleTipoCambio(this.value)">
                                     <option value="PEN" {{ old('tipo_moneda', 'PEN') == 'PEN' ? 'selected' : '' }}>PEN (S/)</option>
                                     <option value="USD" {{ old('tipo_moneda') == 'USD' ? 'selected' : '' }}>USD ($)</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none text-xs"></i>
+                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                             </div>
                         </div>
 
                         <!-- Tipo de Cambio -->
                         <div id="tipo_cambio_div" class="hidden">
-                            <label for="tipo_cambio" class="block text-xs font-medium text-gray-700 mb-1">
+                            <label for="tipo_cambio" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                 Tipo de Cambio (S/ por $)
                             </label>
                             <div class="flex gap-2 items-center">
@@ -492,36 +492,36 @@
                                        value="{{ old('tipo_cambio', '') }}" min="0.001" step="0.001"
                                        placeholder="Ej: 3.750"
                                        oninput="calcularTotales()"
-                                       class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
+                                       class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
                                 <button type="button" id="btnCargarTC" onclick="cargarTipoCambioSUNAT()"
                                         title="Cargar tipo de cambio desde SUNAT"
-                                        class="flex-shrink-0 px-2.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg border border-blue-200 transition text-sm font-medium whitespace-nowrap">
+                                        class="flex-shrink-0 px-2.5 py-2 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 rounded-lg border border-blue-200 dark:border-blue-800 transition text-sm font-medium whitespace-nowrap">
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
-                            <div id="tcInfo" class="hidden mt-1.5 px-3 py-2 bg-green-50 rounded-lg text-xs text-gray-600 flex flex-wrap gap-3">
-                                <span>Compra: <strong id="tcCompra" class="text-gray-800"></strong></span>
-                                <span>Venta: <strong id="tcVenta" class="text-gray-800"></strong></span>
-                                <span class="text-gray-400 italic" id="tcFecha"></span>
-                                <span class="text-green-600 font-medium"><i class="fas fa-check-circle mr-0.5"></i>SUNAT</span>
+                            <div id="tcInfo" class="hidden mt-1.5 px-3 py-2 bg-green-50 dark:bg-green-900/30 rounded-lg text-xs text-gray-600 dark:text-slate-400 flex flex-wrap gap-3">
+                                <span>Compra: <strong id="tcCompra" class="text-gray-800 dark:text-slate-200"></strong></span>
+                                <span>Venta: <strong id="tcVenta" class="text-gray-800 dark:text-slate-200"></strong></span>
+                                <span class="text-gray-400 dark:text-slate-500 italic" id="tcFecha"></span>
+                                <span class="text-green-600 dark:text-green-400 font-medium"><i class="fas fa-check-circle mr-0.5"></i>SUNAT</span>
                             </div>
                         </div>
 
                         <!-- Tipo de Operación SUNAT -->
                         <div class="lg:col-span-3">
-                            <label for="tipo_operacion" class="block text-xs font-medium text-gray-700 mb-1">
-                                <i class="fas fa-file-invoice mr-1 text-blue-600 text-[10px]"></i>
+                            <label for="tipo_operacion" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                <i class="fas fa-file-invoice mr-1 text-blue-600 dark:text-blue-400 text-[10px]"></i>
                                 Tipo de Operación SUNAT <span class="text-red-500">*</span>
                             </label>
                             <div class="relative max-w-md">
                                 <select name="tipo_operacion" id="tipo_operacion" required
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white">
+                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800">
                                     <option value="01" {{ old('tipo_operacion', '01') == '01' ? 'selected' : '' }}>01 — Gravado (IGV 18%)</option>
                                     <option value="02" {{ old('tipo_operacion') == '02' ? 'selected' : '' }}>02 — Exonerado</option>
                                     <option value="03" {{ old('tipo_operacion') == '03' ? 'selected' : '' }}>03 — Inafecto</option>
                                     <option value="04" {{ old('tipo_operacion') == '04' ? 'selected' : '' }}>04 — Exportación</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none text-xs"></i>
+                                <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                             </div>
                         </div>
                     </div>
@@ -530,9 +530,9 @@
                 <!-- SECCIÓN 2: PRODUCTOS -->
                 <div class="mb-6">
                     <div class="flex items-center justify-between mb-2">
-                        <h3 class="text-sm font-semibold text-gray-900 flex items-center">
-                            <span class="w-6 h-6 bg-green-100 rounded flex items-center justify-center mr-1.5">
-                                <i class="fas fa-boxes text-green-700 text-xs"></i>
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 flex items-center">
+                            <span class="w-6 h-6 bg-green-100 dark:bg-green-900/40 rounded flex items-center justify-center mr-1.5">
+                                <i class="fas fa-boxes text-green-700 dark:text-green-300 text-xs"></i>
                             </span>
                             Productos de la Compra
                         </h3>
@@ -544,48 +544,48 @@
                     </div>
 
                     <!-- Tabla de productos -->
-                    <div class="bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-gray-50 dark:bg-slate-900/60 rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200" id="tablaProductos">
-                                <thead class="bg-gray-100">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700" id="tablaProductos">
+                                <thead class="bg-gray-100 dark:bg-slate-700">
                                     <tr>
-                                        <th class="px-2 py-2 text-center text-[10px] font-semibold text-gray-600 uppercase w-8">#</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">Producto</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">Marca</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">Modelo</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">Color</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">Cant.</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase" id="thPrecioUnit">P. Unit. (S/)</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase" id="thSubtotal">Subtotal</th>
-                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 uppercase">IMEIs</th>
-                                        <th class="px-3 py-2 text-center text-[10px] font-semibold text-gray-600 uppercase w-16">Acc.</th>
+                                        <th class="px-2 py-2 text-center text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase w-8">#</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">Producto</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">Marca</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">Modelo</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">Color</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">Cant.</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase" id="thPrecioUnit">P. Unit. (S/)</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase" id="thSubtotal">Subtotal</th>
+                                        <th class="px-3 py-2 text-left text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase">IMEIs</th>
+                                        <th class="px-3 py-2 text-center text-[10px] font-semibold text-gray-600 dark:text-slate-400 uppercase w-16">Acc.</th>
                                     </tr>
                                 </thead>
-                                <tbody id="detallesBody" class="bg-white divide-y divide-gray-200">
+                                <tbody id="detallesBody" class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                     <!-- Los productos se agregarán dinámicamente aquí -->
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- Mensaje cuando no hay productos -->
-                        <div id="emptyProductos" class="text-center py-8 bg-white">
+                        <div id="emptyProductos" class="text-center py-8 bg-white dark:bg-slate-800">
                             <div class="flex flex-col items-center">
-                                <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                                    <i class="fas fa-box-open text-2xl text-gray-400"></i>
+                                <div class="w-14 h-14 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-2">
+                                    <i class="fas fa-box-open text-2xl text-gray-400 dark:text-slate-500"></i>
                                 </div>
-                                <p class="text-gray-500 text-sm">No hay productos agregados</p>
-                                <p class="text-xs text-gray-400">Haz clic en "Agregar Productos" para comenzar</p>
+                                <p class="text-gray-500 dark:text-slate-400 text-sm">No hay productos agregados</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500">Haz clic en "Agregar Productos" para comenzar</p>
                             </div>
                         </div>
 
                         <!-- Totales -->
-                        <div class="bg-gray-50 px-4 py-3 border-t border-gray-200">
+                        <div class="bg-gray-50 dark:bg-slate-900/60 px-4 py-3 border-t border-gray-200 dark:border-slate-700">
                             <div class="flex justify-end">
                                 <div class="w-72 space-y-2">
 
                                     {{-- Toggle: precio incluye IGV --}}
-                                    <div id="togglePrecioIgvWrap" class="flex items-center justify-between bg-amber-50 border border-amber-200 rounded px-2.5 py-1.5">
-                                        <label class="flex items-center gap-1.5 cursor-pointer select-none text-[11px] font-semibold text-amber-800" for="precio_incluye_igv">
+                                    <div id="togglePrecioIgvWrap" class="flex items-center justify-between bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded px-2.5 py-1.5">
+                                        <label class="flex items-center gap-1.5 cursor-pointer select-none text-[11px] font-semibold text-amber-800 dark:text-amber-300" for="precio_incluye_igv">
                                             <i class="fas fa-tags text-amber-500 text-xs"></i>
                                             ¿Precio incluye IGV?
                                         </label>
@@ -594,68 +594,68 @@
                                             <input type="checkbox" id="precio_incluye_igv" name="precio_incluye_igv" value="1" checked
                                                    class="sr-only peer">
                                             <div class="w-9 h-5 bg-gray-300 peer-checked:bg-amber-500 rounded-full transition-colors"></div>
-                                            <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4"></div>
+                                            <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white dark:bg-slate-800 rounded-full shadow transition-transform peer-checked:translate-x-4"></div>
                                         </label>
                                     </div>
 
                                     <div class="flex justify-between text-sm">
-                                        <span class="text-gray-600">Subtotal <span id="lblSinIgv" class="text-xs text-gray-400 hidden">(sin IGV)</span>:</span>
-                                        <span id="subtotal" class="font-medium text-gray-900">S/ 0.00</span>
+                                        <span class="text-gray-600 dark:text-slate-400">Subtotal <span id="lblSinIgv" class="text-xs text-gray-400 dark:text-slate-500 hidden">(sin IGV)</span>:</span>
+                                        <span id="subtotal" class="font-medium text-gray-900 dark:text-slate-100">S/ 0.00</span>
                                     </div>
                                     <div class="flex justify-between items-center text-sm">
                                         <label class="flex items-center space-x-2 cursor-pointer">
                                             <input type="hidden" name="incluye_igv" value="0">
                                             <input type="checkbox" id="incluir_igv" name="incluye_igv" value="1" checked
-                                                   class="w-4 h-4 rounded border-gray-300 text-blue-900 focus:ring-blue-900">
-                                            <span class="text-gray-600">IGV (18%):</span>
+                                                   class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-900">
+                                            <span class="text-gray-600 dark:text-slate-400">IGV (18%):</span>
                                         </label>
-                                        <span id="igv" class="font-medium text-gray-900">S/ 0.00</span>
+                                        <span id="igv" class="font-medium text-gray-900 dark:text-slate-100">S/ 0.00</span>
                                     </div>
                                     <!-- Costos de importación (visibles solo en tipo importacion) -->
-                                    <div id="totales_importacion" class="hidden space-y-2 pt-2 border-t border-dashed border-orange-200">
-                                        <p class="text-xs font-semibold text-orange-700 uppercase tracking-wide">
+                                    <div id="totales_importacion" class="hidden space-y-2 pt-2 border-t border-dashed border-orange-200 dark:border-orange-800">
+                                        <p class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide">
                                             <i class="fas fa-ship mr-1"></i>Costos Importación
                                         </p>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Flete (USD):</span>
-                                            <span id="total_flete" class="text-gray-700">$ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Flete (USD):</span>
+                                            <span id="total_flete" class="text-gray-700 dark:text-slate-300">$ 0.00</span>
                                         </div>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Seguro (USD):</span>
-                                            <span id="total_seguro" class="text-gray-700">$ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Seguro (USD):</span>
+                                            <span id="total_seguro" class="text-gray-700 dark:text-slate-300">$ 0.00</span>
                                         </div>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Otros (USD):</span>
-                                            <span id="total_otros" class="text-gray-700">$ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Otros (USD):</span>
+                                            <span id="total_otros" class="text-gray-700 dark:text-slate-300">$ 0.00</span>
                                         </div>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Imp. (S/):</span>
-                                            <span id="total_impuestos_pen" class="text-gray-700">S/ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Imp. (S/):</span>
+                                            <span id="total_impuestos_pen" class="text-gray-700 dark:text-slate-300">S/ 0.00</span>
                                         </div>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Transp. (S/):</span>
-                                            <span id="total_transporte_pen" class="text-gray-700">S/ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Transp. (S/):</span>
+                                            <span id="total_transporte_pen" class="text-gray-700 dark:text-slate-300">S/ 0.00</span>
                                         </div>
                                         <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">Percepción (S/):</span>
-                                            <span id="total_percepcion_pen" class="text-gray-700">S/ 0.00</span>
+                                            <span class="text-gray-600 dark:text-slate-400">Percepción (S/):</span>
+                                            <span id="total_percepcion_pen" class="text-gray-700 dark:text-slate-300">S/ 0.00</span>
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-between font-bold text-base pt-3 border-t-2 border-gray-200">
-                                        <span class="text-gray-900">Total:</span>
+                                    <div class="flex justify-between font-bold text-base pt-3 border-t-2 border-gray-200 dark:border-slate-700">
+                                        <span class="text-gray-900 dark:text-slate-100">Total:</span>
                                         <span id="total" class="text-blue-900">S/ 0.00</span>
                                     </div>
                                     <!-- Equivalente en PEN (solo visible cuando moneda = USD) -->
-                                    <div id="equivalentePEN" class="hidden pt-2 border-t border-dashed border-blue-200">
+                                    <div id="equivalentePEN" class="hidden pt-2 border-t border-dashed border-blue-200 dark:border-blue-800">
                                         <div class="flex justify-between items-center text-sm">
-                                            <span class="text-gray-500 flex items-center gap-1">
+                                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-1">
                                                 <i class="fas fa-exchange-alt text-xs text-blue-500"></i>
                                                 Equivalente en soles:
                                             </span>
                                             <span id="totalPEN" class="font-semibold text-blue-900">S/ 0.00</span>
                                         </div>
-                                        <p class="text-xs text-gray-400 text-right mt-0.5">TC: <span id="tcUsado">—</span></p>
+                                        <p class="text-xs text-gray-400 dark:text-slate-500 text-right mt-0.5">TC: <span id="tcUsado">—</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -665,21 +665,21 @@
 
                 <!-- SECCIÓN 3: OBSERVACIONES -->
                 <div class="mb-5">
-                    <h3 class="text-sm font-semibold text-gray-900 mb-2 flex items-center">
-                        <span class="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-1.5">
-                            <i class="fas fa-comment text-yellow-600 text-xs"></i>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2 flex items-center">
+                        <span class="w-6 h-6 bg-yellow-100 dark:bg-yellow-900/40 rounded flex items-center justify-center mr-1.5">
+                            <i class="fas fa-comment text-yellow-600 dark:text-yellow-400 text-xs"></i>
                         </span>
                         Observaciones
                     </h3>
                     <textarea name="observaciones" rows="2"
-                              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
+                              class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
                               placeholder="Notas adicionales sobre la compra...">{{ old('observaciones') }}</textarea>
                 </div>
 
                 <!-- Botones de acción -->
-                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100 dark:border-slate-700">
                     <a href="{{ route('compras.index') }}"
-                       class="px-5 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium text-sm">
+                       class="px-5 py-2 border border-gray-200 dark:border-slate-700 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition font-medium text-sm">
                         <i class="fas fa-times mr-1.5"></i>
                         Cancelar
                     </a>
@@ -697,7 +697,7 @@
     <div id="modalProductos" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="cerrarModalProductos()"></div>
         
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden transform transition-all">
+        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden transform transition-all">
             <!-- Header del modal -->
             <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4 flex justify-between items-center">
                 <h3 class="text-xl font-bold text-white flex items-center">
@@ -714,13 +714,13 @@
                 <!-- Buscador en vivo -->
                 <div class="mb-6">
                     <div class="relative">
-                        <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                        <i class="fas fa-search absolute left-4 top-3.5 text-gray-400 dark:text-slate-500"></i>
                         <input type="text" 
                             id="buscadorProductos"
                             placeholder="Buscar producto por nombre, código, marca o modelo..."
-                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 flex items-center">
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-2 flex items-center">
                         <i class="fas fa-info-circle mr-1 text-blue-400"></i>
                         Mínimo 2 caracteres para buscar
                     </p>
@@ -738,7 +738,7 @@
                         
                         @foreach($categorias as $categoria)
                             <button type="button" 
-                                    class="categoria-filter px-4 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                    class="categoria-filter px-4 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600"
                                     data-categoria="{{ $categoria->id }}">
                                 <i class="fas fa-tag mr-1"></i>{{ $categoria->nombre }}
                             </button>
@@ -754,16 +754,16 @@
                 <!-- Mensaje de carga -->
                 <div id="cargandoProductos" class="hidden text-center py-12">
                     <i class="fas fa-spinner fa-spin text-4xl text-blue-900"></i>
-                    <p class="mt-2 text-gray-500">Buscando productos...</p>
+                    <p class="mt-2 text-gray-500 dark:text-slate-400">Buscando productos...</p>
                 </div>
 
                 <!-- Mensaje sin resultados -->
                 <div id="sinResultados" class="hidden text-center py-10">
-                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-box-open text-3xl text-gray-400"></i>
+                    <div class="w-20 h-20 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-box-open text-3xl text-gray-400 dark:text-slate-500"></i>
                     </div>
-                    <p class="text-gray-500 mb-1">No se encontraron productos</p>
-                    <p class="text-xs text-gray-400 mb-4">Prueba con otros términos o crea el producto ahora</p>
+                    <p class="text-gray-500 dark:text-slate-400 mb-1">No se encontraron productos</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mb-4">Prueba con otros términos o crea el producto ahora</p>
                     <button type="button" onclick="abrirModalCrearProducto(document.getElementById('buscadorProductos').value)"
                             class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-500 transition shadow-md text-sm font-medium">
                         <i class="fas fa-plus-circle mr-2"></i>
@@ -773,14 +773,14 @@
             </div>
 
             <!-- Footer con acciones (mejorado) -->
-            <div class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-between items-center">
+            <div class="border-t border-gray-200 dark:border-slate-700 px-6 py-4 bg-gray-50 dark:bg-slate-900/60 flex justify-between items-center">
                 <div>
                     <span id="productosSeleccionadosCount" class="text-sm font-medium text-blue-900">0 productos seleccionados</span>
-                    <span id="totalUnidadesCount" class="ml-2 text-sm text-gray-500">(0 unidades)</span>
+                    <span id="totalUnidadesCount" class="ml-2 text-sm text-gray-500 dark:text-slate-400">(0 unidades)</span>
                 </div>
                 <div class="flex space-x-3">
                     <button onclick="cerrarModalProductos()"
-                            class="px-6 py-2 border-2 border-gray-200 rounded-lg text-gray-700 hover:bg-white transition">
+                            class="px-6 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition">
                         Cancelar
                     </button>
                     <button onclick="agregarProductosSeleccionados()"
@@ -796,7 +796,7 @@
     <div id="imeiModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="cerrarModalIMEI()"></div>
         
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
             <!-- Header con gradiente -->
             <div class="bg-gradient-to-r from-purple-700 to-purple-600 px-6 py-4 flex justify-between items-center">
                 <h3 class="text-xl font-bold text-white flex items-center" id="imeiModalTitle">
@@ -809,15 +809,15 @@
             </div>
 
             <!-- Tabs: Manual / Pistola -->
-            <div class="flex border-b border-gray-200 bg-gray-50">
+            <div class="flex border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60">
                 <button type="button" id="tab_manual"
                         onclick="activarModoIMEI('manual')"
-                        class="flex-1 py-2.5 text-sm font-medium text-purple-700 border-b-2 border-purple-600 bg-white transition">
+                        class="flex-1 py-2.5 text-sm font-medium text-purple-700 dark:text-purple-300 border-b-2 border-purple-600 bg-white dark:bg-slate-800 transition">
                     <i class="fas fa-keyboard mr-1"></i> Manual
                 </button>
                 <button type="button" id="tab_pistola"
                         onclick="activarModoIMEI('pistola')"
-                        class="flex-1 py-2.5 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition">
+                        class="flex-1 py-2.5 text-sm font-medium text-gray-500 dark:text-slate-400 border-b-2 border-transparent hover:text-gray-700 dark:hover:text-slate-200 transition">
                     <i class="fas fa-barcode mr-1"></i> Pistola / Escáner
                 </button>
             </div>
@@ -828,24 +828,24 @@
                 <!-- ── MODO MANUAL ── -->
                 <div id="panel_manual">
                     <!-- Barra de herramientas -->
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 p-3 bg-gray-50 rounded-xl">
-                        <span class="text-sm font-medium text-gray-700">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 p-3 bg-gray-50 dark:bg-slate-900/60 rounded-xl">
+                        <span class="text-sm font-medium text-gray-700 dark:text-slate-300">
                             <i class="fas fa-info-circle mr-1 text-blue-500"></i>
-                            Total: <span id="imeiTotalCount" class="font-bold text-purple-700">0</span> IMEIs
+                            Total: <span id="imeiTotalCount" class="font-bold text-purple-700 dark:text-purple-300">0</span> IMEIs
                         </span>
                         <div class="flex flex-wrap gap-2">
                             <button type="button" onclick="generarIMEIsAleatorios()"
-                                    class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 text-sm flex items-center">
+                                    class="px-3 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-200 text-sm flex items-center">
                                 <i class="fas fa-magic mr-1"></i>Generar
                             </button>
                             <button type="button" onclick="limpiarIMEIs()"
-                                    class="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 text-sm flex items-center">
+                                    class="px-3 py-1.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 text-sm flex items-center">
                                 <i class="fas fa-eraser mr-1"></i>Limpiar
                             </button>
                         </div>
                     </div>
                     <div id="imeiContainer" class="space-y-3"></div>
-                    <div class="mt-4 text-xs text-gray-500 flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                    <div class="mt-4 text-xs text-gray-500 dark:text-slate-400 flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
                         <span><i class="fas fa-info-circle mr-1 text-blue-500"></i> Cada IMEI debe tener exactamente 15 dígitos</span>
                         <span><i class="fas fa-level-down-alt mr-1 text-blue-500"></i> Enter avanza al siguiente campo</span>
                     </div>
@@ -860,14 +860,14 @@
                                 <i class="fas fa-barcode text-purple-400 text-2xl"></i>
                             </div>
                             <input type="text" id="pistola_input"
-                                   class="w-full pl-14 pr-4 py-4 border-2 border-purple-300 rounded-xl focus:border-purple-600 focus:ring-4 focus:ring-purple-100 font-mono text-xl tracking-widest text-center transition"
+                                   class="w-full pl-14 pr-4 py-4 border-2 border-purple-300 dark:border-purple-700 rounded-xl focus:border-purple-600 focus:ring-4 focus:ring-purple-100 font-mono text-xl tracking-widest text-center transition"
                                    placeholder="Escanear IMEI aquí..."
                                    maxlength="15"
                                    autocomplete="off"
                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                    onkeydown="pistolaManejarTecla(event)">
                         </div>
-                        <p class="text-xs text-center text-gray-500 mt-2">
+                        <p class="text-xs text-center text-gray-500 dark:text-slate-400 mt-2">
                             <i class="fas fa-info-circle mr-1"></i>
                             Apunta la pistola a este campo y escanea — se registra automáticamente al recibir el Enter
                         </p>
@@ -875,8 +875,8 @@
 
                     <!-- Contador y acciones -->
                     <div class="flex items-center justify-between mb-3 px-1">
-                        <span class="text-sm font-semibold text-gray-700">
-                            IMEIs escaneados: <span id="pistola_count" class="text-purple-700">0</span>
+                        <span class="text-sm font-semibold text-gray-700 dark:text-slate-300">
+                            IMEIs escaneados: <span id="pistola_count" class="text-purple-700 dark:text-purple-300">0</span>
                         </span>
                         <button type="button" onclick="pistolaBorrarUltimo()"
                                 class="text-xs text-red-500 hover:text-red-700 transition flex items-center gap-1">
@@ -888,7 +888,7 @@
                     <div id="pistola_lista" class="space-y-1.5 max-h-72 overflow-y-auto pr-1"></div>
 
                     <!-- Estado vacío -->
-                    <div id="pistola_vacio" class="py-10 text-center text-gray-400">
+                    <div id="pistola_vacio" class="py-10 text-center text-gray-400 dark:text-slate-500">
                         <i class="fas fa-barcode text-5xl mb-3 block opacity-30"></i>
                         <p class="text-sm">Aún no se han escaneado IMEIs</p>
                     </div>
@@ -897,9 +897,9 @@
             </div>
 
             <!-- Footer -->
-            <div class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-end space-x-3">
+            <div class="border-t border-gray-200 dark:border-slate-700 px-6 py-4 bg-gray-50 dark:bg-slate-900/60 flex justify-end space-x-3">
                 <button type="button" onclick="cerrarModalIMEI()"
-                        class="px-6 py-2 border-2 border-gray-200 rounded-lg text-gray-700 hover:bg-white transition">
+                        class="px-6 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition">
                     Cancelar
                 </button>
                 <button type="button" onclick="guardarIMEIs()"
@@ -975,7 +975,7 @@
 
                 if (resultados.length === 0) {
                     provResultados.innerHTML =
-                        '<div class="px-4 py-3 text-sm text-gray-500 text-center">' +
+                        '<div class="px-4 py-3 text-sm text-gray-500 dark:text-slate-400 text-center">' +
                         '<i class="fas fa-search mr-1"></i>No se encontraron proveedores</div>';
                 } else {
                     provResultados.innerHTML = resultados.map(p => {
@@ -988,11 +988,11 @@
                         const rs = (p.razon_social || '').replace(/\\/g,'\\\\').replace(/'/g, "\\'");
                         return `
                             <div onclick="seleccionarProveedor(${p.id},'${n}','${r}','${rs}')"
-                                 class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0 transition-colors">
-                                <div class="font-medium text-gray-900 text-sm">${nombre}</div>
-                                <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-3">
+                                 class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0 transition-colors">
+                                <div class="font-medium text-gray-900 dark:text-slate-100 text-sm">${nombre}</div>
+                                <div class="text-xs text-gray-500 dark:text-slate-400 mt-0.5 flex items-center gap-3">
                                     ${extra ? `<span>${extra}</span>` : ''}
-                                    <span class="font-mono text-blue-600">RUC: ${p.ruc || '—'}</span>
+                                    <span class="font-mono text-blue-600 dark:text-blue-400">RUC: ${p.ruc || '—'}</span>
                                 </div>
                             </div>`;
                     }).join('');
@@ -1188,13 +1188,13 @@
         row.className = 'border-b border-gray-100 hover:bg-gray-50';
         row.innerHTML = `
             <td class="px-2 py-2 text-center">
-                <span class="item-num inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-[10px] font-bold"></span>
+                <span class="item-num inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 dark:bg-slate-700 text-gray-600 dark:text-slate-400 text-[10px] font-bold"></span>
             </td>
             <td class="px-2 py-2">
                 <select name="detalles[${idx}][producto_id]"
                         id="producto_select_${idx}"
                         onchange="cargarDetallesProducto(this, ${idx})"
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs focus:ring-2 focus:ring-blue-500">
                     <option value="">Seleccione producto</option>
                     ${opcionesProductos}
                 </select>
@@ -1203,7 +1203,7 @@
             <td class="px-2 py-2">
                 <select id="marca_select_${idx}"
                         onchange="cambiarMarca(${idx})"
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs focus:ring-2 focus:ring-blue-500"
                         disabled>
                     <option value="">— Marca —</option>
                     ${opcionesMarcas}
@@ -1213,7 +1213,7 @@
                 <select name="detalles[${idx}][modelo_id]"
                         id="modelo_select_${idx}"
                         onchange="actualizarTrasCambioModelo(${idx})"
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs focus:ring-2 focus:ring-blue-500"
                         disabled>
                     <option value="">— Modelo —</option>
                 </select>
@@ -1222,7 +1222,7 @@
                 <select name="detalles[${idx}][color_id]"
                         id="color_${idx}"
                         onchange="actualizarVistaIMEI(${idx})"
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs focus:ring-2 focus:ring-blue-500"
                         disabled>
                     <option value="">No aplica</option>
                     ${opcionesColores}
@@ -1233,11 +1233,11 @@
                        id="cantidad_${idx}"
                        value="1" min="1" step="1"
                        onchange="actualizarCantidad(${idx})"
-                       class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs">
+                       class="w-full px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs">
             </td>
             <td class="px-2 py-2">
                 <div class="relative">
-                    <span class="absolute left-2 top-1.5 text-gray-500 text-xs" id="precio_prefix_${idx}">${document.getElementById('tipo_moneda').value === 'USD' ? '$' : 'S/'}</span>
+                    <span class="absolute left-2 top-1.5 text-gray-500 dark:text-slate-400 text-xs" id="precio_prefix_${idx}">${document.getElementById('tipo_moneda').value === 'USD' ? '$' : 'S/'}</span>
                     <input type="number" name="detalles[${idx}][precio_unitario]"
                            id="precio_${idx}"
                            value="" min="0.01" step="0.01"
@@ -1246,24 +1246,24 @@
                            onblur="if(this.value===''||parseFloat(this.value)===0){this.value='';}"
                            oninput="calcularSubtotal(${idx})"
                            onchange="calcularSubtotal(${idx}); propagarPrecio(${idx})"
-                           class="w-full pl-7 pr-2 py-1.5 border border-gray-300 rounded text-xs">
+                           class="w-full pl-7 pr-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded text-xs">
                 </div>
             </td>
             <td class="px-2 py-2 font-semibold text-xs" id="subtotal_${idx}">${document.getElementById('tipo_moneda').value === 'USD' ? '$' : 'S/'} 0.00</td>
             <td class="px-2 py-2">
-                <div id="imei_info_${idx}" class="hidden text-[10px] text-gray-500">
+                <div id="imei_info_${idx}" class="hidden text-[10px] text-gray-500 dark:text-slate-400">
                     <span id="imei_count_${idx}">0</span> IMEI(s)
                 </div>
                 <button type="button" onclick="gestionarIMEIs(${idx})"
                         id="btn_imei_${idx}"
-                        class="text-blue-600 hover:text-blue-800 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
                         disabled>
                     <i class="fas fa-microchip mr-0.5"></i>IMEIs
                 </button>
             </td>
             <td class="px-2 py-2 text-center">
                 <button type="button" onclick="eliminarProducto('${rowId}')"
-                        class="text-red-600 hover:text-red-800 text-xs">
+                        class="text-red-600 dark:text-red-400 hover:text-red-800 text-xs">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -1387,13 +1387,13 @@
 
         container.innerHTML = `
             <div class="mt-2">
-                <label class="block text-xs text-gray-500 mb-1 font-medium">
+                <label class="block text-xs text-gray-500 dark:text-slate-400 mb-1 font-medium">
                     <i class="fas fa-layer-group mr-1 text-indigo-500"></i>Variante
                 </label>
                 <select name="detalles[${index}][variante_id]"
                         id="variante_select_${index}"
                         onchange="seleccionarVariante(${index})"
-                        class="w-full px-2 py-1.5 border border-indigo-300 rounded-lg text-sm bg-indigo-50 focus:ring-2 focus:ring-indigo-400">
+                        class="w-full px-2 py-1.5 border border-indigo-300 dark:border-indigo-700 rounded-lg text-sm bg-indigo-50 dark:bg-indigo-900/30 focus:ring-2 focus:ring-indigo-400">
                     <option value="">— Seleccione variante —</option>
                     ${opciones}
                 </select>
@@ -1717,14 +1717,14 @@
         seccion.classList.remove('hidden');
 
         if (sumaBruta === 0) {
-            tabla.innerHTML = '<p class="text-gray-400 italic">Ingresa precios para calcular el prorrateo.</p>';
+            tabla.innerHTML = '<p class="text-gray-400 dark:text-slate-500 italic">Ingresa precios para calcular el prorrateo.</p>';
             return;
         }
 
         const moneda  = document.getElementById('tipo_moneda').value;
         const simbolo = moneda === 'USD' ? '$' : 'S/';
 
-        let html = `<div class="grid grid-cols-4 gap-2 font-semibold text-orange-700 border-b border-orange-100 pb-1 mb-1">
+        let html = `<div class="grid grid-cols-4 gap-2 font-semibold text-orange-700 dark:text-orange-300 border-b border-orange-100 pb-1 mb-1">
             <span>Producto</span><span class="text-right">Subtotal</span><span class="text-right">CIF asignado</span><span class="text-right font-bold">Costo total</span>
         </div>`;
 
@@ -1735,11 +1735,11 @@
             const cifAsignado = proporcion * totalCIF;
             const costoTotal  = fila.subtotal + cifAsignado;
 
-            html += `<div class="grid grid-cols-4 gap-2 py-0.5 text-gray-700 items-center">
+            html += `<div class="grid grid-cols-4 gap-2 py-0.5 text-gray-700 dark:text-slate-300 items-center">
                 <span class="truncate text-xs" title="${nombre}">${nombre}</span>
                 <span class="text-right text-xs">${simbolo} ${fila.subtotal.toFixed(2)}</span>
-                <span class="text-right text-xs text-orange-600">+ ${simbolo} ${cifAsignado.toFixed(2)}</span>
-                <span class="text-right text-xs font-semibold text-gray-900">${simbolo} ${costoTotal.toFixed(2)}</span>
+                <span class="text-right text-xs text-orange-600 dark:text-orange-400">+ ${simbolo} ${cifAsignado.toFixed(2)}</span>
+                <span class="text-right text-xs font-semibold text-gray-900 dark:text-slate-100">${simbolo} ${costoTotal.toFixed(2)}</span>
             </div>`;
         });
 
@@ -1833,8 +1833,8 @@
                 resultadosDiv.innerHTML = `
                     <div class="col-span-3 text-center py-8">
                         <i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-2"></i>
-                        <p class="text-red-600">Error al cargar productos</p>
-                        <p class="text-xs text-gray-500 mt-2">${error.message}</p>
+                        <p class="text-red-600 dark:text-red-400">Error al cargar productos</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 mt-2">${error.message}</p>
                     </div>
                 `;
             });
@@ -1848,11 +1848,11 @@
             const cantidadGuardada = cantidadesSeleccionadas[p.id] || 1;
             
             return `
-                <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition-all group">
+                <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition-all group">
                     <div class="flex items-start gap-3">
                         <div class="flex items-center mt-1">
                             <input type="checkbox"
-                                class="producto-checkbox w-5 h-5 rounded border-gray-300 text-blue-900 focus:ring-blue-500"
+                                class="producto-checkbox w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-500"
                                 value="${p.id}"
                                 data-producto-id="${p.id}"
                                 onchange="actualizarSeleccion(this, ${p.id})"
@@ -1862,21 +1862,21 @@
                             <i class="fas fa-box text-blue-900"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold text-gray-900">${p.nombre}</h4>
-                            <p class="text-sm text-gray-600">${p.marca || ''} ${p.modelo || ''}</p>
+                            <h4 class="font-semibold text-gray-900 dark:text-slate-100">${p.nombre}</h4>
+                            <p class="text-sm text-gray-600 dark:text-slate-400">${p.marca || ''} ${p.modelo || ''}</p>
                             <div class="flex items-center gap-2 mt-1">
-                                <span class="text-xs px-2 py-0.5 bg-gray-100 rounded-full text-gray-600">
+                                <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-slate-700 rounded-full text-gray-600 dark:text-slate-400">
                                     ${p.categoria || 'Sin categoría'}
                                 </span>
                                 ${p.tipo_inventario === 'serie' ?
-                                    '<span class="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full"><i class="fas fa-microchip mr-1"></i>IMEI</span>' :
-                                    '<span class="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full"><i class="fas fa-boxes mr-1"></i>Stock</span>'}
+                                    '<span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-full"><i class="fas fa-microchip mr-1"></i>IMEI</span>' :
+                                    '<span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full"><i class="fas fa-boxes mr-1"></i>Stock</span>'}
                             </div>
                             <!-- NUEVO: Selector de cantidad -->
                             <div class="mt-2 flex items-center gap-2">
-                                <span class="text-xs text-gray-500">Cantidad:</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400">Cantidad:</span>
                                 <input type="number" 
-                                    class="cantidad-input w-20 px-2 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    class="cantidad-input w-20 px-2 py-1 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                     value="${cantidadGuardada}"
                                     min="1"
                                     data-producto-id="${p.id}"
@@ -1891,10 +1891,10 @@
         
         // Agregar el botón de crear producto al final
         resultadosDiv.innerHTML += `
-            <div class="col-span-full mt-3 pt-3 border-t border-gray-200 text-center">
+            <div class="col-span-full mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 text-center">
                 <button type="button"
                         onclick="abrirModalCrearProducto(document.getElementById('buscadorProductos').value)"
-                        class="inline-flex items-center text-sm text-green-700 hover:text-green-900 transition font-medium">
+                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 transition font-medium">
                     <i class="fas fa-plus-circle mr-1"></i>
                     ¿No está el producto? Créalo aquí
                 </button>
@@ -1922,10 +1922,10 @@
                         <div id="vcard_${key}" class="flex items-center gap-2 px-2 py-1.5 rounded-lg border ${bordClr} transition-all cursor-pointer"
                              onclick="npToggleVariante(${p.id},${v.id})">
                             <input type="checkbox"
-                                   class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-400 pointer-events-none"
+                                   class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-indigo-600 dark:text-indigo-400 focus:ring-indigo-400 pointer-events-none"
                                    ${sel ? 'checked' : ''}>
                             ${dot}
-                            <span class="text-xs font-medium text-gray-800 flex-1 truncate">${label}</span>
+                            <span class="text-xs font-medium text-gray-800 dark:text-slate-200 flex-1 truncate">${label}</span>
                             <span class="text-xs ${stockClr} font-medium shrink-0">${stockTxt}</span>
                         </div>`;
                 }).join('');
@@ -1935,23 +1935,23 @@
                     ? `<span class="text-xs px-2 py-0.5 bg-indigo-600 text-white rounded-full font-semibold">${totalSelVariantes} sel.</span>` : '';
 
                 return `
-                    <div class="bg-white border-2 border-gray-200 rounded-xl p-3 hover:border-indigo-300 hover:shadow-lg transition-all">
+                    <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 hover:border-indigo-300 hover:shadow-lg transition-all">
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-9 h-9 bg-indigo-50 rounded-lg flex items-center justify-center shrink-0">
-                                <i class="fas fa-mobile-alt text-indigo-600 text-sm"></i>
+                            <div class="w-9 h-9 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="fas fa-mobile-alt text-indigo-600 dark:text-indigo-400 text-sm"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 text-sm truncate">${p.nombre}</h4>
-                                <p class="text-xs text-gray-500">${p.marca || ''} ${p.modelo ? '· ' + p.modelo : ''}</p>
+                                <h4 class="font-semibold text-gray-900 dark:text-slate-100 text-sm truncate">${p.nombre}</h4>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">${p.marca || ''} ${p.modelo ? '· ' + p.modelo : ''}</p>
                             </div>
                             <div class="flex items-center gap-1 shrink-0">
-                                <span class="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full">
+                                <span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-full">
                                     <i class="fas fa-layer-group mr-1"></i>${p.variantes.length} var.
                                 </span>
                                 ${badgeSel}
                             </div>
                         </div>
-                        <div class="space-y-1 border-t border-gray-100 pt-2">
+                        <div class="space-y-1 border-t border-gray-100 dark:border-slate-700 pt-2">
                             ${variantesHTML}
                         </div>
                     </div>`;
@@ -1961,10 +1961,10 @@
                 const sel  = productosSeleccionadosIds.has(p.id);
                 const cant = cantidadesSeleccionadas[p.id] || 1;
                 return `
-                    <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition-all group">
+                    <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition-all group">
                         <div class="flex items-start gap-3">
                             <input type="checkbox"
-                                   class="w-5 h-5 rounded border-gray-300 text-blue-900 focus:ring-blue-500 mt-1 shrink-0"
+                                   class="w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-500 mt-1 shrink-0"
                                    value="${p.id}"
                                    onchange="actualizarSeleccion(this, ${p.id})"
                                    ${sel ? 'checked' : ''}>
@@ -1972,18 +1972,18 @@
                                 <i class="fas fa-box text-blue-900"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 text-sm truncate">${p.nombre}</h4>
-                                <p class="text-xs text-gray-500">${p.marca || ''} ${p.modelo ? '· ' + p.modelo : ''}</p>
+                                <h4 class="font-semibold text-gray-900 dark:text-slate-100 text-sm truncate">${p.nombre}</h4>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">${p.marca || ''} ${p.modelo ? '· ' + p.modelo : ''}</p>
                                 <div class="flex items-center gap-2 mt-1">
-                                    <span class="text-xs px-2 py-0.5 bg-gray-100 rounded-full text-gray-600">${p.categoria || '—'}</span>
+                                    <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-slate-700 rounded-full text-gray-600 dark:text-slate-400">${p.categoria || '—'}</span>
                                     ${p.tipo_inventario === 'serie'
-                                        ? '<span class="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full"><i class="fas fa-microchip mr-1"></i>IMEI</span>'
-                                        : '<span class="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full"><i class="fas fa-boxes mr-1"></i>Stock</span>'}
+                                        ? '<span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-full"><i class="fas fa-microchip mr-1"></i>IMEI</span>'
+                                        : '<span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full"><i class="fas fa-boxes mr-1"></i>Stock</span>'}
                                 </div>
                                 <div class="mt-2 flex items-center gap-2">
-                                    <span class="text-xs text-gray-500">Cant.:</span>
+                                    <span class="text-xs text-gray-500 dark:text-slate-400">Cant.:</span>
                                     <input type="number"
-                                           class="cantidad-input w-16 px-2 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                           class="cantidad-input w-16 px-2 py-1 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                            value="${cant}" min="1"
                                            data-producto-id="${p.id}"
                                            onchange="actualizarCantidadProducto(${p.id}, this.value)"
@@ -1997,10 +1997,10 @@
 
         // Botón crear producto
         resultadosDiv.innerHTML += `
-            <div class="col-span-full mt-3 pt-3 border-t border-gray-200 text-center">
+            <div class="col-span-full mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 text-center">
                 <button type="button"
                         onclick="abrirModalCrearProducto(document.getElementById('buscadorProductos').value)"
-                        class="inline-flex items-center text-sm text-green-700 hover:text-green-900 transition font-medium">
+                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 transition font-medium">
                     <i class="fas fa-plus-circle mr-1"></i>¿No está el producto? Créalo aquí
                 </button>
             </div>`;
@@ -2339,10 +2339,10 @@
         }
         vacio?.classList.add('hidden');
         div.innerHTML = lista.map((imei, i) => `
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border border-gray-100">
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border border-gray-100 dark:border-slate-700">
                 <div class="flex items-center gap-2">
-                    <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs font-bold flex items-center justify-center shrink-0">${i + 1}</span>
-                    <span class="font-mono text-sm text-gray-800 tracking-wider">${imei}</span>
+                    <span class="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center justify-center shrink-0">${i + 1}</span>
+                    <span class="font-mono text-sm text-gray-800 dark:text-slate-200 tracking-wider">${imei}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="fas fa-check-circle text-green-500 text-sm"></i>
@@ -2382,12 +2382,12 @@
 
             html += `
                 <div class="grid grid-cols-12 gap-3 items-center" id="imei_row_${i}">
-                    <div class="col-span-1 text-sm font-medium text-gray-600 text-center bg-gray-100 py-2 rounded-lg">
+                    <div class="col-span-1 text-sm font-medium text-gray-600 dark:text-slate-400 text-center bg-gray-100 dark:bg-slate-700 py-2 rounded-lg">
                         ${i + 1}
                     </div>
                     <div class="col-span-11">
                         <input type="text"
-                            class="imei-input w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 font-mono text-lg tracking-wider ${esValido}"
+                            class="imei-input w-full px-4 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 font-mono text-lg tracking-wider ${esValido}"
                             placeholder="Ingrese IMEI de 15 dígitos"
                             value="${valor}"
                             maxlength="15"
@@ -2768,7 +2768,7 @@
         if (guardados.length > 0 && pendientes <= 0) {
             countSpan.innerText = guardados.length;
             infoDiv.classList.remove('hidden');
-            btnImei.innerHTML = `<i class="fas fa-check-circle mr-1 text-green-600"></i>${guardados.length} IMEI(s)`;
+            btnImei.innerHTML = `<i class="fas fa-check-circle mr-1 text-green-600 dark:text-green-400"></i>${guardados.length} IMEI(s)`;
             btnImei.classList.remove('text-orange-600', 'font-medium');
             btnImei.classList.add('text-green-700', 'font-medium');
         } else if (guardados.length > 0 && pendientes > 0) {
@@ -2891,9 +2891,9 @@
                 Swal.fire({
                     icon: 'warning',
                     title: 'IMEIs incompletos',
-                    html: `<p class="text-gray-600 mb-2">Los siguientes productos requieren IMEIs:</p>
-                           <pre class="text-left text-sm bg-gray-50 rounded p-3">${lista}</pre>
-                           <p class="text-xs text-gray-400 mt-2">Haz clic en el botón <strong>IMEIs</strong> de cada fila para registrarlos.</p>`,
+                    html: `<p class="text-gray-600 dark:text-slate-400 mb-2">Los siguientes productos requieren IMEIs:</p>
+                           <pre class="text-left text-sm bg-gray-50 dark:bg-slate-900/60 rounded p-3">${lista}</pre>
+                           <p class="text-xs text-gray-400 dark:text-slate-500 mt-2">Haz clic en el botón <strong>IMEIs</strong> de cada fila para registrarlos.</p>`,
                     confirmButtonColor: '#7c3aed',
                     confirmButtonText: 'Entendido'
                 });
@@ -2984,7 +2984,7 @@ function npRenderVariantes() {
     conteo.textContent = npVariantes.length + ' agregada' + (npVariantes.length !== 1 ? 's' : '');
 
     if (npVariantes.length === 0) {
-        lista.innerHTML = `<div class="py-4 text-center text-sm text-gray-400">
+        lista.innerHTML = `<div class="py-4 text-center text-sm text-gray-400 dark:text-slate-500">
             <i class="fas fa-layer-group mr-1"></i> Agrega variantes abajo
         </div>`;
         return;
@@ -2992,13 +2992,13 @@ function npRenderVariantes() {
 
     lista.innerHTML = npVariantes.map((v, i) => {
         const circulo = v.color_hex
-            ? `<span class="w-4 h-4 rounded-full border border-gray-300 shrink-0 inline-block" style="background-color:${v.color_hex}"></span>`
-            : `<span class="w-4 h-4 rounded-full bg-gray-200 border border-gray-300 shrink-0 inline-block"></span>`;
+            ? `<span class="w-4 h-4 rounded-full border border-gray-300 dark:border-slate-600 shrink-0 inline-block" style="background-color:${v.color_hex}"></span>`
+            : `<span class="w-4 h-4 rounded-full bg-gray-200 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 shrink-0 inline-block"></span>`;
         const label = [v.color_nombre, v.capacidad].filter(Boolean).join(' / ') || 'Sin especificar';
         return `<div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center gap-2">
                 ${circulo}
-                <span class="text-sm text-gray-800">${label}</span>
+                <span class="text-sm text-gray-800 dark:text-slate-200">${label}</span>
             </div>
             <button type="button" onclick="npEliminarVariante(${i})"
                     class="text-red-400 hover:text-red-600 transition text-xs px-2 py-1 rounded hover:bg-red-50">
@@ -3348,7 +3348,7 @@ function guardarNuevoProducto() {
 <!-- ============================================================ -->
 <div id="modalCrearProducto"
      class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-start justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg my-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg my-auto">
 
         <!-- Header -->
         <div class="bg-gradient-to-r from-green-700 to-green-600 px-6 py-4 rounded-t-2xl flex items-center justify-between">
@@ -3367,22 +3367,22 @@ function guardarNuevoProducto() {
 
             <!-- Nombre -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                     Nombre del producto <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="np_nombre"
-                       class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition"
+                       class="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition"
                        placeholder="Ej: iPhone 15 Pro Max">
             </div>
 
             <!-- Categoría + Tipo inventario -->
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                         Categoría <span class="text-red-500">*</span>
                     </label>
                     <select id="np_categoria" onchange="cargarMarcasNuevoProducto()"
-                            class="w-full px-3 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
+                            class="w-full px-3 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
                         <option value="">Seleccionar...</option>
                         @foreach($categorias as $cat)
                             <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
@@ -3390,11 +3390,11 @@ function guardarNuevoProducto() {
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                         Tipo <span class="text-red-500">*</span>
                     </label>
                     <select id="np_tipo" onchange="toggleModeloLabel(); toggleGarantiaSection();"
-                            class="w-full px-3 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
+                            class="w-full px-3 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
                         <option value="cantidad">Regular (stock)</option>
                         <option value="serie">Serie (IMEI)</option>
                     </select>
@@ -3403,17 +3403,17 @@ function guardarNuevoProducto() {
 
             <!-- Marca -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                     Marca <span class="text-red-500">*</span>
                 </label>
                 <div class="flex gap-2">
                     <select id="np_marca" onchange="cargarModelosNuevoProducto()"
-                            class="flex-1 px-3 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
+                            class="flex-1 px-3 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
                         <option value="">Seleccionar categoría primero...</option>
                     </select>
                     <button type="button" onclick="crearMarcaRapida()"
                             title="Nueva marca"
-                            class="px-3 py-2 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-xl hover:bg-blue-100 transition shrink-0">
+                            class="px-3 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-100 transition shrink-0">
                         <i class="fas fa-plus text-sm"></i>
                     </button>
                 </div>
@@ -3421,19 +3421,19 @@ function guardarNuevoProducto() {
 
             <!-- Modelo -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                     Modelo
                     <span id="np_modelo_req_label" class="text-red-500">*</span>
-                    <span id="np_modelo_opt_label" class="text-gray-400 text-xs font-normal hidden">(opcional)</span>
+                    <span id="np_modelo_opt_label" class="text-gray-400 dark:text-slate-500 text-xs font-normal hidden">(opcional)</span>
                 </label>
                 <div class="flex gap-2">
                     <select id="np_modelo"
-                            class="flex-1 px-3 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
+                            class="flex-1 px-3 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
                         <option value="">Seleccionar marca primero...</option>
                     </select>
                     <button type="button" onclick="crearModeloRapido()"
                             title="Nuevo modelo"
-                            class="px-3 py-2 bg-indigo-50 text-indigo-700 border-2 border-indigo-200 rounded-xl hover:bg-indigo-100 transition shrink-0">
+                            class="px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl hover:bg-indigo-100 transition shrink-0">
                         <i class="fas fa-plus text-sm"></i>
                     </button>
                 </div>
@@ -3441,11 +3441,11 @@ function guardarNuevoProducto() {
 
             <!-- Unidad de Medida -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                     Unidad de Medida <span class="text-red-500">*</span>
                 </label>
                 <select id="np_unidad_medida"
-                        class="w-full px-3 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
+                        class="w-full px-3 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 transition">
                     <option value="">Seleccionar...</option>
                     @foreach($unidades as $u)
                         <option value="{{ $u->id }}">{{ $u->nombre }} ({{ $u->abreviatura }})</option>
@@ -3455,20 +3455,20 @@ function guardarNuevoProducto() {
 
             <!-- Garantía (solo serie/IMEI) -->
             <div id="np_garantia_section" class="hidden">
-                <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl space-y-3">
-                    <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">
+                <div class="p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl space-y-3">
+                    <p class="text-xs font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wide">
                         <i class="fas fa-shield-alt mr-1"></i>Garantía
                     </p>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-medium text-gray-600 mb-1">Días de garantía</label>
+                            <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Días de garantía</label>
                             <input type="number" id="np_dias_garantia" value="365" min="0"
-                                   class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-400 focus:ring-2 focus:ring-blue-100 text-sm transition">
+                                   class="w-full px-3 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-400 focus:ring-2 focus:ring-blue-100 text-sm transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-gray-600 mb-1">Tipo garantía</label>
+                            <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Tipo garantía</label>
                             <select id="np_tipo_garantia"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-400 focus:ring-2 focus:ring-blue-100 text-sm transition">
+                                    class="w-full px-3 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-400 focus:ring-2 focus:ring-blue-100 text-sm transition">
                                 <option value="proveedor">Proveedor</option>
                                 <option value="tienda">Tienda</option>
                                 <option value="fabricante">Fabricante</option>
@@ -3479,12 +3479,12 @@ function guardarNuevoProducto() {
             </div>
 
             <!-- ¿Tiene variantes? -->
-            <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-xl">
                 <label class="flex items-center gap-3 cursor-pointer">
                     <input type="checkbox" id="np_tiene_variantes"
                            onchange="toggleVariantesNuevoProducto()"
-                           class="w-4 h-4 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-400">
-                    <span class="text-sm font-medium text-indigo-800">
+                           class="w-4 h-4 rounded border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 focus:ring-indigo-400">
+                    <span class="text-sm font-medium text-indigo-800 dark:text-indigo-300">
                         <i class="fas fa-layer-group mr-1"></i>Este producto tiene variantes (colores / capacidades)
                     </span>
                 </label>
@@ -3492,7 +3492,7 @@ function guardarNuevoProducto() {
 
             <!-- Sección variantes inline -->
             <div id="np_variantes_section" class="hidden">
-                <div class="border-2 border-indigo-200 rounded-xl overflow-hidden">
+                <div class="border-2 border-indigo-200 dark:border-indigo-800 rounded-xl overflow-hidden">
                     <!-- Header -->
                     <div class="bg-indigo-700 px-4 py-2 flex items-center justify-between">
                         <span class="text-white text-sm font-semibold"><i class="fas fa-layer-group mr-1"></i> Variantes</span>
@@ -3500,16 +3500,16 @@ function guardarNuevoProducto() {
                     </div>
 
                     <!-- Lista de variantes agregadas -->
-                    <div id="np_variantes_lista" class="divide-y divide-gray-100 bg-white"></div>
+                    <div id="np_variantes_lista" class="divide-y divide-gray-100 dark:divide-slate-700 bg-white dark:bg-slate-800"></div>
 
                     <!-- Fila para agregar nueva variante -->
-                    <div class="p-3 bg-gray-50 border-t border-gray-200">
+                    <div class="p-3 bg-gray-50 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700">
                         <div class="grid grid-cols-[1fr_1fr_auto] gap-2 items-end">
                             <div>
-                                <label class="block text-xs font-medium text-gray-500 mb-1">Color</label>
+                                <label class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">Color</label>
                                 <div class="flex gap-1">
                                     <select id="np_var_color"
-                                            class="flex-1 px-2 py-2 border-2 border-gray-200 rounded-lg text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition">
+                                            class="flex-1 px-2 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition">
                                         <option value="">Sin color</option>
                                         @foreach($colores as $c)
                                             <option value="{{ $c->id }}"
@@ -3520,10 +3520,10 @@ function guardarNuevoProducto() {
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-gray-500 mb-1">Capacidad <span class="text-gray-400">(ej: 256GB)</span></label>
+                                <label class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">Capacidad <span class="text-gray-400 dark:text-slate-500">(ej: 256GB)</span></label>
                                 <input type="text" id="np_var_capacidad"
                                        placeholder="256GB+8RAM"
-                                       class="w-full px-2 py-2 border-2 border-gray-200 rounded-lg text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition">
+                                       class="w-full px-2 py-2 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition">
                             </div>
                             <button type="button" onclick="npAgregarVariante()"
                                     class="px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm shrink-0">
@@ -3536,12 +3536,12 @@ function guardarNuevoProducto() {
 
             <!-- Código de barras -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                     Código de barras
-                    <span class="text-gray-400 text-xs font-normal">(dejar vacío para generar automáticamente)</span>
+                    <span class="text-gray-400 dark:text-slate-500 text-xs font-normal">(dejar vacío para generar automáticamente)</span>
                 </label>
                 <input type="text" id="np_codigo_barras"
-                       class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 font-mono transition"
+                       class="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-100 font-mono transition"
                        placeholder="Ej: 7501234567890">
             </div>
 
@@ -3550,7 +3550,7 @@ function guardarNuevoProducto() {
         <!-- Footer -->
         <div class="px-6 pb-6 flex justify-end gap-3">
             <button type="button" onclick="cerrarModalCrearProducto()"
-                    class="px-5 py-2.5 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition font-medium">
+                    class="px-5 py-2.5 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700/60 transition font-medium">
                 Cancelar
             </button>
             <button type="button" onclick="guardarNuevoProducto()"

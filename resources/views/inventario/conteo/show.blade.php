@@ -9,13 +9,13 @@
         {{-- Header --}}
         <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
+                <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-1">
                     <a href="{{ route('inventario-fisico.index') }}" class="hover:text-blue-700">
                         <i class="fas fa-arrow-left mr-1"></i> Conteos
                     </a>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-800">{{ $conteo->nombre }}</h1>
-                <p class="text-sm text-gray-500 mt-0.5">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-slate-200">{{ $conteo->nombre }}</h1>
+                <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
                     {{ $conteo->almacen->nombre }} · {{ now()->isoFormat('dddd, D [de] MMMM YYYY') }}
                 </p>
             </div>
@@ -32,7 +32,7 @@
         </div>
 
         {{-- Info box --}}
-        <div class="mb-5 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-800 flex flex-wrap items-center justify-between gap-2">
+        <div class="mb-5 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl text-sm text-blue-800 dark:text-blue-300 flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-start gap-2">
                 <i class="fas fa-info-circle mt-0.5 shrink-0"></i>
                 <span>
@@ -42,7 +42,7 @@
                 </span>
             </div>
             @if($stats->contados > 0)
-                <div class="flex items-center gap-1 text-green-700 font-medium shrink-0">
+                <div class="flex items-center gap-1 text-green-700 dark:text-green-300 font-medium shrink-0">
                     <i class="fas fa-check-circle"></i>
                     {{ $stats->contados }} productos contados
                     @php $ultimo = $conteo->detalles()->whereNotNull('contado_at')->orderByDesc('contado_at')->first(); @endphp
@@ -53,21 +53,21 @@
 
         {{-- KPI Cards --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-                <p class="text-2xl font-bold text-blue-700">{{ $stats->contados }}</p>
-                <p class="text-xs text-gray-500 mt-0.5">Productos contados</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 text-center">
+                <p class="text-2xl font-bold text-blue-700 dark:text-blue-300">{{ $stats->contados }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Productos contados</p>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-                <p class="text-2xl font-bold text-red-600">{{ number_format($stats->total_faltante_unidades) }} und</p>
-                <p class="text-xs text-gray-500 mt-0.5">Unidades faltantes (total)</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 text-center">
+                <p class="text-2xl font-bold text-red-600 dark:text-red-400">{{ number_format($stats->total_faltante_unidades) }} und</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Unidades faltantes (total)</p>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-                <p class="text-2xl font-bold text-amber-600">S/ {{ number_format($valorStats->valor_compra ?? 0, 2) }}</p>
-                <p class="text-xs text-gray-500 mt-0.5">Valor a precio compra</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 text-center">
+                <p class="text-2xl font-bold text-amber-600 dark:text-amber-400">S/ {{ number_format($valorStats->valor_compra ?? 0, 2) }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Valor a precio compra</p>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 text-center">
                 <p class="text-2xl font-bold text-yellow-500">S/ {{ number_format($valorStats->valor_venta ?? 0, 2) }}</p>
-                <p class="text-xs text-gray-500 mt-0.5">Valor a precio venta</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Valor a precio venta</p>
             </div>
         </div>
 
@@ -75,10 +75,10 @@
         <form method="GET" action="{{ route('inventario-fisico.show', $conteo) }}" class="flex flex-wrap gap-3 mb-4 items-end">
             <input type="text" name="buscar" value="{{ request('buscar') }}"
                    placeholder="Buscar producto o código..."
-                   class="flex-1 min-w-48 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                   class="flex-1 min-w-48 px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
 
             <select name="categoria_id"
-                    class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    class="px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                 <option value="">Todas las categorías</option>
                 @foreach($categorias as $cat)
                     <option value="{{ $cat->id }}" {{ request('categoria_id') == $cat->id ? 'selected' : '' }}>
@@ -87,13 +87,13 @@
                 @endforeach
             </select>
 
-            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none">
+            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300 cursor-pointer select-none">
                 <div class="relative">
                     <input type="checkbox" name="solo_faltantes" value="1" id="soloFaltantes"
                            {{ request('solo_faltantes') ? 'checked' : '' }}
                            class="sr-only peer">
                     <div class="w-10 h-6 bg-gray-300 rounded-full peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4"></div>
+                    <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-slate-800 rounded-full shadow transition-transform peer-checked:translate-x-4"></div>
                 </div>
                 Solo faltantes
             </label>
@@ -103,7 +103,7 @@
                 <i class="fas fa-filter mr-1"></i> Filtrar
             </button>
             <a href="{{ route('inventario-fisico.show', $conteo) }}"
-               class="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+               class="px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                 <i class="fas fa-times"></i>
             </a>
         </form>
@@ -122,51 +122,51 @@
         </div>
 
         {{-- Table --}}
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase w-24">Código</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Producto</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Categoría</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase w-16">Mín.</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase w-28">Stock Sistema</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase w-32">Stock Físico</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase w-24">Faltante</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase w-24">P. Compra</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase w-28">Valor Faltante</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-24">Código</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Producto</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Categoría</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-16">Mín.</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-28">Stock Sistema</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-32">Stock Físico</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-24">Faltante</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-24">P. Compra</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase w-28">Valor Faltante</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                         @forelse($detalles as $det)
-                            <tr class="hover:bg-gray-50" id="row-{{ $det->id }}">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60" id="row-{{ $det->id }}">
                                 <td class="px-4 py-3">
-                                    <span class="text-xs font-mono text-blue-700 font-medium">
+                                    <span class="text-xs font-mono text-blue-700 dark:text-blue-300 font-medium">
                                         {{ $det->producto->codigo }}
                                     </span>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <p class="font-medium text-gray-800">
+                                    <p class="font-medium text-gray-800 dark:text-slate-200">
                                         {{ $det->producto->nombre }}
                                         @if($det->variante)
-                                            <span class="text-xs text-gray-500">({{ $det->variante->nombre_completo }})</span>
+                                            <span class="text-xs text-gray-500 dark:text-slate-400">({{ $det->variante->nombre_completo }})</span>
                                         @endif
                                     </p>
                                     @if($det->contado_at)
-                                        <p class="text-xs text-green-600 mt-0.5 flex items-center gap-1">
+                                        <p class="text-xs text-green-600 dark:text-green-400 mt-0.5 flex items-center gap-1">
                                             <i class="fas fa-check-circle"></i>
                                             Contado {{ $det->contado_at->format('d/m H:i') }}
                                         </p>
                                     @endif
                                 </td>
-                                <td class="px-4 py-3 text-gray-500 text-xs">
+                                <td class="px-4 py-3 text-gray-500 dark:text-slate-400 text-xs">
                                     {{ $det->producto->categoria?->nombre ?? '—' }}
                                 </td>
-                                <td class="px-4 py-3 text-right text-gray-500">
+                                <td class="px-4 py-3 text-right text-gray-500 dark:text-slate-400">
                                     {{ $det->producto->stock_minimo ?? '—' }}
                                 </td>
-                                <td class="px-4 py-3 text-right font-bold text-gray-800">
+                                <td class="px-4 py-3 text-right font-bold text-gray-800 dark:text-slate-200">
                                     {{ number_format($det->stock_sistema) }}
                                 </td>
                                 <td class="px-4 py-3 text-center">
@@ -176,10 +176,9 @@
                                            value="{{ $det->stock_fisico }}"
                                            placeholder="—"
                                            @blur="autoSave({{ $det->id }}, $event.target.value)"
-                                           class="w-24 text-center px-2 py-1.5 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500
-                                                  {{ $det->stock_fisico !== null ? 'border-green-400 bg-green-50' : 'border-gray-300' }}"
+                                           class="w-24 text-center px-2 py-1.5 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 {{ $det->stock_fisico !== null ? 'border-green-400 bg-green-50' : 'border-gray-300' }}"
                                            :class="saved[{{ $det->id }}] ? 'border-green-400 bg-green-50' : ''">
-                                    <span x-show="saving[{{ $det->id }}]" class="ml-1 text-gray-400">
+                                    <span x-show="saving[{{ $det->id }}]" class="ml-1 text-gray-400 dark:text-slate-500">
                                         <i class="fas fa-spinner fa-spin text-xs"></i>
                                     </span>
                                 </td>
@@ -190,22 +189,22 @@
                                                 <i class="fas fa-caret-down text-xs"></i> {{ abs($det->diferencia) }}
                                             </span>
                                         @elseif($det->diferencia > 0)
-                                            <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                                            <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">
                                                 +{{ $det->diferencia }}
                                             </span>
                                         @else
-                                            <span class="text-xs text-gray-400">0</span>
+                                            <span class="text-xs text-gray-400 dark:text-slate-500">0</span>
                                         @endif
                                     @else
                                         <span class="text-gray-300">—</span>
                                     @endif
                                 </td>
-                                <td class="px-4 py-3 text-right text-gray-600 text-xs">
+                                <td class="px-4 py-3 text-right text-gray-600 dark:text-slate-400 text-xs">
                                     S/ {{ number_format($det->producto->costo_promedio ?? 0, 2) }}
                                 </td>
                                 <td class="px-4 py-3 text-right font-medium" id="vf-{{ $det->id }}">
                                     @if($det->faltante > 0)
-                                        <span class="text-red-600">S/ {{ number_format($det->valor_faltante, 2) }}</span>
+                                        <span class="text-red-600 dark:text-red-400">S/ {{ number_format($det->valor_faltante, 2) }}</span>
                                     @else
                                         <span class="text-gray-300">—</span>
                                     @endif
@@ -213,7 +212,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="px-4 py-12 text-center text-gray-400">
+                                <td colspan="9" class="px-4 py-12 text-center text-gray-400 dark:text-slate-500">
                                     <i class="fas fa-search text-3xl mb-3 block"></i>
                                     No se encontraron productos con los filtros aplicados.
                                 </td>
@@ -221,14 +220,14 @@
                         @endforelse
                     </tbody>
                     @if($detalles->count() > 0)
-                        <tfoot class="bg-gray-50 border-t-2 border-gray-300">
+                        <tfoot class="bg-gray-50 dark:bg-slate-900/60 border-t-2 border-gray-300 dark:border-slate-600">
                             <tr>
-                                <td colspan="6" class="px-4 py-2 text-right text-xs font-semibold text-gray-600 uppercase">Total faltante (vista actual):</td>
-                                <td class="px-4 py-2 text-center text-sm font-bold text-red-600">
+                                <td colspan="6" class="px-4 py-2 text-right text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Total faltante (vista actual):</td>
+                                <td class="px-4 py-2 text-center text-sm font-bold text-red-600 dark:text-red-400">
                                     {{ number_format($detalles->sum(fn($d) => $d->faltante)) }} und
                                 </td>
                                 <td class="px-4 py-2"></td>
-                                <td class="px-4 py-2 text-right text-sm font-bold text-red-600">
+                                <td class="px-4 py-2 text-right text-sm font-bold text-red-600 dark:text-red-400">
                                     S/ {{ number_format($detalles->sum(fn($d) => $d->valor_faltante), 2) }}
                                 </td>
                             </tr>
@@ -237,7 +236,7 @@
                 </table>
             </div>
             @if($detalles->hasPages())
-                <div class="px-4 py-3 border-t border-gray-200">
+                <div class="px-4 py-3 border-t border-gray-200 dark:border-slate-700">
                     {{ $detalles->links() }}
                 </div>
             @endif
@@ -280,16 +279,16 @@
                             } else if (dif < 0) {
                                 difCell.innerHTML = `<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white"><i class="fas fa-caret-down text-xs"></i> ${Math.abs(dif)}</span>`;
                             } else if (dif > 0) {
-                                difCell.innerHTML = `<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">+${dif}</span>`;
+                                difCell.innerHTML = `<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">+${dif}</span>`;
                             } else {
-                                difCell.innerHTML = '<span class="text-xs text-gray-400">0</span>';
+                                difCell.innerHTML = '<span class="text-xs text-gray-400 dark:text-slate-500">0</span>';
                             }
                         }
 
                         // Update valor faltante cell
                         const vfCell = document.getElementById(`vf-${detalleId}`);
                         if (vfCell && data.faltante > 0) {
-                            vfCell.innerHTML = `<span class="text-red-600">S/ ${data.valor_faltante}</span>`;
+                            vfCell.innerHTML = `<span class="text-red-600 dark:text-red-400">S/ ${data.valor_faltante}</span>`;
                         } else if (vfCell) {
                             vfCell.innerHTML = '<span class="text-gray-300">—</span>';
                         }

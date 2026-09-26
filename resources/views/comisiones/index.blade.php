@@ -10,51 +10,51 @@
 <div x-data="comisionesApp()">
 {{-- KPIs --}}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-percentage text-blue-600"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-percentage text-blue-600 dark:text-blue-400"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400">Comisiones pendientes</p>
-                <p class="text-lg font-bold text-gray-800">S/ {{ number_format($totalComisionPendiente, 2) }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500">Comisiones pendientes</p>
+                <p class="text-lg font-bold text-gray-800 dark:text-slate-200">S/ {{ number_format($totalComisionPendiente, 2) }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center shrink-0">
                 <i class="fas fa-star text-amber-500"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400">Bonos pendientes</p>
-                <p class="text-lg font-bold text-gray-800">S/ {{ number_format($totalBonusPendiente, 2) }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500">Bonos pendientes</p>
+                <p class="text-lg font-bold text-gray-800 dark:text-slate-200">S/ {{ number_format($totalBonusPendiente, 2) }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-list-check text-purple-600"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-list-check text-purple-600 dark:text-purple-400"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400">Reglas de comisión</p>
-                <p class="text-lg font-bold text-gray-800">{{ $reglas->count() }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500">Reglas de comisión</p>
+                <p class="text-lg font-bold text-gray-800 dark:text-slate-200">{{ $reglas->count() }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-gift text-emerald-600"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-gift text-emerald-600 dark:text-emerald-400"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400">Reglas de bono</p>
-                <p class="text-lg font-bold text-gray-800">{{ $bonusReglas->count() }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500">Reglas de bono</p>
+                <p class="text-lg font-bold text-gray-800 dark:text-slate-200">{{ $bonusReglas->count() }}</p>
             </div>
         </div>
     </div>
 
     @if(session('error'))
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-5 flex items-center gap-2">
+        <div class="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-5 flex items-center gap-2">
             <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
         </div>
     @endif
     @if($errors->any())
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-5 text-sm">
+        <div class="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-5 text-sm">
             <ul class="list-disc list-inside space-y-1">
                 @foreach($errors->all() as $e) <li>{{ $e }}</li> @endforeach
             </ul>
@@ -62,7 +62,7 @@
     @endif
 
     {{-- Tabs --}}
-    <div class="flex gap-1 mb-5 bg-white border border-gray-200 rounded-xl p-1 w-fit shadow-sm">
+    <div class="flex gap-1 mb-5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-1 w-fit shadow-sm">
         <button @click="tab='comisiones'"
                 :class="tab==='comisiones' ? 'bg-blue-700 text-white shadow' : 'text-gray-500 hover:text-blue-700'"
                 class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2">
@@ -77,7 +77,7 @@
 
     {{-- Ayuda: cuándo usar Comisión vs Bono, cambia según la pestaña activa --}}
     <div x-show="tab==='comisiones'" x-cloak
-         class="mb-5 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-800 flex gap-2.5">
+         class="mb-5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 text-xs text-blue-800 dark:text-blue-300 flex gap-2.5">
         <i class="fas fa-lightbulb shrink-0 mt-0.5 text-blue-500"></i>
         <div>
             <p class="font-semibold mb-0.5">¿Cuándo usar Comisión?</p>
@@ -85,7 +85,7 @@
         </div>
     </div>
     <div x-show="tab==='bonos'" x-cloak
-         class="mb-5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 flex gap-2.5">
+         class="mb-5 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-3 text-xs text-amber-800 dark:text-amber-300 flex gap-2.5">
         <i class="fas fa-lightbulb shrink-0 mt-0.5 text-amber-500"></i>
         <div>
             <p class="font-semibold mb-0.5">¿Cuándo usar Bono?</p>
@@ -95,7 +95,7 @@
 
     {{-- ══════════════════ TAB COMISIONES ══════════════════ --}}
     <div x-show="tab==='comisiones'" x-cloak>
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
             <div class="bg-linear-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-percentage text-white text-xl"></i></div>
@@ -118,21 +118,21 @@
                         </button>
                     </form>
                     <button @click="modalComision=true"
-                            class="px-3 py-2 bg-white text-blue-800 hover:bg-blue-50 text-xs font-semibold rounded-lg transition flex items-center gap-1.5">
+                            class="px-3 py-2 bg-white dark:bg-slate-800 text-blue-800 dark:text-blue-300 hover:bg-blue-50 text-xs font-semibold rounded-lg transition flex items-center gap-1.5">
                         <i class="fas fa-plus"></i> Nueva regla
                     </button>
                 </div>
             </div>
 
             @if($reglas->isEmpty())
-                <div class="py-12 text-center text-gray-400">
+                <div class="py-12 text-center text-gray-400 dark:text-slate-500">
                     <i class="fas fa-percentage text-4xl mb-3 block opacity-30"></i>
                     <p class="text-sm">No hay reglas configuradas. Crea la primera.</p>
                 </div>
             @else
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
                         <tr>
                             <x-th>Nombre</x-th>
                             <x-th>Tipo</x-th>
@@ -143,10 +143,10 @@
                             <x-th class="text-right">Acciones</x-th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                         @foreach($reglas as $regla)
-                        <tr class="hover:bg-gray-50 transition-colors {{ $regla->activo ? '' : 'opacity-50' }}">
-                            <td class="px-4 py-3 font-medium text-gray-800">{{ $regla->nombre }}</td>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors {{ $regla->activo ? '' : 'opacity-50' }}">
+                            <td class="px-4 py-3 font-medium text-gray-800 dark:text-slate-200">{{ $regla->nombre }}</td>
                             <td class="px-4 py-3">
                                 @php $tono = match($regla->tipo_aplicacion) {
                                     'usuario'          => 'purple',
@@ -158,7 +158,7 @@
                                 }; @endphp
                                 <x-badge :tone="$tono">{{ $regla->tipo_aplicacion_label }}</x-badge>
                             </td>
-                            <td class="px-4 py-3 text-gray-600 text-xs max-w-[160px] truncate">
+                            <td class="px-4 py-3 text-gray-600 dark:text-slate-400 text-xs max-w-[160px] truncate">
                                 @if($regla->tipo_aplicacion === 'producto_usuario')
                                     {{ $regla->producto?->nombre }} — {{ $regla->usuario?->name }}
                                 @elseif($regla->tipo_aplicacion === 'categoria_usuario')
@@ -169,7 +169,7 @@
                             </td>
                             <td class="px-4 py-3 text-xs">
                                 @if($regla->tipo_calculo === 'porcentaje_margen')
-                                    <span class="inline-flex items-center gap-1 text-emerald-700 font-semibold">
+                                    <span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-300 font-semibold">
                                         <i class="fas fa-chart-line text-[10px]"></i> % sobre margen
                                     </span>
                                     @if($regla->producto)
@@ -184,25 +184,25 @@
                                         </p>
                                     @endif
                                 @elseif($regla->tipo_calculo === 'porcentaje')
-                                    <span class="text-blue-600">% sobre venta</span>
+                                    <span class="text-blue-600 dark:text-blue-400">% sobre venta</span>
                                 @else
-                                    <span class="text-gray-600">Monto fijo / u.</span>
+                                    <span class="text-gray-600 dark:text-slate-400">Monto fijo / u.</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 font-mono font-bold text-gray-800">{{ $regla->valor_formateado }}</td>
+                            <td class="px-4 py-3 font-mono font-bold text-gray-800 dark:text-slate-200">{{ $regla->valor_formateado }}</td>
                             <td class="px-4 py-3 text-center">
                                 <form action="{{ route('comisiones.toggle', $regla) }}" method="POST" class="inline">
                                     @csrf @method('PATCH')
                                     <button type="submit" title="{{ $regla->activo ? 'Desactivar' : 'Activar' }}"
                                             class="w-10 h-5 rounded-full transition-colors relative {{ $regla->activo ? 'bg-blue-500' : 'bg-gray-300' }}">
-                                        <span class="absolute top-0.5 {{ $regla->activo ? 'right-0.5' : 'left-0.5' }} w-4 h-4 bg-white rounded-full shadow transition-all"></span>
+                                        <span class="absolute top-0.5 {{ $regla->activo ? 'right-0.5' : 'left-0.5' }} w-4 h-4 bg-white dark:bg-slate-800 rounded-full shadow transition-all"></span>
                                     </button>
                                 </form>
                             </td>
                             <td class="px-4 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <button @click="abrirEditarComision({{ $regla->id }}, '{{ addslashes($regla->nombre) }}', '{{ $regla->tipo_calculo }}', {{ $regla->valor }})"
-                                            class="text-blue-600 hover:text-blue-800 text-xs p-1.5 rounded-lg hover:bg-blue-50 transition">
+                                            class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs p-1.5 rounded-lg hover:bg-blue-50 transition">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('comisiones.destroy', $regla) }}" method="POST"
@@ -221,7 +221,7 @@
             </div>
             @endif
         </div>
-        <div class="mt-4 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-700 flex gap-2">
+        <div class="mt-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 text-xs text-blue-700 dark:text-blue-300 flex gap-2">
             <i class="fas fa-info-circle shrink-0 mt-0.5"></i>
             <span><strong>Prioridad:</strong> Producto+Vendedor › Producto › Categoría+Vendedor › Categoría › Usuario. Se usa siempre la regla más específica que aplique a la venta. La comisión <strong>sobre margen</strong> usa el costo promedio del producto.</span>
         </div>
@@ -229,7 +229,7 @@
 
     {{-- ══════════════════ TAB BONOS ══════════════════ --}}
     <div x-show="tab==='bonos'" x-cloak>
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
             <div class="bg-linear-to-r from-amber-600 to-amber-400 px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-star text-white text-xl"></i></div>
@@ -244,14 +244,14 @@
                         <i class="fas fa-trophy"></i> Progreso de metas
                     </a>
                     <button @click="modalBonus=true"
-                            class="px-3 py-2 bg-white text-amber-700 hover:bg-amber-50 text-xs font-semibold rounded-lg transition flex items-center gap-1.5">
+                            class="px-3 py-2 bg-white dark:bg-slate-800 text-amber-700 dark:text-amber-300 hover:bg-amber-50 text-xs font-semibold rounded-lg transition flex items-center gap-1.5">
                         <i class="fas fa-plus"></i> Nuevo bono
                     </button>
                 </div>
             </div>
 
             @if($bonusReglas->isEmpty())
-                <div class="py-12 text-center text-gray-400">
+                <div class="py-12 text-center text-gray-400 dark:text-slate-500">
                     <i class="fas fa-star text-4xl mb-3 block opacity-30"></i>
                     <p class="text-sm">No hay reglas de bono configuradas.</p>
                     <p class="text-xs mt-1">Los bonos son incentivos adicionales a la comisión base.</p>
@@ -259,7 +259,7 @@
             @else
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
                         <tr>
                             <x-th>Nombre</x-th>
                             <x-th>Aplica a</x-th>
@@ -271,10 +271,10 @@
                             <x-th class="text-right">Acciones</x-th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                         @foreach($bonusReglas as $bonus)
-                        <tr class="hover:bg-gray-50 transition-colors {{ $bonus->activo ? '' : 'opacity-50' }}">
-                            <td class="px-4 py-3 font-medium text-gray-800">{{ $bonus->nombre }}</td>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors {{ $bonus->activo ? '' : 'opacity-50' }}">
+                            <td class="px-4 py-3 font-medium text-gray-800 dark:text-slate-200">{{ $bonus->nombre }}</td>
                             <td class="px-4 py-3">
                                 @php $bonusTono = match($bonus->tipo_aplicacion) {
                                     'producto'         => 'orange',
@@ -283,7 +283,7 @@
                                 }; @endphp
                                 <x-badge :tone="$bonusTono">{{ $bonus->tipo_aplicacion_label }}</x-badge>
                             </td>
-                            <td class="px-4 py-3 text-gray-600 text-xs max-w-[150px] truncate">
+                            <td class="px-4 py-3 text-gray-600 dark:text-slate-400 text-xs max-w-[150px] truncate">
                                 @if($bonus->tipo_aplicacion === 'producto_usuario')
                                     {{ $bonus->producto?->nombre }} — {{ $bonus->usuario?->name }}
                                 @else
@@ -297,12 +297,12 @@
                                     <x-badge tone="purple" icon="fa-trophy">Meta</x-badge>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 font-mono font-bold text-gray-800">{{ $bonus->valor_formateado }}</td>
+                            <td class="px-4 py-3 font-mono font-bold text-gray-800 dark:text-slate-200">{{ $bonus->valor_formateado }}</td>
                             <td class="px-4 py-3 text-xs">
                                 @if($bonus->tipo_bonus === 'meta')
-                                    <span class="text-purple-700 font-medium">{{ $bonus->descripcion_meta }}</span>
+                                    <span class="text-purple-700 dark:text-purple-300 font-medium">{{ $bonus->descripcion_meta }}</span>
                                 @else
-                                    <span class="text-gray-400">—</span>
+                                    <span class="text-gray-400 dark:text-slate-500">—</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3 text-center">
@@ -310,14 +310,14 @@
                                     @csrf @method('PATCH')
                                     <button type="submit" title="{{ $bonus->activo ? 'Desactivar' : 'Activar' }}"
                                             class="w-10 h-5 rounded-full transition-colors relative {{ $bonus->activo ? 'bg-amber-500' : 'bg-gray-300' }}">
-                                        <span class="absolute top-0.5 {{ $bonus->activo ? 'right-0.5' : 'left-0.5' }} w-4 h-4 bg-white rounded-full shadow transition-all"></span>
+                                        <span class="absolute top-0.5 {{ $bonus->activo ? 'right-0.5' : 'left-0.5' }} w-4 h-4 bg-white dark:bg-slate-800 rounded-full shadow transition-all"></span>
                                     </button>
                                 </form>
                             </td>
                             <td class="px-4 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <button @click="abrirEditarBonus({{ $bonus->id }}, '{{ addslashes($bonus->nombre) }}', '{{ $bonus->tipo_calculo }}', {{ $bonus->valor }}, {{ $bonus->meta_unidades ?? 'null' }}, '{{ $bonus->meta_periodo ?? 'mensual' }}')"
-                                            class="text-amber-600 hover:text-amber-800 text-xs p-1.5 rounded-lg hover:bg-amber-50 transition">
+                                            class="text-amber-600 dark:text-amber-400 hover:text-amber-800 text-xs p-1.5 rounded-lg hover:bg-amber-50 transition">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('comisiones.bonus.destroy', $bonus) }}" method="POST"
@@ -337,11 +337,11 @@
             @endif
         </div>
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="bg-green-50 border border-green-200 rounded-xl px-4 py-3 text-xs text-green-700 flex gap-2">
+            <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl px-4 py-3 text-xs text-green-700 dark:text-green-300 flex gap-2">
                 <i class="fas fa-bolt shrink-0 mt-0.5 text-green-500"></i>
                 <div><p class="font-semibold mb-0.5">Bono Fijo</p>Se suma automáticamente por cada unidad vendida del producto/categoría. Se acumula con la comisión base.</div>
             </div>
-            <div class="bg-purple-50 border border-purple-200 rounded-xl px-4 py-3 text-xs text-purple-700 flex gap-2">
+            <div class="bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 rounded-xl px-4 py-3 text-xs text-purple-700 dark:text-purple-300 flex gap-2">
                 <i class="fas fa-trophy shrink-0 mt-0.5 text-purple-500"></i>
                 <div><p class="font-semibold mb-0.5">Bono por Meta</p>Se genera una sola vez cuando el vendedor supera las unidades mínimas en el período configurado.</div>
             </div>
@@ -352,7 +352,7 @@
     <div x-show="modalComision" x-cloak
          class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
          @click.self="cerrarModalComision()">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
             <div class="bg-linear-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center justify-between">
                 <h3 class="font-bold text-white text-base flex items-center gap-2">
                     <i class="fas fa-percentage"></i>
@@ -365,16 +365,16 @@
             <form x-show="!editComisionId" action="{{ route('comisiones.store') }}" method="POST" class="p-6 space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Nombre de la regla *</label>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Nombre de la regla *</label>
                     <input type="text" name="nombre" required maxlength="100"
                            placeholder="Ej: Comisión iPhone 16, Comisión Celulares..."
-                           class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                           class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Aplica a *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Aplica a *</label>
                         <select name="tipo_aplicacion" x-model="tipoAplicacion"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                             <option value="usuario">Vendedor específico</option>
                             <option value="categoria">Categoría</option>
                             <option value="producto">Producto específico</option>
@@ -383,98 +383,98 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                             <span x-text="tipoAplicacion==='usuario'?'Vendedor':(tipoAplicacion==='categoria'||tipoAplicacion==='categoria_usuario')?'Categoría':'Producto'"></span> *
                         </label>
                         <select x-show="tipoAplicacion==='usuario'" name="user_id"
                                 x-model="vendedorSeleccionado"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($vendedores as $v)<option value="{{ $v->id }}">{{ $v->name }}</option>@endforeach
                         </select>
                         <select x-show="tipoAplicacion==='categoria' || tipoAplicacion==='categoria_usuario'" name="categoria_id"
                                 x-model="categoriaSeleccionada"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($categorias as $c)<option value="{{ $c->id }}">{{ $c->nombre }}</option>@endforeach
                         </select>
                         <select x-show="tipoAplicacion==='producto' || tipoAplicacion==='producto_usuario'" name="producto_id"
                                 x-model="productoSeleccionado"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($productos as $p)<option value="{{ $p->id }}">{{ $p->nombre }}{{ $p->codigo?' ('.$p->codigo.')':'' }}</option>@endforeach
                         </select>
                     </div>
                 </div>
                 <div x-show="tipoAplicacion==='producto_usuario'" x-cloak>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Vendedor *</label>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Vendedor *</label>
                     <select name="user_id_producto"
                             x-model="vendedorProductoSeleccionado"
-                            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                            class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                         <option value="">— Seleccione —</option>
                         @foreach($vendedores as $v)<option value="{{ $v->id }}">{{ $v->name }}</option>@endforeach
                     </select>
                 </div>
                 <div x-show="tipoAplicacion==='categoria_usuario'" x-cloak>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Vendedor *</label>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Vendedor *</label>
                     <select name="user_id_categoria"
                             x-model="vendedorCategoriaSeleccionado"
-                            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                            class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                         <option value="">— Seleccione —</option>
                         @foreach($vendedores as $v)<option value="{{ $v->id }}">{{ $v->name }}</option>@endforeach
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Tipo de cálculo *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Tipo de cálculo *</label>
                         <select name="tipo_calculo" x-model="tipoCalculo"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                             <option value="porcentaje">% sobre precio de venta</option>
                             <option value="porcentaje_margen">% sobre margen de ganancia</option>
                             <option value="monto_fijo">Monto fijo por unidad (S/)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                             Valor <span x-text="tipoCalculo==='monto_fijo'?'(S/)':'(%)'"></span> *
                         </label>
                         <div class="relative">
-                            <span class="absolute left-3 top-2.5 text-gray-400 text-sm" x-text="tipoCalculo==='monto_fijo'?'S/':'%'"></span>
+                            <span class="absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-sm" x-text="tipoCalculo==='monto_fijo'?'S/':'%'"></span>
                             <input type="number" name="valor" step="0.01" min="0.01" required
                                    x-model="valorComision"
-                                   class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                   class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
                 </div>
 
                 {{-- Vista previa dinámica: explica en palabras simples qué hará la regla --}}
-                <div class="bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2.5 text-xs text-indigo-800 flex gap-2">
+                <div class="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-lg px-3 py-2.5 text-xs text-indigo-800 dark:text-indigo-300 flex gap-2">
                     <i class="fas fa-wand-magic-sparkles shrink-0 mt-0.5 text-indigo-500"></i>
                     <div>
                         <p class="font-semibold mb-0.5">Así se registrará esta regla:</p>
                         <p x-text="previewComision"></p>
                     </div>
                 </div>
-                <div class="text-[11px] text-gray-500 flex gap-1.5 items-start">
+                <div class="text-[11px] text-gray-500 dark:text-slate-400 flex gap-1.5 items-start">
                     <i class="fas fa-circle-info shrink-0 mt-0.5"></i>
                     <span>Si un producto tiene varias reglas que le aplican, gana la más específica: <strong>Producto+Vendedor › Producto › Categoría+Vendedor › Categoría › Vendedor</strong>. La regla solo afecta ventas nuevas, no las ya registradas.</span>
                 </div>
 
                 <div x-show="tipoCalculo==='porcentaje_margen'" x-cloak
-                     class="bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2.5 text-xs text-emerald-700 space-y-1.5">
+                     class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-lg px-3 py-2.5 text-xs text-emerald-700 dark:text-emerald-300 space-y-1.5">
                     <p class="flex gap-2 items-start">
                         <i class="fas fa-info-circle shrink-0 mt-0.5"></i>
                         Comisión calculada sobre: precio de venta − costo promedio del producto (máximo 0 si hay pérdida).
                     </p>
                     <template x-if="margenProducto">
-                        <div class="border-t border-emerald-200 pt-1.5 grid grid-cols-3 gap-2 text-center">
+                        <div class="border-t border-emerald-200 dark:border-emerald-800 pt-1.5 grid grid-cols-3 gap-2 text-center">
                             <div>
                                 <p class="text-[10px] text-emerald-500 uppercase font-semibold">Precio venta</p>
-                                <p class="font-bold text-emerald-800" x-text="'S/ ' + margenProducto.precio.toFixed(2)"></p>
+                                <p class="font-bold text-emerald-800 dark:text-emerald-300" x-text="'S/ ' + margenProducto.precio.toFixed(2)"></p>
                             </div>
                             <div>
                                 <p class="text-[10px] text-emerald-500 uppercase font-semibold">Costo promedio</p>
-                                <p class="font-bold text-emerald-800" x-text="'S/ ' + margenProducto.costo.toFixed(2)"></p>
+                                <p class="font-bold text-emerald-800 dark:text-emerald-300" x-text="'S/ ' + margenProducto.costo.toFixed(2)"></p>
                             </div>
                             <div :class="margenProducto.margen >= 0 ? 'text-emerald-700' : 'text-red-600'">
                                 <p class="text-[10px] uppercase font-semibold opacity-75">Ganancia real</p>
@@ -488,7 +488,7 @@
                 </div>
                 <div class="flex justify-end gap-3 pt-2">
                     <button type="button" @click="cerrarModalComision()"
-                            class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                            class="px-4 py-2 text-sm text-gray-600 dark:text-slate-400 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60">Cancelar</button>
                     <button type="submit"
                             class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg flex items-center gap-2">
                         <i class="fas fa-save"></i> Guardar regla
@@ -501,34 +501,34 @@
                 <form :action="`{{ url('comisiones') }}/${editComisionId}`" method="POST" class="p-6 space-y-4">
                     @csrf @method('PUT')
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Nombre *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Nombre *</label>
                         <input type="text" name="nombre" :value="editComisionNombre" required maxlength="100"
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Tipo de cálculo *</label>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Tipo de cálculo *</label>
                             <select name="tipo_calculo" x-model="editTipoCalculo"
-                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                 <option value="porcentaje">% sobre precio de venta</option>
                                 <option value="porcentaje_margen">% sobre margen de ganancia</option>
                                 <option value="monto_fijo">Monto fijo por unidad (S/)</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                                 Valor <span x-text="editTipoCalculo==='monto_fijo'?'(S/)':'(%)'"></span> *
                             </label>
                             <div class="relative">
-                                <span class="absolute left-3 top-2.5 text-gray-400 text-sm" x-text="editTipoCalculo==='monto_fijo'?'S/':'%'"></span>
+                                <span class="absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-sm" x-text="editTipoCalculo==='monto_fijo'?'S/':'%'"></span>
                                 <input type="number" name="valor" step="0.01" min="0.01" required :value="editComisionValor"
-                                       class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                       class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-end gap-3 pt-2">
                         <button type="button" @click="cerrarModalComision()"
-                                class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                                class="px-4 py-2 text-sm text-gray-600 dark:text-slate-400 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60">Cancelar</button>
                         <button type="submit"
                                 class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg flex items-center gap-2">
                             <i class="fas fa-save"></i> Actualizar
@@ -543,7 +543,7 @@
     <div x-show="modalBonus" x-cloak
          class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
          @click.self="cerrarModalBonus()">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
             <div class="bg-linear-to-r from-amber-600 to-amber-400 px-6 py-4 flex items-center justify-between">
                 <h3 class="font-bold text-white text-base flex items-center gap-2">
                     <i class="fas fa-star"></i>
@@ -556,100 +556,100 @@
             <form x-show="!editBonusId" action="{{ route('comisiones.bonus.store') }}" method="POST" class="p-6 space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Nombre del bono *</label>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Nombre del bono *</label>
                     <input type="text" name="nombre" required maxlength="100"
                            placeholder="Ej: Bono Samsung Galaxy, Bono categoría Celulares..."
-                           class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+                           class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Aplica a *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Aplica a *</label>
                         <select name="tipo_aplicacion" x-model="bonusTipoAplicacion"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                             <option value="producto">Producto específico</option>
                             <option value="categoria">Categoría</option>
                             <option value="producto_usuario">Producto + Vendedor específico</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                             <span x-text="bonusTipoAplicacion==='categoria'?'Categoría':'Producto'"></span> *
                         </label>
                         <select x-show="bonusTipoAplicacion==='producto' || bonusTipoAplicacion==='producto_usuario'" name="producto_id"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($productos as $p)<option value="{{ $p->id }}">{{ $p->nombre }}</option>@endforeach
                         </select>
                         <select x-show="bonusTipoAplicacion==='categoria'" name="categoria_id"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($categorias as $c)<option value="{{ $c->id }}">{{ $c->nombre }}</option>@endforeach
                         </select>
                     </div>
                 </div>
                 <div x-show="bonusTipoAplicacion==='producto_usuario'" x-cloak>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Vendedor *</label>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Vendedor *</label>
                     <select name="user_id_producto"
-                            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                            class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                         <option value="">— Seleccione —</option>
                         @foreach($vendedores as $v)<option value="{{ $v->id }}">{{ $v->name }}</option>@endforeach
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Tipo de bono *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Tipo de bono *</label>
                         <select name="tipo_bonus" x-model="bonusTipo"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                             <option value="fijo">Fijo (por cada venta)</option>
                             <option value="meta">Por meta de unidades</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Cálculo del bono *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Cálculo del bono *</label>
                         <select name="tipo_calculo" x-model="bonusCalculo"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                             <option value="monto_fijo">Monto fijo (S/)</option>
                             <option value="porcentaje_venta">% sobre la venta</option>
                         </select>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                         Valor <span x-text="bonusCalculo==='monto_fijo'?'(S/)':'(%)'"></span> *
                     </label>
                     <div class="relative w-48">
-                        <span class="absolute left-3 top-2.5 text-gray-400 text-sm" x-text="bonusCalculo==='monto_fijo'?'S/':'%'"></span>
+                        <span class="absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-sm" x-text="bonusCalculo==='monto_fijo'?'S/':'%'"></span>
                         <input type="number" name="valor" step="0.01" min="0.01" required
-                               class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+                               class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500">
                     </div>
                 </div>
                 {{-- Meta --}}
-                <div x-show="bonusTipo==='meta'" x-cloak class="grid grid-cols-2 gap-3 border-t border-gray-100 pt-3">
+                <div x-show="bonusTipo==='meta'" x-cloak class="grid grid-cols-2 gap-3 border-t border-gray-100 dark:border-slate-700 pt-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                             <i class="fas fa-trophy text-purple-500 mr-1"></i>Unidades mínimas *
                         </label>
                         <input type="number" name="meta_unidades" min="1" step="1" placeholder="Ej: 5"
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Período de evaluación</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Período de evaluación</label>
                         <select name="meta_periodo"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white dark:bg-slate-800">
                             <option value="mensual">Mensual</option>
                             <option value="quincenal">Quincenal</option>
                             <option value="semanal">Semanal</option>
                         </select>
                     </div>
                     <div class="col-span-2">
-                        <p class="text-xs text-purple-700 bg-purple-50 border border-purple-200 rounded-lg px-3 py-2.5">
+                        <p class="text-xs text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 rounded-lg px-3 py-2.5">
                             <i class="fas fa-info-circle mr-1"></i>El bono se genera una sola vez cuando el vendedor cruza el umbral de unidades en el período.
                         </p>
                     </div>
                 </div>
                 <div class="flex justify-end gap-3 pt-2">
                     <button type="button" @click="cerrarModalBonus()"
-                            class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                            class="px-4 py-2 text-sm text-gray-600 dark:text-slate-400 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60">Cancelar</button>
                     <button type="submit"
                             class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg flex items-center gap-2">
                         <i class="fas fa-star"></i> Guardar bono
@@ -662,41 +662,41 @@
                 <form :action="`{{ url('comisiones/bonus') }}/${editBonusId}`" method="POST" class="p-6 space-y-4">
                     @csrf @method('PUT')
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Nombre *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Nombre *</label>
                         <input type="text" name="nombre" :value="editBonusNombre" required maxlength="100"
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Cálculo *</label>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Cálculo *</label>
                             <select name="tipo_calculo" x-model="editBonusCalculo"
-                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white">
+                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                                 <option value="monto_fijo">Monto fijo (S/)</option>
                                 <option value="porcentaje_venta">% sobre la venta</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">
                                 Valor <span x-text="editBonusCalculo==='monto_fijo'?'(S/)':'(%)'"></span> *
                             </label>
                             <div class="relative">
-                                <span class="absolute left-3 top-2.5 text-gray-400 text-sm" x-text="editBonusCalculo==='monto_fijo'?'S/':'%'"></span>
+                                <span class="absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-sm" x-text="editBonusCalculo==='monto_fijo'?'S/':'%'"></span>
                                 <input type="number" name="valor" step="0.01" min="0.01" required :value="editBonusValor"
-                                       class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+                                       class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-amber-500">
                             </div>
                         </div>
                     </div>
                     <template x-if="editBonusMetaUnidades !== null">
-                        <div class="grid grid-cols-2 gap-3 border-t border-gray-100 pt-3">
+                        <div class="grid grid-cols-2 gap-3 border-t border-gray-100 dark:border-slate-700 pt-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Unidades mínimas</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Unidades mínimas</label>
                                 <input type="number" name="meta_unidades" min="1" :value="editBonusMetaUnidades"
-                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1.5">Período</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase mb-1.5">Período</label>
                                 <select name="meta_periodo"
-                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white">
+                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white dark:bg-slate-800">
                                     <option value="mensual"   :selected="editBonusMetaPeriodo==='mensual'">Mensual</option>
                                     <option value="quincenal" :selected="editBonusMetaPeriodo==='quincenal'">Quincenal</option>
                                     <option value="semanal"   :selected="editBonusMetaPeriodo==='semanal'">Semanal</option>
@@ -706,7 +706,7 @@
                     </template>
                     <div class="flex justify-end gap-3 pt-2">
                         <button type="button" @click="cerrarModalBonus()"
-                                class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                                class="px-4 py-2 text-sm text-gray-600 dark:text-slate-400 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60">Cancelar</button>
                         <button type="submit"
                                 class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg flex items-center gap-2">
                             <i class="fas fa-save"></i> Actualizar bono

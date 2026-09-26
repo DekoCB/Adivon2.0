@@ -51,12 +51,12 @@
 
 @section('content')
     
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 dark:bg-slate-700">
 
         {{-- Top Bar --}}
-        <div class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-10">
             <div class="px-6 py-3 flex justify-between items-center">
-                <h1 class="font-display text-2xl font-bold text-gray-800">
+                <h1 class="font-display text-2xl font-bold text-gray-800 dark:text-slate-200">
                     <i class="fas fa-store text-blue-900 mr-2"></i>
                     Panel de Tienda
                 </h1>
@@ -66,8 +66,8 @@
                             {{ substr(auth()->user()->name, 0, 2) }}
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
-                            <p class="text-xs text-gray-500">Tienda</p>
+                            <p class="text-sm font-semibold text-gray-800 dark:text-slate-200">{{ auth()->user()->name }}</p>
+                            <p class="text-xs text-gray-500 dark:text-slate-400">Tienda</p>
                         </div>
                     </div>
                 </div>
@@ -92,16 +92,16 @@
                 if ($horasAtraso > 0)  $tiempoAtraso .= $horasAtraso . ' ' . ($horasAtraso == 1 ? 'hora' : 'horas') . ', ';
                 $tiempoAtraso .= $minutosAtraso . ' ' . ($minutosAtraso == 1 ? 'minuto' : 'minutos');
             @endphp
-            <div class="mb-6 bg-red-50 border-2 border-red-400 rounded-xl p-5 shadow-md">
+            <div class="mb-6 bg-red-50 dark:bg-red-900/30 border-2 border-red-400 rounded-xl p-5 shadow-md">
                 <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 bg-red-100 rounded-full p-3">
-                        <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                    <div class="flex-shrink-0 bg-red-100 dark:bg-red-900/40 rounded-full p-3">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400 text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-red-800 font-bold text-lg mb-1">
+                        <h3 class="text-red-800 dark:text-red-300 font-bold text-lg mb-1">
                             Caja sin cerrar del {{ $fechaCajaAtrasada }}
                         </h3>
-                        <p class="text-red-700 text-sm mb-3">
+                        <p class="text-red-700 dark:text-red-300 text-sm mb-3">
                             Tienes una caja abierta hace <strong>{{ $tiempoAtraso }}</strong>
                             con un saldo de <strong>S/ {{ number_format($caja_atrasada->monto_final, 2) }}</strong>
                             en el almacén <strong>{{ $caja_atrasada->almacen->nombre ?? '—' }}</strong>.
@@ -119,37 +119,37 @@
 
             {{-- Barra de Acciones Rápidas --}}
             <div class="mb-6">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-3">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-3">
                     <div class="quick-actions-scroll overflow-x-auto pb-1">
                         <div class="flex items-center gap-2 min-w-max">
                             <a href="{{ route('ventas.create') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-plus-circle text-xs"></i>
                                 <span>Venta</span>
                             </a>
 
                             <a href="{{ route('caja.index') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-700 hover:bg-green-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-100 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-cash-register text-xs"></i>
                                 <span>Caja</span>
                             </a>
 
                             @if($caja)
                                 <a href="{{ route('caja.actual') }}"
-                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 transition whitespace-nowrap text-sm font-medium">
+                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 transition whitespace-nowrap text-sm font-medium">
                                     <i class="fas fa-lock text-xs"></i>
                                     <span>Cerrar Caja</span>
                                 </a>
                             @else
                                 <a href="{{ route('caja.abrir') }}"
-                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 transition whitespace-nowrap text-sm font-medium">
+                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100 transition whitespace-nowrap text-sm font-medium">
                                     <i class="fas fa-lock-open text-xs"></i>
                                     <span>Abrir Caja</span>
                                 </a>
                             @endif
 
                             <a href="{{ route('tienda.inventario.ver') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-100 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-boxes text-xs"></i>
                                 <span>Stock</span>
                             </a>
@@ -161,7 +161,7 @@
                             </a>
 
                             <a href="{{ route('clientes.create') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-user-plus text-xs"></i>
                                 <span>Cliente</span>
                             </a>
@@ -173,13 +173,13 @@
             {{-- Estado de Caja --}}
             <div class="mb-6">
                 @if($caja)
-                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                    <div class="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-4 rounded-r-lg">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-check-circle text-green-500 text-xl"></i>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm text-green-700">
+                                <p class="text-sm text-green-700 dark:text-green-300">
                                     Caja abierta desde {{ $caja->created_at->format('H:i') }} |
                                     Monto inicial: S/ {{ number_format($caja->monto_inicial, 2) }}
                                 </p>
@@ -188,13 +188,13 @@
                     </div>
                 @elseif(isset($caja_atrasada) && $caja_atrasada)
                     {{-- Cuando hay caja atrasada, no mostrar el botón "Abrir Caja" --}}
-                    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+                    <div class="bg-orange-50 dark:bg-orange-900/30 border-l-4 border-orange-400 p-4 rounded-r-lg">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-clock text-orange-400 text-xl"></i>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm text-orange-700">
+                                <p class="text-sm text-orange-700 dark:text-orange-300">
                                     No hay caja abierta para hoy. Primero debes cerrar la caja pendiente del
                                     {{ \Carbon\Carbon::parse($caja_atrasada->fecha)->locale('es')->isoFormat('D [de] MMMM') }}.
                                 </p>
@@ -202,14 +202,14 @@
                         </div>
                     </div>
                 @else
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                    <div class="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-400 p-4 rounded-r-lg">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <i class="fas fa-exclamation-triangle text-yellow-400 text-xl"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm text-yellow-700">
+                                    <p class="text-sm text-yellow-700 dark:text-yellow-300">
                                         No tienes una caja abierta. Abre una caja para comenzar a operar.
                                     </p>
                                 </div>
@@ -224,67 +224,67 @@
 
             {{-- KPIs --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-blue-900">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-blue-900">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500">Ventas del Día</p>
-                            <p class="text-2xl font-bold text-gray-900">S/ {{ number_format($ventas_dia, 2) }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Ventas del Día</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($ventas_dia, 2) }}</p>
                         </div>
-                        <div class="bg-blue-100 p-3 rounded-lg">
+                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-lg">
                             <i class="fas fa-dollar-sign text-blue-900 text-2xl"></i>
                         </div>
                     </div>
                     @if($ventas_dia > 0)
                     <div class="mt-3">
-                        <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2">
                             @php
                                 $meta_diaria = 5000; // Meta ejemplo
                                 $porcentaje = min(($ventas_dia / $meta_diaria) * 100, 100);
                             @endphp
                             <div class="bg-blue-900 h-2 rounded-full" style="width: {{ $porcentaje }}%"></div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-1">{{ round($porcentaje) }}% de la meta diaria</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{{ round($porcentaje) }}% de la meta diaria</p>
                     </div>
                     @endif
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-green-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-green-500">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500">Caja Actual</p>
-                            <p class="text-2xl font-bold text-gray-900">S/ {{ number_format($caja_actual, 2) }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Caja Actual</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($caja_actual, 2) }}</p>
                         </div>
-                        <div class="bg-green-100 p-3 rounded-lg">
-                            <i class="fas fa-cash-register text-green-600 text-2xl"></i>
+                        <div class="bg-green-100 dark:bg-green-900/40 p-3 rounded-lg">
+                            <i class="fas fa-cash-register text-green-600 dark:text-green-400 text-2xl"></i>
                         </div>
                     </div>
                     @if($caja)
-                    <a href="{{ route('caja.actual') }}" class="mt-3 inline-block text-xs text-red-600 hover:text-red-800">
+                    <a href="{{ route('caja.actual') }}" class="mt-3 inline-block text-xs text-red-600 dark:text-red-400 hover:text-red-800">
                         <i class="fas fa-times-circle mr-1"></i>Ir al cierre
                     </a>
                     @endif
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-purple-600">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-purple-600">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500">Transacciones Hoy</p>
-                            <p class="text-2xl font-bold text-gray-900">{{ $transacciones_dia }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Transacciones Hoy</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $transacciones_dia }}</p>
                         </div>
-                        <div class="bg-purple-100 p-3 rounded-lg">
-                            <i class="fas fa-receipt text-purple-600 text-2xl"></i>
+                        <div class="bg-purple-100 dark:bg-purple-900/40 p-3 rounded-lg">
+                            <i class="fas fa-receipt text-purple-600 dark:text-purple-400 text-2xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-yellow-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-yellow-500">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500">Clientes Atendidos</p>
-                            <p class="text-2xl font-bold text-gray-900">{{ $clientes_atendidos }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Clientes Atendidos</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $clientes_atendidos }}</p>
                         </div>
-                        <div class="bg-yellow-100 p-3 rounded-lg">
-                            <i class="fas fa-users text-yellow-600 text-2xl"></i>
+                        <div class="bg-yellow-100 dark:bg-yellow-900/40 p-3 rounded-lg">
+                            <i class="fas fa-users text-yellow-600 dark:text-yellow-400 text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -292,8 +292,8 @@
 
             {{-- Gráfico de Ventas por Hora y Últimas Ventas --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-lg p-6 chart-card">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 chart-card">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">
                         <i class="fas fa-chart-line text-blue-900 mr-2"></i>
                         Ventas por Hora
                     </h3>
@@ -304,8 +304,8 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 chart-card">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex justify-between items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 chart-card">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4 flex justify-between items-center">
                         <span>
                             <i class="fas fa-history text-blue-900 mr-2"></i>
                             Últimas Ventas
@@ -319,17 +319,17 @@
                         @if($ultimas_ventas->count() > 0)
                             <div class="space-y-3">
                                 @foreach($ultimas_ventas as $venta)
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-900/60 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
                                     <div>
-                                        <p class="font-medium text-gray-900">
+                                        <p class="font-medium text-gray-900 dark:text-slate-100">
                                             {{ $venta->cliente->nombre ?? 'Cliente Mostrador' }}
                                         </p>
-                                        <p class="text-xs text-gray-500">
+                                        <p class="text-xs text-gray-500 dark:text-slate-400">
                                             {{ $venta->created_at->format('H:i') }} - {{ $venta->created_at->diffForHumans() }}
                                         </p>
                                     </div>
                                     <div class="text-right">
-                                        <p class="font-bold text-gray-900">S/ {{ number_format($venta->total, 2) }}</p>
+                                        <p class="font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($venta->total, 2) }}</p>
                                         <span class="inline-block px-2 py-1 text-xs rounded-full {{ $venta->estado_pago == 'pagado' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                                             {{ ucfirst($venta->estado_pago) }}
                                         </span>
@@ -338,7 +338,7 @@
                                 @endforeach
                             </div>
                         @else
-                            <div class="text-center py-8 text-gray-500">
+                            <div class="text-center py-8 text-gray-500 dark:text-slate-400">
                                 <i class="fas fa-shopping-cart text-4xl mb-3 text-gray-300"></i>
                                 <p>No hay ventas registradas hoy</p>
                             </div>

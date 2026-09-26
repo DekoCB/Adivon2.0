@@ -11,23 +11,23 @@
 
         <!-- Header con breadcrumb -->
         <div class="mb-6">
-            <div class="flex items-center text-sm text-gray-500 mb-2">
+            <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-2">
                 <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
                 <a href="{{ route('compras.index') }}" class="hover:text-blue-900">Compras</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
                 <a href="{{ route('compras.show', $compra) }}" class="hover:text-blue-900">Compra #{{ $compra->numero_factura }}</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
-                <span class="text-gray-700 font-medium">Editar</span>
+                <span class="text-gray-700 dark:text-slate-300 font-medium">Editar</span>
             </div>
-            <h1 class="text-2xl font-bold text-gray-900 flex items-center">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
                 <i class="fas fa-edit mr-3 text-blue-900"></i>
                 Editar Compra #{{ $compra->numero_factura }}
             </h1>
         </div>
 
         @if($errors->any())
-            <div class="mb-6 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
+            <div class="mb-6 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 rounded-lg">
                 <div class="flex items-center mb-2">
                     <i class="fas fa-exclamation-triangle mr-2 text-lg"></i>
                     <strong>Por favor corrige los siguientes errores:</strong>
@@ -41,7 +41,7 @@
         @endif
 
         <!-- Formulario principal -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden">
             <div class="bg-gradient-to-r from-yellow-600 to-yellow-500 px-8 py-5">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-edit mr-3"></i>
@@ -55,8 +55,8 @@
 
                 <!-- SECCIÓN 1: INFORMACIÓN GENERAL -->
                 <div class="mb-10">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center mr-2">
                             <i class="fas fa-file-invoice text-blue-900 text-sm"></i>
                         </span>
                         Información General
@@ -65,12 +65,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Proveedor -->
                         <div class="relative">
-                            <label for="proveedor_id" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="proveedor_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 Proveedor <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <select name="proveedor_id" id="proveedor_id" required
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white">
+                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white dark:bg-slate-800">
                                     <option value="">Seleccione un proveedor</option>
                                     @foreach($proveedores as $prov)
                                         <option value="{{ $prov->id }}" {{ old('proveedor_id', $compra->proveedor_id) == $prov->id ? 'selected' : '' }}>
@@ -78,29 +78,29 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 pointer-events-none"></i>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                             </div>
                         </div>
 
                         <!-- N° Factura -->
                         <div>
-                            <label for="numero_factura" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="numero_factura" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 N° Factura/Boleta <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="numero_factura" id="numero_factura" required
                                    value="{{ old('numero_factura', $compra->numero_factura) }}"
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
                                    placeholder="Ej: F001-00001234">
                         </div>
 
                         <!-- Sucursal -->
                         <div class="relative">
-                            <label for="edit_sucursal_sel" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="edit_sucursal_sel" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 Sucursal <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <select id="edit_sucursal_sel" required
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white"
+                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white dark:bg-slate-800"
                                         onchange="onEditSucursalChange(this.value)">
                                     <option value="">— Seleccione una sucursal —</option>
                                     @foreach($sucursales as $suc)
@@ -110,29 +110,29 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 pointer-events-none"></i>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                             </div>
                         </div>
 
                         <!-- Almacén múltiple -->
                         <div id="edit_almacen_wrap" class="relative hidden">
-                            <label for="edit_almacen_sel" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="edit_almacen_sel" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 Almacén Destino <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <select id="edit_almacen_sel"
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white"
+                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white dark:bg-slate-800"
                                         onchange="document.getElementById('almacen_id_hidden').value = this.value">
                                     <option value="">Seleccione un almacén</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 pointer-events-none"></i>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                             </div>
                         </div>
                         <!-- Almacén único -->
                         <div id="edit_almacen_unico_info" class="hidden">
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Almacén Destino</label>
-                            <div class="flex items-center gap-2 px-4 py-3 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
-                                <i class="fas fa-warehouse text-yellow-600"></i>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Almacén Destino</label>
+                            <div class="flex items-center gap-2 px-4 py-3 bg-yellow-50 dark:bg-yellow-900/30 border-2 border-yellow-200 dark:border-yellow-800 rounded-xl">
+                                <i class="fas fa-warehouse text-yellow-600 dark:text-yellow-400"></i>
                                 <span id="edit_almacen_unico_nombre" class="text-sm font-semibold text-yellow-900"></span>
                                 <span class="text-xs text-yellow-500 ml-auto">Auto-seleccionado</span>
                             </div>
@@ -141,100 +141,100 @@
 
                         <!-- Fecha -->
                         <div>
-                            <label for="fecha" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="fecha" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 Fecha de Compra <span class="text-red-500">*</span>
                             </label>
                             <input type="date" name="fecha" id="fecha" required
                                    value="{{ old('fecha', $compra->fecha->format('Y-m-d')) }}"
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200">
+                                   class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200">
                         </div>
 
                         <!-- Tipo Comprobante (solo lectura) -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Tipo Comprobante</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Tipo Comprobante</label>
                             <input type="text" value="{{ ucfirst($compra->tipo_comprobante ?? 'Factura') }}"
-                                   class="w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-700" readonly>
+                                   class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-slate-300" readonly>
                         </div>
 
                         <!-- Forma de Pago -->
                         <div>
-                            <label for="forma_pago" class="block text-sm font-medium text-gray-700 mb-1.5">
+                            <label for="forma_pago" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 Forma de Pago <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <select name="forma_pago" id="forma_pago" required
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white"
+                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 appearance-none bg-white dark:bg-slate-800"
                                         onchange="toggleCondicionPago(this.value)">
                                     <option value="contado" {{ old('forma_pago', $compra->forma_pago) === 'contado' ? 'selected' : '' }}>Contado</option>
                                     <option value="credito" {{ old('forma_pago', $compra->forma_pago) === 'credito' ? 'selected' : '' }}>Crédito</option>
                                 </select>
-                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 pointer-events-none"></i>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                             </div>
                         </div>
 
                         <!-- Días de Crédito -->
                         <div id="condicion_pago_wrap" class="{{ old('forma_pago', $compra->forma_pago) === 'credito' ? '' : 'hidden' }}">
-                            <label for="condicion_pago" class="block text-sm font-medium text-gray-700 mb-1.5">Días de Crédito</label>
+                            <label for="condicion_pago" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Días de Crédito</label>
                             <input type="number" name="condicion_pago" id="condicion_pago" min="1" max="365"
                                    value="{{ old('condicion_pago', $compra->condicion_pago) }}"
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
                                    placeholder="Ej: 30">
                         </div>
 
                         <!-- Moneda (solo lectura) -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Moneda</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Moneda</label>
                             <input type="text" value="{{ $compra->tipo_moneda }}"
-                                   class="w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-700" readonly>
+                                   class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-slate-300" readonly>
                         </div>
 
                         <!-- Tipo Operación SUNAT (solo lectura) -->
                         <div class="lg:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Tipo de Operación SUNAT</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Tipo de Operación SUNAT</label>
                             <input type="text"
                                    value="{{ $compra->tipo_operacion == '01' ? 'Gravado (IGV 18%)' : ($compra->tipo_operacion == '02' ? 'Exonerado' : ($compra->tipo_operacion == '03' ? 'Inafecto' : 'Exportación')) }}"
-                                   class="w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-700" readonly>
+                                   class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-slate-300" readonly>
                         </div>
                     </div>
                 </div>
 
                 <!-- SECCIÓN 2: PRODUCTOS -->
                 <div class="mb-10">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-1 flex items-center">
-                        <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-2">
-                            <i class="fas fa-boxes text-green-700 text-sm"></i>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-1 flex items-center">
+                        <span class="w-8 h-8 bg-green-100 dark:bg-green-900/40 rounded-lg flex items-center justify-center mr-2">
+                            <i class="fas fa-boxes text-green-700 dark:text-green-300 text-sm"></i>
                         </span>
                         Productos de la Compra
                     </h3>
-                    <p class="text-xs text-gray-500 mb-4 ml-10">Puedes corregir cantidades, precios y gestionar IMEIs. El stock se ajustará automáticamente.</p>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mb-4 ml-10">Puedes corregir cantidades, precios y gestionar IMEIs. El stock se ajustará automáticamente.</p>
 
-                    <div class="rounded-xl border-2 border-green-200 overflow-hidden">
+                    <div class="rounded-xl border-2 border-green-200 dark:border-green-800 overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200" id="tablaProductos">
-                                <thead class="bg-green-50">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700" id="tablaProductos">
+                                <thead class="bg-green-50 dark:bg-green-900/30">
                                     <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Producto</th>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Variante</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase w-28">Cantidad</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase w-36">Precio Unit.</th>
-                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase w-32">Subtotal</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase w-28">Acciones</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Producto</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Variante</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase w-28">Cantidad</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase w-36">Precio Unit.</th>
+                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase w-32">Subtotal</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase w-28">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200" id="tbody-detalles">
+                                <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700" id="tbody-detalles">
                                     @foreach($compra->detalles as $i => $detalle)
                                     <tr data-index="{{ $i }}" data-detalle-id="{{ $detalle->id }}" id="row-detalle-{{ $detalle->id }}">
                                         <td class="px-4 py-3">
                                             <input type="hidden" name="detalles[{{ $i }}][id]" value="{{ $detalle->id }}">
-                                            <p class="font-medium text-gray-900 text-sm">{{ $detalle->producto->nombre }}</p>
-                                            <p class="text-xs text-gray-500">{{ $detalle->producto->marca->nombre ?? '' }}</p>
+                                            <p class="font-medium text-gray-900 dark:text-slate-100 text-sm">{{ $detalle->producto->nombre }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-slate-400">{{ $detalle->producto->marca->nombre ?? '' }}</p>
                                             @if($detalle->producto->tipo_inventario === 'serie')
-                                                <span class="inline-flex items-center gap-1 text-xs text-purple-600 mt-0.5">
+                                                <span class="inline-flex items-center gap-1 text-xs text-purple-600 dark:text-purple-400 mt-0.5">
                                                     <i class="fas fa-microchip text-xs"></i> Con IMEI
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">
+                                        <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">
                                             {{ $detalle->variante?->color?->nombre ?? ($detalle->producto->modelo->nombre ?? '-') }}
                                         </td>
                                         <td class="px-4 py-3">
@@ -242,7 +242,7 @@
                                                    name="detalles[{{ $i }}][cantidad]"
                                                    value="{{ old("detalles.$i.cantidad", $detalle->cantidad) }}"
                                                    min="1"
-                                                   class="w-full text-center px-2 py-1.5 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:ring-1 focus:ring-green-200 text-sm font-semibold detalle-cantidad"
+                                                   class="w-full text-center px-2 py-1.5 border-2 border-gray-200 dark:border-slate-700 rounded-lg focus:border-green-500 focus:ring-1 focus:ring-green-200 text-sm font-semibold detalle-cantidad"
                                                    data-index="{{ $i }}"
                                                    required>
                                         </td>
@@ -252,12 +252,12 @@
                                                    value="{{ old("detalles.$i.precio_unitario", number_format($detalle->precio_unitario, 2, '.', '')) }}"
                                                    min="0.01"
                                                    step="0.01"
-                                                   class="w-full text-center px-2 py-1.5 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:ring-1 focus:ring-green-200 text-sm detalle-precio"
+                                                   class="w-full text-center px-2 py-1.5 border-2 border-gray-200 dark:border-slate-700 rounded-lg focus:border-green-500 focus:ring-1 focus:ring-green-200 text-sm detalle-precio"
                                                    data-index="{{ $i }}"
                                                    required>
                                         </td>
                                         <td class="px-4 py-3 text-right">
-                                            <span class="font-semibold text-gray-900 text-sm subtotal-linea" data-index="{{ $i }}">
+                                            <span class="font-semibold text-gray-900 dark:text-slate-100 text-sm subtotal-linea" data-index="{{ $i }}">
                                                 {{ number_format($detalle->subtotal, 2) }}
                                             </span>
                                         </td>
@@ -267,14 +267,14 @@
                                                 <button type="button"
                                                         onclick="abrirModalImeis({{ $detalle->id }}, '{{ addslashes($detalle->producto->nombre) }}')"
                                                         title="Gestionar IMEIs"
-                                                        class="p-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition text-xs">
+                                                        class="p-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 transition text-xs">
                                                     <i class="fas fa-microchip"></i>
                                                 </button>
                                                 @endif
                                                 <button type="button"
                                                         onclick="eliminarDetalle({{ $detalle->id }}, '{{ addslashes($detalle->producto->nombre) }}')"
                                                         title="Eliminar producto"
-                                                        class="p-1.5 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition text-xs btn-eliminar-detalle">
+                                                        class="p-1.5 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-200 transition text-xs btn-eliminar-detalle">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
@@ -282,7 +282,7 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="bg-gray-50">
+                                <tfoot class="bg-gray-50 dark:bg-slate-900/60">
                                     @php
                                         $tipoOp = $compra->tipo_operacion ?? '01';
                                         // Detección: si el precio se ingresó "con IGV incluido" al crear la
@@ -296,7 +296,7 @@
                                             && abs($sumaDetalleOriginal - (float) $compra->subtotal) >= 0.05;
                                     @endphp
                                     <tr>
-                                        <td colspan="5" class="px-4 py-2 text-right text-sm font-semibold text-gray-700">Subtotal:</td>
+                                        <td colspan="5" class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-slate-300">Subtotal:</td>
                                         <td class="px-4 py-2 text-right font-bold text-blue-900" id="resumen-subtotal">{{ number_format($compra->subtotal, 2) }}</td>
                                     </tr>
                                     @if($tipoOp === '01')
@@ -306,15 +306,15 @@
                                                 <input type="hidden" name="incluye_igv" value="0">
                                                 <input type="checkbox" id="incluir_igv_edit" name="incluye_igv" value="1"
                                                        {{ $compra->incluye_igv ? 'checked' : '' }}
-                                                       class="w-4 h-4 rounded border-gray-300 text-blue-900 focus:ring-blue-900">
-                                                <span class="text-sm font-semibold text-gray-700">IGV (18%):</span>
+                                                       class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-900">
+                                                <span class="text-sm font-semibold text-gray-700 dark:text-slate-300">IGV (18%):</span>
                                             </label>
                                         </td>
                                         <td class="px-4 py-2 text-right font-bold text-blue-900" id="resumen-igv">{{ number_format($compra->igv, 2) }}</td>
                                     </tr>
                                     @endif
-                                    <tr class="border-t-2 border-gray-300">
-                                        <td colspan="5" class="px-4 py-3 text-right font-bold text-gray-900">Total:</td>
+                                    <tr class="border-t-2 border-gray-300 dark:border-slate-600">
+                                        <td colspan="5" class="px-4 py-3 text-right font-bold text-gray-900 dark:text-slate-100">Total:</td>
                                         <td class="px-4 py-3 text-right font-bold text-blue-900 text-base" id="resumen-total">{{ number_format($compra->total, 2) }}</td>
                                     </tr>
                                 </tfoot>
@@ -325,21 +325,21 @@
 
                 <!-- SECCIÓN 3: OBSERVACIONES -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mr-2">
-                            <i class="fas fa-comment text-yellow-600 text-sm"></i>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/40 rounded-lg flex items-center justify-center mr-2">
+                            <i class="fas fa-comment text-yellow-600 dark:text-yellow-400 text-sm"></i>
                         </span>
                         Observaciones
                     </h3>
                     <textarea name="observaciones" rows="3"
-                              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
+                              class="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200"
                               placeholder="Notas adicionales sobre la compra...">{{ old('observaciones', $compra->observaciones) }}</textarea>
                 </div>
 
                 <!-- Botones -->
-                <div class="flex items-center justify-end space-x-4 pt-6 border-t-2 border-gray-100">
+                <div class="flex items-center justify-end space-x-4 pt-6 border-t-2 border-gray-100 dark:border-slate-700">
                     <a href="{{ route('compras.show', $compra) }}"
-                       class="px-6 py-3 border-2 border-gray-200 rounded-xl text-gray-700 hover:bg-gray-50 transition font-medium">
+                       class="px-6 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition font-medium">
                         <i class="fas fa-times mr-2"></i>Cancelar
                     </a>
                     <button type="submit"
@@ -355,7 +355,7 @@
     <div id="modalImeis" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/50" onclick="cerrarModalImeis()"></div>
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl">
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-purple-700 to-purple-600 px-6 py-4 rounded-t-2xl flex items-center justify-between">
                     <div>
@@ -372,32 +372,32 @@
 
                 <!-- Body -->
                 <div class="p-6">
-                    <div id="modal-imei-loading" class="text-center py-8 text-gray-500">
+                    <div id="modal-imei-loading" class="text-center py-8 text-gray-500 dark:text-slate-400">
                         <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
                         <p>Cargando IMEIs...</p>
                     </div>
                     <div id="modal-imei-content" class="hidden">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm text-gray-600">
-                                <span id="modal-imei-count" class="font-semibold text-purple-700">0</span> IMEI(s) registrados
+                            <p class="text-sm text-gray-600 dark:text-slate-400">
+                                <span id="modal-imei-count" class="font-semibold text-purple-700 dark:text-purple-300">0</span> IMEI(s) registrados
                             </p>
-                            <p class="text-xs text-gray-400">Solo puedes editar/eliminar IMEIs en stock</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500">Solo puedes editar/eliminar IMEIs en stock</p>
                         </div>
-                        <div class="rounded-xl border border-gray-200 overflow-hidden">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                        <div class="rounded-xl border border-gray-200 dark:border-slate-700 overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                                <thead class="bg-gray-50 dark:bg-slate-900/60">
                                     <tr>
-                                        <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">#</th>
-                                        <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">Código IMEI</th>
-                                        <th class="px-4 py-2 text-center text-xs font-semibold text-gray-600 uppercase">Estado</th>
-                                        <th class="px-4 py-2 text-center text-xs font-semibold text-gray-600 uppercase">Acciones</th>
+                                        <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">#</th>
+                                        <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Código IMEI</th>
+                                        <th class="px-4 py-2 text-center text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Estado</th>
+                                        <th class="px-4 py-2 text-center text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tabla-imeis-body" class="bg-white divide-y divide-gray-100 text-sm">
+                                <tbody id="tabla-imeis-body" class="bg-white dark:bg-slate-800 divide-y divide-gray-100 dark:divide-slate-700 text-sm">
                                 </tbody>
                             </table>
                         </div>
-                        <div id="modal-imei-vacio" class="hidden text-center py-6 text-gray-400">
+                        <div id="modal-imei-vacio" class="hidden text-center py-6 text-gray-400 dark:text-slate-500">
                             <i class="fas fa-inbox text-3xl mb-2"></i>
                             <p>No hay IMEIs registrados para este producto</p>
                         </div>
@@ -411,7 +411,7 @@
     <div id="modalEditarImei" class="fixed inset-0 z-60 hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/60"></div>
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm">
                 <div class="bg-purple-700 px-6 py-4 rounded-t-2xl flex items-center justify-between">
                     <h3 class="text-base font-bold text-white"><i class="fas fa-pen mr-2"></i>Editar IMEI</h3>
                     <button onclick="cerrarModalEditarImei()" class="text-white/80 hover:text-white">
@@ -420,14 +420,14 @@
                 </div>
                 <div class="p-6">
                     <input type="hidden" id="edit-imei-id">
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Nuevo código IMEI</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Nuevo código IMEI</label>
                     <input type="text" id="edit-imei-codigo" maxlength="15"
-                           class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 font-mono text-sm"
+                           class="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 font-mono text-sm"
                            placeholder="15 dígitos">
-                    <p class="text-xs text-gray-400 mt-1">Debe tener exactamente 15 dígitos numéricos.</p>
-                    <div id="edit-imei-error" class="hidden mt-2 text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2"></div>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Debe tener exactamente 15 dígitos numéricos.</p>
+                    <div id="edit-imei-error" class="hidden mt-2 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 rounded-lg px-3 py-2"></div>
                     <div class="flex gap-3 mt-5">
-                        <button onclick="cerrarModalEditarImei()" class="flex-1 px-4 py-2.5 border-2 border-gray-200 rounded-xl text-gray-700 hover:bg-gray-50 transition text-sm font-medium">
+                        <button onclick="cerrarModalEditarImei()" class="flex-1 px-4 py-2.5 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition text-sm font-medium">
                             Cancelar
                         </button>
                         <button onclick="guardarImei()" id="btn-guardar-imei"
@@ -572,7 +572,7 @@
         function eliminarDetalle(detalleId, nombreProducto) {
             Swal.fire({
                 title: '¿Eliminar producto?',
-                html: `<p class="text-sm text-gray-600">Se eliminará <strong>${nombreProducto}</strong> de la compra y se revertirá el stock.</p>`,
+                html: `<p class="text-sm text-gray-600 dark:text-slate-400">Se eliminará <strong>${nombreProducto}</strong> de la compra y se revertirá el stock.</p>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
@@ -667,8 +667,8 @@
                 const tr = document.createElement('tr');
                 tr.id = `imei-row-${imei.id}`;
                 tr.innerHTML = `
-                    <td class="px-4 py-2.5 text-gray-500 text-xs">${idx + 1}</td>
-                    <td class="px-4 py-2.5 font-mono text-sm font-medium text-gray-800" id="imei-codigo-${imei.id}">${imei.codigo_imei}</td>
+                    <td class="px-4 py-2.5 text-gray-500 dark:text-slate-400 text-xs">${idx + 1}</td>
+                    <td class="px-4 py-2.5 font-mono text-sm font-medium text-gray-800 dark:text-slate-200" id="imei-codigo-${imei.id}">${imei.codigo_imei}</td>
                     <td class="px-4 py-2.5 text-center">
                         <span class="px-2 py-0.5 rounded-full text-xs font-medium ${estadoInfo.cls}">${estadoInfo.label}</span>
                     </td>
@@ -676,14 +676,14 @@
                         ${editable ? `
                         <div class="flex items-center justify-center gap-1">
                             <button onclick="abrirEditarImei(${imei.id}, '${imei.codigo_imei}')"
-                                    class="p-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition" title="Editar IMEI">
+                                    class="p-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 transition" title="Editar IMEI">
                                 <i class="fas fa-pen text-xs"></i>
                             </button>
                             <button onclick="eliminarImei(${imei.id}, '${imei.codigo_imei}')"
-                                    class="p-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition" title="Eliminar IMEI">
+                                    class="p-1 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded hover:bg-red-200 transition" title="Eliminar IMEI">
                                 <i class="fas fa-trash text-xs"></i>
                             </button>
-                        </div>` : `<span class="text-xs text-gray-400">—</span>`}
+                        </div>` : `<span class="text-xs text-gray-400 dark:text-slate-500">—</span>`}
                     </td>`;
                 tbody.appendChild(tr);
             });
@@ -760,7 +760,7 @@
         function eliminarImei(imeiId, codigo) {
             Swal.fire({
                 title: '¿Eliminar IMEI?',
-                html: `<p class="text-sm text-gray-600">Se eliminará el IMEI <strong class="font-mono">${codigo}</strong> y se reducirá el stock en 1.</p>`,
+                html: `<p class="text-sm text-gray-600 dark:text-slate-400">Se eliminará el IMEI <strong class="font-mono">${codigo}</strong> y se reducirá el stock en 1.</p>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',

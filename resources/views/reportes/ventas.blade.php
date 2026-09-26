@@ -20,13 +20,13 @@
 
 
         {{-- ── HEADER ─────────────────────────────── --}}
-        <div class="bg-white shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
+        <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-chart-line text-blue-600"></i>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200 flex items-center gap-2">
+                    <i class="fas fa-chart-line text-blue-600 dark:text-blue-400"></i>
                     Reporte de Ventas — Márgenes de Ganancia
                 </h1>
-                <p class="text-sm text-gray-500 mt-0.5">
+                <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
                     {{ $label }}:
                     <strong>{{ \Carbon\Carbon::parse($desde)->format('d/m/Y') }}</strong>
                     @if($desde !== $hasta)
@@ -47,7 +47,7 @@
                 </a>
                 {{-- Imprimir --}}
                 <button onclick="window.print()"
-                        class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                        class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                     <i class="fas fa-print"></i> Imprimir
                 </button>
             </div>
@@ -56,7 +56,7 @@
         <div class="p-4 md:p-6 space-y-6">
 
             {{-- ── FILTROS ──────────────────────────── --}}
-            <div class="bg-white rounded-xl shadow-sm p-4 no-print">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 no-print">
                 <form method="GET" action="{{ route('reportes.ventas') }}" class="flex flex-wrap gap-3 items-end">
 
                     {{-- Tabs de período --}}
@@ -74,10 +74,7 @@
                         @endphp
                         @foreach($tabs as $key => $tabLabel)
                             <button type="submit" name="periodo" value="{{ $key }}"
-                                    class="px-3 py-1.5 text-xs rounded-lg font-medium transition-colors
-                                        {{ $periodo === $key
-                                            ? 'bg-blue-700 text-white'
-                                            : 'border border-gray-300 text-gray-600 hover:bg-gray-50' }}">
+                                    class="px-3 py-1.5 text-xs rounded-lg font-medium transition-colors {{ $periodo === $key ? 'bg-blue-700 text-white' : 'border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-400 hover:bg-gray-50' }}">
                                 {{ $tabLabel }}
                             </button>
                         @endforeach
@@ -87,14 +84,14 @@
                     @if($periodo === 'personalizado')
                         <div class="flex items-end gap-2 ml-2">
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">Desde</label>
+                                <label class="block text-xs text-gray-500 dark:text-slate-400 mb-1">Desde</label>
                                 <input type="date" name="desde" value="{{ $desde }}"
-                                       class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500">
+                                       class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">Hasta</label>
+                                <label class="block text-xs text-gray-500 dark:text-slate-400 mb-1">Hasta</label>
                                 <input type="date" name="hasta" value="{{ $hasta }}"
-                                       class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500">
+                                       class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500">
                             </div>
                             <input type="hidden" name="periodo" value="personalizado">
                             <button type="submit" class="px-4 py-1.5 bg-blue-700 text-white text-sm rounded-lg hover:bg-blue-800">
@@ -106,9 +103,9 @@
                     {{-- Filtros opcionales --}}
                     <div class="flex gap-2 ml-auto flex-wrap items-end">
                         <div>
-                            <label class="block text-xs text-gray-500 mb-1">Almacén</label>
+                            <label class="block text-xs text-gray-500 dark:text-slate-400 mb-1">Almacén</label>
                             <select name="almacen_id" onchange="this.form.submit()"
-                                    class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500 bg-white">
+                                    class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                 <option value="">Todos los almacenes</option>
                                 @foreach($almacenes as $alm)
                                     <option value="{{ $alm->id }}" {{ $almacenId == $alm->id ? 'selected' : '' }}>{{ $alm->nombre }}</option>
@@ -116,9 +113,9 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs text-gray-500 mb-1">Categoría</label>
+                            <label class="block text-xs text-gray-500 dark:text-slate-400 mb-1">Categoría</label>
                             <select name="categoria_id" onchange="this.form.submit()"
-                                    class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500 bg-white">
+                                    class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                 <option value="">Todas las categorías</option>
                                 @foreach($categorias as $cat)
                                     <option value="{{ $cat->id }}" {{ $categoriaId == $cat->id ? 'selected' : '' }}>{{ $cat->nombre }}</option>
@@ -127,7 +124,7 @@
                         </div>
                         @if($almacenId || $categoriaId)
                             <a href="{{ route('reportes.ventas', ['periodo' => $periodo]) }}"
-                               class="px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">
+                               class="px-3 py-1.5 text-xs border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                 <i class="fas fa-times mr-1"></i>Limpiar
                             </a>
                         @endif
@@ -150,57 +147,54 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
                 {{-- Ventas totales --}}
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Ventas Totales</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['total_ventas'], 2) }}</p>
-                            <p class="text-xs text-gray-400 mt-1">{{ $kpis['num_ventas'] }} ventas · {{ $kpis['unidades_vendidas'] }} uds.</p>
+                            <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Ventas Totales</p>
+                            <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['total_ventas'], 2) }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">{{ $kpis['num_ventas'] }} ventas · {{ $kpis['unidades_vendidas'] }} uds.</p>
                         </div>
-                        <div class="bg-blue-50 rounded-lg p-2 text-blue-500">
+                        <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-2 text-blue-500">
                             <i class="fas fa-shopping-cart text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium
-                        {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vVentas >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vVentas) }}% vs período anterior
                     </div>
                 </div>
 
                 {{-- Costo total --}}
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-orange-400">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-orange-400">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Costo Total</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['total_costo'], 2) }}</p>
-                            <p class="text-xs text-gray-400 mt-1">Costo promedio del producto</p>
+                            <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Costo Total</p>
+                            <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['total_costo'], 2) }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Costo promedio del producto</p>
                         </div>
-                        <div class="bg-orange-50 rounded-lg p-2 text-orange-400">
+                        <div class="bg-orange-50 dark:bg-orange-900/30 rounded-lg p-2 text-orange-400">
                             <i class="fas fa-box text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium
-                        {{ $vCosto <= 0 ? 'text-green-600' : 'text-gray-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vCosto <= 0 ? 'text-green-600' : 'text-gray-500' }}">
                         <i class="fas fa-arrow-{{ $vCosto >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vCosto) }}% vs período anterior
                     </div>
                 </div>
 
                 {{-- Ganancia bruta --}}
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-green-500">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Ganancia Bruta</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['ganancia_bruta'], 2) }}</p>
-                            <p class="text-xs text-gray-400 mt-1">Ingresos menos costos</p>
+                            <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Ganancia Bruta</p>
+                            <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['ganancia_bruta'], 2) }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Ingresos menos costos</p>
                         </div>
-                        <div class="bg-green-50 rounded-lg p-2 text-green-500">
+                        <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-2 text-green-500">
                             <i class="fas fa-coins text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium
-                        {{ $vGanancia >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vGanancia >= 0 ? 'text-green-600' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vGanancia >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vGanancia) }}% vs período anterior
                     </div>
@@ -208,19 +202,18 @@
 
                 {{-- Ticket promedio --}}
                 @php $ticketPromedio = $kpis['num_ventas'] > 0 ? $kpis['total_ventas'] / $kpis['num_ventas'] : 0; @endphp
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Ticket Promedio</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($ticketPromedio, 2) }}</p>
-                            <p class="text-xs text-gray-400 mt-1">Valor promedio por venta · {{ $kpis['num_ventas'] }} ventas</p>
+                            <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Ticket Promedio</p>
+                            <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($ticketPromedio, 2) }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Valor promedio por venta · {{ $kpis['num_ventas'] }} ventas</p>
                         </div>
-                        <div class="bg-purple-50 rounded-lg p-2 text-purple-500">
+                        <div class="bg-purple-50 dark:bg-purple-900/30 rounded-lg p-2 text-purple-500">
                             <i class="fas fa-receipt text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium
-                        {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vVentas >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vVentas) }}% ventas vs período anterior
                     </div>
@@ -231,13 +224,13 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {{-- Línea: evolución ventas vs ganancia --}}
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-5">
-                    <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                    <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-chart-line text-blue-500"></i>
                         Evolución: Ventas vs Ganancia
                     </h2>
                     @if($tendencia->isEmpty())
-                        <div class="h-64 flex items-center justify-center text-gray-400 text-sm">
+                        <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">
                             <div class="text-center">
                                 <i class="fas fa-chart-line text-4xl text-gray-200 block mb-2"></i>
                                 Sin datos para el período
@@ -251,13 +244,13 @@
                 </div>
 
                 {{-- Pastel: distribución por categoría --}}
-                <div class="bg-white rounded-xl shadow-sm p-5">
-                    <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                    <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-chart-pie text-purple-500"></i>
                         Ventas por Categoría
                     </h2>
                     @if($porCategoria->isEmpty())
-                        <div class="h-64 flex items-center justify-center text-gray-400 text-sm">
+                        <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">
                             <div class="text-center">
                                 <i class="fas fa-chart-pie text-4xl text-gray-200 block mb-2"></i>
                                 Sin datos
@@ -270,7 +263,7 @@
                         <div class="mt-3 space-y-1">
                             @foreach($porCategoria as $i => $row)
                                 <div class="flex justify-between items-center text-xs">
-                                    <span class="text-gray-600 truncate">{{ $row->categoria }}</span>
+                                    <span class="text-gray-600 dark:text-slate-400 truncate">{{ $row->categoria }}</span>
                                     <span class="font-semibold ml-2">S/ {{ number_format($row->total_ventas, 0) }}</span>
                                 </div>
                             @endforeach
@@ -280,13 +273,13 @@
             </div>
 
             {{-- ── GRÁFICO TOP PRODUCTOS ────────────── --}}
-            <div class="bg-white rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                     <i class="fas fa-chart-bar text-green-500"></i>
                     Top 10 Productos por Ganancia
                 </h2>
                 @if($topProductos->isEmpty())
-                    <div class="h-48 flex items-center justify-center text-gray-400 text-sm">
+                    <div class="h-48 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">
                         <div class="text-center">
                             <i class="fas fa-chart-bar text-4xl text-gray-200 block mb-2"></i>
                             Sin datos para el período
@@ -300,21 +293,21 @@
             </div>
 
             {{-- ── TABLA DETALLADA ──────────────────── --}}
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
-                    <h2 class="text-sm font-semibold text-gray-700 flex items-center gap-2 shrink-0">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+                    <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 flex items-center gap-2 shrink-0">
                         <i class="fas fa-table text-blue-500"></i>
                         Detalle por Producto
-                        <span id="contadorProductos" class="bg-gray-100 text-gray-500 text-xs rounded-full px-2 py-0.5 ml-1">
+                        <span id="contadorProductos" class="bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 text-xs rounded-full px-2 py-0.5 ml-1">
                             {{ $tablaProductos->count() }} productos
                         </span>
                     </h2>
                     <div class="relative w-full sm:w-72">
-                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 pointer-events-none text-xs"></i>
                         <input type="text" id="buscarProducto"
                                placeholder="Buscar por nombre o código..."
                                oninput="filtrarTablaProductos(this.value)"
-                               class="w-full pl-8 pr-8 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                               class="w-full pl-8 pr-8 py-1.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
                         <button onclick="document.getElementById('buscarProducto').value=''; filtrarTablaProductos('');"
                                 class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 hidden" id="btnLimpiarBuscar">
                             <i class="fas fa-times text-xs"></i>
@@ -322,24 +315,24 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm divide-y divide-gray-100">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full text-sm divide-y divide-gray-100 dark:divide-slate-700">
+                        <thead class="bg-gray-50 dark:bg-slate-900/60">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide sticky left-0 bg-gray-50 min-w-[200px]">
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide sticky left-0 bg-gray-50 dark:bg-slate-900/60 min-w-[200px]">
                                     Producto
                                 </th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">Categoría</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">Cant.</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">P. Venta Prom.</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">Costo Unit.</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">Categoría</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">Cant.</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">P. Venta Prom.</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">Costo Unit.</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">
                                     <span class="flex items-center justify-end gap-1">
                                         Gan. Unit.
                                         @include('reportes.info-tip', ['tip' => 'Ganancia por unidad sobre el precio cobrado al cliente (incluye IGV).'])
                                     </span>
                                 </th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">Total Vendido</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">Total Vendido</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide whitespace-nowrap">
                                     <span class="flex items-center justify-end gap-1">
                                         Total Ganancia
                                         @include('reportes.info-tip', ['tip' => 'Suma de ganancias sobre el precio cobrado (con IGV).'])
@@ -347,37 +340,35 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="tbodyProductos" class="divide-y divide-gray-100">
+                        <tbody id="tbodyProductos" class="divide-y divide-gray-100 dark:divide-slate-700">
                             @forelse($tablaProductos as $row)
-                                <tr class="hover:bg-gray-50 transition-colors"
+                                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors"
                                     data-nombre="{{ strtolower($row->nombre . ' ' . ($row->nombre_variante ?? '')) }}"
                                     data-codigo="{{ strtolower($row->codigo ?? '') }}">
-                                    <td class="px-4 py-3 sticky left-0 bg-white hover:bg-gray-50">
-                                        <div class="font-medium text-gray-900">{{ $row->nombre }}</div>
+                                    <td class="px-4 py-3 sticky left-0 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                        <div class="font-medium text-gray-900 dark:text-slate-100">{{ $row->nombre }}</div>
                                         @if($row->nombre_variante)
-                                            <div class="text-xs font-medium text-indigo-600 mt-0.5">
+                                            <div class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mt-0.5">
                                                 <i class="fas fa-tag mr-1 opacity-60"></i>{{ $row->nombre_variante }}
                                             </div>
                                         @endif
-                                        <div class="text-xs text-gray-400 font-mono mt-0.5">{{ $row->codigo }}</div>
+                                        <div class="text-xs text-gray-400 dark:text-slate-500 font-mono mt-0.5">{{ $row->codigo }}</div>
                                     </td>
-                                    <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ $row->categoria }}</td>
-                                    <td class="px-4 py-3 text-right font-semibold text-gray-800">{{ number_format($row->cantidad_vendida) }}</td>
-                                    <td class="px-4 py-3 text-right text-gray-700">S/ {{ number_format($row->precio_promedio, 2) }}</td>
-                                    <td class="px-4 py-3 text-right text-gray-500">S/ {{ number_format($row->costo_unitario, 2) }}</td>
-                                    <td class="px-4 py-3 text-right font-medium
-                                        {{ $row->ganancia_unitaria >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                                    <td class="px-4 py-3 text-gray-500 dark:text-slate-400 whitespace-nowrap">{{ $row->categoria }}</td>
+                                    <td class="px-4 py-3 text-right font-semibold text-gray-800 dark:text-slate-200">{{ number_format($row->cantidad_vendida) }}</td>
+                                    <td class="px-4 py-3 text-right text-gray-700 dark:text-slate-300">S/ {{ number_format($row->precio_promedio, 2) }}</td>
+                                    <td class="px-4 py-3 text-right text-gray-500 dark:text-slate-400">S/ {{ number_format($row->costo_unitario, 2) }}</td>
+                                    <td class="px-4 py-3 text-right font-medium {{ $row->ganancia_unitaria >= 0 ? 'text-green-600' : 'text-red-500' }}">
                                         S/ {{ number_format($row->ganancia_unitaria, 2) }}
                                     </td>
-                                    <td class="px-4 py-3 text-right font-semibold text-gray-800">S/ {{ number_format($row->total_vendido, 2) }}</td>
-                                    <td class="px-4 py-3 text-right font-bold
-                                        {{ $row->total_ganancia >= 0 ? 'text-green-700' : 'text-red-600' }}">
+                                    <td class="px-4 py-3 text-right font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($row->total_vendido, 2) }}</td>
+                                    <td class="px-4 py-3 text-right font-bold {{ $row->total_ganancia >= 0 ? 'text-green-700' : 'text-red-600' }}">
                                         S/ {{ number_format($row->total_ganancia, 2) }}
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="px-4 py-12 text-center text-gray-400">
+                                    <td colspan="8" class="px-4 py-12 text-center text-gray-400 dark:text-slate-500">
                                         <i class="fas fa-search text-3xl block mb-2 text-gray-300"></i>
                                         No hay ventas registradas para este período
                                     </td>
@@ -390,15 +381,15 @@
                                 $totalGanancia = $tablaProductos->sum('total_ganancia');
                                 $totalCantidad = $tablaProductos->sum('cantidad_vendida');
                             @endphp
-                            <tfoot class="bg-gray-50 border-t-2 border-gray-200">
+                            <tfoot class="bg-gray-50 dark:bg-slate-900/60 border-t-2 border-gray-200 dark:border-slate-700">
                                 <tr>
-                                    <td class="px-4 py-3 font-bold text-gray-800 sticky left-0 bg-gray-50" colspan="2">
+                                    <td class="px-4 py-3 font-bold text-gray-800 dark:text-slate-200 sticky left-0 bg-gray-50 dark:bg-slate-900/60" colspan="2">
                                         TOTALES
                                     </td>
-                                    <td class="px-4 py-3 text-right font-bold text-gray-800">{{ number_format($totalCantidad) }}</td>
+                                    <td class="px-4 py-3 text-right font-bold text-gray-800 dark:text-slate-200">{{ number_format($totalCantidad) }}</td>
                                     <td colspan="3"></td>
-                                    <td class="px-4 py-3 text-right font-bold text-gray-800">S/ {{ number_format($totalVendido, 2) }}</td>
-                                    <td class="px-4 py-3 text-right font-bold text-green-700">S/ {{ number_format($totalGanancia, 2) }}</td>
+                                    <td class="px-4 py-3 text-right font-bold text-gray-800 dark:text-slate-200">S/ {{ number_format($totalVendido, 2) }}</td>
+                                    <td class="px-4 py-3 text-right font-bold text-green-700 dark:text-green-300">S/ {{ number_format($totalGanancia, 2) }}</td>
                                 </tr>
                             </tfoot>
                         @endif

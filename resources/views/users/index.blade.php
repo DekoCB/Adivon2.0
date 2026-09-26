@@ -14,8 +14,8 @@
         {{-- Barra superior --}}
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-                <h2 class="text-xl font-bold text-gray-800">Lista de Usuarios</h2>
-                <p class="text-sm text-gray-500 mt-0.5">{{ $users->total() }} usuario(s) registrado(s)</p>
+                <h2 class="text-xl font-bold text-gray-800 dark:text-slate-200">Lista de Usuarios</h2>
+                <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">{{ $users->total() }} usuario(s) registrado(s)</p>
             </div>
             <button onclick="openCreate()"
                     class="inline-flex items-center gap-2 bg-blue-900 hover:bg-blue-800 active:scale-95 text-white font-semibold py-2.5 px-5 rounded-xl transition-all shadow-md">
@@ -64,12 +64,12 @@
                                     {{ strtoupper(substr($user->name, 0, 2)) }}
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-gray-900 text-sm leading-tight">{{ $user->name }}</p>
-                                    <p class="text-xs text-gray-400">DNI: {{ $user->dni ?? '—' }}</p>
+                                    <p class="font-semibold text-gray-900 dark:text-slate-100 text-sm leading-tight">{{ $user->name }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500">DNI: {{ $user->dni ?? '—' }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-600 hidden md:table-cell">{{ $user->email }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600 dark:text-slate-400 hidden md:table-cell">{{ $user->email }}</td>
                         <td class="px-6 py-4">
                             @if($user->role)
                                 <x-badge :tone="$rc" :icon="$ri">{{ $rn }}</x-badge>
@@ -79,15 +79,14 @@
                         </td>
                         <td class="px-6 py-4 text-sm hidden lg:table-cell">
                             @if($user->almacen)
-                                <p class="font-medium text-gray-800 leading-tight">{{ $user->almacen->sucursal?->nombre ?? '—' }}</p>
-                                <p class="text-xs text-gray-400"><i class="fas fa-warehouse mr-1"></i>{{ $user->almacen->nombre }}</p>
+                                <p class="font-medium text-gray-800 dark:text-slate-200 leading-tight">{{ $user->almacen->sucursal?->nombre ?? '—' }}</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500"><i class="fas fa-warehouse mr-1"></i>{{ $user->almacen->nombre }}</p>
                             @else
-                                <span class="text-gray-400 italic text-xs">Sin asignar</span>
+                                <span class="text-gray-400 dark:text-slate-500 italic text-xs">Sin asignar</span>
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full border
-                                {{ $user->estado === 'activo' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200' }}">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full border {{ $user->estado === 'activo' ? 'bg-green-100 text-green-800 dark:text-green-300 border-green-200' : 'bg-red-100 text-red-800 dark:text-red-300 border-red-200' }}">
                                 <span class="w-1.5 h-1.5 rounded-full {{ $user->estado === 'activo' ? 'bg-green-500' : 'bg-red-500' }}"></span>
                                 {{ ucfirst($user->estado) }}
                             </span>
@@ -117,12 +116,12 @@
                     @empty
                     <tr>
                         <td colspan="6" class="px-6 py-16 text-center">
-                            <div class="flex flex-col items-center gap-3 text-gray-400">
-                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                            <div class="flex flex-col items-center gap-3 text-gray-400 dark:text-slate-500">
+                                <div class="w-16 h-16 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center">
                                     <i class="fas fa-users text-3xl text-gray-300"></i>
                                 </div>
-                                <p class="font-medium text-gray-500">No hay usuarios registrados</p>
-                                <button onclick="openCreate()" class="text-blue-600 hover:underline text-sm">Crear el primero</button>
+                                <p class="font-medium text-gray-500 dark:text-slate-400">No hay usuarios registrados</p>
+                                <button onclick="openCreate()" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">Crear el primero</button>
                             </div>
                         </td>
                     </tr>
@@ -136,7 +135,7 @@
     <div id="modal-crear" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCreate()"></div>
         <div class="relative min-h-full flex items-start justify-center p-4 py-8">
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl">
 
                 <div class="bg-gradient-to-r from-blue-900 to-blue-600 rounded-t-2xl px-6 py-5 flex items-center gap-4">
                     <div id="c-avatar"
@@ -156,76 +155,76 @@
 
                         {{-- Info personal --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-id-card mr-1.5"></i>Información personal</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-id-card mr-1.5"></i>Información personal</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="sm:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre completo <span class="text-red-500">*</span></label>
                                     <input type="text" name="name" id="c-name" value="{{ old('name') }}" required
                                            oninput="updateAvatar('c-avatar',this.value)"
                                            placeholder="Ej. Juan Pérez García"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                     @error('name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Email <span class="text-red-500">*</span></label>
                                     <input type="email" name="email" value="{{ old('email') }}" required placeholder="correo@ejemplo.com"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                     @error('email')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">DNI</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">DNI</label>
                                     <input type="text" name="dni" value="{{ old('dni') }}" placeholder="12345678" maxlength="20"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                     @error('dni')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Teléfono</label>
                                     <input type="text" name="telefono" value="{{ old('telefono') }}" placeholder="999 000 000"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado <span class="text-red-500">*</span></label>
-                                    <select name="estado" required class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Estado <span class="text-red-500">*</span></label>
+                                    <select name="estado" required class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                         <option value="activo"   {{ old('estado','activo') === 'activo'   ? 'selected' : '' }}>Activo</option>
                                         <option value="inactivo" {{ old('estado') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Contraseña --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-lock mr-1.5"></i>Seguridad</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-lock mr-1.5"></i>Seguridad</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Contraseña <span class="text-red-500">*</span></label>
                                     <div class="relative">
                                         <input type="password" name="password" id="c-pwd" required minlength="8" placeholder="Mínimo 8 caracteres"
-                                               class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                        <button type="button" onclick="togglePwd('c-pwd','c-eye1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                               class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                        <button type="button" onclick="togglePwd('c-pwd','c-eye1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300">
                                             <i id="c-eye1" class="fas fa-eye text-sm"></i>
                                         </button>
                                     </div>
                                     @error('password')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Confirmar contraseña <span class="text-red-500">*</span></label>
                                     <div class="relative">
                                         <input type="password" name="password_confirmation" id="c-pwd2" required placeholder="Repite la contraseña"
-                                               class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                        <button type="button" onclick="togglePwd('c-pwd2','c-eye2')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                               class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                        <button type="button" onclick="togglePwd('c-pwd2','c-eye2')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300">
                                             <i id="c-eye2" class="fas fa-eye text-sm"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Rol --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-shield-halved mr-1.5"></i>Rol del usuario <span class="text-red-500">*</span></p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-shield-halved mr-1.5"></i>Rol del usuario <span class="text-red-500">*</span></p>
                             <input type="hidden" name="role_id" id="c-role-hidden" value="{{ old('role_id') }}">
                             @error('role_id')<p class="text-red-500 text-xs mb-2">{{ $message }}</p>@enderror
                             <div class="grid grid-cols-3 gap-3">
@@ -244,7 +243,7 @@
                                     <input type="radio" name="_c_role_card" value="{{ $role->id }}" class="peer sr-only"
                                            {{ old('role_id') == $role->id ? 'checked' : '' }}
                                            onchange="document.getElementById('c-role-hidden').value=this.value">
-                                    <div class="border-2 border-gray-200 rounded-xl p-3 text-center transition-all {{ $ccfg['border'] }} {{ $ccfg['checked'] }} peer-checked:shadow-md">
+                                    <div class="border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center transition-all {{ $ccfg['border'] }} {{ $ccfg['checked'] }} peer-checked:shadow-md">
                                         <div class="w-9 h-9 rounded-full {{ $ccfg['badge'] }} mx-auto mb-1.5 flex items-center justify-center">
                                             <i class="fas {{ $ccfg['icon'] }} text-white text-sm"></i>
                                         </div>
@@ -257,15 +256,15 @@
                                 @endforeach
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Asignación --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-building mr-1.5"></i>Asignación</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-building mr-1.5"></i>Asignación</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Sucursal</label>
-                                    <select id="c-suc" class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Sucursal</label>
+                                    <select id="c-suc" class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800"
                                             onchange="onSucChange('c',this.value)">
                                         <option value="">— Sin sucursal —</option>
                                         @foreach($sucursales as $suc)
@@ -277,19 +276,19 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Almacén / Tienda</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Almacén / Tienda</label>
                                     <div id="c-alm-wrap" class="hidden">
-                                        <select id="c-alm-sel" class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                                        <select id="c-alm-sel" class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800"
                                                 onchange="document.getElementById('c-alm-hidden').value=this.value">
                                             <option value="">Seleccione un almacén</option>
                                         </select>
                                     </div>
-                                    <div id="c-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-blue-50 border border-blue-200 rounded-xl text-sm">
+                                    <div id="c-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl text-sm">
                                         <i class="fas fa-warehouse text-blue-500"></i>
                                         <span id="c-alm-unico-nombre" class="font-medium text-blue-900 text-sm"></span>
                                         <span class="text-xs text-blue-400 ml-auto">Auto</span>
                                     </div>
-                                    <div id="c-alm-empty" class="px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-400 italic">
+                                    <div id="c-alm-empty" class="px-3 py-2.5 bg-gray-50 dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl text-xs text-gray-400 dark:text-slate-500 italic">
                                         Selecciona primero la sucursal
                                     </div>
                                     <input type="hidden" name="almacen_id" id="c-alm-hidden" value="{{ old('almacen_id') }}">
@@ -299,9 +298,9 @@
                         </div>
                     </div>
 
-                    <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50 rounded-b-2xl">
+                    <div class="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex justify-end gap-3 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
                         <button type="button" onclick="closeCreate()"
-                                class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 bg-white border border-gray-200 hover:bg-gray-100 transition-colors">
+                                class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 dark:text-slate-400 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
                             Cancelar
                         </button>
                         <button type="submit"
@@ -320,7 +319,7 @@
     <div id="modal-editar" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeEdit()"></div>
         <div class="relative min-h-full flex items-start justify-center p-4 py-8">
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl">
 
                 <div class="bg-gradient-to-r from-amber-700 to-amber-500 rounded-t-2xl px-6 py-5 flex items-center gap-4">
                     <div id="e-avatar"
@@ -341,72 +340,72 @@
 
                         {{-- Info personal --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-id-card mr-1.5"></i>Información personal</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-id-card mr-1.5"></i>Información personal</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="sm:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre completo <span class="text-red-500">*</span></label>
                                     <input type="text" name="name" id="e-name" required
                                            oninput="updateAvatar('e-avatar',this.value)"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Email <span class="text-red-500">*</span></label>
                                     <input type="email" name="email" id="e-email" required
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">DNI</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">DNI</label>
                                     <input type="text" name="dni" id="e-dni" maxlength="20"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Teléfono</label>
                                     <input type="text" name="telefono" id="e-telefono"
-                                           class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                           class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado <span class="text-red-500">*</span></label>
-                                    <select name="estado" id="e-estado" required class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Estado <span class="text-red-500">*</span></label>
+                                    <select name="estado" id="e-estado" required class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800">
                                         <option value="activo">Activo</option>
                                         <option value="inactivo">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Contraseña opcional --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1"><i class="fas fa-lock mr-1.5"></i>Cambiar contraseña</p>
-                            <p class="text-xs text-gray-400 mb-3">Deja en blanco para conservar la contraseña actual</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1"><i class="fas fa-lock mr-1.5"></i>Cambiar contraseña</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mb-3">Deja en blanco para conservar la contraseña actual</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nueva contraseña</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nueva contraseña</label>
                                     <div class="relative">
                                         <input type="password" name="password" id="e-pwd" minlength="8" placeholder="Mínimo 8 caracteres"
-                                               class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                                        <button type="button" onclick="togglePwd('e-pwd','e-eye1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                               class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                        <button type="button" onclick="togglePwd('e-pwd','e-eye1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300">
                                             <i id="e-eye1" class="fas fa-eye text-sm"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Confirmar contraseña</label>
                                     <div class="relative">
                                         <input type="password" name="password_confirmation" id="e-pwd2" placeholder="Repite la contraseña"
-                                               class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                                        <button type="button" onclick="togglePwd('e-pwd2','e-eye2')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                               class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                                        <button type="button" onclick="togglePwd('e-pwd2','e-eye2')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300">
                                             <i id="e-eye2" class="fas fa-eye text-sm"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Rol --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-shield-halved mr-1.5"></i>Rol del usuario <span class="text-red-500">*</span></p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-shield-halved mr-1.5"></i>Rol del usuario <span class="text-red-500">*</span></p>
                             <input type="hidden" name="role_id" id="e-role-hidden">
                             <div class="grid grid-cols-3 gap-3">
                                 @foreach($roles as $role)
@@ -423,7 +422,7 @@
                                 <label class="relative cursor-pointer">
                                     <input type="radio" name="_e_role_card" value="{{ $role->id }}" class="peer sr-only"
                                            onchange="document.getElementById('e-role-hidden').value=this.value">
-                                    <div class="border-2 border-gray-200 rounded-xl p-3 text-center transition-all {{ $ecfg['border'] }} {{ $ecfg['checked'] }} peer-checked:shadow-md">
+                                    <div class="border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center transition-all {{ $ecfg['border'] }} {{ $ecfg['checked'] }} peer-checked:shadow-md">
                                         <div class="w-9 h-9 rounded-full {{ $ecfg['badge'] }} mx-auto mb-1.5 flex items-center justify-center">
                                             <i class="fas {{ $ecfg['icon'] }} text-white text-sm"></i>
                                         </div>
@@ -436,15 +435,15 @@
                                 @endforeach
                             </div>
                         </div>
-                        <hr class="border-gray-100">
+                        <hr class="border-gray-100 dark:border-slate-700">
 
                         {{-- Asignación --}}
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"><i class="fas fa-building mr-1.5"></i>Asignación</p>
+                            <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3"><i class="fas fa-building mr-1.5"></i>Asignación</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Sucursal</label>
-                                    <select id="e-suc" class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white"
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Sucursal</label>
+                                    <select id="e-suc" class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800"
                                             onchange="onSucChange('e',this.value)">
                                         <option value="">— Sin sucursal —</option>
                                         @foreach($sucursales as $suc)
@@ -453,19 +452,19 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Almacén / Tienda</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Almacén / Tienda</label>
                                     <div id="e-alm-wrap" class="hidden">
-                                        <select id="e-alm-sel" class="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white"
+                                        <select id="e-alm-sel" class="w-full rounded-xl border border-gray-200 dark:border-slate-700 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-800"
                                                 onchange="document.getElementById('e-alm-hidden').value=this.value">
                                             <option value="">Seleccione un almacén</option>
                                         </select>
                                     </div>
-                                    <div id="e-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-amber-50 border border-amber-200 rounded-xl text-sm">
+                                    <div id="e-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl text-sm">
                                         <i class="fas fa-warehouse text-amber-500"></i>
                                         <span id="e-alm-unico-nombre" class="font-medium text-amber-900 text-sm"></span>
                                         <span class="text-xs text-amber-400 ml-auto">Auto</span>
                                     </div>
-                                    <div id="e-alm-empty" class="px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-400 italic">
+                                    <div id="e-alm-empty" class="px-3 py-2.5 bg-gray-50 dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl text-xs text-gray-400 dark:text-slate-500 italic">
                                         Selecciona primero la sucursal
                                     </div>
                                     <input type="hidden" name="almacen_id" id="e-alm-hidden">
@@ -474,9 +473,9 @@
                         </div>
                     </div>
 
-                    <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50 rounded-b-2xl">
+                    <div class="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex justify-end gap-3 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
                         <button type="button" onclick="closeEdit()"
-                                class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 bg-white border border-gray-200 hover:bg-gray-100 transition-colors">
+                                class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 dark:text-slate-400 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
                             Cancelar
                         </button>
                         <button type="submit"

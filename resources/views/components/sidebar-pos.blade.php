@@ -61,7 +61,7 @@
             @endif
             <div class="min-w-0">
                 <p class="text-xs font-bold truncate leading-tight">{{ $empresa?->nombre_display ?? 'Mi Tienda' }}</p>
-                <p class="text-[10px] text-gray-400">POS Sistema</p>
+                <p class="text-[10px] text-gray-400 dark:text-slate-500">POS Sistema</p>
             </div>
         </div>
 
@@ -90,7 +90,7 @@
             </div>
             <div class="min-w-0" x-show="!collapsed">
                 <p class="text-xs font-semibold truncate">{{ $user->name }}</p>
-                <p class="text-[10px] text-gray-400 truncate">
+                <p class="text-[10px] text-gray-400 dark:text-slate-500 truncate">
                     {{ $role }}{{ $user->almacen ? ' · ' . $user->almacen->nombre : '' }}
                 </p>
             </div>
@@ -139,8 +139,7 @@
                 <span x-show="!collapsed" class="text-sm font-medium truncate">{{ $item['label'] }}</span>
                 {{-- Tooltip colapsado --}}
                 <div x-show="collapsed"
-                     class="absolute left-full ml-3 px-2.5 py-1.5 bg-gray-800 border border-white/10 text-white text-xs rounded-lg whitespace-nowrap
-                            opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
+                     class="absolute left-full ml-3 px-2.5 py-1.5 bg-gray-800 border border-white/10 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
                     {{ $item['label'] }}
                 </div>
             </a>
@@ -153,13 +152,12 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit"
-                    class="w-full flex items-center rounded-xl py-2.5 text-gray-400 hover:bg-red-500/10 hover:text-red-400 transition group relative"
+                    class="w-full flex items-center rounded-xl py-2.5 text-gray-400 dark:text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition group relative"
                     :class="collapsed ? 'justify-center px-2' : 'gap-3 px-3'">
                 <i class="fas fa-sign-out-alt w-4 text-center text-sm shrink-0"></i>
                 <span x-show="!collapsed" class="text-sm font-medium">Salir</span>
                 <div x-show="collapsed"
-                     class="absolute left-full ml-3 px-2.5 py-1.5 bg-gray-800 border border-white/10 text-white text-xs rounded-lg whitespace-nowrap
-                            opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
+                     class="absolute left-full ml-3 px-2.5 py-1.5 bg-gray-800 border border-white/10 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
                     Cerrar sesión
                 </div>
             </button>

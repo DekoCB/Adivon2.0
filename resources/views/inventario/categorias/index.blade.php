@@ -16,50 +16,50 @@
         <!-- Mensajes de éxito/error -->
         <!-- Estadísticas -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-900">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 border-l-4 border-blue-900">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Total Categorías</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $categorias->count() }}</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 font-medium">Total Categorías</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $categorias->count() }}</p>
                     </div>
-                    <div class="bg-blue-100 rounded-full p-3">
+                    <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
                         <i class="fas fa-tags text-blue-900 text-2xl"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 border-l-4 border-green-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Categorías Activas</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $categorias->where('estado', 'activo')->count() }}</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 font-medium">Categorías Activas</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $categorias->where('estado', 'activo')->count() }}</p>
                     </div>
-                    <div class="bg-green-100 rounded-full p-3">
-                        <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                    <div class="bg-green-100 dark:bg-green-900/40 rounded-full p-3">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400 text-2xl"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Categorías Inactivas</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $categorias->where('estado', 'inactivo')->count() }}</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 font-medium">Categorías Inactivas</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $categorias->where('estado', 'inactivo')->count() }}</p>
                     </div>
-                    <div class="bg-yellow-100 rounded-full p-3">
-                        <i class="fas fa-times-circle text-yellow-600 text-2xl"></i>
+                    <div class="bg-yellow-100 dark:bg-yellow-900/40 rounded-full p-3">
+                        <i class="fas fa-times-circle text-yellow-600 dark:text-yellow-400 text-2xl"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-pink-600">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 border-l-4 border-pink-600">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Total Productos</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $categorias->sum('productos_count') }}</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 font-medium">Total Productos</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $categorias->sum('productos_count') }}</p>
                     </div>
-                    <div class="bg-pink-100 rounded-full p-3">
-                        <i class="fas fa-boxes text-pink-600 text-2xl"></i>
+                    <div class="bg-pink-100 dark:bg-pink-900/40 rounded-full p-3">
+                        <i class="fas fa-boxes text-pink-600 dark:text-pink-400 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
         <!-- Tabla de Categorías -->
         <x-data-table>
             <x-slot:cardHeader>
-                <h2 class="text-xl font-bold text-gray-900">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
                     <i class="fas fa-list mr-2 text-blue-900"></i>
                     Listado de Categorías
                 </h2>
@@ -88,20 +88,20 @@
             </x-slot:head>
 
                         @forelse($categorias as $categoria)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-sm font-medium text-gray-900">{{ $categoria->codigo }}</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ $categoria->codigo }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     @if($categoria->imagen)
                                         <img src="{{ $categoria->imagen_url }}" alt="{{ $categoria->nombre }}" class="h-10 w-10 rounded-lg object-cover mr-3">
                                     @else
-                                        <div class="h-10 w-10 rounded-lg bg-gray-200 flex items-center justify-center mr-3">
-                                            <i class="fas fa-image text-gray-400"></i>
+                                        <div class="h-10 w-10 rounded-lg bg-gray-200 dark:bg-slate-700 flex items-center justify-center mr-3">
+                                            <i class="fas fa-image text-gray-400 dark:text-slate-500"></i>
                                         </div>
                                     @endif
-                                    <span class="text-sm font-medium text-gray-900">{{ $categoria->nombre }}</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ $categoria->nombre }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -116,11 +116,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                 <div class="flex items-center justify-center space-x-2">
-                                    <a href="{{ route('inventario.categorias.show', $categoria) }}" class="text-gray-500 hover:text-gray-900" title="Ver productos">
+                                    <a href="{{ route('inventario.categorias.show', $categoria) }}" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100" title="Ver productos">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     @if($canEdit)
-                                        <a href="{{ route('inventario.categorias.edit', $categoria) }}" class="text-blue-600 hover:text-blue-900" title="Editar">
+                                        <a href="{{ route('inventario.categorias.edit', $categoria) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
@@ -129,7 +129,7 @@
                                         <form action="{{ route('inventario.categorias.destroy', $categoria) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar">
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900" title="Eliminar">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -140,7 +140,7 @@
                         @empty
                         <tr>
                             <td colspan="5" class="px-6 py-12 text-center">
-                                <div class="flex flex-col items-center justify-center text-gray-500">
+                                <div class="flex flex-col items-center justify-center text-gray-500 dark:text-slate-400">
                                     <i class="fas fa-inbox text-6xl mb-4"></i>
                                     <p class="text-lg font-medium">No hay categorías registradas</p>
                                     <p class="text-sm mt-2">Comienza creando tu primera categoría</p>

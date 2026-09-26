@@ -8,17 +8,17 @@
 
 @section('content')
     
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 dark:bg-slate-700">
 
     {{-- Top Bar --}}
-    <div class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-10">
         <div class="px-6 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-gray-800">
+            <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200">
                 <i class="fas fa-store-alt text-blue-900 mr-2"></i>
                 Inventario entre Tiendas
             </h1>
             <div class="flex items-center gap-3">
-                <a href="{{ route('tienda.inventario.solicitudes') }}" class="text-sm text-blue-700 hover:underline flex items-center gap-1">
+                <a href="{{ route('tienda.inventario.solicitudes') }}" class="text-sm text-blue-700 dark:text-blue-300 hover:underline flex items-center gap-1">
                     <i class="fas fa-clipboard-list"></i> Mis solicitudes
                 </a>
                 <div class="w-9 h-9 bg-gradient-to-r from-blue-900 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
@@ -30,11 +30,11 @@
 
     <div class="p-6">
     <!-- Información de tienda actual -->
-    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg mb-6">
+    <div class="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-lg mb-6">
         <div class="flex items-center">
-            <i class="fas fa-store text-blue-600 mr-3 text-xl"></i>
+            <i class="fas fa-store text-blue-600 dark:text-blue-400 mr-3 text-xl"></i>
             <div>
-                <p class="text-sm text-gray-600">Tu tienda actual:</p>
+                <p class="text-sm text-gray-600 dark:text-slate-400">Tu tienda actual:</p>
                 <p class="font-semibold text-blue-900">{{ $tiendaActual?->nombre ?? 'Sin tienda asignada — contacta al administrador' }}</p>
             </div>
         </div>
@@ -43,14 +43,14 @@
     <!-- Filtros -->
     <x-filter-bar :filters="['buscar','categoria_id']" class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Buscar producto</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Buscar producto</label>
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                        placeholder="Nombre o código">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
-                <select name="categoria_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Categoría</label>
+                <select name="categoria_id" class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                     <option value="">Todas</option>
                     @foreach($categorias as $cat)
                         <option value="{{ $cat->id }}" {{ request('categoria_id') == $cat->id ? 'selected' : '' }}>
@@ -62,37 +62,37 @@
     </x-filter-bar>
 
     <!-- Tabla de productos -->
-    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+            <thead class="bg-gray-50 dark:bg-slate-900/60">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Variante</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase" colspan="{{ $almacenes->count() }}">
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Producto</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Variante</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Categoría</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-slate-400 uppercase" colspan="{{ $almacenes->count() }}">
                         Stock por Tienda
                     </th>
-                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Acciones</th>
                 </tr>
-                <tr class="bg-gray-100">
+                <tr class="bg-gray-100 dark:bg-slate-700">
                     <th colspan="3"></th>
                     @foreach($almacenes as $almacen)
-                        <th class="px-3 py-2 text-center text-xs font-medium text-gray-600 border-l">
+                        <th class="px-3 py-2 text-center text-xs font-medium text-gray-600 dark:text-slate-400 border-l">
                             {{ $almacen->nombre }}
                         </th>
                     @endforeach
                     <th></th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                 @foreach($productos as $producto)
                     @php $numFilas = $producto->filas->count(); @endphp
                     @foreach($producto->filas as $i => $fila)
-                    <tr class="hover:bg-gray-50">
+                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                         @if($i === 0)
                         <td class="px-6 py-4 align-top" rowspan="{{ $numFilas }}">
-                            <a href="{{ route('tienda.producto.ver', $producto) }}" class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">{{ $producto->nombre }}</a>
-                            <div class="text-xs text-gray-500">{{ $producto->codigo }}</div>
+                            <a href="{{ route('tienda.producto.ver', $producto) }}" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 hover:underline">{{ $producto->nombre }}</a>
+                            <div class="text-xs text-gray-500 dark:text-slate-400">{{ $producto->codigo }}</div>
                         </td>
                         @endif
 
@@ -100,21 +100,21 @@
                             @if($fila->variante)
                                 <div class="flex items-center gap-1.5">
                                     @if($fila->variante->color?->codigo_hex)
-                                        <span class="inline-block w-2.5 h-2.5 rounded-full border border-gray-300 shrink-0"
+                                        <span class="inline-block w-2.5 h-2.5 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                               style="background-color: {{ $fila->variante->color->codigo_hex }}"></span>
                                     @endif
-                                    <span class="text-gray-700">{{ $fila->variante->nombre_completo }}</span>
+                                    <span class="text-gray-700 dark:text-slate-300">{{ $fila->variante->nombre_completo }}</span>
                                 </div>
-                                <div class="text-[11px] text-gray-400">{{ $fila->variante->sku }}</div>
+                                <div class="text-[11px] text-gray-400 dark:text-slate-500">{{ $fila->variante->sku }}</div>
                             @elseif($producto->es_serie)
-                                <span class="text-xs italic text-gray-400">Sin variante asignada</span>
+                                <span class="text-xs italic text-gray-400 dark:text-slate-500">Sin variante asignada</span>
                             @else
                                 <span class="text-gray-300">—</span>
                             @endif
                         </td>
 
                         @if($i === 0)
-                        <td class="px-6 py-4 text-sm text-gray-500 align-top" rowspan="{{ $numFilas }}">{{ $producto->categoria->nombre }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500 dark:text-slate-400 align-top" rowspan="{{ $numFilas }}">{{ $producto->categoria->nombre }}</td>
                         @endif
 
                         @foreach($almacenes as $almacen)
@@ -127,7 +127,7 @@
                             <td class="px-3 py-4 text-center">
                                 @if($esMiTienda)
                                     @if($cantidad > 0)
-                                        <span class="font-bold text-blue-600">
+                                        <span class="font-bold text-blue-600 dark:text-blue-400">
                                             {{ $cantidad }}
                                             @if($esSerie)
                                                 <span class="text-[10px] font-normal text-purple-500 ml-0.5">IMEI</span>
@@ -153,12 +153,12 @@
 
                             @if($otrasTiendas->count() > 0)
                                 <button onclick="abrirModalTraslado({{ $producto->id }}, {{ $fila->variante->id ?? 'null' }}, '{{ addslashes($etiqueta) }}')"
-                                        class="text-blue-600 hover:text-blue-800"
+                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800"
                                         title="Solicitar traslado">
                                     <i class="fas fa-truck"></i>
                                 </button>
                             @else
-                                <span class="text-gray-400" title="No hay stock en otras tiendas">
+                                <span class="text-gray-400 dark:text-slate-500" title="No hay stock en otras tiendas">
                                     <i class="fas fa-truck"></i>
                                 </span>
                             @endif
@@ -179,7 +179,7 @@
 <div id="modalTraslado" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="cerrarModalTraslado()"></div>
     
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md">
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md">
         <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4 rounded-t-2xl">
             <h3 class="text-lg font-bold text-white flex items-center">
                 <i class="fas fa-truck mr-2"></i>
@@ -194,14 +194,14 @@
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Producto</label>
-                    <p id="traslado_producto_nombre" class="text-gray-900 font-medium"></p>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Producto</label>
+                    <p id="traslado_producto_nombre" class="text-gray-900 dark:text-slate-100 font-medium"></p>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Almacén de origen</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Almacén de origen</label>
                     <select name="almacen_origen_id" id="traslado_almacen_origen" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                             required>
                         <option value="">Seleccionar...</option>
                         @foreach($almacenes as $almacen)
@@ -213,21 +213,21 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Cantidad</label>
                     <input type="number" name="cantidad" id="traslado_cantidad" 
-                           min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                           min="1" class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                            required>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Motivo (opcional)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Motivo (opcional)</label>
                     <textarea name="motivo" rows="2" 
-                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                              class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                               placeholder="Ej: Venta programada, stock bajo..."></textarea>
                 </div>
                 
-                <div class="bg-blue-50 p-3 rounded-lg">
-                    <p class="text-xs text-blue-800">
+                <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg">
+                    <p class="text-xs text-blue-800 dark:text-blue-300">
                         <i class="fas fa-info-circle mr-1"></i>
                         El traslado quedará pendiente hasta que el almacén de origen lo confirme.
                     </p>
@@ -236,7 +236,7 @@
             
             <div class="mt-6 flex justify-end space-x-3">
                 <button type="button" onclick="cerrarModalTraslado()"
-                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                        class="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                     Cancelar
                 </button>
                 <button type="submit"

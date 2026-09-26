@@ -9,8 +9,8 @@
         <div class="mb-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Editar IMEI</h1>
-                    <p class="text-sm text-gray-600 mt-1">Modificando información del equipo {{ $imei->codigo_imei }}</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Editar IMEI</h1>
+                    <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">Modificando información del equipo {{ $imei->codigo_imei }}</p>
                 </div>
                 <div class="flex space-x-2">
                     <a href="{{ route('inventario.imeis.show', $imei) }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
@@ -24,21 +24,21 @@
         </div>
 
         @if ($errors->any())
-            <div class="mb-6 bg-red-50 border border-red-300 rounded-lg p-4">
-                <p class="text-sm font-semibold text-red-700 mb-2">
+            <div class="mb-6 bg-red-50 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-lg p-4">
+                <p class="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">
                     <i class="fas fa-exclamation-circle mr-1"></i>
                     Por favor corrige los siguientes errores:
                 </p>
                 <ul class="list-disc list-inside space-y-1">
                     @foreach ($errors->all() as $error)
-                        <li class="text-sm text-red-600">{{ $error }}</li>
+                        <li class="text-sm text-red-600 dark:text-red-400">{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
 
         <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
                 <div class="bg-gradient-to-r from-blue-900 to-blue-700 px-6 py-4">
                     <h2 class="text-xl font-bold text-white flex items-center">
                         <i class="fas fa-edit mr-3"></i>
@@ -51,41 +51,41 @@
                     @method('PUT')
 
                     <!-- Información fija del equipo -->
-                    <div class="mb-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <div class="mb-6 bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
                         <h3 class="text-sm font-semibold text-blue-900 mb-3 flex items-center">
                             <i class="fas fa-lock mr-2"></i>
                             Información fija del equipo
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
-                                <p class="text-xs text-gray-500">Código IMEI</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">Código IMEI</p>
                                 <x-code>{{ $imei->codigo_imei }}</x-code>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-500">Producto</p>
-                                <p class="font-semibold text-gray-900">{{ $imei->producto->nombre }}</p>
-                                <p class="text-xs text-gray-400">{{ $imei->producto->codigo }}</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">Producto</p>
+                                <p class="font-semibold text-gray-900 dark:text-slate-100">{{ $imei->producto->nombre }}</p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500">{{ $imei->producto->codigo }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-500">Variante actual</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">Variante actual</p>
                                 @if($imei->variante)
                                     <div class="flex items-center gap-1.5 mt-0.5">
                                         @if($imei->variante->color?->codigo_hex)
-                                            <span class="w-3 h-3 rounded-full border border-gray-300 shrink-0"
+                                            <span class="w-3 h-3 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                                   style="background:{{ $imei->variante->color->codigo_hex }}"></span>
                                         @endif
-                                        <span class="font-semibold text-gray-900 text-sm">
+                                        <span class="font-semibold text-gray-900 dark:text-slate-100 text-sm">
                                             {{ trim(($imei->variante->color?->nombre ?? '') . ($imei->variante->capacidad ? ' / ' . $imei->variante->capacidad : '')) }}
                                         </span>
                                     </div>
-                                    <p class="text-xs text-gray-400 font-mono">{{ $imei->variante->sku }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500 font-mono">{{ $imei->variante->sku }}</p>
                                 @else
-                                    <p class="text-sm text-gray-400 italic">Sin variante asignada</p>
+                                    <p class="text-sm text-gray-400 dark:text-slate-500 italic">Sin variante asignada</p>
                                 @endif
                             </div>
                             <div>
-                                <p class="text-xs text-gray-500">Fecha de ingreso</p>
-                                <p class="text-gray-900">{{ $imei->fecha_ingreso ? $imei->fecha_ingreso->format('d/m/Y') : $imei->created_at->format('d/m/Y') }}</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">Fecha de ingreso</p>
+                                <p class="text-gray-900 dark:text-slate-100">{{ $imei->fecha_ingreso ? $imei->fecha_ingreso->format('d/m/Y') : $imei->created_at->format('d/m/Y') }}</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                         @php $variantes = $variantesPorProducto[$imei->producto_id] ?? collect(); @endphp
                         @if($variantes->count() > 0)
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                                 <i class="fas fa-layer-group mr-1 text-indigo-500"></i>
                                 Variante (color + capacidad)
                             </label>
@@ -108,21 +108,20 @@
                                     @php $seleccionada = old('variante_id', $imei->variante_id) == $v['id']; @endphp
                                     <button type="button" data-id="{{ $v['id'] }}" data-color-id="{{ $v['color_id'] }}"
                                             data-color-nombre="{{ $v['color_nombre'] }}" data-capacidad="{{ $v['capacidad'] }}"
-                                            class="variante-card text-left border-2 rounded-xl p-3 transition
-                                                   {{ $seleccionada ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-400 hover:bg-indigo-50' }}">
+                                            class="variante-card text-left border-2 rounded-xl p-3 transition {{ $seleccionada ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-400 hover:bg-indigo-50' }}">
                                         <div class="flex items-center gap-2 mb-1">
                                             @if($v['color_hex'])
-                                                <span class="w-4 h-4 rounded-full shrink-0 border border-gray-300"
+                                                <span class="w-4 h-4 rounded-full shrink-0 border border-gray-300 dark:border-slate-600"
                                                       style="background:{{ $v['color_hex'] }}"></span>
                                             @endif
-                                            <span class="text-sm font-semibold text-gray-800 truncate">{{ $v['nombre'] }}</span>
+                                            <span class="text-sm font-semibold text-gray-800 dark:text-slate-200 truncate">{{ $v['nombre'] }}</span>
                                         </div>
-                                        <span class="text-xs font-mono text-gray-400">{{ $v['sku'] }}</span>
+                                        <span class="text-xs font-mono text-gray-400 dark:text-slate-500">{{ $v['sku'] }}</span>
                                     </button>
                                 @endforeach
                             </div>
                             @error('variante_id')
-                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
                         @else
@@ -133,12 +132,12 @@
                         <!-- Almacén y Serie -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="almacen_id" class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-warehouse mr-1 text-gray-500"></i>
+                                <label for="almacen_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                    <i class="fas fa-warehouse mr-1 text-gray-500 dark:text-slate-400"></i>
                                     Almacén <span class="text-red-500">*</span>
                                 </label>
                                 <select name="almacen_id" id="almacen_id"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                        class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                         required>
                                     <option value="">Seleccione un almacén</option>
                                     @foreach($almacenes as $almacen)
@@ -150,29 +149,29 @@
                                     @endforeach
                                 </select>
                                 @error('almacen_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <label for="serie" class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-barcode mr-1 text-gray-500"></i>
+                                <label for="serie" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                    <i class="fas fa-barcode mr-1 text-gray-500 dark:text-slate-400"></i>
                                     Número de Serie
                                 </label>
                                 <input type="text" name="serie" id="serie"
                                        value="{{ old('serie', $imei->serie) }}"
-                                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                       class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                        placeholder="Número de serie adicional (opcional)">
                                 @error('serie')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
                         <!-- Estado -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-3">
-                                <i class="fas fa-tag mr-1 text-gray-500"></i>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
+                                <i class="fas fa-tag mr-1 text-gray-500 dark:text-slate-400"></i>
                                 Estado del equipo <span class="text-red-500">*</span>
                             </label>
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -180,7 +179,7 @@
                                     <input type="radio" name="estado_imei" value="en_stock" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'en_stock' ? 'checked' : '' }} required>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-check-circle text-green-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">En Stock</span>
                                     </div>
@@ -189,7 +188,7 @@
                                     <input type="radio" name="estado_imei" value="reservado" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'reservado' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-clock text-yellow-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Reservado</span>
                                     </div>
@@ -198,7 +197,7 @@
                                     <input type="radio" name="estado_imei" value="vendido" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'vendido' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-shopping-cart text-red-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Vendido</span>
                                     </div>
@@ -207,7 +206,7 @@
                                     <input type="radio" name="estado_imei" value="garantia" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'garantia' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-shield-alt text-blue-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Garantía</span>
                                     </div>
@@ -216,7 +215,7 @@
                                     <input type="radio" name="estado_imei" value="devuelto" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'devuelto' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-undo text-orange-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Devuelto</span>
                                     </div>
@@ -225,29 +224,29 @@
                                     <input type="radio" name="estado_imei" value="reemplazado" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'reemplazado' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 rounded-lg p-3 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-exchange-alt text-purple-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Reemplazado</span>
                                     </div>
                                 </label>
                             </div>
                             @error('estado_imei')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Fecha de Garantía (se muestra solo si estado es garantía o vendido) -->
                         <div id="fechaGarantiaContainer" class="{{ in_array(old('estado_imei', $imei->estado_imei), ['garantia', 'vendido']) ? '' : 'hidden' }}">
-                            <label for="fecha_garantia" class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="fas fa-calendar-alt mr-1 text-gray-500"></i>
+                            <label for="fecha_garantia" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                <i class="fas fa-calendar-alt mr-1 text-gray-500 dark:text-slate-400"></i>
                                 Fecha de vencimiento de garantía
                             </label>
                             <input type="date" 
                                    name="fecha_garantia" 
                                    id="fecha_garantia" 
                                    value="{{ old('fecha_garantia', $imei->fecha_garantia ? $imei->fecha_garantia->format('Y-m-d') : '') }}"
-                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                            <p class="text-xs text-gray-500 mt-1">
+                                   class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">
                                 <i class="fas fa-info-circle mr-1"></i>
                                 Fecha en que expira la garantía del equipo
                             </p>
@@ -255,24 +254,24 @@
 
                         <!-- Observaciones -->
                         <div>
-                            <label for="observaciones" class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="fas fa-sticky-note mr-1 text-gray-500"></i>
+                            <label for="observaciones" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                <i class="fas fa-sticky-note mr-1 text-gray-500 dark:text-slate-400"></i>
                                 Observaciones
                             </label>
                             <textarea name="observaciones" id="observaciones" rows="3"
-                                      class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                      class="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                       placeholder="Notas adicionales sobre el equipo...">{{ old('observaciones', $imei->observaciones) }}</textarea>
                             @error('observaciones')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <!-- Alerta de cambios en stock -->
-                    <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg">
+                    <div class="mt-6 bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-500 p-4 rounded-lg">
                         <div class="flex items-start">
-                            <i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5 mr-3"></i>
-                            <div class="text-sm text-yellow-800">
+                            <i class="fas fa-exclamation-triangle text-yellow-600 dark:text-yellow-400 mt-0.5 mr-3"></i>
+                            <div class="text-sm text-yellow-800 dark:text-yellow-300">
                                 <p class="font-medium">¡Importante!</p>
                                 <p class="mt-1">Si cambias el estado, el stock se actualizará automáticamente:</p>
                                 <ul class="list-disc list-inside mt-2 space-y-1 text-xs">
@@ -286,9 +285,9 @@
                     </div>
 
                     <!-- Botones de acción -->
-                    <div class="flex items-center justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex items-center justify-end space-x-3 mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
                         <a href="{{ route('inventario.imeis.show', $imei) }}"
-                           class="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+                           class="px-6 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 font-medium">
                             <i class="fas fa-times mr-2"></i>Cancelar
                         </a>
                         <button type="submit" 

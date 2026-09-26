@@ -20,13 +20,13 @@
 
 
         {{-- HEADER --}}
-        <div class="bg-white shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
+        <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 no-print">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-boxes text-orange-600"></i>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200 flex items-center gap-2">
+                    <i class="fas fa-boxes text-orange-600 dark:text-orange-400"></i>
                     Reporte de Compras e Importaciones
                 </h1>
-                <p class="text-sm text-gray-500 mt-0.5">
+                <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
                     {{ $label }}:
                     <strong>{{ \Carbon\Carbon::parse($desde)->format('d/m/Y') }}</strong>
                     @if($desde !== $hasta)
@@ -40,11 +40,11 @@
                     <i class="fas fa-file-csv"></i> Exportar CSV
                 </a>
                 <button onclick="window.print()"
-                        class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                        class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                     <i class="fas fa-print"></i> Imprimir
                 </button>
                 <a href="{{ route('compras.index') }}"
-                   class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                   class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                     <i class="fas fa-arrow-left"></i> Volver
                 </a>
             </div>
@@ -53,13 +53,13 @@
         <div class="p-4 md:p-6 space-y-6">
 
             {{-- FILTROS --}}
-            <form method="GET" action="{{ route('reportes.compras') }}" class="bg-white rounded-xl shadow-sm p-4 no-print">
+            <form method="GET" action="{{ route('reportes.compras') }}" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 no-print">
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 items-end">
                     {{-- Período --}}
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Período</label>
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Período</label>
                         <select name="periodo" onchange="toggleCustom(this.value)"
-                                class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+                                class="w-full py-2 px-3 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
                             @foreach(['7dias'=>'Últimos 7 días','30dias'=>'Últimos 30 días','mes'=>'Este mes','trimestre'=>'Este trimestre','anio'=>'Este año','custom'=>'Personalizado'] as $val => $lbl)
                                 <option value="{{ $val }}" {{ $periodo === $val ? 'selected' : '' }}>{{ $lbl }}</option>
                             @endforeach
@@ -67,20 +67,20 @@
                     </div>
                     {{-- Desde --}}
                     <div id="custom-desde" class="{{ $periodo === 'custom' ? '' : 'hidden' }}">
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Desde</label>
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Desde</label>
                         <input type="date" name="fecha_desde" value="{{ $desde }}"
-                               class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                               class="w-full py-2 px-3 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500">
                     </div>
                     {{-- Hasta --}}
                     <div id="custom-hasta" class="{{ $periodo === 'custom' ? '' : 'hidden' }}">
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Hasta</label>
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Hasta</label>
                         <input type="date" name="fecha_hasta" value="{{ $hasta }}"
-                               class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                               class="w-full py-2 px-3 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500">
                     </div>
                     {{-- Proveedor --}}
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Proveedor</label>
-                        <select name="proveedor_id" class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Proveedor</label>
+                        <select name="proveedor_id" class="w-full py-2 px-3 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500">
                             <option value="">Todos</option>
                             @foreach($proveedores as $prov)
                                 <option value="{{ $prov->id }}" {{ $proveedorId == $prov->id ? 'selected' : '' }}>{{ $prov->razon_social }}</option>
@@ -89,8 +89,8 @@
                     </div>
                     {{-- Tipo --}}
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Tipo</label>
-                        <select name="tipo_compra" class="w-full py-2 px-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Tipo</label>
+                        <select name="tipo_compra" class="w-full py-2 px-3 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500">
                             <option value="">Todos</option>
                             <option value="local"       {{ $tipoCompra === 'local'       ? 'selected' : '' }}>Local</option>
                             <option value="importacion" {{ $tipoCompra === 'importacion' ? 'selected' : '' }}>Importación</option>
@@ -98,7 +98,7 @@
                     </div>
                     {{-- Botón --}}
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1 invisible">Filtrar</label>
+                        <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1 invisible">Filtrar</label>
                         <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                             <i class="fas fa-search mr-1"></i>Filtrar
                         </button>
@@ -108,25 +108,25 @@
 
             {{-- KPIs --}}
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-orange-500">
-                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Total Invertido</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1">S/ {{ number_format($kpis['total_invertido'], 2) }}</p>
-                    <p class="text-xs text-gray-400 mt-1">{{ $kpis['num_compras'] }} compras en el período</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-orange-500">
+                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Total Invertido</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 mt-1">S/ {{ number_format($kpis['total_invertido'], 2) }}</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">{{ $kpis['num_compras'] }} compras en el período</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
-                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Gastos Importación</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1">S/ {{ number_format($kpis['gastos_importacion'], 2) }}</p>
-                    <p class="text-xs text-gray-400 mt-1">{{ $kpis['num_importaciones'] }} importaciones</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
+                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Gastos Importación</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 mt-1">S/ {{ number_format($kpis['gastos_importacion'], 2) }}</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">{{ $kpis['num_importaciones'] }} importaciones</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500">
-                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Compras Locales</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1">{{ $kpis['num_locales'] }}</p>
-                    <p class="text-xs text-gray-400 mt-1">{{ $kpis['proveedores_distintos'] }} proveedores distintos</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-green-500">
+                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Compras Locales</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 mt-1">{{ $kpis['num_locales'] }}</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">{{ $kpis['proveedores_distintos'] }} proveedores distintos</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
-                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Promedio por Compra</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1">S/ {{ number_format($kpis['promedio_por_compra'], 2) }}</p>
-                    <p class="text-xs text-gray-400 mt-1">Incluyendo gastos</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
+                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Promedio por Compra</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 mt-1">S/ {{ number_format($kpis['promedio_por_compra'], 2) }}</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Incluyendo gastos</p>
                 </div>
             </div>
 
@@ -134,8 +134,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {{-- Gráfica de tendencia --}}
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-5">
-                    <h3 class="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2">
+                <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                    <h3 class="text-sm font-bold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-chart-bar text-orange-500"></i>
                         Inversión diaria (S/)
                     </h3>
@@ -145,8 +145,8 @@
                 </div>
 
                 {{-- Top proveedores --}}
-                <div class="bg-white rounded-xl shadow-sm p-5">
-                    <h3 class="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                    <h3 class="text-sm font-bold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-trophy text-yellow-500"></i>
                         Top Proveedores
                     </h3>
@@ -155,74 +155,74 @@
                             @php $pct = $kpis['total_invertido'] > 0 ? ($prov->total / $kpis['total_invertido'] * 100) : 0; @endphp
                             <div>
                                 <div class="flex justify-between text-xs mb-1">
-                                    <span class="font-medium text-gray-700 truncate max-w-[60%]">{{ $prov->razon_social }}</span>
-                                    <span class="text-gray-500">S/ {{ number_format($prov->total, 0) }}</span>
+                                    <span class="font-medium text-gray-700 dark:text-slate-300 truncate max-w-[60%]">{{ $prov->razon_social }}</span>
+                                    <span class="text-gray-500 dark:text-slate-400">S/ {{ number_format($prov->total, 0) }}</span>
                                 </div>
-                                <div class="w-full bg-gray-100 rounded-full h-1.5">
+                                <div class="w-full bg-gray-100 dark:bg-slate-700 rounded-full h-1.5">
                                     <div class="bg-orange-500 h-1.5 rounded-full" style="width: {{ min($pct, 100) }}%"></div>
                                 </div>
                             </div>
                         @empty
-                            <p class="text-sm text-gray-400 italic">Sin datos</p>
+                            <p class="text-sm text-gray-400 dark:text-slate-500 italic">Sin datos</p>
                         @endforelse
                     </div>
                 </div>
             </div>
 
             {{-- Tabla detalle --}}
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                        <i class="fas fa-table text-orange-600"></i>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+                    <h3 class="font-bold text-gray-800 dark:text-slate-200 flex items-center gap-2">
+                        <i class="fas fa-table text-orange-600 dark:text-orange-400"></i>
                         Detalle de Compras
-                        <span class="text-sm font-normal text-gray-500">({{ $tablaCompras->count() }} registros)</span>
+                        <span class="text-sm font-normal text-gray-500 dark:text-slate-400">({{ $tablaCompras->count() }} registros)</span>
                     </h3>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                        <thead class="bg-gray-50 dark:bg-slate-900/60">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Fecha</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Código</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Proveedor</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Factura</th>
-                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Tipo</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Subtotal (S/)</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Gastos Imp. (S/)</th>
-                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Total c/Gastos (S/)</th>
-                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Estado Pago</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Fecha</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Código</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Proveedor</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Factura</th>
+                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Tipo</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Subtotal (S/)</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Gastos Imp. (S/)</th>
+                                <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Total c/Gastos (S/)</th>
+                                <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Estado Pago</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100">
+                        <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                             @forelse($tablaCompras as $compra)
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-4 py-3 text-sm text-gray-600">
+                                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
+                                    <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">
                                         {{ \Carbon\Carbon::parse($compra->fecha)->format('d/m/Y') }}
                                     </td>
                                     <td class="px-4 py-3">
                                         <a href="{{ route('compras.show', $compra->id) }}"
-                                           class="text-sm font-mono font-semibold text-blue-600 hover:underline">
+                                           class="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                                             {{ $compra->codigo }}
                                         </a>
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-800">{{ $compra->razon_social }}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $compra->numero_factura }}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-800 dark:text-slate-200">{{ $compra->razon_social }}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">{{ $compra->numero_factura }}</td>
                                     <td class="px-4 py-3 text-center">
                                         @if($compra->tipo_compra === 'importacion')
-                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-orange-100 text-orange-800">
+                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300">
                                                 <i class="fas fa-ship mr-1"></i>Importación
                                             </span>
                                         @else
-                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300">
                                                 <i class="fas fa-store mr-1"></i>Local
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-right text-gray-800">{{ number_format($compra->total_pen, 2) }}</td>
+                                    <td class="px-4 py-3 text-sm text-right text-gray-800 dark:text-slate-200">{{ number_format($compra->total_pen, 2) }}</td>
                                     <td class="px-4 py-3 text-sm text-right {{ $compra->gastos_importacion_pen > 0 ? 'text-orange-600 font-medium' : 'text-gray-400' }}">
                                         {{ $compra->gastos_importacion_pen > 0 ? number_format($compra->gastos_importacion_pen, 2) : '—' }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-right font-bold text-gray-900">
+                                    <td class="px-4 py-3 text-sm text-right font-bold text-gray-900 dark:text-slate-100">
                                         {{ number_format($compra->total_con_gastos, 2) }}
                                     </td>
                                     <td class="px-4 py-3 text-center">
@@ -242,7 +242,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                                    <td colspan="9" class="px-6 py-12 text-center text-gray-500 dark:text-slate-400">
                                         <i class="fas fa-boxes text-4xl text-gray-200 mb-3 block"></i>
                                         No hay compras en el período seleccionado
                                     </td>
@@ -250,12 +250,12 @@
                             @endforelse
                         </tbody>
                         @if($tablaCompras->isNotEmpty())
-                            <tfoot class="bg-gray-50 border-t-2 border-gray-200">
+                            <tfoot class="bg-gray-50 dark:bg-slate-900/60 border-t-2 border-gray-200 dark:border-slate-700">
                                 <tr class="font-bold">
-                                    <td colspan="5" class="px-4 py-3 text-sm text-gray-700">TOTALES</td>
-                                    <td class="px-4 py-3 text-sm text-right text-gray-900">S/ {{ number_format($tablaCompras->sum('total_pen'), 2) }}</td>
-                                    <td class="px-4 py-3 text-sm text-right text-orange-600">S/ {{ number_format($tablaCompras->sum('gastos_importacion_pen'), 2) }}</td>
-                                    <td class="px-4 py-3 text-sm text-right text-gray-900">S/ {{ number_format($tablaCompras->sum('total_con_gastos'), 2) }}</td>
+                                    <td colspan="5" class="px-4 py-3 text-sm text-gray-700 dark:text-slate-300">TOTALES</td>
+                                    <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-slate-100">S/ {{ number_format($tablaCompras->sum('total_pen'), 2) }}</td>
+                                    <td class="px-4 py-3 text-sm text-right text-orange-600 dark:text-orange-400">S/ {{ number_format($tablaCompras->sum('gastos_importacion_pen'), 2) }}</td>
+                                    <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-slate-100">S/ {{ number_format($tablaCompras->sum('total_con_gastos'), 2) }}</td>
                                     <td></td>
                                 </tr>
                             </tfoot>

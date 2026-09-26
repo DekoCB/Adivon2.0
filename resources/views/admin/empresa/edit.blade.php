@@ -9,26 +9,26 @@
 @section('content')
 <div x-data="empresaForm()">
     {{-- Tabs --}}
-    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
-        <div class="border-b border-gray-200">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden mb-6">
+        <div class="border-b border-gray-200 dark:border-slate-700">
             <nav class="flex -mb-px">
                 <button @click="tab = 'datos'"
-                    :class="tab === 'datos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    :class="tab === 'datos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-building"></i> Datos Iniciales
                 </button>
                 <button @click="tab = 'graficos'"
-                    :class="tab === 'graficos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    :class="tab === 'graficos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-image"></i> Gráficos / Logos
                 </button>
                 <button @click="tab = 'redes'"
-                    :class="tab === 'redes' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    :class="tab === 'redes' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-share-alt"></i> Redes Sociales
                 </button>
                 <button @click="tab = 'api'"
-                    :class="tab === 'api' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    :class="tab === 'api' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-plug"></i> Integración API / SUNAT
                 </button>
@@ -45,10 +45,10 @@
 
                     {{-- RUC con botón SUNAT --}}
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">RUC *</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">RUC *</label>
                         <div class="flex gap-2">
                             <input type="text" name="ruc" x-model="ruc" maxlength="11"
-                                class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ruc') border-red-500 @enderror"
+                                class="flex-1 border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ruc') border-red-500 @enderror"
                                 placeholder="20XXXXXXXXX"
                                 @keydown.enter.prevent="consultarRuc()">
                             <button type="button" @click="consultarRuc()"
@@ -63,70 +63,70 @@
 
                         {{-- Alerta resultado SUNAT --}}
                         <div x-show="sunatMsg" x-cloak class="mt-2 px-3 py-2 rounded-lg text-sm flex items-center gap-2"
-                            :class="sunatOk ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                            :class="sunatOk ? 'bg-green-50 text-green-700 dark:text-green-300 border border-green-200' : 'bg-red-50 text-red-700 dark:text-red-300 border border-red-200'">
                             <i :class="sunatOk ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'"></i>
                             <span x-text="sunatMsg"></span>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Razón Social *</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Razón Social *</label>
                         <input type="text" name="razon_social" x-model="razon_social" maxlength="200"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('razon_social') border-red-500 @enderror">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('razon_social') border-red-500 @enderror">
                         @error('razon_social')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Comercial</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre Comercial</label>
                         <input type="text" name="nombre_comercial" x-model="nombre_comercial" maxlength="200"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Régimen Tributario</label>
-                        <select name="regimen" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Régimen Tributario</label>
+                        <select name="regimen" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                             @foreach(['RER' => 'Régimen Especial de Renta', 'RG' => 'Régimen General', 'RMT' => 'Régimen MYPE Tributario', 'RUS' => 'Nuevo RUS'] as $val => $lbl)
                                 <option value="{{ $val }}" {{ old('regimen', $empresa->regimen) === $val ? 'selected' : '' }}>{{ $lbl }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección Fiscal</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Dirección Fiscal</label>
                         <input type="text" name="direccion" x-model="direccion" maxlength="300"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Departamento</label>
                         <input type="text" name="departamento" x-model="departamento"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Provincia</label>
                         <input type="text" name="provincia" x-model="provincia"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Distrito</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Distrito</label>
                         <input type="text" name="distrito" x-model="distrito"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Ubigeo</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Ubigeo</label>
                         <input type="text" name="ubigeo" x-model="ubigeo" maxlength="6"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Teléfono</label>
                         <input type="text" name="telefono" value="{{ old('telefono', $empresa->telefono) }}" maxlength="20"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Email</label>
                         <input type="email" name="email" value="{{ old('email', $empresa->email) }}" maxlength="150"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Sitio Web</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Sitio Web</label>
                         <input type="url" name="web" value="{{ old('web', $empresa->web) }}" maxlength="200"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                             placeholder="https://www.ejemplo.com">
                     </div>
                 </div>
@@ -136,26 +136,26 @@
             <div x-show="tab === 'graficos'" class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Logo Principal</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">Logo Principal</label>
                         @if($empresa->logo_path)
-                            <div class="mb-3 p-3 bg-gray-50 rounded-lg border inline-flex">
+                            <div class="mb-3 p-3 bg-gray-50 dark:bg-slate-900/60 rounded-lg border inline-flex">
                                 <img src="{{ $empresa->logo_url }}" alt="Logo" class="h-20 object-contain">
                             </div>
                         @endif
                         <input type="file" name="logo" accept="image/*"
-                            class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-400 mt-1">PNG, JPG — máx. 2MB. Aparece en el encabezado del sistema.</p>
+                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">PNG, JPG — máx. 2MB. Aparece en el encabezado del sistema.</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Logo para PDF / Comprobantes</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">Logo para PDF / Comprobantes</label>
                         @if($empresa->logo_pdf_path)
-                            <div class="mb-3 p-3 bg-gray-50 rounded-lg border inline-flex">
+                            <div class="mb-3 p-3 bg-gray-50 dark:bg-slate-900/60 rounded-lg border inline-flex">
                                 <img src="{{ $empresa->logo_pdf_url }}" alt="Logo PDF" class="h-20 object-contain">
                             </div>
                         @endif
                         <input type="file" name="logo_pdf" accept="image/*"
-                            class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-400 mt-1">PNG, JPG — máx. 2MB. Aparece en boletas, facturas y guías.</p>
+                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">PNG, JPG — máx. 2MB. Aparece en boletas, facturas y guías.</p>
                     </div>
                 </div>
             </div>
@@ -168,9 +168,9 @@
                             <i class="fab fa-facebook-f text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Facebook</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Facebook</label>
                             <input type="text" name="facebook" value="{{ old('facebook', $empresa->facebook) }}" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                                 placeholder="https://facebook.com/mi-empresa">
                         </div>
                     </div>
@@ -179,9 +179,9 @@
                             <i class="fab fa-instagram text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Instagram</label>
                             <input type="text" name="instagram" value="{{ old('instagram', $empresa->instagram) }}" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                                 placeholder="https://instagram.com/mi-empresa">
                         </div>
                     </div>
@@ -190,9 +190,9 @@
                             <i class="fab fa-tiktok text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">TikTok</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">TikTok</label>
                             <input type="text" name="tiktok" value="{{ old('tiktok', $empresa->tiktok) }}" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                                 placeholder="https://tiktok.com/@mi-empresa">
                         </div>
                     </div>
@@ -204,26 +204,26 @@
 
                 {{-- 1. Credenciales SUNAT --}}
                 <div>
-                    <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-landmark text-amber-600"></i> Credenciales SUNAT (Clave SOL)
+                    <h3 class="text-base font-semibold text-gray-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fas fa-landmark text-amber-600 dark:text-amber-400"></i> Credenciales SUNAT (Clave SOL)
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Usuario SOL</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Usuario SOL</label>
                             <input type="text" name="sunat_usuario_sol" value="{{ old('sunat_usuario_sol', $empresa->sunat_usuario_sol) }}" maxlength="100"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                                 placeholder="MODDATOS">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Clave SOL</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Clave SOL</label>
                             <input type="password" name="sunat_clave_sol" maxlength="100"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                                 placeholder="Dejar vacío para no cambiar">
-                            <p class="text-xs text-gray-400 mt-1">Dejar vacío para mantener la clave actual.</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Dejar vacío para mantener la clave actual.</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Modo SUNAT</label>
-                            <select name="sunat_modo" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Modo SUNAT</label>
+                            <select name="sunat_modo" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                                 <option value="beta" {{ old('sunat_modo', $empresa->sunat_modo) === 'beta' ? 'selected' : '' }}>Beta / Pruebas</option>
                                 <option value="produccion" {{ old('sunat_modo', $empresa->sunat_modo) === 'produccion' ? 'selected' : '' }}>Producción</option>
                             </select>
@@ -233,52 +233,52 @@
 
                 {{-- 2. Certificado Digital --}}
                 <div class="border-t pt-5">
-                    <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-certificate text-purple-600"></i> Certificado Digital (.PFX)
+                    <h3 class="text-base font-semibold text-gray-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fas fa-certificate text-purple-600 dark:text-purple-400"></i> Certificado Digital (.PFX)
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Archivo Certificado (.pfx)</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Archivo Certificado (.pfx)</label>
                             @if($empresa->certificado_pfx_path)
-                                <div class="mb-2 flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg text-sm">
+                                <div class="mb-2 flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-sm">
                                     <i class="fas fa-check-circle text-green-500"></i>
-                                    <span class="text-green-700 font-medium">Certificado cargado</span>
+                                    <span class="text-green-700 dark:text-green-300 font-medium">Certificado cargado</span>
                                     <span class="text-green-500 text-xs font-mono">{{ basename($empresa->certificado_pfx_path) }}</span>
                                 </div>
                             @endif
                             <input type="file" name="certificado_pfx" accept=".pfx,.p12"
-                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
-                            <p class="text-xs text-gray-400 mt-1">Archivo .pfx o .p12 del certificado digital de SUNAT. Se reemplazará el anterior si sube uno nuevo.</p>
+                                class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Archivo .pfx o .p12 del certificado digital de SUNAT. Se reemplazará el anterior si sube uno nuevo.</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña del Certificado</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Contraseña del Certificado</label>
                             <input type="password" name="certificado_pfx_password" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500"
                                 placeholder="Dejar vacío para no cambiar">
-                            <p class="text-xs text-gray-400 mt-1">Contraseña del archivo .pfx. Dejar vacío para mantener la actual.</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Contraseña del archivo .pfx. Dejar vacío para mantener la actual.</p>
                         </div>
                     </div>
                 </div>
 
                 {{-- 3. Credenciales GRE (Guías de Remisión Electrónicas) --}}
                 <div class="border-t pt-5">
-                    <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-truck text-teal-600"></i> Credenciales GRE (Guías de Remisión)
+                    <h3 class="text-base font-semibold text-gray-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fas fa-truck text-teal-600 dark:text-teal-400"></i> Credenciales GRE (Guías de Remisión)
                     </h3>
-                    <p class="text-sm text-gray-500 mb-4">
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mb-4">
                         Credenciales API para el envío de Guías de Remisión Electrónicas. En modo <strong>Beta</strong> se usan credenciales de prueba automáticamente.
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Client ID (GRE)</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Client ID (GRE)</label>
                             <input type="text" name="gre_client_id" value="{{ old('gre_client_id', $empresa->gre_client_id) }}" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-500"
                                 placeholder="{{ ($empresa->sunat_modo ?? 'beta') !== 'produccion' ? 'Opcional en modo Beta' : 'Requerido en producción' }}">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Client Secret (GRE)</label>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Client Secret (GRE)</label>
                             <input type="password" name="gre_client_secret" maxlength="200"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-500"
+                                class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-500"
                                 placeholder="Dejar vacío para no cambiar">
                         </div>
                     </div>
@@ -286,7 +286,7 @@
 
                 {{-- 4. Estado de configuración --}}
                 <div class="border-t pt-5">
-                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Estado de configuración</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 dark:text-slate-300 uppercase tracking-wide mb-3">Estado de configuración</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border {{ $empresa->tieneCredencialesSunat() ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200' }}">
                             <i class="fas {{ $empresa->tieneCredencialesSunat() ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-400' }}"></i>
@@ -296,16 +296,16 @@
                             <i class="fas {{ $empresa->tieneCertificado() ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-400' }}"></i>
                             <span class="text-sm {{ $empresa->tieneCertificado() ? 'text-green-700' : 'text-red-600' }}">Certificado Digital</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border bg-blue-50 border-blue-200">
+                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800">
                             <i class="fas fa-info-circle text-blue-500"></i>
-                            <span class="text-sm text-blue-700">Modo: {{ ($empresa->sunat_modo ?? 'beta') === 'produccion' ? 'Producción' : 'Beta / Pruebas' }}</span>
+                            <span class="text-sm text-blue-700 dark:text-blue-300">Modo: {{ ($empresa->sunat_modo ?? 'beta') === 'produccion' ? 'Producción' : 'Beta / Pruebas' }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             {{-- Botón guardar --}}
-            <div class="px-6 py-4 bg-gray-50 border-t flex justify-end gap-3">
+            <div class="px-6 py-4 bg-gray-50 dark:bg-slate-900/60 border-t flex justify-end gap-3">
                 <button type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors flex items-center gap-2">
                     <i class="fas fa-save"></i> Guardar Cambios

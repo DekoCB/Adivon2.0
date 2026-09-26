@@ -6,27 +6,27 @@
 <div class="min-h-screen">
 
     {{-- Header --}}
-    <div class="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
+    <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
-            <div class="flex items-center gap-2 text-sm text-gray-500 mb-0.5">
+            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-0.5">
                 <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600">Dashboard Cajas</a>
                 <span>/</span>
-                <span class="text-gray-700 font-medium">Apertura Remota</span>
+                <span class="text-gray-700 dark:text-slate-300 font-medium">Apertura Remota</span>
             </div>
-            <h1 class="text-xl font-bold text-gray-800">Apertura Remota de Caja</h1>
-            <p class="text-sm text-gray-500">Abre una caja en cualquier sucursal desde aquí</p>
+            <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200">Apertura Remota de Caja</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400">Abre una caja en cualquier sucursal desde aquí</p>
         </div>
         <a href="{{ route('admin.cajas.dashboard') }}"
-           class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+           class="px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
             <i class="fas fa-arrow-left mr-1"></i> Volver
         </a>
     </div>
 
     <div class="p-6 max-w-2xl" x-data="aperturaRemotaApp()">
 
-        <div class="bg-white rounded-xl shadow-sm p-6 space-y-5">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 space-y-5">
 
-            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700 flex gap-3">
+            <div class="p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg text-sm text-blue-700 dark:text-blue-300 flex gap-3">
                 <i class="fas fa-info-circle mt-0.5 shrink-0"></i>
                 <div>
                     Esta función abre una caja en nombre del cajero seleccionado.
@@ -38,11 +38,11 @@
                 @csrf
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                         Sucursal <span class="text-red-500">*</span>
                     </label>
                     <select name="sucursal_id" required x-model="sucursalId"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="">— Selecciona una sucursal —</option>
                         @foreach($sucursales as $s)
                             <option value="{{ $s->id }}">
@@ -53,11 +53,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                         Cajero <span class="text-red-500">*</span>
                     </label>
                     <select name="user_id" required x-model="userId"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="">— Selecciona un cajero —</option>
                         <template x-for="u in usuariosFiltrados" :key="u.id">
                             <option :value="u.id" x-text="u.name"></option>
@@ -71,27 +71,27 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                         Monto Inicial (S/) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-medium text-sm">S/</span>
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 font-medium text-sm">S/</span>
                         <input type="number" name="monto_inicial" min="0" step="0.50" required
                                value="{{ old('monto_inicial', '0.00') }}"
-                               class="w-full border border-gray-300 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
+                               class="w-full border border-gray-300 dark:border-slate-600 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Observaciones</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Observaciones</label>
                     <textarea name="observaciones" rows="2"
-                              class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500"
+                              class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500"
                               placeholder="Motivo de la apertura remota (opcional)...">{{ old('observaciones') }}</textarea>
                 </div>
 
                 <div class="flex gap-3 pt-2">
                     <a href="{{ route('admin.cajas.dashboard') }}"
-                       class="flex-1 py-2.5 text-center border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+                       class="flex-1 py-2.5 text-center border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                         Cancelar
                     </a>
                     <button type="submit" :disabled="!sucursalId || !userId"

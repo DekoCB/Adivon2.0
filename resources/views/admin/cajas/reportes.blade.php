@@ -14,21 +14,21 @@
 
 
     {{-- Header --}}
-    <div class="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
+    <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
-            <div class="flex items-center gap-2 text-sm text-gray-500 mb-0.5">
+            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-0.5">
                 <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600">Dashboard Cajas</a>
                 <span>/</span>
-                <span class="text-gray-700 font-medium">Reportes Comparativos</span>
+                <span class="text-gray-700 dark:text-slate-300 font-medium">Reportes Comparativos</span>
             </div>
-            <h1 class="text-xl font-bold text-gray-800">Reportes Comparativos</h1>
-            <p class="text-sm text-gray-500">
+            <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200">Reportes Comparativos</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400">
                 Período: {{ \Carbon\Carbon::parse($desde)->format('d/m/Y') }} — {{ \Carbon\Carbon::parse($hasta)->format('d/m/Y') }}
             </p>
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.cajas.alertas') }}"
-               class="relative inline-flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition">
+               class="relative inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-200 transition">
                 <i class="fas fa-bell"></i>
                 @if($alertasCount > 0)
                     <span class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">
@@ -37,7 +37,7 @@
                 @endif
             </a>
             <a href="{{ route('admin.cajas.dashboard') }}"
-               class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+               class="px-4 py-2 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                 <i class="fas fa-arrow-left mr-1"></i> Dashboard
             </a>
         </div>
@@ -46,18 +46,18 @@
     <div class="p-6 space-y-6">
 
         {{-- Filtro de período --}}
-        <div class="bg-white rounded-xl shadow-sm p-5">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
             <form method="GET" action="{{ route('admin.cajas.reportes') }}"
                   class="flex flex-wrap items-end gap-4">
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Desde</label>
+                    <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Desde</label>
                     <input type="date" name="desde" value="{{ $desde }}"
-                           class="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                           class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Hasta</label>
+                    <label class="block text-xs font-medium text-gray-600 dark:text-slate-400 mb-1">Hasta</label>
                     <input type="date" name="hasta" value="{{ $hasta }}"
-                           class="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                           class="text-sm border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                 </div>
                 <button type="submit"
                         class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg font-medium hover:bg-blue-700 transition">
@@ -75,10 +75,7 @@
                     @endphp
                     @foreach($periodos as $label => [$d, $h])
                         <a href="{{ route('admin.cajas.reportes', ['desde' => $d, 'hasta' => $h]) }}"
-                           class="px-3 py-2 text-xs border rounded-lg transition
-                               {{ $desde === $d && $hasta === $h
-                                   ? 'bg-blue-600 text-white border-blue-600'
-                                   : 'border-gray-300 text-gray-600 hover:bg-gray-50' }}">
+                           class="px-3 py-2 text-xs border rounded-lg transition {{ $desde === $d && $hasta === $h ? 'bg-blue-600 text-white border-blue-600' : 'border-gray-300 text-gray-600 dark:text-slate-400 hover:bg-gray-50' }}">
                             {{ $label }}
                         </a>
                     @endforeach
@@ -88,31 +85,31 @@
 
         {{-- KPI Cards del período --}}
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Total ventas</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['total_ventas'], 2) }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-blue-500">
+                <p class="text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">Total ventas</p>
+                <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['total_ventas'], 2) }}</p>
                 <p class="text-xs text-blue-500 mt-1">{{ $kpis['total_cajas'] }} cajas</p>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500">
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Promedio / día</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['promedio_por_dia'], 2) }}</p>
-                <p class="text-xs text-gray-400 mt-1">días con movimiento</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-green-500">
+                <p class="text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">Promedio / día</p>
+                <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['promedio_por_dia'], 2) }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">días con movimiento</p>
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Mejor día</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
+                <p class="text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">Mejor día</p>
                 @if($kpis['mejor_dia'])
-                    <p class="text-2xl font-bold text-gray-800 mt-1">S/ {{ number_format($kpis['mejor_dia']->total, 2) }}</p>
+                    <p class="text-2xl font-bold text-gray-800 dark:text-slate-200 mt-1">S/ {{ number_format($kpis['mejor_dia']->total, 2) }}</p>
                     <p class="text-xs text-purple-500 mt-1">{{ \Carbon\Carbon::parse($kpis['mejor_dia']->fecha)->format('d/m/Y') }}</p>
                 @else
-                    <p class="text-2xl font-bold text-gray-400 mt-1">—</p>
+                    <p class="text-2xl font-bold text-gray-400 dark:text-slate-500 mt-1">—</p>
                 @endif
             </div>
-            <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 {{ $kpis['dif_total'] < 0 ? 'border-red-500' : 'border-gray-300' }}">
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Diferencia neta</p>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 {{ $kpis['dif_total'] < 0 ? 'border-red-500' : 'border-gray-300' }}">
+                <p class="text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">Diferencia neta</p>
                 <p class="text-2xl font-bold {{ $kpis['dif_total'] < 0 ? 'text-red-600' : 'text-gray-800' }} mt-1">
                     S/ {{ number_format($kpis['dif_total'], 2) }}
                 </p>
-                <p class="text-xs text-gray-400 mt-1">período seleccionado</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">período seleccionado</p>
             </div>
         </div>
 
@@ -120,12 +117,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {{-- Ventas por sucursal --}}
-            <div class="bg-white rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                     <i class="fas fa-chart-bar text-blue-500"></i> Ventas por Sucursal
                 </h2>
                 @if($ventasPorSucursal->isEmpty())
-                    <div class="h-64 flex items-center justify-center text-gray-400 text-sm">Sin datos</div>
+                    <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">Sin datos</div>
                 @else
                     <div class="chart-container">
                         <canvas id="chartVentasSucursal"></canvas>
@@ -134,8 +131,8 @@
                     <div class="mt-4 space-y-1">
                         @foreach($ventasPorSucursal as $row)
                             <div class="flex justify-between text-xs">
-                                <span class="text-gray-600 truncate">{{ $row->nombre }}</span>
-                                <span class="font-semibold text-gray-800 ml-2">S/ {{ number_format($row->total, 2) }}</span>
+                                <span class="text-gray-600 dark:text-slate-400 truncate">{{ $row->nombre }}</span>
+                                <span class="font-semibold text-gray-800 dark:text-slate-200 ml-2">S/ {{ number_format($row->total, 2) }}</span>
                             </div>
                         @endforeach
                     </div>
@@ -143,12 +140,12 @@
             </div>
 
             {{-- Tendencia diaria --}}
-            <div class="bg-white rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                     <i class="fas fa-chart-line text-green-500"></i> Tendencia Diaria de Ventas
                 </h2>
                 @if($tendenciaDiaria->isEmpty())
-                    <div class="h-64 flex items-center justify-center text-gray-400 text-sm">Sin datos</div>
+                    <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">Sin datos</div>
                 @else
                     <div class="chart-container">
                         <canvas id="chartTendencia"></canvas>
@@ -161,12 +158,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {{-- Diferencias por sucursal --}}
-            <div class="bg-white rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                     <i class="fas fa-balance-scale text-red-500"></i> Diferencias por Sucursal
                 </h2>
                 @if($diferenciasPorSucursal->isEmpty())
-                    <div class="h-64 flex items-center justify-center text-gray-400 text-sm">Sin diferencias registradas</div>
+                    <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">Sin diferencias registradas</div>
                 @else
                     <div class="chart-container">
                         <canvas id="chartDiferencias"></canvas>
@@ -175,12 +172,12 @@
             </div>
 
             {{-- Métodos de pago por sucursal --}}
-            <div class="bg-white rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5">
+                <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                     <i class="fas fa-credit-card text-purple-500"></i> Métodos de Pago por Sucursal
                 </h2>
                 @if($metodoPorSucursal->isEmpty())
-                    <div class="h-64 flex items-center justify-center text-gray-400 text-sm">Sin datos</div>
+                    <div class="h-64 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">Sin datos</div>
                 @else
                     <div class="chart-container">
                         <canvas id="chartMetodos"></canvas>

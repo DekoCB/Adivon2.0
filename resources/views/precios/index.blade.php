@@ -10,41 +10,41 @@
 <div class="md:p-6">
     {{-- ── STATS ── --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-boxes text-blue-600 text-base"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-boxes text-blue-600 dark:text-blue-400 text-base"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide font-medium">Total</p>
-                <p class="text-2xl font-bold text-gray-900 leading-tight">{{ $totalProductos }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide font-medium">Total</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 leading-tight">{{ $totalProductos }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-tag text-emerald-600 text-base"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-tag text-emerald-600 dark:text-emerald-400 text-base"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide font-medium">Con precio</p>
-                <p class="text-2xl font-bold text-gray-900 leading-tight">{{ $conPrecio }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide font-medium">Con precio</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 leading-tight">{{ $conPrecio }}</p>
             </div>
         </div>
         <a href="{{ route('precios.index', array_merge(request()->except('tab','page'), ['tab' => 'sin_precio'])) }}"
-           class="bg-white rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-100' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+           class="bg-white dark:bg-slate-800 rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-100' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
                 <i class="fas fa-exclamation-circle text-red-500 text-base"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide font-medium">Sin precio</p>
-                <p class="text-2xl font-bold text-red-600 leading-tight">{{ $sinPrecio }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide font-medium">Sin precio</p>
+                <p class="text-2xl font-bold text-red-600 dark:text-red-400 leading-tight">{{ $sinPrecio }}</p>
             </div>
         </a>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-percentage text-purple-600 text-base"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-percentage text-purple-600 dark:text-purple-400 text-base"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide font-medium">Margen prom.</p>
-                <p class="text-2xl font-bold text-gray-900 leading-tight">
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide font-medium">Margen prom.</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100 leading-tight">
                     {{ $margenPromedio ? number_format($margenPromedio, 1) : '—' }}%
                 </p>
             </div>
@@ -52,7 +52,7 @@
     </div>
 
     {{-- ── FILTROS ── --}}
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 mb-4">
+    <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-4 mb-4">
 
         {{-- Búsqueda --}}
         <form method="GET" id="filtroForm" class="flex flex-wrap gap-3 items-center mb-4">
@@ -60,10 +60,10 @@
                 <input type="hidden" name="tab" value="{{ request('tab') }}">
             @endif
             <div class="relative flex-1 min-w-56">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 text-sm"></i>
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
                        placeholder="Buscar por nombre o código..."
-                       class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full pl-9 pr-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <input type="hidden" name="categoria_id" id="categoriaHidden" value="{{ request('categoria_id') }}">
             <button type="submit"
@@ -72,7 +72,7 @@
             </button>
             @if(request()->hasAny(['buscar','categoria_id','tab']))
             <a href="{{ route('precios.index') }}"
-               class="px-4 py-2 bg-gray-100 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+               class="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-2">
                 <i class="fas fa-times text-xs"></i> Limpiar
             </a>
             @endif
@@ -80,16 +80,14 @@
 
         {{-- Pills de categorías --}}
         <div class="flex flex-wrap gap-2 items-center">
-            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-1">Categoría:</span>
+            <span class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mr-1">Categoría:</span>
             <a href="{{ route('precios.index', array_merge(request()->except('categoria_id','page'), [])) }}"
-               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors
-                   {{ !request('categoria_id') ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600' }}">
+               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ !request('categoria_id') ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:text-blue-600' }}">
                 Todas
             </a>
             @foreach($categorias as $cat)
             <a href="{{ route('precios.index', array_merge(request()->except('categoria_id','page'), ['categoria_id' => $cat->id])) }}"
-               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors
-                   {{ request('categoria_id') == $cat->id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600' }}">
+               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ request('categoria_id') == $cat->id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:text-blue-600' }}">
                 {{ $cat->nombre }}
             </a>
             @endforeach
@@ -97,10 +95,9 @@
     </div>
 
     {{-- ── TABS ── --}}
-    <div class="flex items-center gap-1 mb-4 bg-white rounded-xl border border-gray-100 shadow-sm p-1 w-fit">
+    <div class="flex items-center gap-1 mb-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-1 w-fit">
         <a href="{{ route('precios.index', request()->except('tab','page')) }}"
-           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
-               {{ !request('tab') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ !request('tab') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50' }}">
             <i class="fas fa-list text-xs"></i>
             Todos los productos
             <span class="text-xs {{ !request('tab') ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-500' }} px-1.5 py-0.5 rounded-full font-semibold">
@@ -108,8 +105,7 @@
             </span>
         </a>
         <a href="{{ route('precios.index', array_merge(request()->except('tab','page'), ['tab' => 'sin_precio'])) }}"
-           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
-               {{ request('tab') === 'sin_precio' ? 'bg-red-500 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ request('tab') === 'sin_precio' ? 'bg-red-500 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50' }}">
             <i class="fas fa-exclamation-triangle text-xs"></i>
             Sin precio
             @if($sinPrecio > 0)
@@ -121,33 +117,33 @@
     </div>
 
     {{-- ── TABLA ── --}}
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
 
         {{-- Header de la tabla --}}
-        <div class="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
-            <p class="text-sm text-gray-500">
+        <div class="px-5 py-3 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+            <p class="text-sm text-gray-500 dark:text-slate-400">
                 @if(request('tab') === 'sin_precio')
-                    <span class="inline-flex items-center gap-1.5 text-red-600 font-medium">
+                    <span class="inline-flex items-center gap-1.5 text-red-600 dark:text-red-400 font-medium">
                         <i class="fas fa-exclamation-circle text-xs"></i>
                         Productos que necesitan precio configurado
                     </span>
                 @else
-                    <span class="font-medium text-gray-700">{{ $productos->total() }}</span> productos encontrados
+                    <span class="font-medium text-gray-700 dark:text-slate-300">{{ $productos->total() }}</span> productos encontrados
                 @endif
             </p>
-            <p class="text-xs text-gray-400">Página {{ $productos->currentPage() }} de {{ $productos->lastPage() }}</p>
+            <p class="text-xs text-gray-400 dark:text-slate-500">Página {{ $productos->currentPage() }} de {{ $productos->lastPage() }}</p>
         </div>
 
         <div class="overflow-x-auto">
             <table class="min-w-full">
                 <thead>
-                    <tr class="bg-gray-50/70 border-b border-gray-100">
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Producto</th>
-                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">P. Compra</th>
-                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">P. Venta</th>
-                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Margen</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Estado</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide">Acciones</th>
+                    <tr class="bg-gray-50/70 border-b border-gray-100 dark:border-slate-700">
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Producto</th>
+                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">P. Compra</th>
+                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">P. Venta</th>
+                        <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Margen</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Estado</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Acciones</th>
                     </tr>
                 </thead>
 
@@ -175,7 +171,7 @@
                 <tbody x-data="{ open: false }">
 
                     {{-- ── Main row ── --}}
-                    <tr class="border-b border-gray-100 hover:bg-blue-50/20 transition-colors">
+                    <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-blue-50/20 transition-colors">
 
                         {{-- Producto --}}
                         <td class="px-5 py-3.5">
@@ -183,7 +179,7 @@
                                 @if($tieneVariantes)
                                 {{-- Expand toggle --}}
                                 <button type="button" @click="open = !open"
-                                        class="w-6 h-6 flex items-center justify-center rounded-md bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors shrink-0">
+                                        class="w-6 h-6 flex items-center justify-center rounded-md bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 hover:bg-blue-200 transition-colors shrink-0">
                                     <i class="fas fa-chevron-down text-[10px] transition-transform" :class="open ? 'rotate-180' : ''"></i>
                                 </button>
                                 @else
@@ -192,16 +188,16 @@
                                 </div>
                                 @endif
                                 <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-gray-900 truncate max-w-xs">{{ $producto->nombre }}</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-slate-100 truncate max-w-xs">{{ $producto->nombre }}</p>
                                     <div class="flex items-center gap-2 mt-0.5">
-                                        <span class="text-xs text-gray-400 font-mono">{{ $producto->codigo }}</span>
+                                        <span class="text-xs text-gray-400 dark:text-slate-500 font-mono">{{ $producto->codigo }}</span>
                                         @if($producto->categoria)
-                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400">
                                             {{ $producto->categoria->nombre }}
                                         </span>
                                         @endif
                                         @if($tieneVariantes)
-                                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-600">
+                                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
                                             <i class="fas fa-microchip text-[9px]"></i>
                                             {{ $capacidades->count() }} cap.
                                         </span>
@@ -219,12 +215,12 @@
                             @endphp
                             {{-- P. Compra --}}
                             <td class="px-5 py-3.5 text-right">
-                                <span class="text-xs text-gray-400 italic">múltiple</span>
+                                <span class="text-xs text-gray-400 dark:text-slate-500 italic">múltiple</span>
                             </td>
                             {{-- P. Venta --}}
                             <td class="px-5 py-3.5 text-right">
                                 @if($tienePrecio)
-                                    <span class="text-sm font-bold text-blue-700">
+                                    <span class="text-sm font-bold text-blue-700 dark:text-blue-300">
                                         S/ {{ number_format($pvMin, 2) }}
                                         @if($pvMin != $pvMax)<br><span class="text-xs font-normal text-blue-400">— S/ {{ number_format($pvMax, 2) }}</span>@endif
                                     </span>
@@ -234,27 +230,27 @@
                             </td>
                             {{-- Margen --}}
                             <td class="px-5 py-3.5 text-right">
-                                <span class="text-xs text-gray-400 italic">múltiple</span>
+                                <span class="text-xs text-gray-400 dark:text-slate-500 italic">múltiple</span>
                             </td>
                             {{-- Estado --}}
                             <td class="px-5 py-3.5 text-center">
                                 @if(!$tienePrecio)
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800">
                                         <i class="fas fa-times-circle text-xs"></i> Sin precio
                                     </span>
                                 @elseif($conPrecioCount < $capacidades->count())
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                                         <i class="fas fa-exclamation-circle text-xs"></i> Parcial
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                                         <i class="fas fa-check-circle text-xs"></i> Vigente
                                     </span>
                                 @endif
                             </td>
                         @else
                             {{-- Single-price product cells --}}
-                            <td class="px-5 py-3.5 text-sm text-right text-gray-600">
+                            <td class="px-5 py-3.5 text-sm text-right text-gray-600 dark:text-slate-400">
                                 @if($tienePrecio && $precio->precio_compra)
                                     S/ {{ number_format($precio->precio_compra, 2) }}
                                 @else
@@ -263,7 +259,7 @@
                             </td>
                             <td class="px-5 py-3.5 text-right">
                                 @if($tienePrecio)
-                                    <span class="text-sm font-bold text-blue-700">S/ {{ number_format($precio->precio, 2) }}</span>
+                                    <span class="text-sm font-bold text-blue-700 dark:text-blue-300">S/ {{ number_format($precio->precio, 2) }}</span>
                                 @else
                                     <span class="text-gray-300 text-sm">—</span>
                                 @endif
@@ -282,15 +278,15 @@
                             </td>
                             <td class="px-5 py-3.5 text-center">
                                 @if(!$tienePrecio)
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800">
                                         <i class="fas fa-times-circle text-xs"></i> Sin precio
                                     </span>
                                 @elseif($precio->fecha_fin && $precio->fecha_fin->isPast())
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 border border-orange-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800">
                                         <i class="fas fa-clock text-xs"></i> Vencido
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                                         <i class="fas fa-check-circle text-xs"></i> Vigente
                                     </span>
                                 @endif
@@ -301,14 +297,13 @@
                         <td class="px-5 py-3.5 text-center">
                             <div class="flex items-center justify-center gap-1.5">
                                 <a href="{{ route('precios.show', $producto) }}"
-                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors
-                                       {{ !$tienePrecio ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-50 text-blue-700 hover:bg-blue-100' }}">
+                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors {{ !$tienePrecio ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-50 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
                                     <i class="fas fa-{{ !$tienePrecio ? 'plus' : 'tags' }} text-xs"></i>
                                     {{ !$tienePrecio ? 'Asignar' : 'Gestionar' }}
                                 </a>
                                 @if($tienePrecio)
                                 <a href="{{ route('precios.historial', $producto) }}"
-                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 hover:bg-purple-100 hover:text-purple-600 transition-colors"
+                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 hover:bg-purple-100 hover:text-purple-600 transition-colors"
                                    title="Historial">
                                     <i class="fas fa-history text-xs"></i>
                                 </a>
@@ -330,13 +325,13 @@
                                 <td class="pl-14 pr-5 py-2.5 text-sm">
                                     <div class="flex items-center gap-2">
                                         <i class="fas fa-microchip text-blue-400 text-xs"></i>
-                                        <span class="font-medium text-gray-700">{{ $cap ?: 'Sin capacidad' }}</span>
-                                        <span class="text-xs text-gray-400">
+                                        <span class="font-medium text-gray-700 dark:text-slate-300">{{ $cap ?: 'Sin capacidad' }}</span>
+                                        <span class="text-xs text-gray-400 dark:text-slate-500">
                                             ({{ $vars->count() }} {{ $vars->count() === 1 ? 'color' : 'colores' }})
                                         </span>
                                     </div>
                                 </td>
-                                <td class="px-5 py-2.5 text-sm text-right text-gray-600">
+                                <td class="px-5 py-2.5 text-sm text-right text-gray-600 dark:text-slate-400">
                                     @if($hayPrecio && $pCap->precio_compra)
                                         S/ {{ number_format($pCap->precio_compra, 2) }}
                                     @else
@@ -345,16 +340,16 @@
                                 </td>
                                 <td class="px-5 py-2.5 text-right">
                                     @if($hayPrecio)
-                                        <span class="text-sm font-bold text-blue-700">S/ {{ number_format($pCap->precio, 2) }}</span>
+                                        <span class="text-sm font-bold text-blue-700 dark:text-blue-300">S/ {{ number_format($pCap->precio, 2) }}</span>
                                     @else
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                                             <i class="fas fa-exclamation-circle text-[9px]"></i> Sin precio
                                         </span>
                                     @endif
                                 </td>
                                 <td class="px-5 py-2.5 text-right">
                                     @if($hayPrecio)
-                                        <span class="text-xs font-medium text-emerald-700">
+                                        <span class="text-xs font-medium text-emerald-700 dark:text-emerald-300">
                                             S/ {{ number_format($pCap->precio * 1.18, 2) }}
                                         </span>
                                     @else
@@ -375,18 +370,18 @@
                                 </td>
                                 <td class="px-5 py-2.5 text-center">
                                     @if($hayPrecio)
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                                             <i class="fas fa-circle text-[6px]"></i> Vigente
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                                             <i class="fas fa-circle text-[6px]"></i> Pendiente
                                         </span>
                                     @endif
                                 </td>
                                 <td class="px-5 py-2.5 text-center">
                                     <a href="{{ route('precios.show', $producto) }}?variante_id={{ $vars->first()->id }}"
-                                       class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors">
+                                       class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition-colors">
                                         <i class="fas fa-tags text-xs"></i> Gestionar
                                     </a>
                                 </td>
@@ -402,19 +397,19 @@
                         <td colspan="7" class="px-5 py-20 text-center">
                             <div class="flex flex-col items-center gap-3">
                                 @if(request('tab') === 'sin_precio')
-                                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
                                         <i class="fas fa-check-circle text-emerald-500 text-3xl"></i>
                                     </div>
-                                    <p class="text-base font-semibold text-gray-700">¡Todos los productos tienen precio!</p>
-                                    <p class="text-sm text-gray-400">No hay productos pendientes de configuración.</p>
+                                    <p class="text-base font-semibold text-gray-700 dark:text-slate-300">¡Todos los productos tienen precio!</p>
+                                    <p class="text-sm text-gray-400 dark:text-slate-500">No hay productos pendientes de configuración.</p>
                                 @else
-                                    <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
-                                        <i class="fas fa-search text-gray-400 text-3xl"></i>
+                                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
+                                        <i class="fas fa-search text-gray-400 dark:text-slate-500 text-3xl"></i>
                                     </div>
-                                    <p class="text-base font-semibold text-gray-700">Sin resultados</p>
-                                    <p class="text-sm text-gray-400">Intenta ajustar los filtros de búsqueda.</p>
+                                    <p class="text-base font-semibold text-gray-700 dark:text-slate-300">Sin resultados</p>
+                                    <p class="text-sm text-gray-400 dark:text-slate-500">Intenta ajustar los filtros de búsqueda.</p>
                                 @endif
-                                <a href="{{ route('precios.index') }}" class="text-sm text-blue-600 hover:underline mt-1">Ver todos los productos</a>
+                                <a href="{{ route('precios.index') }}" class="text-sm text-blue-600 dark:text-blue-400 hover:underline mt-1">Ver todos los productos</a>
                             </div>
                         </td>
                     </tr>
@@ -426,7 +421,7 @@
 
         {{-- Paginación --}}
         @if($productos->hasPages())
-        <div class="px-5 py-4 border-t border-gray-100 bg-gray-50/50">
+        <div class="px-5 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50/50">
             {{ $productos->links() }}
         </div>
         @endif

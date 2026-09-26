@@ -10,38 +10,38 @@
 <div>
 <div class="max-w-5xl mx-auto">
             <!-- Resumen del producto -->
-            <div class="mb-6 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+            <div class="mb-6 bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="font-medium text-gray-500">Código:</span>
+                        <span class="font-medium text-gray-500 dark:text-slate-400">Código:</span>
                         <x-code>{{ $producto->codigo }}</x-code>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-500">Tipo:</span>
+                        <span class="font-medium text-gray-500 dark:text-slate-400">Tipo:</span>
                         <span class="block mt-1">
                             @if($producto->tipo_inventario == 'serie')
-                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                                <span class="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full">
                                     <i class="fas fa-mobile-alt mr-1"></i>Serie/IMEI
                                 </span>
                             @else
-                                <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                                <span class="px-2 py-1 text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 rounded-full">
                                     <i class="fas fa-boxes mr-1"></i>Cantidad
                                 </span>
                             @endif
                         </span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-500">Stock Actual:</span>
-                        <span class="block text-gray-900 font-bold text-lg">{{ $producto->stock_actual }}</span>
+                        <span class="font-medium text-gray-500 dark:text-slate-400">Stock Actual:</span>
+                        <span class="block text-gray-900 dark:text-slate-100 font-bold text-lg">{{ $producto->stock_actual }}</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-500">Creado:</span>
-                        <span class="block text-gray-900">{{ $producto->created_at->format('d/m/Y') }}</span>
+                        <span class="font-medium text-gray-500 dark:text-slate-400">Creado:</span>
+                        <span class="block text-gray-900 dark:text-slate-100">{{ $producto->created_at->format('d/m/Y') }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
                 <div class="bg-blue-900 px-6 py-4">
                     <h2 class="text-xl font-bold text-white">
                         <i class="fas fa-edit mr-2"></i>
@@ -54,38 +54,38 @@
                     @method('PUT')
 
                     @if ($errors->any())
-                        <div class="mb-6 bg-red-50 border border-red-300 rounded-lg p-4">
-                            <p class="text-sm font-semibold text-red-700 mb-2">
+                        <div class="mb-6 bg-red-50 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-lg p-4">
+                            <p class="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">
                                 <i class="fas fa-exclamation-circle mr-1"></i>
                                 Por favor corrige los siguientes errores:
                             </p>
                             <ul class="list-disc list-inside space-y-1">
                                 @foreach ($errors->all() as $error)
-                                    <li class="text-sm text-red-600">{{ $error }}</li>
+                                    <li class="text-sm text-red-600 dark:text-red-400">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     @endif
 
                     <!-- TIPO DE INVENTARIO (solo lectura) -->
-                    <div class="mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div class="mb-8 bg-gray-50 dark:bg-slate-900/60 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 @if($producto->tipo_inventario == 'serie')
-                                    <i class="fas fa-mobile-alt text-3xl text-blue-600 mr-3"></i>
+                                    <i class="fas fa-mobile-alt text-3xl text-blue-600 dark:text-blue-400 mr-3"></i>
                                     <div>
-                                        <p class="font-semibold text-gray-900">Tipo: Stock por Serie/IMEI</p>
-                                        <p class="text-sm text-gray-500">El stock se controla por IMEI individual</p>
+                                        <p class="font-semibold text-gray-900 dark:text-slate-100">Tipo: Stock por Serie/IMEI</p>
+                                        <p class="text-sm text-gray-500 dark:text-slate-400">El stock se controla por IMEI individual</p>
                                     </div>
                                 @else
-                                    <i class="fas fa-boxes text-3xl text-green-600 mr-3"></i>
+                                    <i class="fas fa-boxes text-3xl text-green-600 dark:text-green-400 mr-3"></i>
                                     <div>
-                                        <p class="font-semibold text-gray-900">Tipo: Stock por Cantidad</p>
-                                        <p class="text-sm text-gray-500">El stock se controla numéricamente</p>
+                                        <p class="font-semibold text-gray-900 dark:text-slate-100">Tipo: Stock por Cantidad</p>
+                                        <p class="text-sm text-gray-500 dark:text-slate-400">El stock se controla numéricamente</p>
                                     </div>
                                 @endif
                             </div>
-                            <span class="text-xs text-gray-400">
+                            <span class="text-xs text-gray-400 dark:text-slate-500">
                                 <i class="fas fa-lock mr-1"></i>No editable
                             </span>
                         </div>
@@ -95,26 +95,26 @@
 
                     <!-- GARANTÍA (solo para Serie/IMEI) -->
                     @if($producto->tipo_inventario == 'serie')
-                    <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div class="mb-8 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
                         <h4 class="font-semibold text-blue-900 mb-3">
                             <i class="fas fa-shield-alt mr-2"></i>
                             Garantía
                         </h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="dias_garantia" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="dias_garantia" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Días de Garantía
                                 </label>
                                 <input type="number" name="dias_garantia" id="dias_garantia"
                                        value="{{ old('dias_garantia', $producto->dias_garantia ?? 365) }}" min="0"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                       class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label for="tipo_garantia" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="tipo_garantia" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Tipo de Garantía
                                 </label>
                                 <select name="tipo_garantia" id="tipo_garantia"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                     <option value="proveedor" {{ old('tipo_garantia', $producto->tipo_garantia) == 'proveedor' ? 'selected' : '' }}>Proveedor</option>
                                     <option value="tienda"    {{ old('tipo_garantia', $producto->tipo_garantia) == 'tienda'    ? 'selected' : '' }}>Tienda</option>
                                     <option value="fabricante"{{ old('tipo_garantia', $producto->tipo_garantia) == 'fabricante'? 'selected' : '' }}>Fabricante</option>
@@ -126,7 +126,7 @@
 
                     <!-- INFORMACIÓN BÁSICA -->
                     <div class="mb-8">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
                             <i class="fas fa-info-circle mr-2 text-blue-900"></i>
                             Información Básica
                         </h3>
@@ -134,13 +134,13 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Nombre -->
                             <div class="md:col-span-2">
-                                <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Nombre del Producto <span class="text-red-500">*</span>
                                 </label>
                                 <div class="flex space-x-2">
                                     <input type="text" name="nombre" id="nombre"
                                            value="{{ old('nombre', $producto->nombre) }}"
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                            required>
                                     <button type="button" id="btnSugerirNombre"
                                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 whitespace-nowrap">
@@ -148,17 +148,17 @@
                                     </button>
                                 </div>
                                 @error('nombre')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Categoría -->
                             <div>
-                                <label for="categoria_id" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="categoria_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Categoría <span class="text-red-500">*</span>
                                 </label>
                                 <select name="categoria_id" id="categoria_id"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                         required>
                                     <option value="">Seleccione una categoría</option>
                                     @foreach($categorias as $categoria)
@@ -169,50 +169,50 @@
                                     @endforeach
                                 </select>
                                 @error('categoria_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Marca (filtrada por categoría) -->
                             <div>
-                                <label for="marca_id" class="block text-sm font-medium text-gray-700 mb-2">Marca</label>
+                                <label for="marca_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Marca</label>
                                 <select name="marca_id" id="marca_id"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                     <option value="">Cargando marcas...</option>
                                 </select>
                                 @error('marca_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Modelo (filtrado por marca) -->
                             <div>
-                                <label for="modelo_id" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="modelo_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Modelo
                                     @if($producto->tipo_inventario == 'serie')
                                         <span class="text-red-500">*</span>
                                     @else
-                                        <span class="text-gray-400 text-xs font-normal">(opcional)</span>
+                                        <span class="text-gray-400 dark:text-slate-500 text-xs font-normal">(opcional)</span>
                                     @endif
                                 </label>
                                 <select name="modelo_id" id="modelo_id"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                         {{ $producto->tipo_inventario == 'serie' ? 'required' : '' }}>
                                     <option value="">Cargando modelos...</option>
                                 </select>
                                 @error('modelo_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
 
                             <!-- Unidad de Medida -->
                             <div>
-                                <label for="unidad_medida_id" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="unidad_medida_id" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Unidad de Medida <span class="text-red-500">*</span>
                                 </label>
                                 <select name="unidad_medida_id" id="unidad_medida_id"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                         required>
                                     @foreach($unidades as $unidad)
                                         <option value="{{ $unidad->id }}" {{ old('unidad_medida_id', $producto->unidad_medida_id) == $unidad->id ? 'selected' : '' }}>
@@ -221,19 +221,19 @@
                                     @endforeach
                                 </select>
                                 @error('unidad_medida_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Código de Barras -->
                             <div class="md:col-span-2">
-                                <label for="codigo_barras" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="codigo_barras" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Código de Barras
                                 </label>
                                 <div class="flex space-x-2">
                                     <input type="text" name="codigo_barras" id="codigo_barras"
                                            value="{{ old('codigo_barras', $producto->codigo_barras) }}"
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                            placeholder="Código único del producto">
                                     <button type="button" id="btnGenerarCodigo"
                                             class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 whitespace-nowrap">
@@ -241,16 +241,16 @@
                                     </button>
                                 </div>
                                 @if($producto->codigo_barras)
-                                    <p class="text-xs text-gray-500 mt-1">
+                                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">
                                         <i class="fas fa-info-circle mr-1"></i>
                                         También puedes gestionar múltiples códigos en
-                                        <a href="{{ route('inventario.productos.codigos-barras', $producto) }}" class="text-blue-600 hover:underline">
+                                        <a href="{{ route('inventario.productos.codigos-barras', $producto) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                                             Gestión de Códigos de Barras
                                         </a>
                                     </p>
                                 @endif
                                 @error('codigo_barras')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -280,11 +280,11 @@
                                     this.resultados = [];
                                 }
                             }">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Código de Producto SUNAT (UNSPSC)
-                                    <span class="ml-1 text-xs font-normal text-gray-400">— opcional</span>
+                                    <span class="ml-1 text-xs font-normal text-gray-400 dark:text-slate-500">— opcional</span>
                                     <a href="https://cpe.sunat.gob.pe/informacion_general/codigoproducto" target="_blank" rel="noopener"
-                                       class="ml-2 text-xs font-normal text-blue-600 hover:underline">
+                                       class="ml-2 text-xs font-normal text-blue-600 dark:text-blue-400 hover:underline">
                                         <i class="fas fa-external-link-alt text-[10px] mr-0.5"></i>Ver catálogo oficial SUNAT
                                     </a>
                                 </label>
@@ -296,31 +296,31 @@
                                            @click.outside="mostrarDropdown = false"
                                            autocomplete="off"
                                            placeholder="Buscar por código o descripción (ej: diesel, oro, teléfono...)"
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                     <template x-if="seleccionado">
                                         <button type="button" @click="quitar()"
-                                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500">
+                                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-red-500">
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </template>
 
                                     <div x-show="mostrarDropdown && resultados.length > 0" x-cloak
-                                         class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                                         class="absolute z-10 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
                                         <template x-for="r in resultados" :key="r.id">
                                             <button type="button" @click="elegir(r)"
-                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 border-b border-gray-100 last:border-0">
-                                                <span class="font-mono text-xs text-blue-700" x-text="r.codigo"></span>
-                                                <span class="block text-sm text-gray-800" x-text="r.producto"></span>
-                                                <span class="block text-xs text-gray-400" x-text="[r.segmento, r.familia, r.clase].filter(Boolean).join(' › ')"></span>
+                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 border-b border-gray-100 dark:border-slate-700 last:border-0">
+                                                <span class="font-mono text-xs text-blue-700 dark:text-blue-300" x-text="r.codigo"></span>
+                                                <span class="block text-sm text-gray-800 dark:text-slate-200" x-text="r.producto"></span>
+                                                <span class="block text-xs text-gray-400 dark:text-slate-500" x-text="[r.segmento, r.familia, r.clase].filter(Boolean).join(' › ')"></span>
                                             </button>
                                         </template>
                                     </div>
                                 </div>
                                 <input type="hidden" name="codigo_sunat" :value="seleccionado ? seleccionado.codigo : ''">
                                 @error('codigo_sunat')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
-                                <p class="text-xs text-gray-500 mt-1">
+                                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">
                                     <i class="fas fa-info-circle mr-1"></i>
                                     Busca por descripción o código (ej: "diesel", "oro", "teléfono"). Opcional para la mayoría de productos; SUNAT lo exige desde agosto 2026 solo para ciertos bienes regulados (metales preciosos, combustibles, bienes con detracción/percepción).
                                 </p>
@@ -328,44 +328,44 @@
 
                             <!-- Descripción -->
                             <div class="md:col-span-2">
-                                <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+                                <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Descripción</label>
                                 <textarea name="descripcion" id="descripcion" rows="2"
-                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('descripcion', $producto->descripcion) }}</textarea>
+                                          class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">{{ old('descripcion', $producto->descripcion) }}</textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- CONTROL DE STOCK -->
                     <div class="mb-8">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
                             <i class="fas fa-boxes mr-2 text-blue-900"></i>
                             Control de Stock
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="stock_minimo" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="stock_minimo" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Stock Mínimo <span class="text-red-500">*</span>
                                 </label>
                                 <input type="number" name="stock_minimo" id="stock_minimo"
                                        value="{{ old('stock_minimo', $producto->stock_minimo) }}" min="0"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                       class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                        required>
                                 @error('stock_minimo')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <label for="stock_maximo" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="stock_maximo" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     Stock Máximo <span class="text-red-500">*</span>
                                 </label>
                                 <input type="number" name="stock_maximo" id="stock_maximo"
                                        value="{{ old('stock_maximo', $producto->stock_maximo) }}" min="1"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                       class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                        required>
                                 @error('stock_maximo')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -374,14 +374,14 @@
                     <!-- IMAGEN Y ESTADO -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label for="imagen" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="imagen" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                 Imagen del Producto
                             </label>
                             @if($producto->imagen)
                                 <div class="mb-2 flex items-center space-x-3">
                                     <img src="{{ $producto->imagen_url }}" alt="{{ $producto->nombre }}"
-                                         class="h-20 w-20 object-cover rounded-lg border-2 border-gray-200">
-                                    <span class="text-xs text-gray-500">Imagen actual</span>
+                                         class="h-20 w-20 object-cover rounded-lg border-2 border-gray-200 dark:border-slate-700">
+                                    <span class="text-xs text-gray-500 dark:text-slate-400">Imagen actual</span>
                                 </div>
                             @endif
                             <div class="flex items-center space-x-4">
@@ -389,38 +389,38 @@
                                     <img id="imagePreview" src="" alt="Vista previa" class="h-20 w-20 object-cover rounded-lg border">
                                 </div>
                                 <input type="file" name="imagen" id="imagen" accept="image/*"
-                                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                                        onchange="previewImage(event)">
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">Deja vacío para conservar la imagen actual</p>
+                            <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Deja vacío para conservar la imagen actual</p>
                         </div>
 
                         <div>
-                            <label for="estado" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="estado" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                 Estado <span class="text-red-500">*</span>
                             </label>
                             <select name="estado" id="estado"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                     required>
                                 <option value="activo"        {{ old('estado', $producto->estado) == 'activo'        ? 'selected' : '' }}>Activo</option>
                                 <option value="inactivo"      {{ old('estado', $producto->estado) == 'inactivo'      ? 'selected' : '' }}>Inactivo</option>
                                 <option value="descontinuado" {{ old('estado', $producto->estado) == 'descontinuado' ? 'selected' : '' }}>Descontinuado</option>
                             </select>
                             @error('estado')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <!-- Botones -->
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-200 dark:border-slate-700">
                         <a href="{{ route('inventario.productos.codigos-barras', $producto) }}"
-                           class="px-4 py-2 text-sm text-blue-700 border border-blue-300 rounded-lg hover:bg-blue-50">
+                           class="px-4 py-2 text-sm text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-50">
                             <i class="fas fa-barcode mr-2"></i>Gestionar Códigos de Barras
                         </a>
                         <div class="flex space-x-3">
                             <a href="{{ route('inventario.productos.show', $producto) }}"
-                               class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                               class="px-6 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                 <i class="fas fa-times mr-2"></i>Cancelar
                             </a>
                             <button type="submit" class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800">

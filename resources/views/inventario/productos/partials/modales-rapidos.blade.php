@@ -5,9 +5,7 @@
 
 {{-- ── TOAST DE ÉXITO ─────────────────────────────────────── --}}
 <div id="toastExito"
-     class="fixed bottom-6 right-6 z-[9999] flex items-center gap-3
-            bg-green-600 text-white px-5 py-3 rounded-xl shadow-2xl
-            transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+     class="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 bg-green-600 text-white px-5 py-3 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
     <i class="fas fa-check-circle text-lg"></i>
     <span id="toastMensaje"></span>
 </div>
@@ -22,19 +20,18 @@
          onclick="cerrarModalMarca()"></div>
 
     {{-- Contenido --}}
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md
-                transform transition-all duration-200 scale-100">
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200 scale-100">
 
         {{-- Header --}}
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 id="modalMarcaTitulo" class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-trademark text-blue-700 text-sm"></i>
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+            <h3 id="modalMarcaTitulo" class="text-lg font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <span class="w-8 h-8 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-trademark text-blue-700 dark:text-blue-300 text-sm"></i>
                 </span>
                 Nueva Marca
             </h3>
             <button onclick="cerrarModalMarca()"
-                    class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition">
+                    class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg p-1.5 transition">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -42,31 +39,27 @@
         {{-- Body --}}
         <div class="px-6 py-5 space-y-4">
             <div>
-                <label for="modalMarcaNombre" class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label for="modalMarcaNombre" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Nombre de la Marca <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="modalMarcaNombre" autocomplete="off"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                              focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                              text-sm transition"
+                       class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition"
                        placeholder="Ej: Samsung, Apple, Xiaomi...">
             </div>
 
             <p id="modalMarcaError"
-               class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+               class="hidden text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
             </p>
         </div>
 
         {{-- Footer --}}
-        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
             <button type="button" onclick="cerrarModalMarca()"
-                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300
-                           rounded-lg hover:bg-gray-50 transition">
+                    class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                 Cancelar
             </button>
             <button type="button" id="btnGuardarMarca" onclick="guardarMarcaRapida()"
-                    class="px-4 py-2 text-sm font-medium text-white bg-blue-900 rounded-lg
-                           hover:bg-blue-800 transition flex items-center gap-1.5">
+                    class="px-4 py-2 text-sm font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-800 transition flex items-center gap-1.5">
                 <i class="fas fa-save"></i>
                 Guardar
             </button>
@@ -82,55 +75,51 @@
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"
          onclick="cerrarModalModelo()"></div>
 
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
 
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 id="modalModeloTitulo" class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <span class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-mobile-alt text-indigo-700 text-sm"></i>
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+            <h3 id="modalModeloTitulo" class="text-lg font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <span class="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/40 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-mobile-alt text-indigo-700 dark:text-indigo-300 text-sm"></i>
                 </span>
                 Nuevo Modelo
             </h3>
             <button onclick="cerrarModalModelo()"
-                    class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition">
+                    class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg p-1.5 transition">
                 <i class="fas fa-times"></i>
             </button>
         </div>
 
         <div class="px-6 py-5 space-y-4">
             {{-- Marca actual (solo lectura) --}}
-            <div class="flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2">
+            <div class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 rounded-lg px-3 py-2">
                 <i class="fas fa-trademark text-indigo-400 text-sm"></i>
-                <span class="text-sm text-indigo-700">
+                <span class="text-sm text-indigo-700 dark:text-indigo-300">
                     Marca: <strong id="modalModeloMarcaNombre" class="font-semibold"></strong>
                 </span>
             </div>
 
             <div>
-                <label for="modalModeloNombre" class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label for="modalModeloNombre" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Nombre del Modelo <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="modalModeloNombre" autocomplete="off"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                              focus:ring-2 focus:ring-indigo-500 focus:border-transparent
-                              text-sm transition"
+                       class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition"
                        placeholder="Ej: Galaxy S24, iPhone 15 Pro...">
             </div>
 
             <p id="modalModeloError"
-               class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+               class="hidden text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
             </p>
         </div>
 
-        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
             <button type="button" onclick="cerrarModalModelo()"
-                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300
-                           rounded-lg hover:bg-gray-50 transition">
+                    class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                 Cancelar
             </button>
             <button type="button" id="btnGuardarModelo" onclick="guardarModeloRapido()"
-                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-700 rounded-lg
-                           hover:bg-indigo-600 transition flex items-center gap-1.5">
+                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-700 rounded-lg hover:bg-indigo-600 transition flex items-center gap-1.5">
                 <i class="fas fa-save"></i>
                 Guardar
             </button>
@@ -146,62 +135,58 @@
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"
          onclick="cerrarModalColor()"></div>
 
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
 
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 id="modalColorTitulo" class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <span class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-palette text-pink-600 text-sm"></i>
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+            <h3 id="modalColorTitulo" class="text-lg font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <span class="w-8 h-8 bg-pink-100 dark:bg-pink-900/40 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-palette text-pink-600 dark:text-pink-400 text-sm"></i>
                 </span>
                 Nuevo Color
             </h3>
             <button onclick="cerrarModalColor()"
-                    class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition">
+                    class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg p-1.5 transition">
                 <i class="fas fa-times"></i>
             </button>
         </div>
 
         <div class="px-6 py-5 space-y-4">
             <div>
-                <label for="modalColorNombre" class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label for="modalColorNombre" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Nombre del Color <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="modalColorNombre" autocomplete="off"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                              focus:ring-2 focus:ring-pink-500 focus:border-transparent
-                              text-sm transition"
+                       class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm transition"
                        placeholder="Ej: Azul Marino, Rojo Ferrari...">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Color (opcional)
                 </label>
                 <div class="flex items-center gap-3">
                     <input type="color" id="modalColorHex" value="#3b82f6"
-                           class="h-11 w-14 rounded-lg cursor-pointer border-2 border-gray-200 p-0.5"
+                           class="h-11 w-14 rounded-lg cursor-pointer border-2 border-gray-200 dark:border-slate-700 p-0.5"
                            oninput="document.getElementById('modalColorPreview').style.backgroundColor = this.value">
                     <div id="modalColorPreview"
-                         class="flex-1 h-11 rounded-lg border-2 border-gray-200 shadow-inner transition-colors"
+                         class="flex-1 h-11 rounded-lg border-2 border-gray-200 dark:border-slate-700 shadow-inner transition-colors"
                          style="background-color:#3b82f6;"></div>
-                    <span id="modalColorHexLabel" class="text-xs font-mono text-gray-500 w-16">#3b82f6</span>
+                    <span id="modalColorHexLabel" class="text-xs font-mono text-gray-500 dark:text-slate-400 w-16">#3b82f6</span>
                 </div>
             </div>
 
             <p id="modalColorError"
-               class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+               class="hidden text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
             </p>
         </div>
 
-        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
             <button type="button" onclick="cerrarModalColor()"
-                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300
-                           rounded-lg hover:bg-gray-50 transition">
+                    class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                 Cancelar
             </button>
             <button type="button" id="btnGuardarColor" onclick="guardarColorRapido()"
-                    class="px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg
-                           hover:bg-pink-500 transition flex items-center gap-1.5">
+                    class="px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-500 transition flex items-center gap-1.5">
                 <i class="fas fa-save"></i>
                 Guardar
             </button>
@@ -216,53 +201,48 @@
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"
          onclick="cerrarModalUnidad()"></div>
 
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-200">
 
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 id="modalUnidadTitulo" class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-balance-scale text-green-600 text-sm"></i>
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+            <h3 id="modalUnidadTitulo" class="text-lg font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <span class="w-8 h-8 bg-green-100 dark:bg-green-900/40 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-balance-scale text-green-600 dark:text-green-400 text-sm"></i>
                 </span>
                 Nueva Unidad de Medida
             </h3>
             <button onclick="cerrarModalUnidad()"
-                    class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition">
+                    class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg p-1.5 transition">
                 <i class="fas fa-times"></i>
             </button>
         </div>
 
         <div class="px-6 py-5 space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Nombre <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="modalUnidadNombre" autocomplete="off"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                              focus:ring-2 focus:ring-green-500 focus:border-transparent
-                              text-sm transition"
+                       class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm transition"
                        placeholder="Ej: Kilogramo, Unidad, Caja">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Abreviatura <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="modalUnidadAbreviatura" autocomplete="off"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                              focus:ring-2 focus:ring-green-500 focus:border-transparent
-                              text-sm transition font-mono uppercase"
+                       class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm transition font-mono uppercase"
                        placeholder="Ej: KG, UND, CAJ"
                        maxlength="5"
                        oninput="this.value = this.value.toUpperCase()">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                     Tipo
                 </label>
                 <select id="modalUnidadTipo" 
-                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                               focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                     <option value="unidad">Unidad</option>
                     <option value="masa">Masa</option>
                     <option value="volumen">Volumen</option>
@@ -272,19 +252,17 @@
             </div>
 
             <p id="modalUnidadError"
-               class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+               class="hidden text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
             </p>
         </div>
 
-        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+        <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
             <button type="button" onclick="cerrarModalUnidad()"
-                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300
-                           rounded-lg hover:bg-gray-50 transition">
+                    class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">
                 Cancelar
             </button>
             <button type="button" id="btnGuardarUnidad" onclick="guardarUnidadRapida()"
-                    class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg
-                           hover:bg-green-500 transition flex items-center gap-1.5">
+                    class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-500 transition flex items-center gap-1.5">
                 <i class="fas fa-save"></i>
                 Guardar
             </button>

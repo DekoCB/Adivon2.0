@@ -68,34 +68,34 @@
 <div>
         <!-- Estadísticas con tabs visuales -->
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-900 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('')">
-                <p class="text-xs text-gray-600">Total</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['total'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-blue-900 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Total</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['total'] ?? 0 }}</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-green-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('en_stock')">
-                <p class="text-xs text-gray-600">Disponibles</p>
-                <p class="text-2xl font-bold text-green-600">{{ $stats['disponibles'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-green-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('en_stock')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Disponibles</p>
+                <p class="text-2xl font-bold text-green-600 dark:text-green-400">{{ $stats['disponibles'] ?? 0 }}</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-yellow-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('reservado')">
-                <p class="text-xs text-gray-600">Reservados</p>
-                <p class="text-2xl font-bold text-yellow-600">{{ $stats['reservados'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-yellow-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('reservado')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Reservados</p>
+                <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{{ $stats['reservados'] ?? 0 }}</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-red-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('vendido')">
-                <p class="text-xs text-gray-600">Vendidos</p>
-                <p class="text-2xl font-bold text-red-600">{{ $stats['vendidos'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-red-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('vendido')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Vendidos</p>
+                <p class="text-2xl font-bold text-red-600 dark:text-red-400">{{ $stats['vendidos'] ?? 0 }}</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-purple-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('garantia')">
-                <p class="text-xs text-gray-600">Garantía</p>
-                <p class="text-2xl font-bold text-purple-600">{{ $stats['garantia'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-purple-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('garantia')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Garantía</p>
+                <p class="text-2xl font-bold text-purple-600 dark:text-purple-400">{{ $stats['garantia'] ?? 0 }}</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-4 border-l-4 border-gray-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('devuelto')">
-                <p class="text-xs text-gray-600">Devueltos</p>
-                <p class="text-2xl font-bold text-gray-600">{{ $stats['devueltos'] ?? 0 }}</p>
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 border-l-4 border-gray-500 cursor-pointer hover:shadow-lg transition" onclick="filtrarPorEstado('devuelto')">
+                <p class="text-xs text-gray-600 dark:text-slate-400">Devueltos</p>
+                <p class="text-2xl font-bold text-gray-600 dark:text-slate-400">{{ $stats['devueltos'] ?? 0 }}</p>
             </div>
         </div>
 
@@ -103,15 +103,15 @@
         <x-filter-bar action="{{ route('inventario.imeis.index') }}" :filters="['buscar','producto_id','variante_id','almacen_id','estado']" id="filterForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Buscar IMEI/Serie</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Buscar IMEI/Serie</label>
                         <input type="text" name="buscar" value="{{ request('buscar') }}"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                placeholder="Código IMEI o serie...">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Producto</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Producto</label>
                         <select name="producto_id" id="filtroProducto"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option value="">Todos los productos</option>
                             @foreach($productos as $producto)
                                 <option value="{{ $producto->id }}" {{ request('producto_id') == $producto->id ? 'selected' : '' }}>
@@ -121,9 +121,9 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Variante</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Variante</label>
                         <select name="variante_id" id="filtroVariante"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option value="">Todas las variantes</option>
                             @foreach($productos as $producto)
                                 @foreach($producto->variantesActivas ?? [] as $v)
@@ -138,8 +138,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Almacén</label>
-                        <select name="almacen_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Almacén</label>
+                        <select name="almacen_id" class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option value="">Todos los almacenes</option>
                             @foreach($almacenes as $almacen)
                                 <option value="{{ $almacen->id }}" {{ request('almacen_id') == $almacen->id ? 'selected' : '' }}>
@@ -149,8 +149,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
-                        <select name="estado" id="estadoFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Estado</label>
+                        <select name="estado" id="estadoFilter" class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option value="">Todos los estados</option>
                             <option value="en_stock"    {{ request('estado') == 'en_stock'    ? 'selected' : '' }}>En Stock</option>
                             <option value="reservado"   {{ request('estado') == 'reservado'   ? 'selected' : '' }}>Reservado</option>
@@ -167,7 +167,7 @@
         <!-- Tabla de IMEIs -->
         <x-data-table :paginator="$imeis">
             <x-slot:cardHeader>
-                <h2 class="text-xl font-bold text-gray-900">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
                     <i class="fas fa-list mr-2 text-blue-900"></i>
                     Listado de IMEIs
                 </h2>
@@ -185,7 +185,7 @@
             <x-slot:head>
                 <x-th>
                     <input type="checkbox" id="seleccionarTodos" onclick="toggleTodos()"
-                           class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                           class="rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500">
                 </x-th>
                 <x-th>IMEI</x-th>
                 <x-th>Producto</x-th>
@@ -198,56 +198,56 @@
             </x-slot:head>
 
                         @forelse($imeis as $imei)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <input type="checkbox" name="imei_seleccionado" value="{{ $imei->id }}" class="imei-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <input type="checkbox" name="imei_seleccionado" value="{{ $imei->id }}" class="imei-checkbox rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <x-code>{{ $imei->codigo_imei }}</x-code>
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-sm font-medium text-gray-900">{{ $imei->producto->nombre ?? '-' }}</p>
-                                <p class="text-xs text-gray-500">{{ $imei->producto->codigo ?? '-' }}</p>
+                                <p class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ $imei->producto->nombre ?? '-' }}</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400">{{ $imei->producto->codigo ?? '-' }}</p>
                             </td>
                             <td class="px-6 py-4">
                                 @if($imei->variante)
                                     <div class="flex items-center gap-1.5">
                                         @if($imei->variante->color?->codigo_hex)
-                                            <span class="w-3 h-3 rounded-full border border-gray-300 shrink-0"
+                                            <span class="w-3 h-3 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                                   style="background:{{ $imei->variante->color->codigo_hex }}"></span>
                                         @endif
-                                        <span class="text-sm font-medium text-gray-900">
+                                        <span class="text-sm font-medium text-gray-900 dark:text-slate-100">
                                             {{ trim(($imei->variante->color?->nombre ?? '') . ($imei->variante->capacidad ? ' / ' . $imei->variante->capacidad : '')) }}
                                         </span>
                                     </div>
-                                    <p class="text-xs text-gray-400 font-mono">{{ $imei->variante->sku }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500 font-mono">{{ $imei->variante->sku }}</p>
                                 @elseif($imei->color)
                                     <div class="flex items-center gap-1.5">
-                                        <span class="w-3 h-3 rounded-full border border-gray-300 shrink-0"
+                                        <span class="w-3 h-3 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                               style="background:{{ $imei->color->codigo_hex ?? '#ccc' }}"></span>
-                                        <span class="text-sm text-gray-700">{{ $imei->color->nombre }}</span>
+                                        <span class="text-sm text-gray-700 dark:text-slate-300">{{ $imei->color->nombre }}</span>
                                     </div>
                                     <p class="text-xs text-orange-400 italic">Sin variante asignada</p>
                                 @else
-                                    <span class="text-xs text-gray-400 italic">—</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 italic">—</span>
                                 @endif
                                 @if($imei->serie)
-                                    <p class="text-xs text-gray-400 mt-0.5">Serie: {{ $imei->serie }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">Serie: {{ $imei->serie }}</p>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-sm text-gray-900">{{ $imei->almacen->nombre ?? '-' }}</span>
+                                <span class="text-sm text-gray-900 dark:text-slate-100">{{ $imei->almacen->nombre ?? '-' }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($imei->compra?->proveedor)
                                     <a href="{{ route('compras.show', $imei->compra_id) }}"
-                                       class="text-sm font-medium text-blue-700 hover:text-blue-900 hover:underline"
+                                       class="text-sm font-medium text-blue-700 dark:text-blue-300 hover:text-blue-900 hover:underline"
                                        title="Ver compra {{ $imei->compra->numero_factura }}">
                                         {{ $imei->compra->proveedor->razon_social }}
                                     </a>
-                                    <p class="text-xs text-gray-400">{{ $imei->compra->numero_factura }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500">{{ $imei->compra->numero_factura }}</p>
                                 @else
-                                    <span class="text-xs text-gray-400 italic">—</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 italic">—</span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -264,14 +264,14 @@
                                 @endphp
                                 <x-badge :tone="$eTono" :icon="$eIcono">{{ $eLabel }}</x-badge>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-slate-400">
                                 {{ $imei->created_at->format('d/m/Y') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <div class="flex items-center justify-center space-x-2">
                                     <!-- Ver detalles -->
                                     <a href="{{ route('inventario.imeis.show', $imei) }}" 
-                                       class="text-blue-600 hover:text-blue-900" 
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900" 
                                        title="Ver detalles">
                                         <i class="fas fa-eye"></i>
                                     </a>
@@ -279,7 +279,7 @@
                                     <!-- Editar -->
                                     @if(auth()->user()->role->nombre != 'Tienda')
                                         <a href="{{ route('inventario.imeis.edit', $imei) }}" 
-                                           class="text-green-600 hover:text-green-900" 
+                                           class="text-green-600 dark:text-green-400 hover:text-green-900" 
                                            title="Editar IMEI">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -287,14 +287,14 @@
                                     
                                     <!-- Ver QR -->
                                     <button onclick="verQR({{ $imei->id }})" 
-                                            class="text-purple-600 hover:text-purple-900" 
+                                            class="text-purple-600 dark:text-purple-400 hover:text-purple-900" 
                                             title="Ver código QR">
                                         <i class="fas fa-qrcode"></i>
                                     </button>
                                     
                                     <!-- Imprimir etiqueta -->
                                     <button onclick="imprimirEtiqueta({{ $imei->id }})" 
-                                            class="text-gray-600 hover:text-gray-900" 
+                                            class="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100" 
                                             title="Imprimir etiqueta">
                                         <i class="fas fa-tag"></i>
                                     </button>
@@ -303,26 +303,26 @@
                                     @if(auth()->user()->role->nombre != 'Tienda')
                                         <div class="relative inline-block">
                                             <button onclick="toggleEstadoMenu({{ $imei->id }})" 
-                                                    class="text-yellow-600 hover:text-yellow-900"
+                                                    class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-900"
                                                     title="Cambiar estado">
                                                 <i class="fas fa-sync-alt"></i>
                                             </button>
                                             <div id="estado-menu-{{ $imei->id }}" 
-                                                 class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                                                 class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-gray-200 dark:border-slate-700 z-10">
                                                 <div class="py-1">
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'en_stock')" class="block w-full text-left px-4 py-2 text-sm text-green-700 hover:bg-green-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'en_stock')" class="block w-full text-left px-4 py-2 text-sm text-green-700 dark:text-green-300 hover:bg-green-50">
                                                         <i class="fas fa-check-circle mr-2"></i>En Stock
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'reservado')" class="block w-full text-left px-4 py-2 text-sm text-yellow-700 hover:bg-yellow-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'reservado')" class="block w-full text-left px-4 py-2 text-sm text-yellow-700 dark:text-yellow-300 hover:bg-yellow-50">
                                                         <i class="fas fa-clock mr-2"></i>Reservado
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'vendido')" class="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'vendido')" class="block w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-300 hover:bg-red-50">
                                                         <i class="fas fa-shopping-cart mr-2"></i>Vendido
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'garantia')" class="block w-full text-left px-4 py-2 text-sm text-blue-700 hover:bg-blue-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'garantia')" class="block w-full text-left px-4 py-2 text-sm text-blue-700 dark:text-blue-300 hover:bg-blue-50">
                                                         <i class="fas fa-shield-alt mr-2"></i>Garantía
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'devuelto')" class="block w-full text-left px-4 py-2 text-sm text-orange-700 hover:bg-orange-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'devuelto')" class="block w-full text-left px-4 py-2 text-sm text-orange-700 dark:text-orange-300 hover:bg-orange-50">
                                                         <i class="fas fa-undo mr-2"></i>Devuelto
                                                     </button>
                                                 </div>
@@ -336,7 +336,7 @@
                         <tr>
                             <td colspan="8" class="px-6 py-12 text-center">
                                 <i class="fas fa-mobile-alt text-6xl text-gray-300 mb-4"></i>
-                                <p class="text-lg font-medium text-gray-500">No hay IMEIs registrados</p>
+                                <p class="text-lg font-medium text-gray-500 dark:text-slate-400">No hay IMEIs registrados</p>
                                 @if(auth()->user()->role->nombre != 'Tienda')
                                     <a href="{{ route('inventario.imeis.create') }}" class="mt-4 inline-block bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                                         <i class="fas fa-plus mr-2"></i>Registrar Primer IMEI
@@ -352,8 +352,8 @@
     <div id="qrModal" class="qr-modal">
         <div class="qr-modal-content">
             <span class="close" onclick="cerrarQR()">&times;</span>
-            <h3 class="text-xl font-bold text-gray-900 mb-4">
-                <i class="fas fa-qrcode mr-2 text-purple-600"></i>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+                <i class="fas fa-qrcode mr-2 text-purple-600 dark:text-purple-400"></i>
                 Código QR del IMEI
             </h3>
             <div id="qrContainer" class="flex justify-center mb-4">
@@ -442,7 +442,7 @@
             const modal = document.getElementById('qrModal');
             const container = document.getElementById('qrContainer');
             
-            container.innerHTML = '<div class="text-center py-4"><i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i></div>';
+            container.innerHTML = '<div class="text-center py-4"><i class="fas fa-spinner fa-spin text-4xl text-gray-400 dark:text-slate-500"></i></div>';
             modal.style.display = 'block';
             
             fetch(`/inventario/imeis/${imeiId}/qr`)

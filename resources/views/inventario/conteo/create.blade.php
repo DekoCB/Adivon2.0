@@ -9,7 +9,7 @@
 @section('content')
 <div>
 <div class="max-w-lg mx-auto">
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
                 <div class="bg-gradient-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5">
                         <i class="fas fa-clipboard-check text-white text-xl"></i>
@@ -24,24 +24,24 @@
                     @csrf
 
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                             Nombre del conteo <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="nombre"
                                value="{{ old('nombre', 'Conteo ' . now()->format('d/m/Y')) }}"
                                placeholder="Ej: Conteo mensual mayo 2026"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                               class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         @error('nombre')
-                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                             Almacén <span class="text-red-500">*</span>
                         </label>
                         <select name="almacen_id"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             <option value="">— Selecciona un almacén —</option>
                             @foreach($almacenes as $a)
                                 <option value="{{ $a->id }}" {{ old('almacen_id') == $a->id ? 'selected' : '' }}>
@@ -50,13 +50,13 @@
                             @endforeach
                         </select>
                         @error('almacen_id')
-                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="flex gap-3 pt-2">
                         <a href="{{ route('inventario-fisico.index') }}"
-                           class="flex-1 text-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                           class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                             Cancelar
                         </a>
                         <button type="submit"

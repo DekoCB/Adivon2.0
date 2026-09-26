@@ -22,22 +22,22 @@
     <x-filter-bar :filters="['buscar','estado','motivo','origen']" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <input type="text" name="buscar" value="{{ request('buscar') }}"
                    placeholder="N° Guía..."
-                   class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-            <select name="estado" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                   class="px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <select name="estado" class="px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                 <option value="">Todos los estados</option>
                 <option value="pendiente"   {{ request('estado') === 'pendiente'   ? 'selected' : '' }}>Pendiente</option>
                 <option value="en_transito" {{ request('estado') === 'en_transito' ? 'selected' : '' }}>En Tránsito</option>
                 <option value="entregada"   {{ request('estado') === 'entregada'   ? 'selected' : '' }}>Entregada</option>
                 <option value="anulada"     {{ request('estado') === 'anulada'     ? 'selected' : '' }}>Anulada</option>
             </select>
-            <select name="motivo" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+            <select name="motivo" class="px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                 <option value="">Todos los motivos</option>
                 <option value="VENTA"                    {{ request('motivo') === 'VENTA'                    ? 'selected' : '' }}>Venta</option>
                 <option value="COMPRA"                   {{ request('motivo') === 'COMPRA'                   ? 'selected' : '' }}>Compra</option>
                 <option value="TRASLADO_ENTRE_ALMACENES" {{ request('motivo') === 'TRASLADO_ENTRE_ALMACENES' ? 'selected' : '' }}>Traslado</option>
                 <option value="CONSIGNACION"             {{ request('motivo') === 'CONSIGNACION'             ? 'selected' : '' }}>Consignación</option>
             </select>
-            <select name="origen" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+            <select name="origen" class="px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                 <option value="">Todos los orígenes</option>
                 <option value="venta"    {{ request('origen') === 'venta'    ? 'selected' : '' }}>Venta</option>
                 <option value="traslado" {{ request('origen') === 'traslado' ? 'selected' : '' }}>Traslado</option>
@@ -47,11 +47,11 @@
 
     {{-- Tabla --}}
     @if($guias->isEmpty())
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-            <div class="py-16 text-center text-gray-400">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden">
+            <div class="py-16 text-center text-gray-400 dark:text-slate-500">
                 <i class="fas fa-file-invoice text-4xl mb-3 block"></i>
                 <p class="text-sm">No hay guías registradas.</p>
-                <a href="{{ route('guias-remision.create') }}" class="mt-3 inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800">
+                <a href="{{ route('guias-remision.create') }}" class="mt-3 inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800">
                     <i class="fas fa-plus-circle"></i> Crear primera guía
                 </a>
             </div>
@@ -70,8 +70,8 @@
             </x-slot:head>
 
                 @foreach($guias as $guia)
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-4 py-3 font-mono font-semibold text-gray-800">{{ $guia->numero_guia }}</td>
+                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
+                        <td class="px-4 py-3 font-mono font-semibold text-gray-800 dark:text-slate-200">{{ $guia->numero_guia }}</td>
                         <td class="px-4 py-3">
                             @if($guia->venta_id)
                                 <x-badge tone="green" icon="fa-shopping-cart">Venta</x-badge>
@@ -81,16 +81,16 @@
                                 <x-badge tone="gray" icon="fa-pencil-alt">Manual</x-badge>
                             @endif
                         </td>
-                        <td class="px-4 py-3 text-gray-600">{{ $guia->motivo_label }}</td>
+                        <td class="px-4 py-3 text-gray-600 dark:text-slate-400">{{ $guia->motivo_label }}</td>
                         <td class="px-4 py-3">
-                            <div class="flex items-center gap-1.5 text-xs text-gray-700">
+                            <div class="flex items-center gap-1.5 text-xs text-gray-700 dark:text-slate-300">
                                 <span class="font-medium">{{ $guia->almacen?->nombre ?? '—' }}</span>
-                                <i class="fas fa-arrow-right text-gray-400"></i>
+                                <i class="fas fa-arrow-right text-gray-400 dark:text-slate-500"></i>
                                 <span class="font-medium">{{ $guia->destinatario_nombre }}</span>
                             </div>
-                            <span class="text-[10px] text-gray-400">{{ $guia->tipo_destino_label }}</span>
+                            <span class="text-[10px] text-gray-400 dark:text-slate-500">{{ $guia->tipo_destino_label }}</span>
                         </td>
-                        <td class="px-4 py-3 text-gray-600">{{ $guia->fecha_traslado?->format('d/m/Y') }}</td>
+                        <td class="px-4 py-3 text-gray-600 dark:text-slate-400">{{ $guia->fecha_traslado?->format('d/m/Y') }}</td>
                         <td class="px-4 py-3">
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold {{ $guia->estado_css }}">
                                 {{ $guia->estado_label }}
@@ -112,7 +112,7 @@
                         <td class="px-4 py-3 text-right">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('guias-remision.show', $guia) }}"
-                                   class="text-blue-600 hover:text-blue-800 text-xs font-medium" title="Ver detalle">
+                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium" title="Ver detalle">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="{{ route('guias-remision.pdf', $guia) }}" target="_blank"
@@ -123,7 +123,7 @@
                                     <form action="{{ route('guias-remision.enviar-sunat', $guia) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit"
-                                                class="text-amber-600 hover:text-amber-800 text-xs font-medium transition"
+                                                class="text-amber-600 dark:text-amber-400 hover:text-amber-800 text-xs font-medium transition"
                                                 title="Enviar a SUNAT"
                                                 onclick="return confirm('¿Enviar esta guía a SUNAT?')">
                                             <i class="fas fa-paper-plane"></i>
@@ -133,7 +133,7 @@
                                     <form action="{{ route('guias-remision.consultar-sunat', $guia) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit"
-                                                class="text-blue-600 hover:text-blue-800 text-xs font-medium transition"
+                                                class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium transition"
                                                 title="Consultar estado SUNAT">
                                             <i class="fas fa-sync-alt"></i>
                                         </button>

@@ -26,7 +26,7 @@
         @if(request()->has('nuevo'))
         <div x-data="{ show: true }" x-show="show" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
             <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="show = false"></div>
-            <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
+            <div class="relative bg-white dark:bg-slate-800 dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
                  x-transition:enter-end="opacity-100 scale-100">
@@ -44,12 +44,12 @@
                     <p class="text-green-100 text-sm mt-1">{{ $venta->codigo }}</p>
                 </div>
                 <div class="p-6 text-center">
-                    <div class="text-gray-600 dark:text-gray-300 text-sm mb-1">Total cobrado</div>
-                    <div class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <div class="text-gray-600 dark:text-slate-400 dark:text-gray-300 text-sm mb-1">Total cobrado</div>
+                    <div class="text-3xl font-bold text-gray-900 dark:text-slate-100 dark:text-white mb-4">
                         S/ {{ number_format($venta->total, 2) }}
                     </div>
                     @if($venta->tipo_comprobante !== 'cotizacion' && $venta->metodo_pago)
-                    <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full px-3 py-1 text-xs font-medium mb-4">
+                    <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-slate-700 dark:bg-gray-700 text-gray-700 dark:text-slate-300 dark:text-gray-200 rounded-full px-3 py-1 text-xs font-medium mb-4">
                         <i class="fas fa-credit-card"></i>
                         {{ ucfirst($venta->metodo_pago) }}
                     </div>
@@ -67,7 +67,7 @@
                         </button>
                     </div>
                     <a href="{{ route('ventas.create') }}"
-                       class="block mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium transition">
+                       class="block mt-3 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium transition">
                         <i class="fas fa-plus-circle mr-1"></i> Nueva Venta
                     </a>
                 </div>
@@ -79,7 +79,7 @@
         @if(request()->has('actualizado'))
         <div x-data="{ show: true }" x-show="show" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
             <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="show = false"></div>
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
                  x-transition:enter-end="opacity-100 scale-100">
@@ -95,35 +95,35 @@
                 <div class="p-6">
                     {{-- Resumen de datos actualizados --}}
                     <div class="space-y-2 mb-5">
-                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100">
-                            <span class="text-gray-500 flex items-center gap-2"><i class="fas fa-file-invoice w-4 text-center text-blue-400"></i> Tipo</span>
-                            <span class="font-semibold text-gray-800 capitalize">{{ $venta->tipo_comprobante }}</span>
+                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100 dark:border-slate-700">
+                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-2"><i class="fas fa-file-invoice w-4 text-center text-blue-400"></i> Tipo</span>
+                            <span class="font-semibold text-gray-800 dark:text-slate-200 capitalize">{{ $venta->tipo_comprobante }}</span>
                         </div>
-                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100">
-                            <span class="text-gray-500 flex items-center gap-2"><i class="fas fa-calendar w-4 text-center text-blue-400"></i> Fecha</span>
-                            <span class="font-semibold text-gray-800">{{ $venta->fecha->format('d/m/Y') }}</span>
+                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100 dark:border-slate-700">
+                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-2"><i class="fas fa-calendar w-4 text-center text-blue-400"></i> Fecha</span>
+                            <span class="font-semibold text-gray-800 dark:text-slate-200">{{ $venta->fecha->format('d/m/Y') }}</span>
                         </div>
                         @if($venta->metodo_pago)
-                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100">
-                            <span class="text-gray-500 flex items-center gap-2"><i class="fas fa-credit-card w-4 text-center text-blue-400"></i> Pago</span>
-                            <span class="font-semibold text-gray-800 capitalize">{{ $venta->metodo_pago }}</span>
+                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100 dark:border-slate-700">
+                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-2"><i class="fas fa-credit-card w-4 text-center text-blue-400"></i> Pago</span>
+                            <span class="font-semibold text-gray-800 dark:text-slate-200 capitalize">{{ $venta->metodo_pago }}</span>
                         </div>
                         @endif
                         @if($venta->guia_remision)
-                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100">
-                            <span class="text-gray-500 flex items-center gap-2"><i class="fas fa-truck w-4 text-center text-blue-400"></i> Guía</span>
-                            <span class="font-semibold text-gray-800">{{ $venta->guia_remision }}</span>
+                        <div class="flex items-center justify-between text-sm py-2 border-b border-gray-100 dark:border-slate-700">
+                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-2"><i class="fas fa-truck w-4 text-center text-blue-400"></i> Guía</span>
+                            <span class="font-semibold text-gray-800 dark:text-slate-200">{{ $venta->guia_remision }}</span>
                         </div>
                         @endif
                         <div class="flex items-center justify-between text-sm py-2">
-                            <span class="text-gray-500 flex items-center gap-2"><i class="fas fa-money-bill w-4 text-center text-blue-400"></i> Total</span>
-                            <span class="font-bold text-blue-600 text-base">S/ {{ number_format($venta->total, 2) }}</span>
+                            <span class="text-gray-500 dark:text-slate-400 flex items-center gap-2"><i class="fas fa-money-bill w-4 text-center text-blue-400"></i> Total</span>
+                            <span class="font-bold text-blue-600 dark:text-blue-400 text-base">S/ {{ number_format($venta->total, 2) }}</span>
                         </div>
                     </div>
                     {{-- Acciones --}}
                     <div class="flex gap-3">
                         <a href="{{ route('ventas.pdf', [$venta, 'formato' => 'a4']) }}" target="_blank"
-                           class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl py-2.5 text-sm font-semibold transition flex items-center justify-center gap-2">
+                           class="flex-1 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-300 rounded-xl py-2.5 text-sm font-semibold transition flex items-center justify-center gap-2">
                             <i class="fas fa-file-pdf"></i> PDF
                         </a>
                         <button @click="show = false"
@@ -140,12 +140,12 @@
         {{-- Page header --}}
         <div class="flex items-start justify-between mb-6 no-print">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-400 mb-1">
+                <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-slate-500 mb-1">
                     <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 transition-colors">Ventas</a>
                     <i class="fas fa-chevron-right text-xs"></i>
-                    <span class="text-gray-700 font-medium">{{ $venta->codigo }}</span>
+                    <span class="text-gray-700 dark:text-slate-300 font-medium">{{ $venta->codigo }}</span>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900">Detalle de Venta</h1>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Detalle de Venta</h1>
             </div>
 
             @php
@@ -188,7 +188,7 @@
                     <i class="fas fa-receipt"></i> Ticket 80mm
                 </a>
                 <button onclick="window.print()"
-                        class="inline-flex items-center gap-2 border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 hover:border-gray-300 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                        class="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 hover:border-gray-300 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
                     <i class="fas fa-print"></i> Imprimir
                 </button>
                 @endif
@@ -215,7 +215,7 @@
                     </span>
                     <input x-model="phone" type="tel" placeholder="9xx xxx xxx"
                            maxlength="9" @keydown.enter="send()"
-                           class="border-y border-gray-300 px-2 py-2 text-sm w-28 focus:outline-none focus:ring-1 focus:ring-green-400 focus:border-green-400">
+                           class="border-y border-gray-300 dark:border-slate-600 px-2 py-2 text-sm w-28 focus:outline-none focus:ring-1 focus:ring-green-400 focus:border-green-400">
                     <button @click="send()" :disabled="!valid"
                             :class="valid ? 'bg-green-500 hover:bg-green-600 cursor-pointer' : 'bg-gray-300 cursor-not-allowed'"
                             class="inline-flex items-center text-white px-3 py-2 rounded-r-xl text-sm font-medium transition-colors shadow-sm">
@@ -231,12 +231,12 @@
                 </a>
                 <a href="{{ route('ventas.guia-pdf', $venta) }}" target="_blank"
                    onclick="setTimeout(() => { const w = window.open(this.href, '_blank'); w && w.print(); }, 200); return false;"
-                   class="inline-flex items-center gap-2 border border-teal-300 bg-teal-50 text-teal-700 hover:bg-teal-100 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                   class="inline-flex items-center gap-2 border border-teal-300 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 hover:bg-teal-100 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
                     <i class="fas fa-print"></i> Imprimir guía
                 </a>
                 @endif
                 <a href="{{ $venta->tipo_comprobante === 'cotizacion' ? route('ventas.cotizaciones') : route('ventas.index') }}"
-                   class="inline-flex items-center gap-2 border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                   class="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
                     <i class="fas fa-arrow-left"></i> Volver
                 </a>
 
@@ -324,32 +324,32 @@
                     </button>
                     <div x-show="showConvertir" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showConvertir = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden max-h-[90vh] flex flex-col">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden max-h-[90vh] flex flex-col">
                             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-5 shrink-0">
                                 <h3 class="text-lg font-bold text-white">Convertir Cotización</h3>
                                 <p class="text-purple-200 text-sm mt-0.5">{{ $venta->codigo }}</p>
                             </div>
                             <div class="p-6 overflow-y-auto">
                                 <div class="mb-4">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo de Comprobante *</label>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Tipo de Comprobante *</label>
                                     <div class="grid grid-cols-2 gap-2">
-                                        <label class="flex items-center gap-2 border border-gray-200 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
-                                            <input type="radio" x-model="tipoComprobante" value="boleta" class="text-purple-600" required>
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                            <input type="radio" x-model="tipoComprobante" value="boleta" class="text-purple-600 dark:text-purple-400" required>
                                             <span class="text-sm font-medium">Boleta</span>
                                         </label>
-                                        <label class="flex items-center gap-2 border border-gray-200 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
-                                            <input type="radio" x-model="tipoComprobante" value="factura" class="text-purple-600">
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                            <input type="radio" x-model="tipoComprobante" value="factura" class="text-purple-600 dark:text-purple-400">
                                             <span class="text-sm font-medium">Factura</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="mb-5">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Método de Pago *</label>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Método de Pago *</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         @foreach(['efectivo' => 'fa-money-bill-wave', 'transferencia' => 'fa-university', 'yape' => 'fa-mobile-alt', 'plin' => 'fa-mobile-alt'] as $metodo => $icono)
-                                        <label class="flex items-center gap-2 border border-gray-200 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
-                                            <input type="radio" x-model="metodoPago" value="{{ $metodo }}" class="text-purple-600" required>
-                                            <i class="fas {{ $icono }} text-gray-500 text-sm"></i>
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                            <input type="radio" x-model="metodoPago" value="{{ $metodo }}" class="text-purple-600 dark:text-purple-400" required>
+                                            <i class="fas {{ $icono }} text-gray-500 dark:text-slate-400 text-sm"></i>
                                             <span class="text-sm font-medium capitalize">{{ $metodo }}</span>
                                         </label>
                                         @endforeach
@@ -359,27 +359,27 @@
                                 {{-- Selección de IMEIs para productos tipo serie --}}
                                 <template x-if="detallesSerie.length > 0">
                                     <div class="mb-5 space-y-3">
-                                        <label class="block text-sm font-semibold text-gray-700">Selecciona los IMEI a vender *</label>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300">Selecciona los IMEI a vender *</label>
                                         <template x-for="d in detallesSerie" :key="d.id">
-                                            <div class="border border-gray-200 rounded-xl p-3">
+                                            <div class="border border-gray-200 dark:border-slate-700 rounded-xl p-3">
                                                 <div class="flex items-center justify-between mb-2">
-                                                    <span class="text-sm font-medium text-gray-800" x-text="d.nombre"></span>
+                                                    <span class="text-sm font-medium text-gray-800 dark:text-slate-200" x-text="d.nombre"></span>
                                                     <span class="text-xs font-semibold"
                                                           :class="(imeisSeleccionados[d.id]?.length || 0) === d.cantidad ? 'text-emerald-600' : 'text-amber-600'"
                                                           x-text="(imeisSeleccionados[d.id]?.length || 0) + ' / ' + d.cantidad"></span>
                                                 </div>
-                                                <div x-show="cargandoImeis[d.id]" class="text-xs text-gray-400">Cargando IMEIs disponibles...</div>
+                                                <div x-show="cargandoImeis[d.id]" class="text-xs text-gray-400 dark:text-slate-500">Cargando IMEIs disponibles...</div>
                                                 <div x-show="!cargandoImeis[d.id] && (imeisDisponibles[d.id]?.length || 0) === 0" class="text-xs text-red-500">
                                                     No hay IMEIs disponibles en el almacén de esta venta.
                                                 </div>
                                                 <div class="max-h-32 overflow-y-auto space-y-1">
                                                     <template x-for="imei in (imeisDisponibles[d.id] || [])" :key="imei.id">
-                                                        <label class="flex items-center gap-2 text-xs px-2 py-1 rounded-lg cursor-pointer hover:bg-gray-50"
+                                                        <label class="flex items-center gap-2 text-xs px-2 py-1 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/60"
                                                                :class="seleccionado(d.id, imei) ? 'bg-purple-50' : ''">
                                                             <input type="checkbox"
                                                                    :checked="seleccionado(d.id, imei)"
                                                                    @change="toggleImei(d.id, imei)"
-                                                                   class="text-purple-600 rounded">
+                                                                   class="text-purple-600 dark:text-purple-400 rounded">
                                                             <span class="font-mono" x-text="imei.codigo_imei"></span>
                                                         </label>
                                                     </template>
@@ -389,15 +389,15 @@
                                     </div>
                                 </template>
 
-                                <div x-show="errMsg" x-cloak class="mb-4 text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2" x-text="errMsg"></div>
+                                <div x-show="errMsg" x-cloak class="mb-4 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-100 rounded-lg px-3 py-2" x-text="errMsg"></div>
 
-                                <div class="bg-gray-50 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
-                                    <span class="text-sm text-gray-500">Total a cobrar</span>
-                                    <span class="text-xl font-bold text-gray-900">S/ {{ number_format($venta->total, 2) }}</span>
+                                <div class="bg-gray-50 dark:bg-slate-900/60 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
+                                    <span class="text-sm text-gray-500 dark:text-slate-400">Total a cobrar</span>
+                                    <span class="text-xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($venta->total, 2) }}</span>
                                 </div>
                                 <div class="flex gap-3">
                                     <button type="button" @click="showConvertir = false"
-                                            class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                            class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                         Cancelar
                                     </button>
                                     <button type="button" @click="enviar()"
@@ -424,7 +424,7 @@
                     <div x-show="showModal" x-cloak
                          class="fixed inset-0 z-50 flex items-center justify-center">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showModal = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
                             <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white">Confirmar Pago</h3>
                                 <p class="text-green-100 text-sm mt-0.5">Venta {{ $venta->codigo }}</p>
@@ -432,24 +432,24 @@
                             <form action="{{ route('ventas.confirmar-pago', $venta) }}" method="POST" class="p-6">
                                 @csrf
                                 <div class="mb-5">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Método de Pago *</label>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Método de Pago *</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         @foreach(['efectivo' => 'fa-money-bill-wave', 'transferencia' => 'fa-university', 'yape' => 'fa-mobile-alt', 'plin' => 'fa-mobile-alt'] as $metodo => $icono)
-                                        <label class="flex items-center gap-2 border border-gray-200 rounded-xl p-3 cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
-                                            <input type="radio" name="metodo_pago" value="{{ $metodo }}" class="text-green-600 focus:ring-green-500" required>
-                                            <i class="fas {{ $icono }} text-gray-500 text-sm"></i>
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
+                                            <input type="radio" name="metodo_pago" value="{{ $metodo }}" class="text-green-600 dark:text-green-400 focus:ring-green-500" required>
+                                            <i class="fas {{ $icono }} text-gray-500 dark:text-slate-400 text-sm"></i>
                                             <span class="text-sm font-medium capitalize">{{ $metodo }}</span>
                                         </label>
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="bg-gray-50 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
-                                    <span class="text-sm text-gray-500">Total a cobrar</span>
-                                    <span class="text-xl font-bold text-gray-900">S/ {{ number_format($venta->total, 2) }}</span>
+                                <div class="bg-gray-50 dark:bg-slate-900/60 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
+                                    <span class="text-sm text-gray-500 dark:text-slate-400">Total a cobrar</span>
+                                    <span class="text-xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($venta->total, 2) }}</span>
                                 </div>
                                 <div class="flex gap-3">
                                     <button type="button" @click="showModal = false"
-                                            class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                            class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                         Cancelar
                                     </button>
                                     <button type="submit"
@@ -560,7 +560,7 @@
                     {{-- Botón Editar --}}
                     @if($puedeEditar)
                     <button @click="iniciarAccion('editar')"
-                            class="inline-flex items-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
+                            class="inline-flex items-center gap-2 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
                         <i class="fas fa-edit"></i> Editar
                     </button>
                     @endif
@@ -568,7 +568,7 @@
                     {{-- Botón Nota de Crédito SUNAT (solo si doc ya fue aceptado) --}}
                     @if($puedeGenerarNC)
                     <button @click="iniciarAccion('nota_credito')"
-                            class="inline-flex items-center gap-2 border border-indigo-400 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
+                            class="inline-flex items-center gap-2 border border-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
                         <i class="fas fa-file-minus"></i> Nota de Crédito
                     </button>
                     @endif
@@ -576,7 +576,7 @@
                     {{-- Botón Anular --}}
                     @if($puedeAnular)
                     <button @click="iniciarAccion('anular')"
-                            class="inline-flex items-center gap-2 border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
+                            class="inline-flex items-center gap-2 border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
                         <i class="fas fa-ban"></i> Anular
                     </button>
                     @endif
@@ -592,20 +592,20 @@
                     {{-- Modal: verificar contraseña (solo Tienda) --}}
                     <div x-show="showClave" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showClave = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
                             <div class="bg-gradient-to-r from-gray-700 to-gray-900 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white"><i class="fas fa-lock mr-2"></i>Verificación de seguridad</h3>
                                 <p class="text-gray-300 text-sm mt-0.5">Ingresa tu contraseña para continuar</p>
                             </div>
                             <div class="p-6">
-                                <p class="text-sm text-gray-600 mb-4">Para realizar esta acción debes confirmar tu identidad ingresando la contraseña de tu cuenta.</p>
+                                <p class="text-sm text-gray-600 dark:text-slate-400 mb-4">Para realizar esta acción debes confirmar tu identidad ingresando la contraseña de tu cuenta.</p>
                                 <input type="password" x-model="clave" @keyup.enter="verificarClave()"
                                        placeholder="Contraseña"
-                                       class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none mb-2">
-                                <p x-show="claveError" x-text="claveError" class="text-red-600 text-xs mb-3"></p>
+                                       class="w-full border border-gray-300 dark:border-slate-600 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none mb-2">
+                                <p x-show="claveError" x-text="claveError" class="text-red-600 dark:text-red-400 text-xs mb-3"></p>
                                 <div class="flex gap-3">
                                     <button type="button" @click="showClave = false"
-                                            class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                            class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                         Cancelar
                                     </button>
                                     <button type="button" @click="verificarClave()" :disabled="cargando || !clave"
@@ -621,13 +621,13 @@
                     {{-- Modal: confirmar Anular --}}
                     <div x-show="showAnular" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showAnular = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
                             <div class="bg-gradient-to-r from-red-600 to-rose-600 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white">Anular Comprobante</h3>
                                 <p class="text-red-100 text-sm mt-0.5">{{ $venta->codigo }}</p>
                             </div>
                             <div class="p-6">
-                                <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-5 text-sm text-red-700">
+                                <div class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-5 text-sm text-red-700 dark:text-red-300">
                                     <p class="font-semibold mb-1"><i class="fas fa-exclamation-triangle mr-1"></i>Esta acción es irreversible</p>
                                     <ul class="list-disc list-inside space-y-0.5 text-xs">
                                         <li>El stock será devuelto al almacén</li>
@@ -640,7 +640,7 @@
                                     @csrf
                                     <div class="flex gap-3">
                                         <button type="button" @click="showAnular = false"
-                                                class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                                class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                             Cancelar
                                         </button>
                                         <button type="submit"
@@ -656,13 +656,13 @@
                     {{-- Modal: confirmar Eliminar --}}
                     <div x-show="showEliminar" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showEliminar = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
                             <div class="bg-gradient-to-r from-red-800 to-red-900 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white">Eliminar Comprobante</h3>
                                 <p class="text-red-200 text-sm mt-0.5">{{ $venta->codigo }}</p>
                             </div>
                             <div class="p-6">
-                                <div class="bg-red-50 border border-red-300 rounded-xl p-4 mb-5 text-sm text-red-800">
+                                <div class="bg-red-50 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-xl p-4 mb-5 text-sm text-red-800 dark:text-red-300">
                                     <p class="font-semibold mb-1"><i class="fas fa-skull-crossbones mr-1"></i>Eliminación permanente</p>
                                     <ul class="list-disc list-inside space-y-0.5 text-xs">
                                         <li>La venta desaparecerá de todos los listados</li>
@@ -676,7 +676,7 @@
                                     @method('DELETE')
                                     <div class="flex gap-3">
                                         <button type="button" @click="showEliminar = false"
-                                                class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                                class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                             Cancelar
                                         </button>
                                         <button type="submit"
@@ -692,38 +692,38 @@
                     {{-- Modal: Nota de Crédito SUNAT --}}
                     <div x-show="showNC" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
                         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showNC = false"></div>
-                        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
                             <div class="bg-gradient-to-r from-indigo-600 to-purple-700 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white"><i class="fas fa-file-minus mr-2"></i>Nota de Crédito Electrónica</h3>
                                 <p class="text-indigo-200 text-sm mt-0.5">{{ $venta->numero_documento ?? $venta->codigo }}</p>
                             </div>
                             <div class="p-6">
-                                <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 mb-5 text-sm text-indigo-800">
+                                <div class="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-xl p-4 mb-5 text-sm text-indigo-800 dark:text-indigo-300">
                                     <p class="font-semibold mb-1"><i class="fas fa-info-circle mr-1"></i>¿Por qué Nota de Crédito?</p>
                                     <p class="text-xs leading-relaxed">Este comprobante ya fue <strong>aceptado por SUNAT</strong>. La normativa peruana exige emitir una Nota de Crédito para anularlo — no se puede simplemente eliminar o marcar como anulado.</p>
                                 </div>
                                 <form action="{{ route('ventas.nota-credito', $venta) }}" method="POST">
                                     @csrf
                                     <div class="mb-5">
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Motivo (Tabla 10 SUNAT) *</label>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Motivo (Tabla 10 SUNAT) *</label>
                                         <select name="motivo_codigo" x-model="motivoNc"
-                                                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                                                class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
                                             @foreach(\App\Services\VentaService::MOTIVOS_NC as $codigo => $desc)
                                             <option value="{{ $codigo }}">{{ $codigo }} — {{ $desc }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="bg-gray-50 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
-                                        <span class="text-sm text-gray-500">Monto a revertir</span>
-                                        <span class="text-xl font-bold text-gray-900">S/ {{ number_format($venta->total, 2) }}</span>
+                                    <div class="bg-gray-50 dark:bg-slate-900/60 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
+                                        <span class="text-sm text-gray-500 dark:text-slate-400">Monto a revertir</span>
+                                        <span class="text-xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($venta->total, 2) }}</span>
                                     </div>
-                                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-5 text-xs text-amber-700">
+                                    <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl p-3 mb-5 text-xs text-amber-700 dark:text-amber-300">
                                         <i class="fas fa-exclamation-triangle mr-1"></i>
                                         Después de generar la NC debes enviarla a SUNAT (OSE/SOL) para que sea válida legalmente.
                                     </div>
                                     <div class="flex gap-3">
                                         <button type="button" @click="showNC = false"
-                                                class="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-2.5 rounded-xl font-semibold text-sm transition-colors">
+                                                class="flex-1 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 py-2.5 rounded-xl font-semibold text-sm transition-colors">
                                             Cancelar
                                         </button>
                                         <button type="submit"
@@ -785,13 +785,13 @@
 
             {{-- Badge "Nota de Crédito" si es NC --}}
             @if($venta->es_nota_credito)
-            <div class="inline-flex items-center gap-2 border bg-indigo-50 text-indigo-700 border-indigo-300 px-3 py-1.5 rounded-full text-xs font-semibold">
+            <div class="inline-flex items-center gap-2 border bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700 px-3 py-1.5 rounded-full text-xs font-semibold">
                 <i class="fas fa-file-minus"></i>
                 Nota de Crédito · {{ $venta->motivo_nc_codigo }} — {{ $venta->motivo_nc_descripcion }}
             </div>
             @if($venta->ventaOrigen)
-            <div class="text-xs text-gray-500">
-                Referencia: <a href="{{ route('ventas.show', $venta->ventaOrigen) }}" class="text-indigo-600 font-semibold hover:underline">{{ $venta->ventaOrigen->numero_documento ?? $venta->ventaOrigen->codigo }}</a>
+            <div class="text-xs text-gray-500 dark:text-slate-400">
+                Referencia: <a href="{{ route('ventas.show', $venta->ventaOrigen) }}" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">{{ $venta->ventaOrigen->numero_documento ?? $venta->ventaOrigen->codigo }}</a>
             </div>
             @endif
             @endif
@@ -800,40 +800,40 @@
         {{-- Info cards --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
             {{-- Venta --}}
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
                 <div class="flex items-center gap-2 mb-5">
-                    <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-receipt text-blue-600"></i>
+                    <div class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-receipt text-blue-600 dark:text-blue-400"></i>
                     </div>
-                    <h3 class="font-bold text-gray-700 uppercase tracking-wider">Venta</h3>
+                    <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider">Venta</h3>
                 </div>
                 <dl class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Código</dt>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Código</dt>
                         <dd><x-code>{{ $venta->codigo }}</x-code></dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Fecha</dt>
-                        <dd class="text-sm text-gray-700 font-medium">{{ $venta->fecha->format('d/m/Y') }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Fecha</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300 font-medium">{{ $venta->fecha->format('d/m/Y') }}</dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Hora</dt>
-                        <dd class="text-sm text-gray-700">{{ $venta->created_at->format('H:i') }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Hora</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300">{{ $venta->created_at->format('H:i') }}</dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Almacén</dt>
-                        <dd class="text-sm text-gray-700 font-medium">{{ $venta->almacen->nombre }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Almacén</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300 font-medium">{{ $venta->almacen->nombre }}</dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Vendedor</dt>
-                        <dd class="text-sm text-gray-700">{{ $venta->vendedor->name }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Vendedor</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300">{{ $venta->vendedor->name }}</dd>
                     </div>
                 </dl>
             </div>
 
             {{-- Cliente --}}
             @if($venta->cliente)
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6"
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6"
                  x-data="{
                     showEdit: false,
                     saving: false,
@@ -875,12 +875,12 @@
                     }
                  }">
                 <div class="flex items-center gap-2 mb-5">
-                    <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-user text-indigo-600"></i>
+                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-user text-indigo-600 dark:text-indigo-400"></i>
                     </div>
-                    <h3 class="font-bold text-gray-700 uppercase tracking-wider flex-1">Cliente</h3>
+                    <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex-1">Cliente</h3>
                     <button @click="showEdit = true"
-                            class="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 transition">
+                            class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 transition">
                         <i class="fas fa-pencil-alt"></i> Editar
                     </button>
                 </div>
@@ -888,29 +888,29 @@
                 {{-- Datos del cliente (vista) --}}
                 <dl class="space-y-2.5" x-show="!showEdit">
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Nombre</dt>
-                        <dd class="text-sm text-gray-700 font-medium text-right max-w-[60%]" x-text="cliente.nombre"></dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Nombre</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300 font-medium text-right max-w-[60%]" x-text="cliente.nombre"></dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Documento</dt>
-                        <dd class="text-sm font-mono text-gray-700" x-text="cliente.tipo_documento + ' ' + cliente.numero_documento"></dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Documento</dt>
+                        <dd class="text-sm font-mono text-gray-700 dark:text-slate-300" x-text="cliente.tipo_documento + ' ' + cliente.numero_documento"></dd>
                     </div>
                     <template x-if="cliente.telefono">
                         <div class="flex justify-between items-center">
-                            <dt class="text-sm text-gray-400">Teléfono</dt>
-                            <dd class="text-sm text-gray-700" x-text="cliente.telefono"></dd>
+                            <dt class="text-sm text-gray-400 dark:text-slate-500">Teléfono</dt>
+                            <dd class="text-sm text-gray-700 dark:text-slate-300" x-text="cliente.telefono"></dd>
                         </div>
                     </template>
                     <template x-if="cliente.direccion">
                         <div class="flex justify-between items-start">
-                            <dt class="text-sm text-gray-400 shrink-0">Dirección</dt>
-                            <dd class="text-sm text-gray-700 text-right max-w-[65%]" x-text="cliente.direccion"></dd>
+                            <dt class="text-sm text-gray-400 dark:text-slate-500 shrink-0">Dirección</dt>
+                            <dd class="text-sm text-gray-700 dark:text-slate-300 text-right max-w-[65%]" x-text="cliente.direccion"></dd>
                         </div>
                     </template>
                     <template x-if="cliente.departamento || cliente.provincia || cliente.distrito">
                         <div class="flex justify-between items-start">
-                            <dt class="text-sm text-gray-400 shrink-0">Ubigeo</dt>
-                            <dd class="text-sm text-gray-700 text-right max-w-[65%]">
+                            <dt class="text-sm text-gray-400 dark:text-slate-500 shrink-0">Ubigeo</dt>
+                            <dd class="text-sm text-gray-700 dark:text-slate-300 text-right max-w-[65%]">
                                 <span x-text="[cliente.distrito, cliente.provincia, cliente.departamento].filter(Boolean).join(', ')"></span>
                             </dd>
                         </div>
@@ -921,38 +921,38 @@
                 <div x-show="showEdit" x-cloak class="space-y-3">
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Tipo Doc.</label>
-                            <select x-model="cliente.tipo_documento" class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Tipo Doc.</label>
+                            <select x-model="cliente.tipo_documento" class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                                 <option value="DNI">DNI</option>
                                 <option value="RUC">RUC</option>
                                 <option value="CE">CE</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">N° Documento</label>
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">N° Documento</label>
                             <input type="text" x-model="cliente.numero_documento" maxlength="11"
-                                   class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500 font-mono">
+                                   class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500 font-mono">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1">Nombre *</label>
+                        <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Nombre *</label>
                         <input type="text" x-model="cliente.nombre"
-                               class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                               class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1">Teléfono</label>
+                        <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Teléfono</label>
                         <input type="text" x-model="cliente.telefono" maxlength="20"
-                               class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                               class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1">Dirección</label>
+                        <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Dirección</label>
                         <input type="text" x-model="cliente.direccion"
-                               class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500"
+                               class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500"
                                placeholder="Av. / Jr. / Calle...">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1">Departamento</label>
-                        <select x-model="cliente.departamento" class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Departamento</label>
+                        <select x-model="cliente.departamento" class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                             <option value="">— Seleccionar —</option>
                             @foreach(['AMAZONAS','ÁNCASH','APURÍMAC','AREQUIPA','AYACUCHO','CAJAMARCA','CALLAO','CUSCO','HUANCAVELICA','HUÁNUCO','ICA','JUNÍN','LA LIBERTAD','LAMBAYEQUE','LIMA','LORETO','MADRE DE DIOS','MOQUEGUA','PASCO','PIURA','PUNO','SAN MARTÍN','TACNA','TUMBES','UCAYALI'] as $dep)
                                 <option value="{{ $dep }}">{{ $dep }}</option>
@@ -961,20 +961,20 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Provincia</label>
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Provincia</label>
                             <input type="text" x-model="cliente.provincia" maxlength="100"
-                                   class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                                   class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Distrito</label>
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 mb-1">Distrito</label>
                             <input type="text" x-model="cliente.distrito" maxlength="100"
-                                   class="w-full rounded-lg border-gray-200 text-xs py-2 bg-gray-50 focus:ring-2 focus:ring-indigo-500">
+                                   class="w-full rounded-lg border-gray-200 dark:border-slate-700 text-xs py-2 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500">
                         </div>
                     </div>
-                    <div x-show="errMsg" class="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2" x-text="errMsg"></div>
+                    <div x-show="errMsg" class="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2" x-text="errMsg"></div>
                     <div class="flex gap-2 pt-1">
                         <button @click="showEdit = false; errMsg = ''"
-                                class="flex-1 text-xs border border-gray-200 text-gray-600 hover:bg-gray-50 rounded-lg py-2 font-semibold transition">
+                                class="flex-1 text-xs border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/60 rounded-lg py-2 font-semibold transition">
                             Cancelar
                         </button>
                         <button @click="guardar()" :disabled="saving || !cliente.nombre"
@@ -986,51 +986,51 @@
                 </div>
             </div>
             @else
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
                 <div class="flex items-center gap-2 mb-5">
-                    <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-user text-indigo-600"></i>
+                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-user text-indigo-600 dark:text-indigo-400"></i>
                     </div>
-                    <h3 class="font-bold text-gray-700 uppercase tracking-wider">Cliente</h3>
+                    <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider">Cliente</h3>
                 </div>
                 <div class="flex flex-col items-center justify-center h-24 text-gray-300">
                     <i class="fas fa-user-slash text-3xl mb-2"></i>
-                    <p class="text-sm text-gray-400">Venta sin cliente</p>
+                    <p class="text-sm text-gray-400 dark:text-slate-500">Venta sin cliente</p>
                 </div>
             </div>
             @endif
 
             {{-- Pago --}}
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
                 <div class="flex items-center gap-2 mb-5">
-                    <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-credit-card text-green-600"></i>
+                    <div class="w-10 h-10 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-credit-card text-green-600 dark:text-green-400"></i>
                     </div>
-                    <h3 class="font-bold text-gray-700 uppercase tracking-wider">Pago</h3>
+                    <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider">Pago</h3>
                 </div>
                 <dl class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Subtotal</dt>
-                        <dd class="text-sm text-gray-700">S/ {{ number_format($venta->subtotal, 2) }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Subtotal</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300">S/ {{ number_format($venta->subtotal, 2) }}</dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">IGV (18%)</dt>
-                        <dd class="text-sm text-gray-700">S/ {{ number_format($venta->igv, 2) }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">IGV (18%)</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300">S/ {{ number_format($venta->igv, 2) }}</dd>
                     </div>
-                    <div class="flex justify-between items-center border-t border-gray-100 pt-3">
-                        <dt class="font-bold text-gray-700">Total</dt>
-                        <dd class="text-2xl font-bold text-gray-900">S/ {{ number_format($venta->total, 2) }}</dd>
+                    <div class="flex justify-between items-center border-t border-gray-100 dark:border-slate-700 pt-3">
+                        <dt class="font-bold text-gray-700 dark:text-slate-300">Total</dt>
+                        <dd class="text-2xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($venta->total, 2) }}</dd>
                     </div>
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Método</dt>
-                        <dd class="text-sm text-gray-700 font-medium">
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Método</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300 font-medium">
                             {{ $venta->metodo_pago ? ucfirst($venta->metodo_pago) : '—' }}
                         </dd>
                     </div>
                     @if($venta->confirmador)
                     <div class="flex justify-between items-center">
-                        <dt class="text-sm text-gray-400">Confirmado por</dt>
-                        <dd class="text-sm text-gray-700">{{ $venta->confirmador->name }}</dd>
+                        <dt class="text-sm text-gray-400 dark:text-slate-500">Confirmado por</dt>
+                        <dd class="text-sm text-gray-700 dark:text-slate-300">{{ $venta->confirmador->name }}</dd>
                     </div>
                     @endif
                 </dl>
@@ -1039,11 +1039,11 @@
 
         {{-- Observaciones --}}
         @if($venta->observaciones)
-        <div class="bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 mb-6 flex items-start gap-3">
+        <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-2xl px-5 py-4 mb-6 flex items-start gap-3">
             <i class="fas fa-sticky-note text-amber-500 mt-0.5"></i>
             <div>
-                <p class="text-sm font-semibold text-amber-700">Observaciones</p>
-                <p class="text-sm text-amber-600 mt-0.5">{{ $venta->observaciones }}</p>
+                <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">Observaciones</p>
+                <p class="text-sm text-amber-600 dark:text-amber-400 mt-0.5">{{ $venta->observaciones }}</p>
             </div>
         </div>
         @endif
@@ -1051,16 +1051,16 @@
         {{-- Guía de Remisión card --}}
         @if($venta->guiaRemision)
         @php $guia = $venta->guiaRemision; @endphp
-        <div class="bg-white rounded-2xl border border-teal-100 shadow-sm p-6 mb-7">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-teal-100 shadow-sm p-6 mb-7">
             <div class="flex items-center justify-between mb-5">
                 <div class="flex items-center gap-2">
-                    <div class="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-truck text-teal-600"></i>
+                    <div class="w-10 h-10 bg-teal-50 dark:bg-teal-900/30 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-truck text-teal-600 dark:text-teal-400"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-700 uppercase tracking-wider">Guía de Remisión</h3>
-                        <p class="text-xs text-gray-400 mt-0.5">
-                            <span class="inline-flex items-center gap-1 bg-teal-50 text-teal-700 border border-teal-200 rounded-full px-2 py-0.5 text-xs font-semibold">
+                        <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider">Guía de Remisión</h3>
+                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">
+                            <span class="inline-flex items-center gap-1 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800 rounded-full px-2 py-0.5 text-xs font-semibold">
                                 {{ $guia->motivo_label }}
                             </span>
                             <span class="ml-2">{{ $guia->modalidad_label }}</span>
@@ -1077,44 +1077,44 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
                 <div>
-                    <dt class="text-xs text-gray-400 mb-1">Fecha de Traslado</dt>
-                    <dd class="text-sm font-semibold text-gray-700">{{ $guia->fecha_traslado?->format('d/m/Y') ?? '—' }}</dd>
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1">Fecha de Traslado</dt>
+                    <dd class="text-sm font-semibold text-gray-700 dark:text-slate-300">{{ $guia->fecha_traslado?->format('d/m/Y') ?? '—' }}</dd>
                 </div>
                 <div>
-                    <dt class="text-xs text-gray-400 mb-1">Peso Bruto</dt>
-                    <dd class="text-sm font-semibold text-gray-700">{{ $guia->peso_total ? number_format($guia->peso_total, 2) . ' kg' : '—' }}</dd>
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1">Peso Bruto</dt>
+                    <dd class="text-sm font-semibold text-gray-700 dark:text-slate-300">{{ $guia->peso_total ? number_format($guia->peso_total, 2) . ' kg' : '—' }}</dd>
                 </div>
                 <div>
-                    <dt class="text-xs text-gray-400 mb-1">Nro. Bultos</dt>
-                    <dd class="text-sm font-semibold text-gray-700">{{ $guia->bultos ?? '—' }}</dd>
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1">Nro. Bultos</dt>
+                    <dd class="text-sm font-semibold text-gray-700 dark:text-slate-300">{{ $guia->bultos ?? '—' }}</dd>
                 </div>
                 <div>
-                    <dt class="text-xs text-gray-400 mb-1">Modalidad</dt>
-                    <dd class="text-sm font-semibold text-gray-700">{{ $guia->modalidad_label }}</dd>
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1">Modalidad</dt>
+                    <dd class="text-sm font-semibold text-gray-700 dark:text-slate-300">{{ $guia->modalidad_label }}</dd>
                 </div>
                 <div class="col-span-2">
-                    <dt class="text-xs text-gray-400 mb-1"><i class="fas fa-map-marker-alt text-green-500 mr-1"></i>Punto de Partida</dt>
-                    <dd class="text-sm text-gray-700">{{ $guia->direccion_partida ?? '—' }}
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1"><i class="fas fa-map-marker-alt text-green-500 mr-1"></i>Punto de Partida</dt>
+                    <dd class="text-sm text-gray-700 dark:text-slate-300">{{ $guia->direccion_partida ?? '—' }}
                         @if($guia->ubigeo_partida)
-                            <span class="text-xs text-gray-400 font-mono ml-1">({{ $guia->ubigeo_partida }})</span>
+                            <span class="text-xs text-gray-400 dark:text-slate-500 font-mono ml-1">({{ $guia->ubigeo_partida }})</span>
                         @endif
                     </dd>
                 </div>
                 <div class="col-span-2">
-                    <dt class="text-xs text-gray-400 mb-1"><i class="fas fa-flag-checkered text-red-500 mr-1"></i>Punto de Llegada</dt>
-                    <dd class="text-sm text-gray-700">{{ $guia->direccion_llegada ?? '—' }}
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1"><i class="fas fa-flag-checkered text-red-500 mr-1"></i>Punto de Llegada</dt>
+                    <dd class="text-sm text-gray-700 dark:text-slate-300">{{ $guia->direccion_llegada ?? '—' }}
                         @if($guia->ubigeo_llegada)
-                            <span class="text-xs text-gray-400 font-mono ml-1">({{ $guia->ubigeo_llegada }})</span>
+                            <span class="text-xs text-gray-400 dark:text-slate-500 font-mono ml-1">({{ $guia->ubigeo_llegada }})</span>
                         @endif
                     </dd>
                 </div>
                 @if($guia->transportista_nombre)
-                <div class="col-span-2 md:col-span-4 pt-3 border-t border-gray-100">
-                    <dt class="text-xs text-gray-400 mb-1"><i class="fas fa-id-card mr-1 text-gray-400"></i>Transportista</dt>
-                    <dd class="text-sm font-semibold text-gray-700">
+                <div class="col-span-2 md:col-span-4 pt-3 border-t border-gray-100 dark:border-slate-700">
+                    <dt class="text-xs text-gray-400 dark:text-slate-500 mb-1"><i class="fas fa-id-card mr-1 text-gray-400 dark:text-slate-500"></i>Transportista</dt>
+                    <dd class="text-sm font-semibold text-gray-700 dark:text-slate-300">
                         {{ $guia->transportista_nombre }}
                         @if($guia->transportista_doc)
-                            <span class="text-xs text-gray-500 font-normal ml-2">({{ $guia->transportista_tipo_doc }}: {{ $guia->transportista_doc }})</span>
+                            <span class="text-xs text-gray-500 dark:text-slate-400 font-normal ml-2">({{ $guia->transportista_tipo_doc }}: {{ $guia->transportista_doc }})</span>
                         @endif
                     </dd>
                 </div>
@@ -1124,14 +1124,14 @@
         @endif
 
         {{-- Products table --}}
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div class="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
-                <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-box text-purple-600"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
+            <div class="flex items-center gap-3 px-6 py-5 border-b border-gray-100 dark:border-slate-700">
+                <div class="w-10 h-10 bg-purple-50 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-box text-purple-600 dark:text-purple-400"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900">{{ $venta->tipo_comprobante === 'cotizacion' ? 'Productos cotizados' : 'Productos vendidos' }}</h3>
-                    <p class="text-sm text-gray-400">{{ $venta->detalles->count() }} ítem(s)</p>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">{{ $venta->tipo_comprobante === 'cotizacion' ? 'Productos cotizados' : 'Productos vendidos' }}</h3>
+                    <p class="text-sm text-gray-400 dark:text-slate-500">{{ $venta->detalles->count() }} ítem(s)</p>
                 </div>
             </div>
 
@@ -1148,7 +1148,7 @@
                             <th class="px-4 py-3 text-right text-xs font-bold uppercase tracking-wider">TOTAL</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
                         @foreach($venta->detalles as $i => $detalle)
                         @php
                             $imeisDetalle = $venta->imeis->filter(fn($imei) =>
@@ -1162,35 +1162,35 @@
                             $totalFinal  = round((float) ($detalle->subtotal_con_igv ?? $detalle->subtotal * 1.18), 2);
                         @endphp
                         <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50' }} hover:bg-blue-50/20 transition-colors">
-                            <td class="px-4 py-4 text-center text-sm text-gray-500 font-medium">{{ $i + 1 }}</td>
-                            <td class="px-4 py-4 text-sm font-mono text-gray-700">{{ $detalle->producto->codigo ?? '—' }}</td>
+                            <td class="px-4 py-4 text-center text-sm text-gray-500 dark:text-slate-400 font-medium">{{ $i + 1 }}</td>
+                            <td class="px-4 py-4 text-sm font-mono text-gray-700 dark:text-slate-300">{{ $detalle->producto->codigo ?? '—' }}</td>
                             <td class="px-4 py-4">
-                                <span class="font-semibold text-gray-900">{{ $detalle->producto->nombre }}</span>
+                                <span class="font-semibold text-gray-900 dark:text-slate-100">{{ $detalle->producto->nombre }}</span>
                                 @if($detalle->variante)
                                     <div class="flex items-center gap-1.5 mt-0.5">
                                         @if($detalle->variante->color?->codigo_hex)
-                                            <span class="w-2.5 h-2.5 rounded-full border border-gray-300 shrink-0"
+                                            <span class="w-2.5 h-2.5 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                                   style="background-color: {{ $detalle->variante->color->codigo_hex }}"></span>
                                         @endif
-                                        <span class="text-xs text-indigo-600 font-medium">{{ $detalle->variante->nombre_completo }}</span>
-                                        <span class="text-xs text-gray-400 font-mono">({{ $detalle->variante->sku }})</span>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">{{ $detalle->variante->nombre_completo }}</span>
+                                        <span class="text-xs text-gray-400 dark:text-slate-500 font-mono">({{ $detalle->variante->sku }})</span>
                                     </div>
                                 @elseif($detalle->producto->categoria)
-                                    <div class="text-xs text-gray-400 mt-0.5">{{ $detalle->producto->categoria->nombre }}</div>
+                                    <div class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">{{ $detalle->producto->categoria->nombre }}</div>
                                 @endif
                                 @foreach($imeisDetalle as $imei)
                                     <div class="mt-0.5">
-                                        <span class="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded font-mono">
+                                        <span class="inline-flex items-center gap-1 text-xs bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 px-2 py-0.5 rounded font-mono">
                                             <i class="fas fa-microchip" style="font-size:9px"></i>
                                             {{ $imei->codigo_imei }}
                                         </span>
                                     </div>
                                 @endforeach
                             </td>
-                            <td class="px-4 py-4 text-center text-sm text-gray-600">{{ $detalle->producto->unidadMedida?->abreviatura ?? 'UNID.' }}</td>
-                            <td class="px-4 py-4 text-center font-bold text-gray-700">{{ $detalle->cantidad }}</td>
-                            <td class="px-4 py-4 text-right text-sm text-gray-700">S/ {{ number_format($precioFinal, 2) }}</td>
-                            <td class="px-4 py-4 text-right font-bold text-gray-900">S/ {{ number_format($totalFinal, 2) }}</td>
+                            <td class="px-4 py-4 text-center text-sm text-gray-600 dark:text-slate-400">{{ $detalle->producto->unidadMedida?->abreviatura ?? 'UNID.' }}</td>
+                            <td class="px-4 py-4 text-center font-bold text-gray-700 dark:text-slate-300">{{ $detalle->cantidad }}</td>
+                            <td class="px-4 py-4 text-right text-sm text-gray-700 dark:text-slate-300">S/ {{ number_format($precioFinal, 2) }}</td>
+                            <td class="px-4 py-4 text-right font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($totalFinal, 2) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -1198,29 +1198,29 @@
             </div>
 
             {{-- Son + Totales --}}
-            <div class="flex flex-col md:flex-row justify-between items-start gap-4 px-6 py-5 border-t border-gray-200 bg-gray-50">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4 px-6 py-5 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60">
                 <div class="flex-1">
-                    <div class="border border-gray-300 rounded-lg p-3 bg-white">
-                        <div class="text-xs font-bold text-gray-400 uppercase mb-1">Son:</div>
-                        <div class="text-sm font-bold text-gray-800 uppercase">{{ montoEnLetras($venta->total) }}</div>
+                    <div class="border border-gray-300 dark:border-slate-600 rounded-lg p-3 bg-white dark:bg-slate-800">
+                        <div class="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase mb-1">Son:</div>
+                        <div class="text-sm font-bold text-gray-800 dark:text-slate-200 uppercase">{{ montoEnLetras($venta->total) }}</div>
                     </div>
                 </div>
                 <div class="w-full md:w-72 shrink-0">
-                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100">
-                        <span class="text-gray-500">Gravada</span>
-                        <span class="font-semibold text-gray-800">S/ {{ number_format($venta->subtotal, 2) }}</span>
+                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100 dark:border-slate-700">
+                        <span class="text-gray-500 dark:text-slate-400">Gravada</span>
+                        <span class="font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($venta->subtotal, 2) }}</span>
                     </div>
-                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100">
-                        <span class="text-gray-500">IGV (18.00%)</span>
-                        <span class="font-semibold text-gray-800">S/ {{ number_format($venta->igv, 2) }}</span>
+                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100 dark:border-slate-700">
+                        <span class="text-gray-500 dark:text-slate-400">IGV (18.00%)</span>
+                        <span class="font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($venta->igv, 2) }}</span>
                     </div>
-                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100">
-                        <span class="text-gray-500">Descuento Total</span>
-                        <span class="font-semibold text-gray-800">S/ 0.00</span>
+                    <div class="flex justify-between py-1.5 text-sm border-b border-gray-100 dark:border-slate-700">
+                        <span class="text-gray-500 dark:text-slate-400">Descuento Total</span>
+                        <span class="font-semibold text-gray-800 dark:text-slate-200">S/ 0.00</span>
                     </div>
                     <div class="flex justify-between py-2 mt-1">
-                        <span class="font-bold text-gray-900 text-base">Total</span>
-                        <span class="font-bold text-blue-600 text-xl">S/ {{ number_format($venta->total, 2) }}</span>
+                        <span class="font-bold text-gray-900 dark:text-slate-100 text-base">Total</span>
+                        <span class="font-bold text-blue-600 dark:text-blue-400 text-xl">S/ {{ number_format($venta->total, 2) }}</span>
                     </div>
                 </div>
             </div>
@@ -1229,33 +1229,33 @@
         {{-- Resumen de crédito --}}
         @if($venta->es_credito && $venta->cuentaPorCobrar)
         @php $cuenta = $venta->cuentaPorCobrar; @endphp
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-6 no-print">
-            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden mt-6 no-print">
+            <div class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-orange-600 text-sm"></i>
+                    <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900/40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-orange-600 dark:text-orange-400 text-sm"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900">Crédito — Plan de Cuotas</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">Crédito — Plan de Cuotas</h3>
                 </div>
                 <a href="{{ route('ventas.credito.show', $venta) }}"
-                   class="text-sm text-orange-600 hover:text-orange-700 font-medium transition">
+                   class="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 font-medium transition">
                     Ver detalle completo <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
             <div class="p-6">
                 {{-- Barra de progreso --}}
                 <div class="mb-4">
-                    <div class="flex justify-between text-sm text-gray-500 mb-1.5">
-                        <span>Pagado: <span class="font-semibold text-gray-800">S/ {{ number_format($cuenta->monto_pagado, 2) }}</span></span>
-                        <span>Total: <span class="font-semibold text-gray-800">S/ {{ number_format($cuenta->monto_total, 2) }}</span></span>
+                    <div class="flex justify-between text-sm text-gray-500 dark:text-slate-400 mb-1.5">
+                        <span>Pagado: <span class="font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($cuenta->monto_pagado, 2) }}</span></span>
+                        <span>Total: <span class="font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($cuenta->monto_total, 2) }}</span></span>
                     </div>
-                    <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-3">
                         <div class="bg-orange-500 h-3 rounded-full transition-all"
                              style="width: {{ $cuenta->porcentaje_pagado }}%"></div>
                     </div>
-                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <div class="flex justify-between text-xs text-gray-400 dark:text-slate-500 mt-1">
                         <span>{{ $cuenta->porcentaje_pagado }}% pagado</span>
-                        <span>Saldo: <strong class="text-orange-600">S/ {{ number_format($cuenta->saldo_pendiente, 2) }}</strong></span>
+                        <span>Saldo: <strong class="text-orange-600 dark:text-orange-400">S/ {{ number_format($cuenta->saldo_pendiente, 2) }}</strong></span>
                     </div>
                 </div>
 
@@ -1268,12 +1268,12 @@
                     @endphp
                     <div class="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-gray-400 w-8">{{ $cuota->numero_cuota }}/{{ $cuota->total_cuotas }}</span>
-                            <span class="text-sm text-gray-600">{{ $cuota->fecha_vencimiento->format('d/m/Y') }}</span>
+                            <span class="text-xs font-bold text-gray-400 dark:text-slate-500 w-8">{{ $cuota->numero_cuota }}/{{ $cuota->total_cuotas }}</span>
+                            <span class="text-sm text-gray-600 dark:text-slate-400">{{ $cuota->fecha_vencimiento->format('d/m/Y') }}</span>
                             @if($vencida)
-                            <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-semibold">Vencida</span>
+                            <span class="text-[10px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded-full font-semibold">Vencida</span>
                             @elseif($cuota->estado === 'pagado')
-                            <span class="text-[10px] bg-green-100 text-green-600 px-1.5 py-0.5 rounded-full font-semibold">Pagada</span>
+                            <span class="text-[10px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded-full font-semibold">Pagada</span>
                             @endif
                         </div>
                         <span class="text-sm font-mono font-semibold {{ $cuota->estado === 'pagado' ? 'text-green-600 line-through' : ($vencida ? 'text-red-600' : 'text-gray-700') }}">
@@ -1282,7 +1282,7 @@
                     </div>
                     @endforeach
                     @if($cuenta->cuotas->count() > 5)
-                    <p class="text-xs text-gray-400 text-center pt-1">... y {{ $cuenta->cuotas->count() - 5 }} cuotas más</p>
+                    <p class="text-xs text-gray-400 dark:text-slate-500 text-center pt-1">... y {{ $cuenta->cuotas->count() - 5 }} cuotas más</p>
                     @endif
                 </div>
             </div>

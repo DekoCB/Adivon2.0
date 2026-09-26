@@ -9,10 +9,10 @@
         <div class="mb-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Códigos de Barras</h1>
-                    <p class="text-sm text-gray-600 mt-1">Gestiona los códigos de barras de {{ $producto->nombre }}</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Códigos de Barras</h1>
+                    <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">Gestiona los códigos de barras de {{ $producto->nombre }}</p>
                 </div>
-                <a href="{{ route('inventario.productos.show', $producto) }}" class="text-gray-600 hover:text-gray-900">
+                <a href="{{ route('inventario.productos.show', $producto) }}" class="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100">
                     <i class="fas fa-arrow-left mr-2"></i>Volver al producto
                 </a>
             </div>
@@ -21,22 +21,22 @@
         <!-- Mensajes -->
         <!-- Mostrar código principal actual del producto -->
         @if($producto->codigo_barras)
-        <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+        <div class="mb-6 bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-lg">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-blue-800">
+                    <p class="text-sm text-blue-800 dark:text-blue-300">
                         <i class="fas fa-info-circle mr-1"></i>
                         <strong>Código principal del producto:</strong>
                     </p>
                     <p class="text-xl font-mono font-bold text-blue-900 mt-1">
                         {{ $producto->codigo_barras }}
                     </p>
-                    <p class="text-xs text-blue-600 mt-1">
+                    <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">
                         Este código se usa en facturas y búsquedas rápidas
                     </p>
                 </div>
                 <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300">
                         <i class="fas fa-check-circle mr-1"></i>
                         Principal en producto
                     </span>
@@ -58,7 +58,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Columna izquierda: Información del producto -->
             <div class="md:col-span-1">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
                     <div class="bg-blue-900 px-4 py-3">
                         <h3 class="font-semibold text-white">
                             <i class="fas fa-box mr-2"></i>
@@ -68,44 +68,44 @@
                     <div class="p-4">
                         <div class="flex justify-center mb-4">
                             @if($producto->imagen)
-                                <img src="{{ $producto->imagen_url }}" alt="{{ $producto->nombre }}" class="h-32 w-32 object-cover rounded-lg border-2 border-gray-200">
+                                <img src="{{ $producto->imagen_url }}" alt="{{ $producto->nombre }}" class="h-32 w-32 object-cover rounded-lg border-2 border-gray-200 dark:border-slate-700">
                             @else
-                                <div class="h-32 w-32 rounded-lg bg-gray-200 flex items-center justify-center">
-                                    <i class="fas fa-box text-4xl text-gray-400"></i>
+                                <div class="h-32 w-32 rounded-lg bg-gray-200 dark:bg-slate-700 flex items-center justify-center">
+                                    <i class="fas fa-box text-4xl text-gray-400 dark:text-slate-500"></i>
                                 </div>
                             @endif
                         </div>
 
                         <div class="space-y-2 text-sm">
                             <div>
-                                <span class="font-medium text-gray-700">Código:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->codigo }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Código:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->codigo }}</span>
                             </div>
                             <div>
-                                <span class="font-medium text-gray-700">Nombre:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->nombre }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Nombre:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->nombre }}</span>
                             </div>
                             <div>
-                                <span class="font-medium text-gray-700">Categoría:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->categoria->nombre ?? 'N/A' }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Categoría:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->categoria->nombre ?? 'N/A' }}</span>
                             </div>
                             <div>
-                                <span class="font-medium text-gray-700">Marca:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->marca->nombre ?? 'N/A' }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Marca:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->marca->nombre ?? 'N/A' }}</span>
                             </div>
                             <div>
-                                <span class="font-medium text-gray-700">Modelo:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->modelo->nombre ?? 'N/A' }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Modelo:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->modelo->nombre ?? 'N/A' }}</span>
                             </div>
                             <div>
-                                <span class="font-medium text-gray-700">Color:</span>
-                                <span class="text-gray-900 ml-2">{{ $producto->color->nombre ?? 'N/A' }}</span>
+                                <span class="font-medium text-gray-700 dark:text-slate-300">Color:</span>
+                                <span class="text-gray-900 dark:text-slate-100 ml-2">{{ $producto->color->nombre ?? 'N/A' }}</span>
                             </div>
                         </div>
 
-                        <div class="mt-4 pt-4 border-t border-gray-200">
-                            <div class="bg-yellow-50 p-3 rounded-lg">
-                                <p class="text-xs text-yellow-700">
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
+                            <div class="bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-lg">
+                                <p class="text-xs text-yellow-700 dark:text-yellow-300">
                                     <i class="fas fa-info-circle mr-1"></i>
                                     <strong>Código principal:</strong> Se usará en facturas y búsquedas rápidas.
                                 </p>
@@ -118,7 +118,7 @@
             <!-- Columna derecha: Lista de códigos de barras -->
             <div class="md:col-span-2">
                 <!-- Formulario para agregar nuevo código -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden mb-6">
                     <div class="bg-green-600 px-4 py-3">
                         <h3 class="font-semibold text-white">
                             <i class="fas fa-plus-circle mr-2"></i>
@@ -130,7 +130,7 @@
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="relative">
-                                    <label for="codigo_barras" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <label for="codigo_barras" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                         Código de Barras <span class="text-red-500">*</span>
                                     </label>
                                     <div class="flex space-x-2">
@@ -139,7 +139,7 @@
                                                    name="codigo_barras"
                                                    id="codigo_barras"
                                                    value="{{ old('codigo_barras') }}"
-                                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                                   class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500"
                                                    placeholder="Ej: 1234567890123"
                                                    required>
                                         </div>
@@ -152,14 +152,14 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                         Descripción
                                     </label>
                                     <input type="text"
                                            name="descripcion"
                                            id="descripcion"
                                            value="{{ old('descripcion') }}"
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500"
                                            placeholder="Ej: Unidad, Caja x6, Pack">
                                 </div>
                                 <div class="md:col-span-2">
@@ -167,9 +167,9 @@
                                         <input type="checkbox"
                                                name="es_principal"
                                                value="1"
-                                               class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                               class="rounded border-gray-300 dark:border-slate-600 text-green-600 dark:text-green-400 focus:ring-green-500"
                                                {{ old('es_principal') ? 'checked' : '' }}>
-                                        <span class="ml-2 text-sm text-gray-700">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-slate-300">
                                             Establecer como código principal
                                         </span>
                                     </label>
@@ -186,7 +186,7 @@
                 </div>
 
                 <!-- Lista de códigos existentes -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
                     <div class="bg-blue-900 px-4 py-3">
                         <h3 class="font-semibold text-white">
                             <i class="fas fa-list mr-2"></i>
@@ -195,33 +195,33 @@
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                            <thead class="bg-gray-50 dark:bg-slate-900/60">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Principal</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Código</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Descripción</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Principal</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-slate-400 uppercase">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                 @forelse($codigosBarras as $codigo)
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                     <td class="px-6 py-4">
                                         <x-code>{{ $codigo->codigo_barras }}</x-code>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="text-sm text-gray-900">{{ $codigo->descripcion ?? '-' }}</span>
+                                        <span class="text-sm text-gray-900 dark:text-slate-100">{{ $codigo->descripcion ?? '-' }}</span>
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         @if($codigo->es_principal)
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300">
                                                 <i class="fas fa-check-circle mr-1"></i> Principal
                                             </span>
                                         @else
                                             <form action="{{ route('inventario.productos.codigos-barras.principal', $codigo) }}" method="POST" class="inline">
                                                 @csrf
-                                                <button type="submit" class="text-gray-400 hover:text-green-600" title="Establecer como principal">
+                                                <button type="submit" class="text-gray-400 dark:text-slate-500 hover:text-green-600" title="Establecer como principal">
                                                     <i class="far fa-circle"></i>
                                                 </button>
                                             </form>
@@ -234,7 +234,7 @@
                                               onsubmit="return confirm('¿Estás seguro de eliminar este código de barras?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar">
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900" title="Eliminar">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -243,10 +243,10 @@
                                 @empty
                                 <tr>
                                     <td colspan="4" class="px-6 py-12 text-center">
-                                        <div class="flex flex-col items-center justify-center text-gray-500">
+                                        <div class="flex flex-col items-center justify-center text-gray-500 dark:text-slate-400">
                                             <i class="fas fa-barcode text-6xl mb-4"></i>
                                             <p class="text-lg font-medium">No hay códigos de barras registrados</p>
-                                            <p class="text-sm text-gray-400 mt-1">Agrega el primer código usando el formulario</p>
+                                            <p class="text-sm text-gray-400 dark:text-slate-500 mt-1">Agrega el primer código usando el formulario</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -258,8 +258,8 @@
                     <!-- Código principal actual -->
                     @php $principal = $codigosBarras->firstWhere('es_principal', true); @endphp
                     @if($principal)
-                    <div class="px-6 py-4 bg-blue-50 border-t border-blue-200">
-                        <p class="text-sm text-blue-800">
+                    <div class="px-6 py-4 bg-blue-50 dark:bg-blue-900/30 border-t border-blue-200 dark:border-blue-800">
+                        <p class="text-sm text-blue-800 dark:text-blue-300">
                             <i class="fas fa-info-circle mr-1"></i>
                             <strong>Código principal actual:</strong> {{ $principal->codigo_barras }}
                             @if($principal->descripcion)
@@ -287,14 +287,14 @@
          style="display:none!important">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="cerrarModalImpresion()"></div>
 
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl">
+        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl">
             <!-- Header -->
             <div class="flex items-center justify-between px-6 py-4 border-b">
-                <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <i class="fas fa-print text-blue-600"></i>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                    <i class="fas fa-print text-blue-600 dark:text-blue-400"></i>
                     Imprimir Etiquetas de Código de Barras
                 </h3>
-                <button onclick="cerrarModalImpresion()" class="text-gray-400 hover:text-gray-600 text-lg">
+                <button onclick="cerrarModalImpresion()" class="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 text-lg">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -304,29 +304,29 @@
 
                 {{-- Selección de códigos --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                         <i class="fas fa-check-square mr-1 text-blue-500"></i>
                         Seleccionar códigos a imprimir
                     </label>
-                    <div class="space-y-1.5 max-h-44 overflow-y-auto border rounded-lg p-3 bg-gray-50">
+                    <div class="space-y-1.5 max-h-44 overflow-y-auto border rounded-lg p-3 bg-gray-50 dark:bg-slate-900/60">
                         @forelse($codigosBarras as $codigo)
-                        <label class="flex items-center gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                        <label class="flex items-center gap-3 p-2 hover:bg-white dark:hover:bg-slate-800 rounded-lg cursor-pointer transition">
                             <input type="checkbox"
                                    name="codigos_imprimir[]"
                                    value="{{ $codigo->id }}"
                                    data-codigo="{{ $codigo->codigo_barras }}"
                                    data-desc="{{ $codigo->descripcion }}"
-                                   class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                                   class="w-4 h-4 text-blue-600 dark:text-blue-400 rounded border-gray-300 dark:border-slate-600 focus:ring-blue-500">
                             <x-code class="flex-1">{{ $codigo->codigo_barras }}</x-code>
                             @if($codigo->descripcion)
-                                <span class="text-xs text-gray-500">({{ $codigo->descripcion }})</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400">({{ $codigo->descripcion }})</span>
                             @endif
                             @if($codigo->es_principal)
-                                <span class="px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">Principal</span>
+                                <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 text-xs rounded-full">Principal</span>
                             @endif
                         </label>
                         @empty
-                        <p class="text-sm text-gray-400 text-center py-3">No hay códigos registrados.</p>
+                        <p class="text-sm text-gray-400 dark:text-slate-500 text-center py-3">No hay códigos registrados.</p>
                         @endforelse
                     </div>
                 </div>
@@ -334,7 +334,7 @@
                 {{-- Configuración --}}
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                             <i class="fas fa-copy mr-1 text-blue-500"></i>
                             Copias por código
                         </label>
@@ -342,7 +342,7 @@
                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                             <i class="fas fa-ruler-combined mr-1 text-blue-500"></i>
                             Tamaño de etiqueta
                         </label>
@@ -356,7 +356,7 @@
 
                 {{-- Diseño de página --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                         <i class="fas fa-table mr-1 text-blue-500"></i>
                         Diseño de página
                     </label>
@@ -366,11 +366,11 @@
                             ['value' => '3x6',  'icon' => 'fa-th-large','cols' => '3 col.', 'rows' => '6 fil.', 'total' => '18/hoja'],
                             ['value' => '4x8',  'icon' => 'fa-th-list', 'cols' => '4 col.', 'rows' => '8 fil.', 'total' => '32/hoja'],
                         ] as $d)
-                        <label class="diseno-card cursor-pointer border-2 border-gray-200 rounded-xl p-3 text-center hover:border-blue-300 transition {{ $loop->first ? 'border-blue-500 bg-blue-50' : '' }}">
+                        <label class="diseno-card cursor-pointer border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-blue-300 transition {{ $loop->first ? 'border-blue-500 bg-blue-50' : '' }}">
                             <input type="radio" name="diseno" value="{{ $d['value'] }}" class="hidden" {{ $loop->first ? 'checked' : '' }}>
-                            <i class="fas {{ $d['icon'] }} text-2xl text-gray-400 mb-1 block"></i>
-                            <p class="text-xs font-medium text-gray-700">{{ $d['cols'] }} × {{ $d['rows'] }}</p>
-                            <p class="text-xs text-gray-400">{{ $d['total'] }}</p>
+                            <i class="fas {{ $d['icon'] }} text-2xl text-gray-400 dark:text-slate-500 mb-1 block"></i>
+                            <p class="text-xs font-medium text-gray-700 dark:text-slate-300">{{ $d['cols'] }} × {{ $d['rows'] }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500">{{ $d['total'] }}</p>
                         </label>
                         @endforeach
                     </div>
@@ -378,40 +378,40 @@
 
                 {{-- Información en la etiqueta --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                         <i class="fas fa-info-circle mr-1 text-blue-500"></i>
                         Información en la etiqueta
                     </label>
-                    <div class="space-y-2 bg-gray-50 p-3 rounded-lg">
+                    <div class="space-y-2 bg-gray-50 dark:bg-slate-900/60 p-3 rounded-lg">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="mostrar_nombre" checked class="w-4 h-4 rounded border-gray-300 text-blue-600">
-                            <span class="text-sm text-gray-700">Nombre del producto</span>
+                            <input type="checkbox" id="mostrar_nombre" checked class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400">
+                            <span class="text-sm text-gray-700 dark:text-slate-300">Nombre del producto</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="mostrar_descripcion" checked class="w-4 h-4 rounded border-gray-300 text-blue-600">
-                            <span class="text-sm text-gray-700">Descripción del código</span>
+                            <input type="checkbox" id="mostrar_descripcion" checked class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400">
+                            <span class="text-sm text-gray-700 dark:text-slate-300">Descripción del código</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="mostrar_codigo_texto" checked class="w-4 h-4 rounded border-gray-300 text-blue-600">
-                            <span class="text-sm text-gray-700">Número de código visible</span>
+                            <input type="checkbox" id="mostrar_codigo_texto" checked class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-600 dark:text-blue-400">
+                            <span class="text-sm text-gray-700 dark:text-slate-300">Número de código visible</span>
                         </label>
                     </div>
                 </div>
 
                 {{-- Resumen --}}
-                <div class="bg-blue-50 rounded-lg p-4 flex items-center justify-between">
-                    <div class="text-sm text-blue-800">
+                <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 flex items-center justify-between">
+                    <div class="text-sm text-blue-800 dark:text-blue-300">
                         <i class="fas fa-tag mr-1"></i>
                         Total de etiquetas: <span id="totalEtiquetas" class="font-bold text-blue-900">0</span>
                     </div>
-                    <div class="text-sm text-blue-600" id="resumenHojas"></div>
+                    <div class="text-sm text-blue-600 dark:text-blue-400" id="resumenHojas"></div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="flex justify-end gap-3 px-6 py-4 border-t bg-gray-50 rounded-b-2xl">
+            <div class="flex justify-end gap-3 px-6 py-4 border-t bg-gray-50 dark:bg-slate-900/60 rounded-b-2xl">
                 <button onclick="cerrarModalImpresion()"
-                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition text-sm">
+                        class="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition text-sm">
                     Cancelar
                 </button>
                 <button onclick="imprimirEtiquetas()"

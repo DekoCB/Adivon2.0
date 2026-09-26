@@ -32,23 +32,23 @@
                     $personal->put($almacen->encargado_id, $almacen->encargado);
                 }
             @endphp
-            <tr class="hover:bg-gray-50 transition-colors">
+            <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                 <td class="px-5 py-4 whitespace-nowrap">
-                    <span class="text-xs font-mono font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded">{{ $almacen->codigo }}</span>
+                    <span class="text-xs font-mono font-semibold text-gray-600 dark:text-slate-400 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ $almacen->codigo }}</span>
                 </td>
                 <td class="px-5 py-4">
-                    <p class="text-sm font-semibold text-gray-900">{{ $almacen->nombre }}</p>
+                    <p class="text-sm font-semibold text-gray-900 dark:text-slate-100">{{ $almacen->nombre }}</p>
                     @if($almacen->telefono)
-                        <p class="text-xs text-gray-400 mt-0.5"><i class="fas fa-phone mr-1"></i>{{ $almacen->telefono }}</p>
+                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-0.5"><i class="fas fa-phone mr-1"></i>{{ $almacen->telefono }}</p>
                     @endif
                 </td>
                 <td class="px-5 py-4 whitespace-nowrap hidden md:table-cell">
                     @if($almacen->sucursal)
-                        <span class="inline-flex items-center gap-1 text-sm text-blue-700 font-medium">
+                        <span class="inline-flex items-center gap-1 text-sm text-blue-700 dark:text-blue-300 font-medium">
                             <i class="fas fa-store text-blue-400 text-xs"></i>{{ $almacen->sucursal->nombre }}
                         </span>
                     @else
-                        <span class="text-sm text-gray-400 italic">Sin sucursal</span>
+                        <span class="text-sm text-gray-400 dark:text-slate-500 italic">Sin sucursal</span>
                     @endif
                 </td>
                 <td class="px-5 py-4 whitespace-nowrap">
@@ -56,7 +56,7 @@
                 </td>
                 <td class="px-5 py-4">
                     @if($personal->isEmpty())
-                        <span class="text-xs text-gray-400 italic">Sin personal</span>
+                        <span class="text-xs text-gray-400 dark:text-slate-500 italic">Sin personal</span>
                     @else
                         <div class="flex flex-wrap gap-1.5">
                             @foreach($personal as $persona)
@@ -78,8 +78,7 @@
                     @endif
                 </td>
                 <td class="px-5 py-4 whitespace-nowrap text-center">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold
-                        {{ $almacen->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600' }}">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $almacen->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ $almacen->estado === 'activo' ? 'bg-green-500' : 'bg-gray-400' }}"></span>
                         {{ ucfirst($almacen->estado) }}
                     </span>

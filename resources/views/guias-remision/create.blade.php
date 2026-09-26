@@ -12,17 +12,17 @@
 @section('content')
 <div>
 <div class="flex flex-wrap gap-3 mb-6 text-sm">
-        <a href="{{ route('guias-remision.index') }}" class="text-gray-500 hover:text-blue-700 flex items-center gap-1">
+        <a href="{{ route('guias-remision.index') }}" class="text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
             <i class="fas fa-list"></i> Listado
         </a>
         <span class="text-gray-300">|</span>
-        <span class="font-semibold text-blue-700 flex items-center gap-1">
+        <span class="font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-1">
             <i class="fas fa-plus-circle"></i> Nueva Guía
         </span>
     </div>
 
     @if($errors->any())
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5 rounded-lg text-sm">
+        <div class="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 mb-5 rounded-lg text-sm">
             <ul class="list-disc list-inside space-y-1">
                 @foreach($errors->all() as $error) <li>{{ $error }}</li> @endforeach
             </ul>
@@ -30,15 +30,15 @@
     @endif
 
     @if($fromTraslado)
-    <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-3 text-sm text-blue-800 mb-5">
+    <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 flex gap-3 text-sm text-blue-800 dark:text-blue-300 mb-5">
         <i class="fas fa-exchange-alt text-blue-500 mt-0.5 shrink-0"></i>
         <div>
             <p class="font-semibold">Traslado registrado: <span class="font-mono">{{ $fromTraslado }}</span></p>
-            <p class="text-xs text-blue-600 mt-0.5">El stock ya fue movido. Aquí solo completas el documento de transporte (conductor, transportista, etc.).</p>
+            <p class="text-xs text-blue-600 dark:text-blue-400 mt-0.5">El stock ya fue movido. Aquí solo completas el documento de transporte (conductor, transportista, etc.).</p>
         </div>
     </div>
     @elseif(session('info'))
-    <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 mb-5">
+    <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 dark:text-blue-300 mb-5">
         <i class="fas fa-info-circle text-blue-500 mt-0.5 shrink-0"></i>
         {{ session('info') }}
     </div>
@@ -52,7 +52,7 @@
             @endif
 
             {{-- ══ 1. CABECERA ══ --}}
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-file-invoice text-white text-xl"></i></div>
                     <div>
@@ -64,14 +64,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {{-- N° Guía --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                 <i class="fas fa-hashtag mr-1 text-blue-400"></i>N° Guía
                             </label>
                             <div class="flex items-center gap-2">
                                 <input type="text" x-model="numeroGuia" readonly
                                        placeholder="Se genera automáticamente"
-                                       class="flex-1 px-3 py-2.5 text-sm border border-gray-200 rounded-lg font-mono uppercase bg-gray-50 text-gray-600 cursor-not-allowed">
-                                <span x-show="guiaSerieId" x-cloak class="text-xs text-emerald-600 font-medium whitespace-nowrap">
+                                       class="flex-1 px-3 py-2.5 text-sm border border-gray-200 dark:border-slate-700 rounded-lg font-mono uppercase bg-gray-50 dark:bg-slate-900/60 text-gray-600 dark:text-slate-400 cursor-not-allowed">
+                                <span x-show="guiaSerieId" x-cloak class="text-xs text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
                                     <i class="fas fa-check-circle"></i> Auto-generado
                                 </span>
                             </div>
@@ -80,12 +80,12 @@
 
                         {{-- Motivo --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                 <i class="fas fa-tag mr-1 text-blue-400"></i>Motivo de Traslado *
                             </label>
                             @php $motivoDefault = old('motivo_traslado', $prefill['motivo_traslado'] ?? 'VENTA'); @endphp
                             <select name="motivo_traslado" required
-                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                 <option value="VENTA"                    {{ $motivoDefault === 'VENTA' ? 'selected':'' }}>Venta</option>
                                 <option value="CONSIGNACION"             {{ $motivoDefault === 'CONSIGNACION' ? 'selected':'' }}>Consignación</option>
                                 <option value="TRASLADO_ENTRE_ALMACENES" {{ $motivoDefault === 'TRASLADO_ENTRE_ALMACENES' ? 'selected':'' }}>Traslado entre almacenes</option>
@@ -98,19 +98,19 @@
 
                         {{-- Fecha --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                 <i class="fas fa-calendar mr-1 text-blue-400"></i>Fecha de Traslado *
                             </label>
                             <input type="date" name="fecha_traslado" required
                                    value="{{ old('fecha_traslado', now()->format('Y-m-d')) }}"
-                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
                 </div>
             </div>
 
             {{-- ══ 2. ALMACÉN ORIGEN ══ --}}
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-orange-700 to-orange-500 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-warehouse text-white text-xl"></i></div>
                     <div>
@@ -120,11 +120,11 @@
                 </div>
                 <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                             Almacén Origen *
                         </label>
                         <select name="almacen_id" required x-model="almacenId" @change="onAlmacenOrigenChange()"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 bg-white">
+                                class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($almacenes as $alm)
                                 <option value="{{ $alm->id }}" {{ old('almacen_id', $prefill['almacen_id'] ?? '') == $alm->id ? 'selected':'' }}>{{ $alm->nombre }}</option>
@@ -133,28 +133,28 @@
                         @error('almacen_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                             Dirección de Partida
                         </label>
                         <input type="text" name="direccion_partida"
                                value="{{ old('direccion_partida') }}"
                                @input="$el.dataset.userEdited = '1'"
                                placeholder="Se rellena automático"
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Ubigeo Partida</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Ubigeo Partida</label>
                         <input type="text" name="ubigeo_partida" maxlength="6"
                                value="{{ old('ubigeo_partida') }}"
                                @input="$el.dataset.userEdited = '1'"
                                placeholder="150101"
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 font-mono">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-500 font-mono">
                     </div>
                 </div>
             </div>
 
             {{-- ══ 3. DESTINO ══ --}}
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-teal-800 to-teal-600 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-map-marker-alt text-white text-xl"></i></div>
                     <div>
@@ -171,7 +171,7 @@
                         <label class="cursor-pointer">
                             <input type="radio" value="{{ $val }}" x-model="tipoDestino" @change="onTipoDestinoChange()" class="sr-only">
                             <div class="px-4 py-2 border-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2"
-                                 :class="tipoDestino === '{{ $val }}' ? 'border-teal-600 bg-teal-50 text-teal-700' : 'border-gray-200 text-gray-600 hover:border-teal-300'">
+                                 :class="tipoDestino === '{{ $val }}' ? 'border-teal-600 bg-teal-50 dark:bg-teal-900/30 text-teal-700' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:border-teal-300'">
                                 <i class="{{ $icon }}"></i> {{ $label }}
                             </div>
                         </label>
@@ -180,10 +180,10 @@
 
                     {{-- Almacén destino --}}
                     <div x-show="tipoDestino === 'almacen'" x-cloak>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Almacén Destino *</label>
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Almacén Destino *</label>
                         <select name="almacen_destino_id" x-model="almacenDestinoId" @change="onAlmacenDestinoChange()"
                                 :required="tipoDestino === 'almacen'"
-                                class="w-full sm:w-72 px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 bg-white">
+                                class="w-full sm:w-72 px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-800">
                             <option value="">— Seleccione —</option>
                             @foreach($almacenes as $alm)
                                 <option value="{{ $alm->id }}" {{ old('almacen_destino_id', $prefill['almacen_destino_id'] ?? '') == $alm->id ? 'selected':'' }}>{{ $alm->nombre }}</option>
@@ -196,28 +196,28 @@
 
                     {{-- Cliente / Proveedor buscador --}}
                     <div x-show="tipoDestino === 'cliente' || tipoDestino === 'proveedor'" x-cloak class="relative">
-                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                             <span x-text="tipoDestino === 'cliente' ? 'Buscar cliente (nombre o documento)' : 'Buscar proveedor (razón social o RUC)'"></span> *
                         </label>
                         <input type="text" x-model="destinatarioBuscar"
                                @input="buscarDestinatarioAjax()"
                                @keydown.escape="destinatarioResultados = []"
                                placeholder="Mínimo 2 caracteres..."
-                               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500">
+                               class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500">
                         <div x-show="destinatarioSeleccionado" x-cloak
-                             class="mt-2 flex items-center gap-2 px-3 py-2 bg-teal-50 border border-teal-200 rounded-lg text-sm">
+                             class="mt-2 flex items-center gap-2 px-3 py-2 bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800 rounded-lg text-sm">
                             <i class="fas fa-check-circle text-teal-500"></i>
-                            <span class="flex-1 font-medium text-teal-800" x-text="destinatarioSeleccionado?.nombre"></span>
+                            <span class="flex-1 font-medium text-teal-800 dark:text-teal-300" x-text="destinatarioSeleccionado?.nombre"></span>
                             <button type="button" @click="destinatarioSeleccionado=null;destinatarioBuscar='';clienteId='';proveedorId=''"
                                     class="text-teal-400 hover:text-red-500"><i class="fas fa-times text-xs"></i></button>
                         </div>
                         <div x-show="destinatarioResultados.length > 0" x-cloak
-                             class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+                             class="absolute z-20 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden">
                             <template x-for="item in destinatarioResultados" :key="item.id">
                                 <button type="button" @click="seleccionarDestinatario(item)"
                                         class="w-full text-left px-4 py-2.5 text-sm hover:bg-teal-50 border-b border-gray-50 last:border-0">
-                                    <span class="font-medium text-gray-800" x-text="item.nombre"></span>
-                                    <span class="text-xs text-gray-400 ml-2 font-mono" x-text="item.ruc ?? item.documento"></span>
+                                    <span class="font-medium text-gray-800 dark:text-slate-200" x-text="item.nombre"></span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 ml-2 font-mono" x-text="item.ruc ?? item.documento"></span>
                                 </button>
                             </template>
                         </div>
@@ -230,22 +230,22 @@
                     {{-- Dirección llegada --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                 Dirección de Llegada
                             </label>
                             <input type="text" name="direccion_llegada"
                                    value="{{ old('direccion_llegada') }}"
                                    @input="$el.dataset.userEdited = '1'"
                                    placeholder="Dirección del destino"
-                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500">
+                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Ubigeo Llegada</label>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Ubigeo Llegada</label>
                             <input type="text" name="ubigeo_llegada" maxlength="6"
                                    value="{{ old('ubigeo_llegada') }}"
                                    @input="$el.dataset.userEdited = '1'"
                                    placeholder="150101"
-                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 font-mono">
+                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 font-mono">
                         </div>
                     </div>
 
@@ -253,7 +253,7 @@
             </div>
 
             {{-- ══ 4. TRANSPORTE ══ --}}
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-emerald-900 to-emerald-700 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-truck text-white text-xl"></i></div>
                     <div>
@@ -266,87 +266,87 @@
                     {{-- Modalidad + Peso + Bultos --}}
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Modalidad *</label>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Modalidad *</label>
                             <select name="modalidad" required x-model="modalidad" @change="onModalidadChange()"
-                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 bg-white">
+                                    class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 bg-white dark:bg-slate-800">
                                 <option value="privado">Transporte Privado (propio)</option>
                                 <option value="publico">Transporte Público (tercero)</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                                <i class="fas fa-weight-hanging mr-1 text-gray-400"></i>Peso Total (kg)
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
+                                <i class="fas fa-weight-hanging mr-1 text-gray-400 dark:text-slate-500"></i>Peso Total (kg)
                             </label>
                             <input type="number" step="0.01" min="0" name="peso_total"
                                    value="{{ old('peso_total') }}" placeholder="0.00"
-                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                                <i class="fas fa-boxes mr-1 text-gray-400"></i>N° Bultos
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
+                                <i class="fas fa-boxes mr-1 text-gray-400 dark:text-slate-500"></i>N° Bultos
                             </label>
                             <input type="number" min="1" name="bultos"
                                    value="{{ old('bultos') }}" placeholder="1"
-                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                                   class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500">
                         </div>
                     </div>
 
                     {{-- Transportista (público) --}}
-                    <div x-show="modalidad === 'publico'" x-cloak class="border-t border-gray-100 pt-4">
-                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    <div x-show="modalidad === 'publico'" x-cloak class="border-t border-gray-100 dark:border-slate-700 pt-4">
+                        <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-3">
                             <i class="fas fa-id-card mr-1 text-blue-400"></i>Datos del Transportista
                         </p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Tipo Doc.</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Tipo Doc.</label>
                                 <select name="transportista_tipo_doc" x-model="transpTipoDoc"
-                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 bg-white">
+                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 bg-white dark:bg-slate-800">
                                     <option value="RUC">RUC</option>
                                     <option value="DNI">DNI</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">N° Documento</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">N° Documento</label>
                                 <div class="flex gap-2">
                                     <input type="text" name="transportista_doc" x-model="transpDoc"
                                            maxlength="11" placeholder="RUC o DNI"
                                            @keydown.enter.prevent="buscarTransportista()"
-                                           class="flex-1 px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
+                                           class="flex-1 px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
                                     <button type="button" @click="buscarTransportista()"
                                             :disabled="transpBuscando || !transpDoc"
                                             class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs rounded-lg disabled:opacity-50">
                                         <i class="fas" :class="transpBuscando ? 'fa-spinner fa-spin' : 'fa-search'"></i>
                                     </button>
                                 </div>
-                                <p x-show="transpError" x-text="transpError" x-cloak class="text-xs text-amber-600 mt-1"></p>
+                                <p x-show="transpError" x-text="transpError" x-cloak class="text-xs text-amber-600 dark:text-amber-400 mt-1"></p>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Nombre / Razón Social</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Nombre / Razón Social</label>
                                 <input type="text" name="transportista_nombre" x-model="transpNombre"
                                        maxlength="200" placeholder="Auto o manual"
-                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500">
                             </div>
                         </div>
                     </div>
 
                     {{-- Conductor (privado): en público no sabemos quién conduce, solo
                          importa el transportista (empresa) que se encarga del traslado --}}
-                    <div x-show="modalidad === 'privado'" x-cloak class="border-t border-gray-100 pt-4">
+                    <div x-show="modalidad === 'privado'" x-cloak class="border-t border-gray-100 dark:border-slate-700 pt-4">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                            <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
                                 <i class="fas fa-user-tie mr-1 text-purple-400"></i>Datos del Conductor
                             </p>
                             @if($ultimoConductor)
                             <button type="button" @click="restaurarUltimoConductor()"
-                                    class="text-xs text-purple-600 hover:text-purple-800 flex items-center gap-1">
+                                    class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 flex items-center gap-1">
                                 <i class="fas fa-history"></i> Usar último conductor
                             </button>
                             @endif
                         </div>
                         @if($ultimoConductor)
-                        <div class="mb-4 flex items-center gap-3 px-4 py-3 bg-purple-50 border border-purple-100 rounded-xl text-sm">
+                        <div class="mb-4 flex items-center gap-3 px-4 py-3 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 rounded-xl text-sm">
                             <i class="fas fa-user-check text-purple-400 shrink-0"></i>
-                            <div class="flex-1 text-purple-800">
+                            <div class="flex-1 text-purple-800 dark:text-purple-300">
                                 Último: <strong>{{ $ultimoConductor->conductor_nombre }}</strong>
                                 &middot; DNI <span class="font-mono">{{ $ultimoConductor->conductor_dni }}</span>
                                 @if($ultimoConductor->placa_vehiculo)
@@ -357,38 +357,38 @@
                         @endif
                         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">DNI</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">DNI</label>
                                 <div class="flex gap-2">
                                     <input type="text" name="conductor_dni" x-model="condDni" maxlength="8" placeholder="DNI"
                                            @keydown.enter.prevent="buscarConductor()"
-                                           class="flex-1 px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
+                                           class="flex-1 px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
                                     <button type="button" @click="buscarConductor()" :disabled="condBuscando || condDni.length !== 8"
                                             class="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded-lg disabled:opacity-50">
                                         <i class="fas" :class="condBuscando ? 'fa-spinner fa-spin' : 'fa-search'"></i>
                                     </button>
                                 </div>
-                                <p x-show="condError" x-text="condError" x-cloak class="text-xs text-amber-600 mt-1"></p>
+                                <p x-show="condError" x-text="condError" x-cloak class="text-xs text-amber-600 dark:text-amber-400 mt-1"></p>
                             </div>
                             <div class="sm:col-span-2">
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Nombre</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Nombre</label>
                                 <input type="text" name="conductor_nombre" x-model="condNombre" maxlength="200"
                                        placeholder="Apellidos y nombres"
-                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Licencia</label>
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">Licencia</label>
                                 <input type="text" name="conductor_licencia" x-model="condLicencia" maxlength="20"
-                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
+                                       class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono">
                             </div>
                         </div>
                         <div class="mt-4">
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                                <i class="fas fa-car mr-1 text-gray-400"></i>Placa del Vehículo
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
+                                <i class="fas fa-car mr-1 text-gray-400 dark:text-slate-500"></i>Placa del Vehículo
                             </label>
                             <input type="text" name="placa_vehiculo" x-model="condPlaca" maxlength="20"
                                    @input="condPlaca = condPlaca.toUpperCase()"
                                    placeholder="ABC-123"
-                                   class="w-full sm:w-48 px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono uppercase">
+                                   class="w-full sm:w-48 px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono uppercase">
                         </div>
                     </div>
 
@@ -397,7 +397,7 @@
 
             {{-- ══ 5. PRODUCTOS ══ --}}
             @if($fromTraslado)
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-purple-900 to-purple-700 px-6 py-4 flex items-center gap-3">
                     <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-boxes text-white text-xl"></i></div>
                     <div>
@@ -405,7 +405,7 @@
                         <p class="text-purple-200 text-xs">Se importan automáticamente del traslado</p>
                     </div>
                 </div>
-                <div class="p-5 flex items-center gap-3 text-sm text-purple-700 bg-purple-50 border-t border-purple-100">
+                <div class="p-5 flex items-center gap-3 text-sm text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border-t border-purple-100">
                     <i class="fas fa-check-circle text-purple-400 shrink-0 text-lg"></i>
                     <div>
                         <p class="font-semibold">Productos ya registrados en el traslado <span class="font-mono">{{ $fromTraslado }}</span></p>
@@ -414,7 +414,7 @@
                 </div>
             </div>
             @else
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
                 <div class="bg-linear-to-r from-purple-900 to-purple-700 px-6 py-4 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="bg-white/20 rounded-xl p-2.5"><i class="fas fa-boxes text-white text-xl"></i></div>
@@ -430,23 +430,23 @@
                 <div class="p-6 space-y-4">
 
                     <div x-show="!almacenId"
-                         class="flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 rounded-lg">
+                         class="flex items-center gap-2 text-sm text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 px-4 py-3 rounded-lg">
                         <i class="fas fa-info-circle shrink-0"></i> Selecciona el almacén origen primero.
                     </div>
 
                     <template x-for="(producto, idx) in productos" :key="producto._id">
-                        <div class="border border-gray-200 rounded-xl overflow-hidden"
+                        <div class="border border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden"
                              :class="esDuplicado(idx) ? 'border-red-300 bg-red-50' : 'bg-gray-50/40'">
 
-                            <div class="flex items-center justify-between px-4 py-2.5 bg-white border-b border-gray-100">
-                                <span class="text-xs font-bold text-gray-500 uppercase">Producto <span x-text="idx+1"></span></span>
+                            <div class="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700">
+                                <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">Producto <span x-text="idx+1"></span></span>
                                 <div class="flex items-center gap-2">
                                     <span x-show="producto.esSerie" x-cloak
-                                          class="text-[10px] font-semibold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                                          class="text-[10px] font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded-full">
                                         <i class="fas fa-barcode"></i> IMEI
                                     </span>
                                     <button type="button" @click="eliminarProducto(idx)" x-show="productos.length > 1"
-                                            class="text-gray-400 hover:text-red-500 p-1 rounded-lg hover:bg-red-50">
+                                            class="text-gray-400 dark:text-slate-500 hover:text-red-500 p-1 rounded-lg hover:bg-red-50">
                                         <i class="fas fa-trash text-xs"></i>
                                     </button>
                                 </div>
@@ -456,43 +456,43 @@
 
                                 {{-- Buscador dinámico --}}
                                 <div>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                         <i class="fas fa-box mr-1 text-blue-400"></i>Producto *
                                     </label>
                                     <div x-show="producto.productoId" x-cloak
-                                         class="flex items-center gap-2 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+                                         class="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
                                         <i class="fas fa-check-circle text-blue-500 text-xs shrink-0"></i>
-                                        <span class="flex-1 text-sm font-medium text-blue-800" x-text="producto.nombre"></span>
+                                        <span class="flex-1 text-sm font-medium text-blue-800 dark:text-blue-300" x-text="producto.nombre"></span>
                                         <span class="text-[10px] text-blue-400 font-mono" x-text="producto.codigo"></span>
-                                        <span x-show="producto.esSerie" class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-bold">IMEI</span>
+                                        <span x-show="producto.esSerie" class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold">IMEI</span>
                                         <button type="button" @click="limpiarProducto(idx)" class="text-blue-300 hover:text-red-500 ml-1">
                                             <i class="fas fa-times text-xs"></i>
                                         </button>
                                     </div>
                                     <div x-show="!producto.productoId" class="relative">
                                         <div class="relative">
-                                            <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 text-xs pointer-events-none"></i>
+                                            <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-xs pointer-events-none"></i>
                                             <input type="text" x-model="producto.busqueda"
                                                    @input="buscarProducto(idx)"
                                                    @keydown.escape="producto.resultados = []"
                                                    :placeholder="almacenId ? 'Buscar por nombre o código...' : 'Selecciona almacén origen primero'"
                                                    :disabled="!almacenId"
-                                                   class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed">
+                                                   class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed">
                                             <div x-show="producto.buscando" class="absolute right-3 top-2.5">
-                                                <i class="fas fa-spinner fa-spin text-gray-400 text-xs"></i>
+                                                <i class="fas fa-spinner fa-spin text-gray-400 dark:text-slate-500 text-xs"></i>
                                             </div>
                                         </div>
                                         <div x-show="producto.resultados.length > 0" x-cloak
-                                             class="absolute z-30 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden max-h-52 overflow-y-auto">
+                                             class="absolute z-30 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden max-h-52 overflow-y-auto">
                                             <template x-for="item in producto.resultados" :key="item.id">
                                                 <button type="button" @click="seleccionarProducto(idx, item)"
                                                         :disabled="estaUsado(item.id, idx)"
                                                         class="w-full text-left px-4 py-2.5 text-sm border-b border-gray-50 last:border-0 disabled:opacity-40 disabled:cursor-not-allowed"
                                                         :class="estaUsado(item.id, idx) ? 'bg-gray-50' : 'hover:bg-blue-50'">
                                                     <div class="flex items-center gap-2">
-                                                        <span class="flex-1 font-medium text-gray-800" x-text="item.nombre"></span>
-                                                        <span class="text-[10px] font-mono text-gray-400" x-text="item.codigo"></span>
-                                                        <span x-show="item.es_serie" class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-bold shrink-0">IMEI</span>
+                                                        <span class="flex-1 font-medium text-gray-800 dark:text-slate-200" x-text="item.nombre"></span>
+                                                        <span class="text-[10px] font-mono text-gray-400 dark:text-slate-500" x-text="item.codigo"></span>
+                                                        <span x-show="item.es_serie" class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold shrink-0">IMEI</span>
                                                     </div>
                                                     <span class="text-[10px]" :class="item.stock_origen > 0 ? 'text-green-600' : 'text-red-500'"
                                                           x-text="'Stock: ' + item.stock_origen + (item.es_serie ? ' IMEIs' : ' unid.')"></span>
@@ -518,11 +518,11 @@
 
                                 {{-- Variante (accesorio) --}}
                                 <div x-show="producto.productoId && !producto.esSerie && producto.variantes.length > 0" x-cloak>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                         <i class="fas fa-palette mr-1 text-pink-400"></i>Variante
                                     </label>
                                     <select :name="`productos[${idx}][variante_id]`" x-model="producto.varianteId"
-                                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                         <option :value="null">— Sin variante —</option>
                                         <template x-for="v in producto.variantes" :key="v.id">
                                             <option :value="v.id" x-text="v.nombre + (v.sku ? ' (' + v.sku + ')' : '')"></option>
@@ -532,11 +532,11 @@
 
                                 {{-- Variante filtro (serie) --}}
                                 <div x-show="producto.productoId && producto.esSerie && producto.variantes.length > 0" x-cloak>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                         <i class="fas fa-palette mr-1 text-pink-400"></i>Filtrar variante
                                     </label>
                                     <select x-model="producto.varianteId" @change="recargarImeis(idx)"
-                                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                         <option :value="null">— Todas —</option>
                                         <template x-for="v in producto.variantes" :key="v.id">
                                             <option :value="v.id" x-text="v.nombre + (v.sku ? ' (' + v.sku + ')' : '')"></option>
@@ -547,48 +547,48 @@
 
                                 {{-- Cantidad (accesorio) --}}
                                 <div x-show="producto.productoId && !producto.esSerie" x-cloak>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">Cantidad *</label>
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">Cantidad *</label>
                                     <input type="number" :name="`productos[${idx}][cantidad]`"
                                            x-model.number="producto.cantidad" min="1"
                                            :max="producto.stockOrigen ?? undefined"
-                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                           class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                     <p x-show="producto.stockOrigen !== null && producto.cantidad > producto.stockOrigen" x-cloak
                                        class="text-xs text-red-500 mt-1"><i class="fas fa-exclamation-triangle mr-1"></i>Supera el stock disponible.</p>
                                 </div>
 
                                 {{-- IMEI picker (serie) --}}
                                 <div x-show="producto.productoId && producto.esSerie" x-cloak>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                         <i class="fas fa-barcode mr-1 text-purple-500"></i>IMEIs *
                                     </label>
                                     <div x-show="almacenId" x-cloak>
                                         <div class="flex items-center gap-2 mb-2">
                                             <div class="relative flex-1">
-                                                <i class="fas fa-search absolute left-2.5 top-2.5 text-[10px] text-gray-400 pointer-events-none"></i>
+                                                <i class="fas fa-search absolute left-2.5 top-2.5 text-[10px] text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                                                 <input type="text" x-model="producto.imeiBusqueda" placeholder="Buscar IMEI..."
-                                                       class="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400">
+                                                       class="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-400">
                                             </div>
-                                            <div class="shrink-0 text-xs bg-purple-50 border border-purple-200 text-purple-700 font-mono rounded-lg px-2.5 py-1.5">
+                                            <div class="shrink-0 text-xs bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 font-mono rounded-lg px-2.5 py-1.5">
                                                 <span class="font-bold" x-text="producto.imeisSeleccionados.length"></span>/<span x-text="producto.imeisDisponibles.length"></span>
                                             </div>
                                         </div>
-                                        <div x-show="producto.imeisLoading" class="py-4 text-center text-xs text-gray-400">
+                                        <div x-show="producto.imeisLoading" class="py-4 text-center text-xs text-gray-400 dark:text-slate-500">
                                             <i class="fas fa-spinner fa-spin mr-1"></i>Cargando...
                                         </div>
                                         <div x-show="!producto.imeisLoading && producto.imeisDisponibles.length === 0" x-cloak
-                                             class="py-4 text-center text-xs text-gray-400 bg-gray-50 border border-dashed border-gray-200 rounded-lg">
+                                             class="py-4 text-center text-xs text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-900/60 border border-dashed border-gray-200 dark:border-slate-700 rounded-lg">
                                             <i class="fas fa-box-open text-gray-300 text-xl block mb-1"></i>Sin IMEIs disponibles
                                         </div>
                                         <div x-show="!producto.imeisLoading && producto.imeisDisponibles.length > 0" x-cloak
-                                             class="border border-gray-200 rounded-lg overflow-hidden">
-                                            <div class="flex items-center justify-between px-3 py-1.5 bg-gray-50 border-b border-gray-100 sticky top-0">
+                                             class="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                                            <div class="flex items-center justify-between px-3 py-1.5 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-100 dark:border-slate-700 sticky top-0">
                                                 <button type="button" @click="seleccionarTodos(idx)"
-                                                        class="text-xs font-semibold text-purple-600 hover:text-purple-800">
+                                                        class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-800">
                                                     <i class="fas fa-check-double text-[10px]"></i>
                                                     <span x-text="imeisFiltrados(idx).length > 0 && imeisFiltrados(idx).every(i => producto.imeisSeleccionados.includes(i.id)) ? 'Deseleccionar todos' : 'Seleccionar todos'"></span>
                                                 </button>
                                             </div>
-                                            <div class="max-h-44 overflow-y-auto divide-y divide-gray-100">
+                                            <div class="max-h-44 overflow-y-auto divide-y divide-gray-100 dark:divide-slate-700">
                                                 <template x-for="imei in imeisFiltrados(idx)" :key="imei.id">
                                                     <label :for="`imei-${producto._id}-${imei.id}`"
                                                            class="flex items-center gap-2.5 px-3 py-2 cursor-pointer transition-colors"
@@ -599,14 +599,14 @@
                                                         <span class="font-mono text-xs font-semibold"
                                                               :class="isSelected(idx, imei.id) ? 'text-purple-700' : 'text-gray-800'"
                                                               x-text="imei.codigo_imei"></span>
-                                                        <span x-show="imei.serie" class="text-[10px] text-gray-400 font-mono ml-1" x-text="'S/N: ' + imei.serie"></span>
+                                                        <span x-show="imei.serie" class="text-[10px] text-gray-400 dark:text-slate-500 font-mono ml-1" x-text="'S/N: ' + imei.serie"></span>
                                                     </label>
                                                 </template>
                                             </div>
                                         </div>
                                         <div x-show="producto.imeisSeleccionados.length > 0" x-cloak class="mt-2 flex flex-wrap gap-1">
                                             <template x-for="imeiId in producto.imeisSeleccionados" :key="imeiId">
-                                                <span class="inline-flex items-center gap-1 bg-purple-100 text-purple-800 text-[10px] font-mono px-2 py-1 rounded-lg border border-purple-200">
+                                                <span class="inline-flex items-center gap-1 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-[10px] font-mono px-2 py-1 rounded-lg border border-purple-200 dark:border-purple-800">
                                                     <span x-text="getImeiCodigo(idx, imeiId)"></span>
                                                     <button type="button" @click="toggleImei(idx, imeiId)" class="text-purple-400 hover:text-red-500 ml-0.5">
                                                         <i class="fas fa-times text-[8px]"></i>
@@ -622,13 +622,13 @@
 
                                 {{-- Descripción --}}
                                 <div x-show="producto.productoId" x-cloak>
-                                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
-                                        Descripción <span class="text-gray-400 font-normal normal-case">(opcional)</span>
+                                    <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
+                                        Descripción <span class="text-gray-400 dark:text-slate-500 font-normal normal-case">(opcional)</span>
                                     </label>
                                     <input type="text" :name="`productos[${idx}][descripcion]`"
                                            x-model="producto.descripcion" maxlength="300"
                                            placeholder="Descripción adicional para la guía"
-                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                           class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                             </div>
@@ -636,7 +636,7 @@
                     </template>
 
                     <button type="button" @click="agregarProducto()"
-                            class="w-full py-2.5 border-2 border-dashed border-blue-300 hover:border-blue-500 text-blue-500 hover:text-blue-700 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                            class="w-full py-2.5 border-2 border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 text-blue-500 hover:text-blue-700 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
                         <i class="fas fa-plus-circle"></i> Agregar otro producto
                     </button>
                 </div>
@@ -646,7 +646,7 @@
             {{-- Acciones --}}
             <div class="flex justify-end gap-3">
                 <a href="{{ route('guias-remision.index') }}"
-                   class="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                   class="px-5 py-2.5 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                     Cancelar
                 </a>
                 <button type="submit" :disabled="!puedeEnviar()"

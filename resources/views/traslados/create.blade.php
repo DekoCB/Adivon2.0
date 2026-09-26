@@ -13,25 +13,25 @@
 <div>
 {{-- Navegación --}}
         <div class="flex flex-wrap gap-3 mb-6">
-            <a href="{{ route('traslados.index') }}" class="text-sm text-gray-600 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.index') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
                 <i class="fas fa-exchange-alt"></i> Historial
             </a>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.pendientes') }}" class="text-sm text-gray-600 hover:text-yellow-600 flex items-center gap-1">
+            <a href="{{ route('traslados.pendientes') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-yellow-600 flex items-center gap-1">
                 <i class="fas fa-clock"></i> Pendientes
             </a>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
                 <i class="fas fa-boxes"></i> Stock por Almacén
             </a>
             <span class="text-gray-300">|</span>
-            <span class="text-sm font-semibold text-blue-700 flex items-center gap-1">
+            <span class="text-sm font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-plus-circle"></i> Nuevo Traslado
             </span>
         </div>
 
         @if($errors->any())
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg text-sm">
+            <div class="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 mb-6 rounded-lg text-sm">
                 <ul class="list-disc list-inside space-y-1">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -48,7 +48,7 @@
                 {{-- ══════════════════════════════════════════════════
                      CABECERA DEL TRASLADO
                 ═══════════════════════════════════════════════════ --}}
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-5">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden mb-5">
 
                     <div class="bg-linear-to-r from-blue-900 to-blue-700 px-6 py-4 flex items-center gap-3">
                         <div class="bg-white/20 rounded-xl p-2.5">
@@ -65,13 +65,13 @@
                         {{-- Origen / Destino --}}
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                     <i class="fas fa-warehouse mr-1 text-orange-500"></i>Almacén Origen *
                                 </label>
                                 <select name="almacen_id" required
                                         x-model="almacenId"
                                         @change="onAlmacenOrigenChange()"
-                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                     <option value="">— Seleccione origen —</option>
                                     @foreach($almacenes as $alm)
                                         <option value="{{ $alm->id }}" {{ old('almacen_id') == $alm->id ? 'selected' : '' }}>
@@ -85,13 +85,13 @@
                             </div>
 
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                     <i class="fas fa-store mr-1 text-green-500"></i>Almacén Destino *
                                 </label>
                                 <select name="almacen_destino_id" required
                                         x-model="almacenDestinoId"
                                         @change="onAlmacenDestinoChange()"
-                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                                        class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
                                     <option value="">— Seleccione destino —</option>
                                     @foreach($almacenes as $alm)
                                         <option value="{{ $alm->id }}" {{ old('almacen_destino_id') == $alm->id ? 'selected' : '' }}>
@@ -111,15 +111,15 @@
 
                         {{-- N° Guía --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                 <i class="fas fa-file-alt mr-1 text-blue-400"></i>N° Guía
                             </label>
                             <div class="flex items-center gap-2">
                                 <input type="text" x-model="numeroGuia" readonly
-                                       class="w-full sm:w-64 px-3 py-2.5 text-sm border border-gray-200 rounded-lg font-mono uppercase bg-gray-50 text-gray-600 cursor-not-allowed"
+                                       class="w-full sm:w-64 px-3 py-2.5 text-sm border border-gray-200 dark:border-slate-700 rounded-lg font-mono uppercase bg-gray-50 dark:bg-slate-900/60 text-gray-600 dark:text-slate-400 cursor-not-allowed"
                                        placeholder="Se genera automáticamente">
                                 <span x-show="guiaSerieId" x-cloak
-                                      class="text-xs text-emerald-600 font-medium flex items-center gap-1 whitespace-nowrap">
+                                      class="text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1 whitespace-nowrap">
                                     <i class="fas fa-check-circle"></i> Auto-generado
                                 </span>
                                 <span x-show="almacenId && !guiaSerieId" x-cloak
@@ -131,23 +131,23 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                                <i class="fas fa-comment-alt mr-1 text-gray-400"></i>Observaciones
-                                <span class="text-gray-400 font-normal normal-case">(opcional)</span>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
+                                <i class="fas fa-comment-alt mr-1 text-gray-400 dark:text-slate-500"></i>Observaciones
+                                <span class="text-gray-400 dark:text-slate-500 font-normal normal-case">(opcional)</span>
                             </label>
                             <textarea name="observaciones" rows="2"
-                                      class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+                                      class="w-full px-3 py-2.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
                                       placeholder="Motivo del traslado, instrucciones...">{{ old('observaciones') }}</textarea>
                         </div>
                     </div>
                 </div>
 
                 {{-- ══ Datos de transporte → se capturan en el siguiente paso (Guía de Remisión) ══ --}}
-                <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 mb-5">
+                <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 dark:text-blue-300 mb-5">
                     <i class="fas fa-info-circle mt-0.5 text-blue-500 shrink-0"></i>
                     <span>Al guardar, serás redirigido al formulario de <strong>Guía de Remisión</strong> para completar los datos de transporte (conductor, modalidad, etc.).</span>
                 </div>
-                <div class="bg-white rounded-2xl shadow-md mb-5">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md mb-5">
 
                     <div class="bg-linear-to-r from-purple-900 to-purple-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
                         <div class="flex items-center gap-3">
@@ -167,30 +167,30 @@
 
                         {{-- Aviso sin almacén origen --}}
                         <div x-show="!almacenId"
-                             class="flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 rounded-lg">
+                             class="flex items-center gap-2 text-sm text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 px-4 py-3 rounded-lg">
                             <i class="fas fa-arrow-up shrink-0"></i>
                             Selecciona el almacén origen primero para ver el stock disponible.
                         </div>
 
                         {{-- ── Filas de producto ── --}}
                         <template x-for="(producto, idx) in productos" :key="producto._id">
-                            <div class="border border-gray-200 rounded-xl"
+                            <div class="border border-gray-200 dark:border-slate-700 rounded-xl"
                                  :class="esDuplicado(idx) ? 'border-red-300 bg-red-50' : 'bg-gray-50/40'">
 
                                 {{-- Cabecera de la fila --}}
-                                <div class="flex items-center justify-between px-4 py-2.5 bg-white border-b border-gray-100">
-                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">
+                                <div class="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700">
+                                    <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
                                         Producto <span x-text="idx + 1"></span>
                                     </span>
                                     <div class="flex items-center gap-2">
                                         <span x-show="producto.esSerie" x-cloak
-                                              class="inline-flex items-center gap-1 text-[10px] font-semibold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                                              class="inline-flex items-center gap-1 text-[10px] font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded-full">
                                             <i class="fas fa-barcode"></i> IMEI
                                         </span>
                                         <button type="button"
                                                 @click="eliminarProducto(idx)"
                                                 x-show="productos.length > 1"
-                                                class="text-gray-400 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50">
+                                                class="text-gray-400 dark:text-slate-500 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50">
                                             <i class="fas fa-trash text-xs"></i>
                                         </button>
                                     </div>
@@ -200,18 +200,18 @@
 
                                     {{-- Buscador dinámico de producto --}}
                                     <div>
-                                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                             <i class="fas fa-box mr-1 text-blue-400"></i>Producto *
                                         </label>
 
                                         {{-- Chip del producto seleccionado --}}
                                         <div x-show="producto.productoId" x-cloak
-                                             class="flex items-center gap-2 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+                                             class="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
                                             <i class="fas fa-check-circle text-blue-500 text-xs shrink-0"></i>
-                                            <span class="flex-1 text-sm font-medium text-blue-800" x-text="producto.nombre"></span>
+                                            <span class="flex-1 text-sm font-medium text-blue-800 dark:text-blue-300" x-text="producto.nombre"></span>
                                             <span class="text-[10px] text-blue-400 font-mono" x-text="producto.codigo"></span>
                                             <span x-show="producto.esSerie"
-                                                  class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-bold">IMEI</span>
+                                                  class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold">IMEI</span>
                                             <button type="button" @click="limpiarProducto(idx)"
                                                     class="text-blue-300 hover:text-red-500 transition ml-1">
                                                 <i class="fas fa-times text-xs"></i>
@@ -221,24 +221,24 @@
                                         {{-- Buscador (visible cuando no hay producto seleccionado) --}}
                                         <div x-show="!producto.productoId" class="relative">
                                             <div class="relative">
-                                                <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 text-xs pointer-events-none"></i>
+                                                <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 dark:text-slate-500 text-xs pointer-events-none"></i>
                                                 <input type="text"
                                                        x-model="producto.busqueda"
                                                        @input="buscarProducto(idx)"
                                                        @keydown.escape="producto.resultados = []"
                                                        :placeholder="almacenId ? 'Buscar por nombre o código...' : 'Selecciona almacén origen primero'"
                                                        :disabled="!almacenId"
-                                                       class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed">
+                                                       class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed">
                                                 <div x-show="producto.buscando" class="absolute right-3 top-2.5">
-                                                    <i class="fas fa-spinner fa-spin text-gray-400 text-xs"></i>
+                                                    <i class="fas fa-spinner fa-spin text-gray-400 dark:text-slate-500 text-xs"></i>
                                                 </div>
                                             </div>
 
                                             {{-- Dropdown resultados --}}
                                             <div x-show="producto.resultados.length > 0" x-cloak
-                                                 class="absolute z-30 mt-1 w-full bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden max-h-[420px] overflow-y-auto">
+                                                 class="absolute z-30 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl shadow-2xl overflow-hidden max-h-[420px] overflow-y-auto">
                                                 <template x-for="item in producto.resultados" :key="item.id">
-                                                    <div class="border-b border-gray-100 last:border-0"
+                                                    <div class="border-b border-gray-100 dark:border-slate-700 last:border-0"
                                                          :class="estaUsado(item.id, idx) ? 'opacity-40' : ''">
                                                         {{-- Cabecera del producto --}}
                                                         <button type="button"
@@ -252,11 +252,11 @@
                                                                     <i class="text-xs" :class="item.es_serie ? 'fas fa-mobile-alt text-purple-600' : 'fas fa-box text-blue-600'"></i>
                                                                 </div>
                                                                 <div class="flex-1 min-w-0">
-                                                                    <p class="text-sm font-semibold text-gray-800 truncate" x-text="item.nombre"></p>
+                                                                    <p class="text-sm font-semibold text-gray-800 dark:text-slate-200 truncate" x-text="item.nombre"></p>
                                                                     <div class="flex items-center gap-2 mt-0.5">
-                                                                        <span class="text-[10px] font-mono text-gray-400" x-text="item.codigo"></span>
+                                                                        <span class="text-[10px] font-mono text-gray-400 dark:text-slate-500" x-text="item.codigo"></span>
                                                                         <span x-show="item.es_serie"
-                                                                              class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-bold">IMEI</span>
+                                                                              class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold">IMEI</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="text-right shrink-0">
@@ -275,9 +275,9 @@
                                                             <div class="flex flex-wrap gap-1.5">
                                                                 <template x-for="v in item.variantes" :key="v.id">
                                                                     <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium border"
-                                                                          :class="v.stock > 0 ? 'bg-white border-gray-200 text-gray-700' : 'bg-gray-50 border-gray-100 text-gray-400'">
+                                                                          :class="v.stock > 0 ? 'bg-white border-gray-200 dark:border-slate-700 text-gray-700' : 'bg-gray-50 border-gray-100 text-gray-400'">
                                                                         <span x-show="v.color_hex"
-                                                                              class="w-3 h-3 rounded-full border border-gray-300 shrink-0"
+                                                                              class="w-3 h-3 rounded-full border border-gray-300 dark:border-slate-600 shrink-0"
                                                                               :style="'background-color:' + v.color_hex"></span>
                                                                         <span x-text="v.nombre"></span>
                                                                         <span class="font-bold" :class="v.stock > 0 ? 'text-green-600' : 'text-red-400'"
@@ -289,7 +289,7 @@
                                                     </div>
                                                 </template>
                                                 <div x-show="producto.resultados.length === 0 && producto.busqueda.length >= 2 && !producto.buscando"
-                                                     class="px-4 py-3 text-center text-xs text-gray-400">
+                                                     class="px-4 py-3 text-center text-xs text-gray-400 dark:text-slate-500">
                                                     Sin resultados para "<span x-text="producto.busqueda"></span>"
                                                 </div>
                                             </div>
@@ -307,9 +307,7 @@
                                     {{-- Stock badge --}}
                                     <div x-show="producto.productoId && producto.stockOrigen !== null && almacenId" x-cloak>
                                         <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                                              :class="producto.stockOrigen > 0
-                                                  ? 'bg-green-100 text-green-700'
-                                                  : 'bg-red-100 text-red-600'">
+                                              :class="producto.stockOrigen > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'">
                                             <i class="fas fa-cubes mr-1"></i>
                                             Disponible:
                                             <strong x-text="producto.stockOrigen"></strong>
@@ -320,7 +318,7 @@
 
                                     {{-- ── VARIANTE SELECTOR (accesorio y serie con variantes) ── --}}
                                     <div x-show="producto.productoId && producto.variantes.length > 0" x-cloak>
-                                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                             <i class="fas fa-palette mr-1 text-pink-400"></i>
                                             <span x-text="producto.esSerie ? 'Filtrar por variante' : 'Variante'"></span>
                                         </label>
@@ -331,13 +329,13 @@
                                             <div x-show="producto.esSerie" x-cloak
                                                  @click="producto.varianteId = null; producto.stockOrigen = producto.stockTotal ?? producto.stockOrigen"
                                                  class="flex items-center gap-2.5 px-3 py-2 rounded-lg border cursor-pointer transition-all"
-                                                 :class="!producto.varianteId ? 'border-blue-400 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 hover:border-blue-300'">
+                                                 :class="!producto.varianteId ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/30 ring-1 ring-blue-200' : 'border-gray-200 hover:border-blue-300'">
                                                 <div class="w-6 h-6 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shrink-0">
-                                                    <i class="fas fa-layer-group text-[8px] text-gray-500"></i>
+                                                    <i class="fas fa-layer-group text-[8px] text-gray-500 dark:text-slate-400"></i>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <p class="text-xs font-semibold text-gray-700">Todas las variantes</p>
-                                                    <p class="text-[10px] text-gray-400" x-text="producto.variantes.length + ' opciones'"></p>
+                                                    <p class="text-xs font-semibold text-gray-700 dark:text-slate-300">Todas las variantes</p>
+                                                    <p class="text-[10px] text-gray-400 dark:text-slate-500" x-text="producto.variantes.length + ' opciones'"></p>
                                                 </div>
                                                 <span class="text-xs font-bold px-1.5 py-0.5 rounded-full"
                                                       :class="producto.stockOrigen > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'"
@@ -347,19 +345,19 @@
                                             <template x-for="v in producto.variantes" :key="v.id">
                                                 <div @click="seleccionarVariante(idx, v)"
                                                      class="flex items-center gap-2.5 px-3 py-2 rounded-lg border cursor-pointer transition-all"
-                                                     :class="String(producto.varianteId) === String(v.id) ? 'border-blue-400 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 hover:border-blue-300'">
+                                                     :class="String(producto.varianteId) === String(v.id) ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/30 ring-1 ring-blue-200' : 'border-gray-200 hover:border-blue-300'">
                                                     <template x-if="v.color_hex">
                                                         <span class="w-6 h-6 rounded-full border-2 border-white shadow-sm shrink-0"
                                                               :style="'background-color:' + v.color_hex"></span>
                                                     </template>
                                                     <template x-if="!v.color_hex">
-                                                        <span class="w-6 h-6 rounded-full bg-gray-200 border-2 border-white shadow-sm shrink-0 flex items-center justify-center">
-                                                            <i class="fas fa-mobile-alt text-[8px] text-gray-400"></i>
+                                                        <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-slate-700 border-2 border-white shadow-sm shrink-0 flex items-center justify-center">
+                                                            <i class="fas fa-mobile-alt text-[8px] text-gray-400 dark:text-slate-500"></i>
                                                         </span>
                                                     </template>
                                                     <div class="flex-1 min-w-0">
-                                                        <p class="text-xs font-semibold text-gray-700 truncate" x-text="v.nombre"></p>
-                                                        <p x-show="v.sku" class="text-[10px] text-gray-400 font-mono" x-text="v.sku"></p>
+                                                        <p class="text-xs font-semibold text-gray-700 dark:text-slate-300 truncate" x-text="v.nombre"></p>
+                                                        <p x-show="v.sku" class="text-[10px] text-gray-400 dark:text-slate-500 font-mono" x-text="v.sku"></p>
                                                     </div>
                                                     <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0"
                                                           :class="v.stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'"
@@ -373,7 +371,7 @@
 
                                     {{-- ── CANTIDAD (accesorio) ── --}}
                                     <div x-show="producto.productoId && !producto.esSerie">
-                                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                             <i class="fas fa-hashtag mr-1 text-blue-400"></i>Cantidad *
                                         </label>
                                         <input type="number"
@@ -381,7 +379,7 @@
                                                x-model.number="producto.cantidad"
                                                min="1"
                                                :max="producto.stockOrigen ?? undefined"
-                                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                               class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500">
                                         <p x-show="producto.stockOrigen !== null && producto.cantidad > producto.stockOrigen" x-cloak
                                            class="text-xs text-red-500 mt-1">
                                             <i class="fas fa-exclamation-triangle mr-1"></i>Supera el stock disponible.
@@ -390,13 +388,13 @@
 
                                     {{-- ── IMEI PICKER ── --}}
                                     <div x-show="producto.productoId && producto.esSerie" x-cloak>
-                                        <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+                                        <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1.5">
                                             <i class="fas fa-barcode mr-1 text-purple-500"></i>IMEIs a trasladar *
                                         </label>
 
                                         {{-- Prompt si no hay almacén --}}
                                         <div x-show="!almacenId"
-                                             class="text-xs text-gray-400 bg-gray-100 rounded-lg px-3 py-2">
+                                             class="text-xs text-gray-400 dark:text-slate-500 bg-gray-100 dark:bg-slate-700 rounded-lg px-3 py-2">
                                             <i class="fas fa-info-circle mr-1"></i>Seleccione almacén origen para ver los IMEIs.
                                         </div>
 
@@ -405,13 +403,13 @@
                                             {{-- Buscador + contador --}}
                                             <div class="flex items-center gap-2 mb-2">
                                                 <div class="relative flex-1">
-                                                    <i class="fas fa-search absolute left-2.5 top-2.5 text-[10px] text-gray-400 pointer-events-none"></i>
+                                                    <i class="fas fa-search absolute left-2.5 top-2.5 text-[10px] text-gray-400 dark:text-slate-500 pointer-events-none"></i>
                                                     <input type="text"
                                                            x-model="producto.imeiBusqueda"
                                                            placeholder="Buscar IMEI o S/N..."
-                                                           class="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400">
+                                                           class="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-400">
                                                 </div>
-                                                <div class="shrink-0 text-xs bg-purple-50 border border-purple-200 text-purple-700 font-mono rounded-lg px-2.5 py-1.5">
+                                                <div class="shrink-0 text-xs bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 font-mono rounded-lg px-2.5 py-1.5">
                                                     <span class="font-bold" x-text="producto.imeisSeleccionados.length"></span>
                                                     /
                                                     <span x-text="producto.imeisDisponibles.length"></span>
@@ -420,36 +418,36 @@
 
                                             {{-- Loading --}}
                                             <div x-show="producto.imeisLoading"
-                                                 class="py-4 text-center text-xs text-gray-400">
+                                                 class="py-4 text-center text-xs text-gray-400 dark:text-slate-500">
                                                 <i class="fas fa-spinner fa-spin mr-1"></i>Cargando IMEIs...
                                             </div>
 
                                             {{-- Sin IMEIs --}}
                                             <div x-show="!producto.imeisLoading && producto.imeisDisponibles.length === 0" x-cloak
-                                                 class="py-4 text-center text-xs text-gray-400 bg-gray-50 border border-dashed border-gray-200 rounded-lg">
+                                                 class="py-4 text-center text-xs text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-900/60 border border-dashed border-gray-200 dark:border-slate-700 rounded-lg">
                                                 <i class="fas fa-box-open text-gray-300 text-xl block mb-1"></i>
                                                 Sin IMEIs disponibles en este almacén
                                             </div>
 
                                             {{-- Lista de IMEIs --}}
                                             <div x-show="!producto.imeisLoading && producto.imeisDisponibles.length > 0" x-cloak
-                                                 class="border border-gray-200 rounded-lg overflow-hidden">
+                                                 class="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
 
                                                 {{-- Toolbar: seleccionar todos --}}
-                                                <div class="flex items-center justify-between px-3 py-1.5 bg-gray-50 border-b border-gray-100 sticky top-0">
+                                                <div class="flex items-center justify-between px-3 py-1.5 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-100 dark:border-slate-700 sticky top-0">
                                                     <button type="button"
                                                             @click="seleccionarTodos(idx)"
-                                                            class="text-xs font-semibold text-purple-600 hover:text-purple-800 flex items-center gap-1">
+                                                            class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-800 flex items-center gap-1">
                                                         <i class="fas fa-check-double text-[10px]"></i>
                                                         <span x-text="imeisFiltradosDe(idx).length > 0 && imeisFiltradosDe(idx).every(i => producto.imeisSeleccionados.includes(i.id))
                                                             ? 'Deseleccionar todos' : 'Seleccionar todos'"></span>
                                                     </button>
-                                                    <span class="text-[10px] text-gray-400"
+                                                    <span class="text-[10px] text-gray-400 dark:text-slate-500"
                                                           x-show="producto.imeiBusqueda" x-cloak
                                                           x-text="imeisFiltradosDe(idx).length + ' resultado(s)'"></span>
                                                 </div>
 
-                                                <div class="max-h-44 overflow-y-auto divide-y divide-gray-100">
+                                                <div class="max-h-44 overflow-y-auto divide-y divide-gray-100 dark:divide-slate-700">
                                                     <template x-for="imei in imeisFiltradosDe(idx)" :key="imei.id">
                                                         <label :for="`imei-${producto._id}-${imei.id}`"
                                                                class="flex items-center gap-2.5 px-3 py-2 cursor-pointer transition-colors"
@@ -464,25 +462,25 @@
                                                                       :class="isSelected(idx, imei.id) ? 'text-purple-700' : 'text-gray-800'"
                                                                       x-text="imei.codigo_imei"></span>
                                                                 <span x-show="imei.serie"
-                                                                      class="text-[10px] text-gray-400 ml-1.5 font-mono"
+                                                                      class="text-[10px] text-gray-400 dark:text-slate-500 ml-1.5 font-mono"
                                                                       x-text="'S/N: ' + imei.serie"></span>
                                                             </div>
                                                             {{-- Etiqueta de variante: solo visible en "Todas las variantes",
                                                                  para distinguir de un vistazo de qué color/variante es cada IMEI --}}
                                                             <span x-show="!producto.varianteId && producto.variantes.length > 0"
                                                                   x-cloak
-                                                                  class="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full border border-gray-200 bg-white text-gray-500 shrink-0">
+                                                                  class="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 shrink-0">
                                                                 <span x-show="varianteDeImei(idx, imei)?.color_hex"
                                                                       class="w-2 h-2 rounded-full shrink-0"
                                                                       :style="'background-color:' + (varianteDeImei(idx, imei)?.color_hex ?? '#ccc')"></span>
                                                                 <span x-text="varianteDeImei(idx, imei)?.nombre ?? '—'"></span>
                                                             </span>
                                                             <span x-show="isSelected(idx, imei.id)"
-                                                                  class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-bold shrink-0">✓</span>
+                                                                  class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold shrink-0">✓</span>
                                                         </label>
                                                     </template>
                                                     <div x-show="producto.imeiBusqueda && imeisFiltradosDe(idx).length === 0" x-cloak
-                                                         class="px-3 py-3 text-center text-xs text-gray-400">
+                                                         class="px-3 py-3 text-center text-xs text-gray-400 dark:text-slate-500">
                                                         Sin resultados para "<span x-text="producto.imeiBusqueda"></span>"
                                                     </div>
                                                 </div>
@@ -492,7 +490,7 @@
                                             <div x-show="producto.imeisSeleccionados.length > 0" x-cloak
                                                  class="mt-2 flex flex-wrap gap-1">
                                                 <template x-for="imeiId in producto.imeisSeleccionados" :key="imeiId">
-                                                    <span class="inline-flex items-center gap-1 bg-purple-100 text-purple-800 text-[10px] font-mono px-2 py-1 rounded-lg border border-purple-200">
+                                                    <span class="inline-flex items-center gap-1 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-[10px] font-mono px-2 py-1 rounded-lg border border-purple-200 dark:border-purple-800">
                                                         <span x-show="producto.variantes.length > 0 && getVarianteDeImeiId(idx, imeiId)?.color_hex"
                                                               class="w-2 h-2 rounded-full shrink-0"
                                                               :style="'background-color:' + (getVarianteDeImeiId(idx, imeiId)?.color_hex ?? '#ccc')"></span>
@@ -523,7 +521,7 @@
                         {{-- Botón agregar producto --}}
                         <button type="button"
                                 @click="agregarProducto()"
-                                class="w-full py-2.5 border-2 border-dashed border-blue-300 hover:border-blue-500 text-blue-500 hover:text-blue-700 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                                class="w-full py-2.5 border-2 border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 text-blue-500 hover:text-blue-700 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
                             <i class="fas fa-plus-circle"></i> Agregar otro producto
                         </button>
 
@@ -531,7 +529,7 @@
                 </div>{{-- /card productos --}}
 
                 {{-- ── Info box + Acciones ── --}}
-                <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 mb-5">
+                <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 flex gap-2 text-sm text-blue-800 dark:text-blue-300 mb-5">
                     <i class="fas fa-info-circle mt-0.5 text-blue-500 shrink-0"></i>
                     <span>
                         El stock de <strong>accesorios</strong> se descuenta del origen al registrar.
@@ -541,7 +539,7 @@
 
                 <div class="flex justify-end gap-3">
                     <a href="{{ route('traslados.index') }}"
-                       class="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                       class="px-5 py-2.5 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                         Cancelar
                     </a>
                     <button type="submit"

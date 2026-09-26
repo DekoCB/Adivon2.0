@@ -9,8 +9,8 @@
     {{-- Header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Movimientos de Inventario</h1>
-            <p class="text-sm text-gray-500 mt-0.5">Historial completo de entradas, salidas y ajustes de stock</p>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Movimientos de Inventario</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Historial completo de entradas, salidas y ajustes de stock</p>
         </div>
         <a href="{{ route('inventario.movimientos.create') }}"
            class="inline-flex items-center gap-2 px-4 py-2 bg-blue-900 text-white text-sm font-semibold rounded-xl hover:bg-blue-800 transition-colors shadow-sm">
@@ -20,77 +20,75 @@
 
     {{-- Stats cards --}}
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-exchange-alt text-blue-700 text-lg"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-exchange-alt text-blue-700 dark:text-blue-300 text-lg"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Total</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['total_movimientos'] }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Total</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['total_movimientos'] }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-calendar-day text-purple-700 text-lg"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-calendar-day text-purple-700 dark:text-purple-300 text-lg"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Hoy</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['movimientos_hoy'] }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Hoy</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['movimientos_hoy'] }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-green-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-arrow-circle-down text-green-600 text-lg"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-green-100 dark:bg-green-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-arrow-circle-down text-green-600 dark:text-green-400 text-lg"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Ingresos hoy</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['ingresos_hoy'] }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Ingresos hoy</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['ingresos_hoy'] }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
                 <i class="fas fa-arrow-circle-up text-red-500 text-lg"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Salidas hoy</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['salidas_hoy'] }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Salidas hoy</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['salidas_hoy'] }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-random text-purple-600 text-lg"></i>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center shrink-0">
+                <i class="fas fa-random text-purple-600 dark:text-purple-400 text-lg"></i>
             </div>
             <div>
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Transferencias hoy</p>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['transferencias_hoy'] }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Transferencias hoy</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-slate-100">{{ $stats['transferencias_hoy'] }}</p>
             </div>
         </div>
     </div>
 
     {{-- Panel tiendas --}}
     <div class="mb-6">
-        <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+        <h2 class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-widest mb-3">
             <i class="fas fa-store mr-1"></i> Tiendas / Almacenes activos
         </h2>
         <div class="flex gap-3 overflow-x-auto pb-2">
             @foreach($almacenes as $alm)
             @php $movHoy = $movHoyPorAlmacen[$alm->id] ?? 0; @endphp
             <a href="{{ route('inventario.almacenes.show', $alm) }}"
-               class="shrink-0 bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 min-w-45 hover:border-blue-300 hover:shadow-md transition-all group">
+               class="shrink-0 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm px-5 py-4 min-w-45 hover:border-blue-300 hover:shadow-md transition-all group">
                 <div class="flex items-center gap-2 mb-2">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center
-                        {{ $alm->tipo === 'principal' ? 'bg-purple-100' : 'bg-blue-100' }}">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $alm->tipo === 'principal' ? 'bg-purple-100' : 'bg-blue-100' }}">
                         <i class="fas {{ $alm->tipo === 'principal' ? 'fa-star text-purple-600' : 'fa-store text-blue-600' }} text-sm"></i>
                     </div>
-                    <span class="text-xs font-medium px-1.5 py-0.5 rounded
-                        {{ $alm->tipo === 'principal' ? 'bg-purple-50 text-purple-700' : 'bg-blue-50 text-blue-700' }}">
+                    <span class="text-xs font-medium px-1.5 py-0.5 rounded {{ $alm->tipo === 'principal' ? 'bg-purple-50 text-purple-700' : 'bg-blue-50 text-blue-700' }}">
                         {{ ucfirst($alm->tipo) }}
                     </span>
                 </div>
-                <p class="text-sm font-semibold text-gray-800 group-hover:text-blue-700 transition-colors leading-tight">{{ $alm->nombre }}</p>
-                <p class="text-xs text-gray-400 mt-1">
+                <p class="text-sm font-semibold text-gray-800 dark:text-slate-200 group-hover:text-blue-700 transition-colors leading-tight">{{ $alm->nombre }}</p>
+                <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">
                     @if($movHoy > 0)
-                        <span class="text-green-600 font-medium">{{ $movHoy }} mov. hoy</span>
+                        <span class="text-green-600 dark:text-green-400 font-medium">{{ $movHoy }} mov. hoy</span>
                     @else
                         Sin movimientos hoy
                     @endif
@@ -106,9 +104,9 @@
     {{-- Filtros --}}
     <x-filter-bar action="{{ route('inventario.movimientos.index') }}" :filters="['tipo_movimiento','producto_id','almacen_id','fecha_desde','fecha_hasta']" class="flex flex-wrap gap-3 items-end">
             <div class="flex-1 min-w-36">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Tipo</label>
+                <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Tipo</label>
                 <select name="tipo_movimiento"
-                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                        class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
                     <option value="">Todos</option>
                     @foreach([
                         'ingreso'       => 'Ingreso',
@@ -123,9 +121,9 @@
                 </select>
             </div>
             <div class="flex-1 min-w-48">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Producto</label>
+                <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Producto</label>
                 <select name="producto_id"
-                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                        class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
                     <option value="">Todos los productos</option>
                     @foreach($productos as $p)
                         <option value="{{ $p->id }}" {{ request('producto_id') == $p->id ? 'selected' : '' }}>
@@ -135,9 +133,9 @@
                 </select>
             </div>
             <div class="flex-1 min-w-36">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Almacén</label>
+                <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Almacén</label>
                 <select name="almacen_id"
-                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                        class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
                     <option value="">Todos</option>
                     @foreach($almacenes as $a)
                         <option value="{{ $a->id }}" {{ request('almacen_id') == $a->id ? 'selected' : '' }}>{{ $a->nombre }}</option>
@@ -145,24 +143,24 @@
                 </select>
             </div>
             <div class="min-w-36">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Desde</label>
+                <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Desde</label>
                 <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}"
-                       class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                       class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="min-w-36">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Hasta</label>
+                <label class="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Hasta</label>
                 <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
-                       class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                       class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
             </div>
     </x-filter-bar>
 
     {{-- Tabla de movimientos --}}
     <x-data-table :paginator="$movimientos">
         <x-slot:cardHeader>
-            <h2 class="text-sm font-semibold text-gray-700">
+            <h2 class="text-sm font-semibold text-gray-700 dark:text-slate-300">
                 Historial de movimientos
                 @if($movimientos->total() > 0)
-                    <span class="ml-2 text-xs text-gray-400 font-normal">{{ $movimientos->total() }} registros</span>
+                    <span class="ml-2 text-xs text-gray-400 dark:text-slate-500 font-normal">{{ $movimientos->total() }} registros</span>
                 @endif
             </h2>
         </x-slot:cardHeader>
@@ -195,47 +193,46 @@
                     @endphp
                     <tr class="hover:bg-blue-50/20 transition-colors">
                         <td class="px-5 py-3 whitespace-nowrap">
-                            <p class="text-sm text-gray-800">{{ $mov->created_at->format('d/m/Y') }}</p>
-                            <p class="text-xs text-gray-400">{{ $mov->created_at->format('H:i') }}</p>
+                            <p class="text-sm text-gray-800 dark:text-slate-200">{{ $mov->created_at->format('d/m/Y') }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500">{{ $mov->created_at->format('H:i') }}</p>
                         </td>
                         <td class="px-5 py-3 whitespace-nowrap">
                             <x-badge :tone="$tono" :icon="$mov->icono_tipo_movimiento">{{ $mov->tipo_movimiento_nombre }}</x-badge>
                         </td>
                         <td class="px-5 py-3">
-                            <p class="text-sm font-medium text-gray-900">{{ $mov->producto?->nombre ?? 'Producto eliminado' }}</p>
-                            <p class="text-xs text-gray-400 font-mono">{{ $mov->producto?->codigo }}</p>
+                            <p class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ $mov->producto?->nombre ?? 'Producto eliminado' }}</p>
+                            <p class="text-xs text-gray-400 dark:text-slate-500 font-mono">{{ $mov->producto?->codigo }}</p>
                         </td>
                         <td class="px-5 py-3 whitespace-nowrap">
-                            <span class="text-sm text-gray-700">{{ $mov->nombre_almacen }}</span>
+                            <span class="text-sm text-gray-700 dark:text-slate-300">{{ $mov->nombre_almacen }}</span>
                             @if($esTransfer && $mov->almacenDestino)
-                                <p class="text-xs text-purple-600 mt-0.5">
+                                <p class="text-xs text-purple-600 dark:text-purple-400 mt-0.5">
                                     <i class="fas fa-arrow-right text-[9px]"></i>
                                     {{ $mov->almacenDestino->nombre }}
                                 </p>
                             @endif
                         </td>
                         <td class="px-5 py-3 text-center whitespace-nowrap">
-                            <span class="text-sm font-bold
-                                {{ $esIngreso ? 'text-green-600' : ($esSalida ? 'text-red-600' : 'text-blue-600') }}">
+                            <span class="text-sm font-bold {{ $esIngreso ? 'text-green-600' : ($esSalida ? 'text-red-600' : 'text-blue-600') }}">
                                 {{ $esIngreso ? '+' : ($esSalida ? '−' : '') }}{{ $mov->cantidad }}
                             </span>
                         </td>
                         <td class="px-5 py-3 text-center whitespace-nowrap">
-                            <span class="text-xs text-gray-400">{{ $mov->stock_anterior }}</span>
+                            <span class="text-xs text-gray-400 dark:text-slate-500">{{ $mov->stock_anterior }}</span>
                             <i class="fas fa-arrow-right text-gray-300 text-[9px] mx-1"></i>
-                            <span class="text-sm font-semibold text-gray-800">{{ $mov->stock_nuevo }}</span>
+                            <span class="text-sm font-semibold text-gray-800 dark:text-slate-200">{{ $mov->stock_nuevo }}</span>
                         </td>
                         <td class="px-5 py-3 whitespace-nowrap">
-                            <span class="text-sm text-gray-600">{{ $mov->nombre_usuario }}</span>
+                            <span class="text-sm text-gray-600 dark:text-slate-400">{{ $mov->nombre_usuario }}</span>
                         </td>
                         <td class="px-5 py-3 max-w-50">
-                            <span class="text-sm text-gray-600 truncate block" title="{{ $mov->motivo }}">
+                            <span class="text-sm text-gray-600 dark:text-slate-400 truncate block" title="{{ $mov->motivo }}">
                                 {{ Str::limit($mov->motivo, 45) }}
                             </span>
                         </td>
                         <td class="px-5 py-3 text-center">
                             <a href="{{ route('inventario.movimientos.show', $mov) }}"
-                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-700 transition-colors border border-gray-200"
+                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
                                title="Ver detalle">
                                 <i class="fas fa-eye text-xs"></i>
                             </a>
@@ -244,7 +241,7 @@
                     @empty
                     <tr>
                         <td colspan="9" class="px-5 py-16 text-center">
-                            <div class="flex flex-col items-center gap-3 text-gray-400">
+                            <div class="flex flex-col items-center gap-3 text-gray-400 dark:text-slate-500">
                                 <i class="fas fa-exchange-alt text-5xl"></i>
                                 <p class="text-lg font-medium">No hay movimientos registrados</p>
                                 <p class="text-sm">Ajusta los filtros o registra el primer movimiento</p>

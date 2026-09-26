@@ -20,18 +20,18 @@
 
 @section('content')
     
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 dark:bg-slate-700">
 
 
         {{-- Top Bar --}}
-        <div class="bg-white shadow-sm sticky top-0 z-20">
+        <div class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-20">
             <div class="px-6 py-3 flex justify-between items-center">
                 <div>
-                    <h1 class="font-display text-2xl font-bold text-gray-800">
+                    <h1 class="font-display text-2xl font-bold text-gray-800 dark:text-slate-200">
                         <i class="fas fa-chart-line text-blue-900 mr-2"></i>
                         ¡Hola, {{ auth()->user()->name }}!
                     </h1>
-                    <p class="text-sm text-gray-500 mt-1">
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
                         <i class="far fa-calendar-alt mr-1"></i>{{ now()->format('l, d F Y') }} |
                         <i class="far fa-clock mr-1"></i>{{ now()->format('h:i A') }}
                     </p>
@@ -41,11 +41,10 @@
                     {{-- Campana de Notificaciones --}}
                     <div class="relative" x-data="{ open: false }" @click.outside="open = false">
                         <button @click="open = !open"
-                                class="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-bell text-gray-600 text-xl"></i>
+                                class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
+                            <i class="fas fa-bell text-gray-600 dark:text-slate-400 text-xl"></i>
                             @if($total_notificaciones > 0)
-                                <span class="absolute top-1 right-1 min-w-[18px] h-[18px] bg-red-500 rounded-full
-                                             flex items-center justify-center text-white text-[10px] font-bold px-1">
+                                <span class="absolute top-1 right-1 min-w-[18px] h-[18px] bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold px-1">
                                     {{ $total_notificaciones > 99 ? '99+' : $total_notificaciones }}
                                 </span>
                             @endif
@@ -54,13 +53,13 @@
                         {{-- Dropdown de Notificaciones --}}
                         <div x-show="open"
                              x-cloak
-                             class="absolute right-0 mt-2 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50">
+                             class="absolute right-0 mt-2 w-96 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-slate-700 overflow-hidden z-50">
 
                             <div class="px-4 py-3 bg-blue-900 text-white flex justify-between items-center">
                                 <span class="font-semibold text-sm">
                                     <i class="fas fa-bell mr-2"></i>Notificaciones
                                 </span>
-                                <span class="bg-white text-blue-900 text-xs font-bold px-2 py-0.5 rounded-full">
+                                <span class="bg-white dark:bg-slate-800 text-blue-900 text-xs font-bold px-2 py-0.5 rounded-full">
                                     {{ $total_notificaciones }}
                                 </span>
                             </div>
@@ -69,8 +68,8 @@
 
                                 {{-- Cuotas por vencer / vencidas --}}
                                 @if($notif_cuotas->count() > 0)
-                                <div class="px-3 py-2 bg-gray-50 border-b border-gray-200">
-                                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                <div class="px-3 py-2 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
+                                    <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
                                         <i class="fas fa-file-invoice-dollar mr-1 text-red-500"></i>
                                         Cuotas ({{ $notif_cuotas->count() }})
                                     </p>
@@ -82,32 +81,30 @@
                                     $hoy     = $diasRestantes === 0;
                                 @endphp
                                 <a href="{{ route('cuentas-por-pagar.index') }}"
-                                   class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors">
+                                   class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700/60 border-b border-gray-100 dark:border-slate-700 transition-colors">
                                     <div class="mt-0.5 shrink-0">
-                                        <span class="w-8 h-8 rounded-full flex items-center justify-center
-                                            {{ $vencida ? 'bg-red-100' : ($hoy ? 'bg-orange-100' : 'bg-yellow-100') }}">
-                                            <i class="fas fa-exclamation-circle text-sm
-                                                {{ $vencida ? 'text-red-600' : ($hoy ? 'text-orange-600' : 'text-yellow-600') }}"></i>
+                                        <span class="w-8 h-8 rounded-full flex items-center justify-center {{ $vencida ? 'bg-red-100' : ($hoy ? 'bg-orange-100' : 'bg-yellow-100') }}">
+                                            <i class="fas fa-exclamation-circle text-sm {{ $vencida ? 'text-red-600' : ($hoy ? 'text-orange-600' : 'text-yellow-600') }}"></i>
                                         </span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100 truncate">
                                             {{ $cuota->cuentaPorPagar->proveedor->razon_social ?? 'Proveedor' }}
                                         </p>
-                                        <p class="text-xs text-gray-500">
+                                        <p class="text-xs text-gray-500 dark:text-slate-400">
                                             Cuota {{ $cuota->numero_cuota }}/{{ $cuota->total_cuotas }} —
                                             S/ {{ number_format($cuota->monto, 2) }}
                                         </p>
                                     </div>
                                     <div class="shrink-0 text-right">
                                         @if($vencida)
-                                            <span class="text-xs font-semibold text-red-600">VENCIDA</span>
+                                            <span class="text-xs font-semibold text-red-600 dark:text-red-400">VENCIDA</span>
                                         @elseif($hoy)
-                                            <span class="text-xs font-semibold text-orange-600">Hoy</span>
+                                            <span class="text-xs font-semibold text-orange-600 dark:text-orange-400">Hoy</span>
                                         @else
-                                            <span class="text-xs font-semibold text-yellow-700">{{ $diasRestantes }}d</span>
+                                            <span class="text-xs font-semibold text-yellow-700 dark:text-yellow-300">{{ $diasRestantes }}d</span>
                                         @endif
-                                        <p class="text-xs text-gray-400">{{ $cuota->fecha_vencimiento->format('d/m/Y') }}</p>
+                                        <p class="text-xs text-gray-400 dark:text-slate-500">{{ $cuota->fecha_vencimiento->format('d/m/Y') }}</p>
                                     </div>
                                 </a>
                                 @endforeach
@@ -115,23 +112,23 @@
 
                                 {{-- Productos bajo stock --}}
                                 @if($notif_stock_bajo->count() > 0)
-                                <div class="px-3 py-2 bg-gray-50 border-b border-gray-200">
-                                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                <div class="px-3 py-2 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
+                                    <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
                                         <i class="fas fa-boxes mr-1 text-orange-500"></i>
                                         Stock Bajo ({{ $notif_stock_bajo->count() }})
                                     </p>
                                 </div>
                                 @foreach($notif_stock_bajo as $prod)
                                 <a href="{{ route('inventario.productos.index') }}"
-                                   class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors">
-                                    <span class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
+                                   class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700/60 border-b border-gray-100 dark:border-slate-700 transition-colors">
+                                    <span class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center shrink-0">
                                         <i class="fas fa-box text-orange-500 text-sm"></i>
                                     </span>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">{{ $prod->nombre }}</p>
-                                        <p class="text-xs text-gray-500">Mínimo: {{ $prod->stock_minimo }} und</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100 truncate">{{ $prod->nombre }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-slate-400">Mínimo: {{ $prod->stock_minimo }} und</p>
                                     </div>
-                                    <span class="text-sm font-bold text-orange-600 shrink-0">
+                                    <span class="text-sm font-bold text-orange-600 dark:text-orange-400 shrink-0">
                                         {{ $prod->stock_actual }} und
                                     </span>
                                 </a>
@@ -139,14 +136,14 @@
                                 @endif
 
                                 @if($total_notificaciones === 0)
-                                <div class="px-4 py-8 text-center text-gray-400">
+                                <div class="px-4 py-8 text-center text-gray-400 dark:text-slate-500">
                                     <i class="fas fa-check-circle text-3xl text-green-400 mb-2 block"></i>
                                     <p class="text-sm">Todo en orden, sin alertas</p>
                                 </div>
                                 @endif
                             </div>
 
-                            <div class="px-4 py-2 bg-gray-50 border-t border-gray-200 text-center">
+                            <div class="px-4 py-2 bg-gray-50 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 text-center">
                                 <a href="{{ route('cuentas-por-pagar.index') }}"
                                    class="text-xs text-blue-900 hover:underline font-medium">
                                     Ver cuentas por pagar <i class="fas fa-arrow-right ml-1"></i>
@@ -160,8 +157,8 @@
                         {{ substr(auth()->user()->name, 0, 2) }}
                     </div>
                     <div class="hidden md:block">
-                        <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-gray-500">Administrador</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-slate-200">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Administrador</p>
                     </div>
                 </div>
             </div>
@@ -171,22 +168,22 @@
 
             {{-- ⚠ ALERTA: CAJAS DE DÍAS ANTERIORES SIN CERRAR --}}
             @if(isset($cajas_atrasadas) && $cajas_atrasadas->count() > 0)
-            <div class="mb-6 bg-red-50 border-2 border-red-400 rounded-xl p-5 shadow-md">
+            <div class="mb-6 bg-red-50 dark:bg-red-900/30 border-2 border-red-400 rounded-xl p-5 shadow-md">
                 <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 bg-red-100 rounded-full p-3">
-                        <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                    <div class="flex-shrink-0 bg-red-100 dark:bg-red-900/40 rounded-full p-3">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400 text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-red-800 font-bold text-lg mb-1">
+                        <h3 class="text-red-800 dark:text-red-300 font-bold text-lg mb-1">
                             {{ $cajas_atrasadas->count() }} {{ $cajas_atrasadas->count() == 1 ? 'Caja sin cerrar' : 'Cajas sin cerrar' }} de días anteriores
                         </h3>
-                        <p class="text-red-700 text-sm mb-3">
+                        <p class="text-red-700 dark:text-red-300 text-sm mb-3">
                             Los siguientes usuarios tienen cajas abiertas de días anteriores que no fueron cerradas. Contacta al cajero o usa la opción "Forzar Cierre".
                         </p>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="text-left text-red-700 border-b border-red-200">
+                                    <tr class="text-left text-red-700 dark:text-red-300 border-b border-red-200 dark:border-red-800">
                                         <th class="pb-2 pr-4 font-semibold">Cajero</th>
                                         <th class="pb-2 pr-4 font-semibold">Fecha</th>
                                         <th class="pb-2 pr-4 font-semibold">Almacén</th>
@@ -210,17 +207,17 @@
                                         $tiempoStr .= $minutos . 'min';
                                     @endphp
                                     <tr class="border-b border-red-100 last:border-0">
-                                        <td class="py-2 pr-4 font-medium text-gray-800">
+                                        <td class="py-2 pr-4 font-medium text-gray-800 dark:text-slate-200">
                                             {{ $cajaAtras->usuario->name ?? '—' }}
                                         </td>
-                                        <td class="py-2 pr-4 text-red-700">
+                                        <td class="py-2 pr-4 text-red-700 dark:text-red-300">
                                             {{ \Carbon\Carbon::parse($cajaAtras->fecha)->locale('es')->isoFormat('D [de] MMMM, YYYY') }}
-                                            <span class="ml-1 text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full">
+                                            <span class="ml-1 text-xs bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded-full">
                                                 hace {{ trim($tiempoStr) }}
                                             </span>
                                         </td>
-                                        <td class="py-2 pr-4 text-gray-600">{{ $cajaAtras->almacen->nombre ?? '—' }}</td>
-                                        <td class="py-2 pr-4 font-semibold text-gray-800">S/ {{ number_format($cajaAtras->monto_final, 2) }}</td>
+                                        <td class="py-2 pr-4 text-gray-600 dark:text-slate-400">{{ $cajaAtras->almacen->nombre ?? '—' }}</td>
+                                        <td class="py-2 pr-4 font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($cajaAtras->monto_final, 2) }}</td>
                                         <td class="py-2">
                                             <a href="{{ route('admin.cajas.show', $cajaAtras->id) }}"
                                                class="inline-flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg text-xs font-semibold transition-colors">
@@ -243,11 +240,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
                 {{-- Ventas del Mes --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-blue-900">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-blue-900">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">Ventas del Mes</p>
-                            <p class="stat-value text-gray-900">S/ {{ number_format($ventas_mes_actual, 0, '.', ',') }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">Ventas del Mes</p>
+                            <p class="stat-value text-gray-900 dark:text-slate-100">S/ {{ number_format($ventas_mes_actual, 0, '.', ',') }}</p>
                             <div class="flex items-center mt-2 gap-2">
                                 @if($variacion_ventas > 0)
                                     <span class="trend-up"><i class="fas fa-arrow-up mr-1"></i>+{{ $variacion_ventas }}%</span>
@@ -256,96 +253,96 @@
                                 @else
                                     <span class="trend-flat"><i class="fas fa-minus mr-1"></i>0%</span>
                                 @endif
-                                <span class="text-xs text-gray-500">vs mes anterior</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400">vs mes anterior</span>
                             </div>
                         </div>
-                        <div class="bg-blue-100 p-3 rounded-lg">
+                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-lg">
                             <i class="fas fa-chart-line text-blue-900 text-2xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <p class="text-xs text-gray-500">
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-slate-700">
+                        <p class="text-xs text-gray-500 dark:text-slate-400">
                             <i class="fas fa-history mr-1"></i>
-                            Mes anterior: <span class="font-semibold text-gray-700">S/ {{ number_format($ventas_mes_anterior, 0, '.', ',') }}</span>
+                            Mes anterior: <span class="font-semibold text-gray-700 dark:text-slate-300">S/ {{ number_format($ventas_mes_anterior, 0, '.', ',') }}</span>
                         </p>
                     </div>
                 </div>
 
                 {{-- Comprobantes Emitidos (Boletas y Facturas) --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-purple-600">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-purple-600">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">Comprobantes Emitidos</p>
-                            <p class="stat-value text-gray-900">{{ number_format($boletas_total + $facturas_total) }}</p>
-                            <p class="text-xs text-gray-500 mt-1">boletas y facturas</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">Comprobantes Emitidos</p>
+                            <p class="stat-value text-gray-900 dark:text-slate-100">{{ number_format($boletas_total + $facturas_total) }}</p>
+                            <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">boletas y facturas</p>
                         </div>
-                        <div class="bg-purple-100 p-3 rounded-lg">
-                            <i class="fas fa-file-invoice text-purple-600 text-2xl"></i>
+                        <div class="bg-purple-100 dark:bg-purple-900/40 p-3 rounded-lg">
+                            <i class="fas fa-file-invoice text-purple-600 dark:text-purple-400 text-2xl"></i>
                         </div>
                     </div>
                     <div class="mt-4 grid grid-cols-2 gap-2 text-center">
-                        <div class="bg-blue-50 rounded-lg p-2">
-                            <p class="text-xs text-gray-500">Boletas</p>
-                            <p class="text-sm font-bold text-blue-700">{{ number_format($boletas_total) }}</p>
-                            <p class="text-[10px] text-gray-400">mes: {{ $boletas_mes }}</p>
+                        <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-2">
+                            <p class="text-xs text-gray-500 dark:text-slate-400">Boletas</p>
+                            <p class="text-sm font-bold text-blue-700 dark:text-blue-300">{{ number_format($boletas_total) }}</p>
+                            <p class="text-[10px] text-gray-400 dark:text-slate-500">mes: {{ $boletas_mes }}</p>
                         </div>
-                        <div class="bg-indigo-50 rounded-lg p-2">
-                            <p class="text-xs text-gray-500">Facturas</p>
-                            <p class="text-sm font-bold text-indigo-700">{{ number_format($facturas_total) }}</p>
-                            <p class="text-[10px] text-gray-400">mes: {{ $facturas_mes }}</p>
+                        <div class="bg-indigo-50 dark:bg-indigo-900/30 rounded-lg p-2">
+                            <p class="text-xs text-gray-500 dark:text-slate-400">Facturas</p>
+                            <p class="text-sm font-bold text-indigo-700 dark:text-indigo-300">{{ number_format($facturas_total) }}</p>
+                            <p class="text-[10px] text-gray-400 dark:text-slate-500">mes: {{ $facturas_mes }}</p>
                         </div>
                     </div>
                 </div>
 
                 {{-- IMEIs Registrados --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-green-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-green-500">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">IMEIs Registrados</p>
-                            <p class="stat-value text-gray-900">{{ number_format($imeis_totales) }}</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">IMEIs Registrados</p>
+                            <p class="stat-value text-gray-900 dark:text-slate-100">{{ number_format($imeis_totales) }}</p>
                             <div class="flex flex-wrap items-center mt-2 gap-1">
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                                <span class="text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">
                                     <i class="fas fa-check-circle mr-1"></i>{{ number_format($imeis_disponibles) }} disp.
                                 </span>
-                                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+                                <span class="text-xs bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 px-2 py-1 rounded-full">
                                     <i class="fas fa-times-circle mr-1"></i>{{ number_format($imeis_vendidos) }} vend.
                                 </span>
                             </div>
                         </div>
-                        <div class="bg-green-100 p-3 rounded-lg">
-                            <i class="fas fa-microchip text-green-600 text-2xl"></i>
+                        <div class="bg-green-100 dark:bg-green-900/40 p-3 rounded-lg">
+                            <i class="fas fa-microchip text-green-600 dark:text-green-400 text-2xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <p class="text-xs text-gray-500">
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-slate-700">
+                        <p class="text-xs text-gray-500 dark:text-slate-400">
                             <i class="fas fa-plus-circle text-green-500 mr-1"></i>
-                            Últimos 7 días: <span class="font-semibold text-green-600">+{{ $imeis_nuevos_semana }} nuevos</span>
+                            Últimos 7 días: <span class="font-semibold text-green-600 dark:text-green-400">+{{ $imeis_nuevos_semana }} nuevos</span>
                         </p>
                     </div>
                 </div>
 
                 {{-- Alertas de Stock --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 hover-scale border-l-4 border-orange-500">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover-scale border-l-4 border-orange-500">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">Alertas de Stock</p>
+                            <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">Alertas de Stock</p>
                             <p class="stat-value {{ $productos_bajo_stock > 0 ? 'text-orange-600' : 'text-green-600' }}">
                                 {{ $productos_bajo_stock }}
                             </p>
-                            <p class="text-xs text-orange-600 mt-1">productos por reabastecer</p>
+                            <p class="text-xs text-orange-600 dark:text-orange-400 mt-1">productos por reabastecer</p>
                         </div>
-                        <div class="bg-orange-100 p-3 rounded-lg">
-                            <i class="fas fa-exclamation-triangle text-orange-600 text-2xl"></i>
+                        <div class="bg-orange-100 dark:bg-orange-900/40 p-3 rounded-lg">
+                            <i class="fas fa-exclamation-triangle text-orange-600 dark:text-orange-400 text-2xl"></i>
                         </div>
                     </div>
                     <div class="mt-3 space-y-1">
                         @forelse($productos_bajo_stock_lista as $pa)
                             <div class="flex justify-between text-xs">
                                 <span class="truncate max-w-[120px]" title="{{ $pa->nombre }}">{{ $pa->nombre }}</span>
-                                <span class="font-semibold text-orange-600 ml-1">{{ $pa->stock_actual }} und</span>
+                                <span class="font-semibold text-orange-600 dark:text-orange-400 ml-1">{{ $pa->stock_actual }} und</span>
                             </div>
                         @empty
-                            <p class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Todo en orden</p>
+                            <p class="text-xs text-green-600 dark:text-green-400"><i class="fas fa-check mr-1"></i>Todo en orden</p>
                         @endforelse
                     </div>
                 </div>
@@ -356,63 +353,63 @@
             {{-- ──────────────────────────────────────────────────────── --}}
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center shrink-0">
                         <i class="fas fa-store text-blue-900"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Sucursales</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $total_sucursales }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Sucursales</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-slate-100">{{ $total_sucursales }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-warehouse text-green-600"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center shrink-0">
+                        <i class="fas fa-warehouse text-green-600 dark:text-green-400"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Almacenes</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $total_almacenes }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Almacenes</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-slate-100">{{ $total_almacenes }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-truck text-purple-600"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center shrink-0">
+                        <i class="fas fa-truck text-purple-600 dark:text-purple-400"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Proveedores</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $total_proveedores }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Proveedores</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-slate-100">{{ $total_proveedores }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-users text-teal-600"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-teal-100 dark:bg-teal-900/40 rounded-full flex items-center justify-center shrink-0">
+                        <i class="fas fa-users text-teal-600 dark:text-teal-400"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Clientes</p>
-                        <p class="text-xl font-bold text-gray-900">{{ number_format($total_clientes) }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Clientes</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-slate-100">{{ number_format($total_clientes) }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-exchange-alt text-yellow-600"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/40 rounded-full flex items-center justify-center shrink-0">
+                        <i class="fas fa-exchange-alt text-yellow-600 dark:text-yellow-400"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Traslados Pend.</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $traslados_pendientes }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Traslados Pend.</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-slate-100">{{ $traslados_pendientes }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-shopping-bag text-indigo-600"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/40 rounded-full flex items-center justify-center shrink-0">
+                        <i class="fas fa-shopping-bag text-indigo-600 dark:text-indigo-400"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500">Compras Mes</p>
-                        <p class="text-lg font-bold text-gray-900">S/ {{ number_format($compras_mes_actual, 0, '.', ',') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">Compras Mes</p>
+                        <p class="text-lg font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($compras_mes_actual, 0, '.', ',') }}</p>
                     </div>
                 </div>
             </div>
@@ -423,13 +420,13 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 
                 {{-- Gráfico Ventas Mensuales --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 chart-card">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 chart-card">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-bold text-gray-900">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">
                             <i class="fas fa-chart-line text-blue-900 mr-2"></i>
                             Ventas Mensuales {{ $anio_chart }}
                         </h3>
-                        <span class="text-xs text-gray-500 bg-gray-100 rounded px-2 py-1">S/ Soles</span>
+                        <span class="text-xs text-gray-500 dark:text-slate-400 bg-gray-100 dark:bg-slate-700 rounded px-2 py-1">S/ Soles</span>
                     </div>
                     <div class="chart-wrapper">
                         <div class="chart-container">
@@ -439,14 +436,14 @@
                 </div>
 
                 {{-- Top Productos Más Vendidos --}}
-                <div class="bg-white rounded-xl shadow-lg p-6 chart-card">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 chart-card">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">
                         <i class="fas fa-crown text-yellow-500 mr-2"></i>
                         Top Productos Vendidos
-                        <span class="text-sm font-normal text-gray-500">(mes actual)</span>
+                        <span class="text-sm font-normal text-gray-500 dark:text-slate-400">(mes actual)</span>
                     </h3>
                     @if($top_productos->isEmpty())
-                        <div class="flex flex-col items-center justify-center h-48 text-gray-400">
+                        <div class="flex flex-col items-center justify-center h-48 text-gray-400 dark:text-slate-500">
                             <i class="fas fa-inbox text-4xl mb-2"></i>
                             <p class="text-sm">Sin ventas registradas este mes</p>
                         </div>
@@ -456,12 +453,12 @@
                             @php $pct = $max_vendido > 0 ? round(($prod->total_vendido / $max_vendido) * 100) : 0; @endphp
                             <div>
                                 <div class="flex justify-between text-sm mb-1">
-                                    <span class="font-medium text-gray-700 truncate max-w-[200px]" title="{{ $prod->nombre }}">
+                                    <span class="font-medium text-gray-700 dark:text-slate-300 truncate max-w-[200px]" title="{{ $prod->nombre }}">
                                         {{ $prod->nombre }}
                                     </span>
-                                    <span class="text-gray-900 font-bold ml-2 shrink-0">{{ $prod->total_vendido }} und</span>
+                                    <span class="text-gray-900 dark:text-slate-100 font-bold ml-2 shrink-0">{{ $prod->total_vendido }} und</span>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2">
                                     <div class="bg-blue-900 h-2 rounded-full" style="width: {{ $pct }}%"></div>
                                 </div>
                             </div>
@@ -474,9 +471,9 @@
             {{-- ──────────────────────────────────────────────────────── --}}
             {{-- FILA 4: Últimos Movimientos                             --}}
             {{-- ──────────────────────────────────────────────────────── --}}
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 mb-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-bold text-gray-900">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">
                         <i class="fas fa-history text-blue-900 mr-2"></i>
                         Últimos Movimientos de Inventario
                     </h3>
@@ -487,13 +484,13 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full">
                         <thead>
-                            <tr class="border-b border-gray-200">
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Fecha</th>
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Producto</th>
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Tipo</th>
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Cant.</th>
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Almacén</th>
-                                <th class="text-left py-3 text-xs font-semibold text-gray-600 uppercase">Usuario</th>
+                            <tr class="border-b border-gray-200 dark:border-slate-700">
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Fecha</th>
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Producto</th>
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Tipo</th>
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Cant.</th>
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Almacén</th>
+                                <th class="text-left py-3 text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase">Usuario</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -510,11 +507,11 @@
                                 $colorClass = $colorMap[$mov->tipo_movimiento] ?? 'bg-gray-100 text-gray-800';
                                 $signo = in_array($mov->tipo_movimiento, ['ingreso','devolucion']) ? '+' : '-';
                             @endphp
-                            <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                <td class="py-3 text-sm text-gray-600">
+                            <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                <td class="py-3 text-sm text-gray-600 dark:text-slate-400">
                                     {{ $mov->created_at->format('d/m/Y H:i') }}
                                 </td>
-                                <td class="py-3 text-sm font-medium text-gray-900">
+                                <td class="py-3 text-sm font-medium text-gray-900 dark:text-slate-100">
                                     {{ $mov->producto->nombre ?? 'N/A' }}
                                 </td>
                                 <td class="py-3">
@@ -525,19 +522,19 @@
                                 <td class="py-3 text-sm font-semibold {{ in_array($mov->tipo_movimiento, ['ingreso','devolucion']) ? 'text-green-600' : 'text-red-600' }}">
                                     {{ $signo }}{{ $mov->cantidad }}
                                 </td>
-                                <td class="py-3 text-sm text-gray-600">
+                                <td class="py-3 text-sm text-gray-600 dark:text-slate-400">
                                     {{ $mov->almacen->nombre ?? 'N/A' }}
                                     @if($mov->almacenDestino)
-                                        <span class="text-gray-400 mx-1">→</span>{{ $mov->almacenDestino->nombre }}
+                                        <span class="text-gray-400 dark:text-slate-500 mx-1">→</span>{{ $mov->almacenDestino->nombre }}
                                     @endif
                                 </td>
-                                <td class="py-3 text-sm text-gray-600">
+                                <td class="py-3 text-sm text-gray-600 dark:text-slate-400">
                                     {{ $mov->usuario->name ?? 'Sistema' }}
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" class="py-8 text-center text-gray-400 text-sm">
+                                <td colspan="6" class="py-8 text-center text-gray-400 dark:text-slate-500 text-sm">
                                     <i class="fas fa-inbox text-2xl mb-2 block"></i>
                                     No hay movimientos registrados
                                 </td>
@@ -554,29 +551,29 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {{-- Usuarios por Rol --}}
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">
                         <i class="fas fa-users text-blue-900 mr-2"></i>
                         Usuarios del Sistema
                     </h3>
                     <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div class="bg-blue-50 rounded-lg p-4 text-center">
-                            <p class="text-xs text-gray-500">Total</p>
+                        <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 text-center">
+                            <p class="text-xs text-gray-500 dark:text-slate-400">Total</p>
                             <p class="text-2xl font-bold text-blue-900">{{ $total_usuarios }}</p>
                         </div>
-                        <div class="bg-green-50 rounded-lg p-4 text-center">
-                            <p class="text-xs text-gray-500">Activos</p>
-                            <p class="text-2xl font-bold text-green-600">{{ $usuarios_activos }}</p>
+                        <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-4 text-center">
+                            <p class="text-xs text-gray-500 dark:text-slate-400">Activos</p>
+                            <p class="text-2xl font-bold text-green-600 dark:text-green-400">{{ $usuarios_activos }}</p>
                         </div>
                     </div>
                     <div class="space-y-3">
                         @foreach($usuarios_por_rol as $rol)
                         @php $porcentaje = $total_usuarios > 0 ? round(($rol->total / $total_usuarios) * 100) : 0; @endphp
                         <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">{{ $rol->nombre }}</span>
+                            <span class="text-sm text-gray-600 dark:text-slate-400">{{ $rol->nombre }}</span>
                             <div class="flex items-center gap-3">
-                                <span class="text-sm font-semibold text-gray-900">{{ $rol->total }}</span>
-                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <span class="text-sm font-semibold text-gray-900 dark:text-slate-100">{{ $rol->total }}</span>
+                                <div class="w-24 bg-gray-200 dark:bg-slate-700 rounded-full h-2">
                                     <div class="bg-blue-900 h-2 rounded-full" style="width: {{ $porcentaje }}%"></div>
                                 </div>
                             </div>

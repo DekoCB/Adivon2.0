@@ -172,27 +172,27 @@ $catalogoJson = $productos->map(fn($p) => [
      x-init="init()">
 
     {{-- Breadcrumb --}}
-    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+    <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
         <a href="{{ route('inventario.movimientos.index') }}" class="hover:text-blue-700 transition-colors">Movimientos</a>
-        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-        <span class="text-gray-800 font-medium">Nuevo Movimiento</span>
+        <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
+        <span class="text-gray-800 dark:text-slate-200 font-medium">Nuevo Movimiento</span>
     </nav>
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Registrar Movimiento</h1>
-            <p class="text-sm text-gray-500 mt-0.5">Ingreso, salida, ajuste o transferencia de inventario</p>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Registrar Movimiento</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Ingreso, salida, ajuste o transferencia de inventario</p>
         </div>
         <a href="{{ route('inventario.movimientos.index') }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-200 transition-colors">
+           class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 text-sm font-medium rounded-xl hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
             <i class="fas fa-arrow-left"></i> Volver
         </a>
     </div>
 
     {{-- Alertas de validación --}}
     @if($errors->any())
-    <div class="mb-5 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl">
+    <div class="mb-5 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 px-4 py-3 rounded-xl">
         <div class="flex items-center gap-2 mb-2">
             <i class="fas fa-exclamation-triangle text-red-500"></i>
             <span class="text-sm font-semibold">Corrige los siguientes errores:</span>
@@ -206,7 +206,7 @@ $catalogoJson = $productos->map(fn($p) => [
     @endif
 
     @if(session('error'))
-    <div class="mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm">
+    <div class="mb-5 flex items-center gap-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 px-4 py-3 rounded-xl text-sm">
         <i class="fas fa-times-circle text-red-500"></i> {{ session('error') }}
     </div>
     @endif
@@ -221,7 +221,7 @@ $catalogoJson = $productos->map(fn($p) => [
             <div class="space-y-5">
 
                 {{-- Tipo de movimiento --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
                     <div class="bg-linear-to-r from-blue-900 to-blue-700 px-5 py-3">
                         <h2 class="text-sm font-semibold text-white flex items-center gap-2">
                             <i class="fas fa-list-ul"></i> Tipo de Movimiento
@@ -241,12 +241,10 @@ $catalogoJson = $productos->map(fn($p) => [
                                    x-model="tipoMovimiento"
                                    @change="onTipoChange()"
                                    class="peer hidden" {{ old('tipo_movimiento') === $val ? 'checked' : '' }}>
-                            <div class="border-2 border-gray-200 rounded-xl p-3 text-center hover:border-{{ $color }}-400
-                                        peer-checked:border-{{ $color }}-500 peer-checked:bg-{{ $color }}-50
-                                        transition-all cursor-pointer select-none">
+                            <div class="border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-{{ $color }}-400 peer-checked:border-{{ $color }}-500 peer-checked:bg-{{ $color }}-50 transition-all cursor-pointer select-none">
                                 <i class="fas {{ $icon }} text-2xl text-{{ $color }}-500 mb-1"></i>
-                                <p class="text-xs font-bold text-gray-800">{{ $label }}</p>
-                                <p class="text-[10px] text-gray-400 leading-tight mt-0.5">{{ $desc }}</p>
+                                <p class="text-xs font-bold text-gray-800 dark:text-slate-200">{{ $label }}</p>
+                                <p class="text-[10px] text-gray-400 dark:text-slate-500 leading-tight mt-0.5">{{ $desc }}</p>
                             </div>
                         </label>
                         @endforeach
@@ -255,7 +253,7 @@ $catalogoJson = $productos->map(fn($p) => [
 
                 {{-- Panel de info del producto seleccionado --}}
                 <div x-show="productoId" x-cloak
-                     class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
                     <div class="bg-linear-to-r from-emerald-700 to-emerald-500 px-5 py-3">
                         <h2 class="text-sm font-semibold text-white flex items-center gap-2">
                             <i class="fas fa-box"></i> Producto seleccionado
@@ -263,26 +261,26 @@ $catalogoJson = $productos->map(fn($p) => [
                     </div>
                     <div class="p-5 space-y-3">
                         <div>
-                            <p class="text-sm font-bold text-gray-900" x-text="productoNombre"></p>
+                            <p class="text-sm font-bold text-gray-900 dark:text-slate-100" x-text="productoNombre"></p>
                         </div>
                         <div class="flex items-center justify-between text-sm">
-                            <span class="text-gray-500">Tipo inventario</span>
+                            <span class="text-gray-500 dark:text-slate-400">Tipo inventario</span>
                             <span class="font-medium">
                                 <template x-if="esCelular">
-                                    <span class="text-blue-700 font-semibold">
+                                    <span class="text-blue-700 dark:text-blue-300 font-semibold">
                                         <i class="fas fa-mobile-alt mr-1"></i> Celular (IMEI)
                                     </span>
                                 </template>
                                 <template x-if="!esCelular">
-                                    <span class="text-gray-700">
+                                    <span class="text-gray-700 dark:text-slate-300">
                                         <i class="fas fa-boxes mr-1"></i> Accesorio / cantidad
                                     </span>
                                 </template>
                             </span>
                         </div>
                         <div class="flex items-center justify-between text-sm">
-                            <span class="text-gray-500">Stock global</span>
-                            <span class="font-bold text-emerald-700"
+                            <span class="text-gray-500 dark:text-slate-400">Stock global</span>
+                            <span class="font-bold text-emerald-700 dark:text-emerald-300"
                                   x-text="productoStock + ' ' + productoUnidad"></span>
                         </div>
                         <button type="button" @click="limpiarProducto()"
@@ -293,11 +291,11 @@ $catalogoJson = $productos->map(fn($p) => [
                 </div>
 
                 {{-- Nota importante --}}
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                    <p class="text-xs font-semibold text-amber-800 mb-1.5 flex items-center gap-1">
+                <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl p-4">
+                    <p class="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1.5 flex items-center gap-1">
                         <i class="fas fa-exclamation-triangle"></i> Importante
                     </p>
-                    <ul class="text-xs text-amber-700 space-y-1 list-disc list-inside">
+                    <ul class="text-xs text-amber-700 dark:text-amber-300 space-y-1 list-disc list-inside">
                         <li>Los movimientos <strong>no se pueden eliminar</strong></li>
                         <li>Para celulares, los <strong>ingresos</strong> se registran en el módulo de Compras</li>
                         <li>Las transferencias requieren número de guía de remisión</li>
@@ -311,21 +309,21 @@ $catalogoJson = $productos->map(fn($p) => [
 
                 {{-- Panel de redirección para Transferencia --}}
                 <div x-show="tipoMovimiento === 'transferencia'" x-cloak
-                     class="bg-white rounded-xl shadow-sm border border-purple-200 overflow-hidden">
+                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-purple-200 dark:border-purple-800 overflow-hidden">
                     <div class="bg-linear-to-r from-purple-700 to-purple-500 px-5 py-3">
                         <h2 class="text-sm font-semibold text-white flex items-center gap-2">
                             <i class="fas fa-exchange-alt"></i> Transferencia entre Almacenes
                         </h2>
                     </div>
                     <div class="p-10 flex flex-col items-center text-center gap-5">
-                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center">
                             <i class="fas fa-exchange-alt text-3xl text-purple-500"></i>
                         </div>
                         <div>
-                            <p class="text-base font-semibold text-gray-800 mb-1">
+                            <p class="text-base font-semibold text-gray-800 dark:text-slate-200 mb-1">
                                 Las transferencias se gestionan en el módulo de Traslados
                             </p>
-                            <p class="text-sm text-gray-500 max-w-sm">
+                            <p class="text-sm text-gray-500 dark:text-slate-400 max-w-sm">
                                 Desde ahí puedes trasladar múltiples productos a la vez, asignar IMEIs específicos y hacer seguimiento hasta la confirmación de recepción.
                             </p>
                         </div>
@@ -334,14 +332,14 @@ $catalogoJson = $productos->map(fn($p) => [
                             <i class="fas fa-arrow-right"></i> Ir a Nuevo Traslado
                         </a>
                         <a href="{{ route('traslados.index') }}"
-                           class="text-xs text-gray-400 hover:text-purple-600 transition-colors">
+                           class="text-xs text-gray-400 dark:text-slate-500 hover:text-purple-600 transition-colors">
                             Ver historial de traslados →
                         </a>
                     </div>
                 </div>
 
                 <div x-show="tipoMovimiento !== 'transferencia'" x-cloak
-                     class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden"
                      style="display: block">
                 <div class="bg-linear-to-r from-gray-700 to-gray-600 px-5 py-3">
                         <h2 class="text-sm font-semibold text-white flex items-center gap-2">
@@ -353,42 +351,42 @@ $catalogoJson = $productos->map(fn($p) => [
 
                         {{-- Búsqueda dinámica de producto --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                 Producto <span class="text-red-500">*</span>
                             </label>
                             <input type="hidden" name="producto_id" :value="productoId">
                             <div class="relative" @click.away="abierto = false">
                                 <div class="relative">
-                                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 text-sm"></i>
                                     <input type="text"
                                            x-model="query"
                                            @input.debounce.200ms="buscar()"
                                            @focus="if(resultados.length) abierto = true"
                                            :readonly="!!productoId"
-                                           :class="productoId ? 'bg-gray-50 text-gray-500 cursor-default' : ''"
+                                           :class="productoId ? 'bg-gray-50 text-gray-500 dark:text-slate-400 cursor-default' : ''"
                                            placeholder="Buscar por nombre o código..."
-                                           class="w-full pl-9 pr-9 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                           class="w-full pl-9 pr-9 py-2.5 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     <button x-show="productoId" type="button" @click="limpiarProducto()"
-                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors">
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 hover:text-red-500 transition-colors">
                                         <i class="fas fa-times text-sm"></i>
                                     </button>
                                 </div>
 
                                 {{-- Dropdown resultados --}}
                                 <div x-show="abierto" x-cloak
-                                     class="absolute z-30 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-64 overflow-y-auto">
+                                     class="absolute z-30 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg max-h-64 overflow-y-auto">
                                     <template x-for="p in resultados" :key="p.id">
                                         <button type="button" @click="seleccionar(p)"
                                                 class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b border-gray-50 last:border-0 transition-colors">
                                             <div class="flex items-center justify-between">
                                                 <div>
-                                                    <p class="text-sm font-medium text-gray-900" x-text="p.nombre"></p>
-                                                    <p class="text-xs text-gray-400" x-text="p.codigo"></p>
+                                                    <p class="text-sm font-medium text-gray-900 dark:text-slate-100" x-text="p.nombre"></p>
+                                                    <p class="text-xs text-gray-400 dark:text-slate-500" x-text="p.codigo"></p>
                                                 </div>
                                                 <div class="text-right shrink-0 ml-3">
-                                                    <span class="text-xs font-semibold text-emerald-700"
+                                                    <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-300"
                                                           x-text="'Stock: ' + p.stock_actual + ' ' + p.unidad"></span>
-                                                    <span class="block text-[10px] text-gray-400"
+                                                    <span class="block text-[10px] text-gray-400 dark:text-slate-500"
                                                           x-text="p.tipo_inventario === 'serie' ? '📱 IMEI' : '📦 Cantidad'"></span>
                                                 </div>
                                             </div>
@@ -397,18 +395,18 @@ $catalogoJson = $productos->map(fn($p) => [
                                 </div>
                             </div>
                             @error('producto_id')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Almacén --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                 <span x-text="tipoMovimiento ? labelAlmacen : 'Almacén'"></span>
                                 <span class="text-red-500">*</span>
                             </label>
                             <select name="almacen_id" x-model="almacenId" @change="onAlmacenChange()"
-                                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">— Selecciona un almacén —</option>
                                 @if($almacenesCentral->isNotEmpty())
                                     <optgroup label="── Almacenes Centrales">
@@ -430,31 +428,31 @@ $catalogoJson = $productos->map(fn($p) => [
                                 @endif
                             </select>
                             @error('almacen_id')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- IMEI (solo celulares) --}}
                         <div x-show="esCelular" x-cloak>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                 IMEI <span class="text-red-500">*</span>
                             </label>
 
                             {{-- Ingreso de celular = bloquear --}}
                             <div x-show="esIngresoCelular"
-                                 class="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-sm text-blue-700">
+                                 class="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 text-sm text-blue-700 dark:text-blue-300">
                                 <i class="fas fa-info-circle shrink-0"></i>
                                 <span>Los ingresos de celulares se registran en el módulo de <strong>Compras</strong>.</span>
                             </div>
 
                             <div x-show="!esIngresoCelular">
-                                <div x-show="cargandoImeis" class="text-xs text-gray-400 py-2">
+                                <div x-show="cargandoImeis" class="text-xs text-gray-400 dark:text-slate-500 py-2">
                                     <i class="fas fa-spinner fa-spin mr-1"></i> Cargando IMEIs disponibles...
                                 </div>
                                 <div x-show="!cargandoImeis">
                                     <select name="imei_id" x-model="imeiId"
                                             :disabled="imeis.length === 0"
-                                            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-400">
+                                            class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-400">
                                         <option value="">— Selecciona un IMEI —</option>
                                         <template x-for="imei in imeis" :key="imei.id">
                                             <option :value="imei.id"
@@ -463,35 +461,35 @@ $catalogoJson = $productos->map(fn($p) => [
                                         </template>
                                     </select>
                                     <p x-show="imeiError" x-text="imeiError"
-                                       class="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg mt-1.5"></p>
-                                    <p x-show="!imeiError && imeis.length > 0" class="text-xs text-gray-400 mt-1"
+                                       class="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 px-3 py-1.5 rounded-lg mt-1.5"></p>
+                                    <p x-show="!imeiError && imeis.length > 0" class="text-xs text-gray-400 dark:text-slate-500 mt-1"
                                        x-text="imeis.length + ' IMEI(s) disponibles'"></p>
                                 </div>
                             </div>
                             @error('imei_id')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Cantidad (solo accesorios) --}}
                         <div x-show="!esCelular" x-cloak>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                                 Cantidad <span class="text-red-500">*</span>
                             </label>
                             <input type="number" name="cantidad" x-model="cantidad" min="1"
-                                   class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
+                                   class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
                             @error('cantidad')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Motivo --}}
                         <div x-show="tipoMovimiento && tipoMovimiento !== 'transferencia'" x-cloak>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                                 Motivo <span class="text-red-500">*</span>
                             </label>
                             <template x-if="motivosFiltrados.length === 0">
-                                <div class="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 px-3 py-2.5 rounded-xl">
+                                <div class="flex items-center gap-2 text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 px-3 py-2.5 rounded-xl">
                                     <i class="fas fa-exclamation-triangle shrink-0"></i>
                                     <span>Sin motivos para este tipo. <a href="{{ route('catalogo.motivos.create') }}" class="underline font-semibold">Crear motivo</a></span>
                                 </div>
@@ -501,41 +499,40 @@ $catalogoJson = $productos->map(fn($p) => [
                                     <label class="cursor-pointer block">
                                         <input type="radio" name="motivo_movimiento_id" :value="m.id"
                                                x-model="motivoId" class="peer hidden">
-                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl
-                                                    peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-gray-300 transition-all">
+                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-gray-300 transition-all">
                                             <i class="fas fa-tag text-gray-300 shrink-0"></i>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-semibold text-gray-800" x-text="m.nombre"></p>
-                                                <p class="text-xs text-gray-400 truncate" x-text="m.descripcion"></p>
+                                                <p class="text-sm font-semibold text-gray-800 dark:text-slate-200" x-text="m.nombre"></p>
+                                                <p class="text-xs text-gray-400 dark:text-slate-500 truncate" x-text="m.descripcion"></p>
                                             </div>
-                                            <i x-show="motivoId == m.id" class="fas fa-check-circle text-blue-600 shrink-0"></i>
+                                            <i x-show="motivoId == m.id" class="fas fa-check-circle text-blue-600 dark:text-blue-400 shrink-0"></i>
                                         </div>
                                     </label>
                                 </template>
                             </div>
                             @error('motivo_movimiento_id')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Observaciones --}}
                         <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
-                                Observaciones <span class="text-gray-400 normal-case font-normal">(opcional)</span>
+                            <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
+                                Observaciones <span class="text-gray-400 dark:text-slate-500 normal-case font-normal">(opcional)</span>
                             </label>
                             <textarea name="observaciones" rows="2"
                                       placeholder="Información adicional..."
-                                      class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 resize-none">{{ old('observaciones') }}</textarea>
+                                      class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 resize-none">{{ old('observaciones') }}</textarea>
                         </div>
 
                         {{-- Error general --}}
                         <p x-show="errorGeneral" x-text="errorGeneral" x-cloak
-                           class="text-sm text-red-600 bg-red-50 border border-red-200 px-3 py-2 rounded-lg"></p>
+                           class="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 px-3 py-2 rounded-lg"></p>
 
                         {{-- Botones --}}
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-700">
                             <a href="{{ route('inventario.movimientos.index') }}"
-                               class="px-5 py-2.5 border border-gray-200 text-gray-600 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors">
+                               class="px-5 py-2.5 border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 text-sm font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
                                 <i class="fas fa-times mr-1"></i> Cancelar
                             </a>
                             <button type="submit"

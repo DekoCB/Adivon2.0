@@ -10,41 +10,41 @@
 <div>
     {{-- Stats --}}
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-        <div class="bg-white rounded-xl shadow-sm border-l-4 border-blue-500 p-4">
-            <p class="text-xs text-gray-500 uppercase font-medium">Total Emitidos</p>
-            <p class="text-3xl font-bold text-gray-800">{{ number_format($stats['total_emitidos']) }}</p>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-l-4 border-blue-500 p-4">
+            <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium">Total Emitidos</p>
+            <p class="text-3xl font-bold text-gray-800 dark:text-slate-200">{{ number_format($stats['total_emitidos']) }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border-l-4 border-amber-400 p-4">
-            <p class="text-xs text-gray-500 uppercase font-medium">Pendiente Envío</p>
-            <p class="text-3xl font-bold text-amber-600">{{ $stats['pendiente_envio'] }}</p>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-l-4 border-amber-400 p-4">
+            <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium">Pendiente Envío</p>
+            <p class="text-3xl font-bold text-amber-600 dark:text-amber-400">{{ $stats['pendiente_envio'] }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border-l-4 border-green-500 p-4">
-            <p class="text-xs text-gray-500 uppercase font-medium">Aceptados SUNAT</p>
-            <p class="text-3xl font-bold text-green-600">{{ $stats['aceptados'] }}</p>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-l-4 border-green-500 p-4">
+            <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium">Aceptados SUNAT</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400">{{ $stats['aceptados'] }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border-l-4 border-red-500 p-4">
-            <p class="text-xs text-gray-500 uppercase font-medium">Rechazados</p>
-            <p class="text-3xl font-bold text-red-600">{{ $stats['rechazados'] }}</p>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-l-4 border-red-500 p-4">
+            <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium">Rechazados</p>
+            <p class="text-3xl font-bold text-red-600 dark:text-red-400">{{ $stats['rechazados'] }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border-l-4 border-purple-500 p-4">
-            <p class="text-xs text-gray-500 uppercase font-medium">Emitidos Hoy</p>
-            <p class="text-3xl font-bold text-purple-600">{{ $stats['hoy'] }}</p>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-l-4 border-purple-500 p-4">
+            <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-medium">Emitidos Hoy</p>
+            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">{{ $stats['hoy'] }}</p>
         </div>
     </div>
 
     {{-- Accesos rápidos --}}
     <div class="flex flex-wrap gap-3 mb-6">
         <a href="{{ route('facturacion.series') }}"
-           class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
-            <i class="fas fa-list-ol text-blue-600"></i> Gestionar Series
+           class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/60 text-gray-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+            <i class="fas fa-list-ol text-blue-600 dark:text-blue-400"></i> Gestionar Series
         </a>
         <a href="{{ route('facturacion.configuracion') }}"
-           class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
-            <i class="fas fa-cog text-gray-600"></i> Configuración
+           class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/60 text-gray-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+            <i class="fas fa-cog text-gray-600 dark:text-slate-400"></i> Configuración
         </a>
         <a href="{{ route('ventas.index') }}"
-           class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
-            <i class="fas fa-external-link-alt text-gray-400"></i> Ir a Ventas
+           class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/60 text-gray-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+            <i class="fas fa-external-link-alt text-gray-400 dark:text-slate-500"></i> Ir a Ventas
         </a>
     </div>
 
@@ -53,9 +53,9 @@
             <div class="md:col-span-2">
                 <input type="text" name="buscar" value="{{ request('buscar') }}"
                        placeholder="Buscar cliente, RUC, serie..."
-                       class="w-full rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                       class="w-full rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
-            <select name="estado_sunat" class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+            <select name="estado_sunat" class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <option value="">Todos los estados</option>
                 <option value="pendiente_envio" {{ request('estado_sunat') == 'pendiente_envio' ? 'selected' : '' }}>Pendiente Envío</option>
                 <option value="enviado"         {{ request('estado_sunat') == 'enviado'         ? 'selected' : '' }}>Enviado</option>
@@ -64,18 +64,18 @@
                 <option value="anulado_baja"    {{ request('estado_sunat') == 'anulado_baja'    ? 'selected' : '' }}>Anulado</option>
                 <option value="no_aplica"       {{ request('estado_sunat') == 'no_aplica'       ? 'selected' : '' }}>No Aplica</option>
             </select>
-            <select name="tipo_comprobante" class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+            <select name="tipo_comprobante" class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <option value="">Todos los tipos</option>
                 <option value="factura"    {{ request('tipo_comprobante') == 'factura'    ? 'selected' : '' }}>Factura</option>
                 <option value="boleta"     {{ request('tipo_comprobante') == 'boleta'     ? 'selected' : '' }}>Boleta</option>
                 <option value="nc_factura" {{ request('tipo_comprobante') == 'nc_factura' ? 'selected' : '' }}>Nota Crédito</option>
             </select>
-            <select name="con_guia" class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+            <select name="con_guia" class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <option value="">Con/Sin guía</option>
                 <option value="1" {{ request('con_guia') == '1' ? 'selected' : '' }}>Con Guía de Remisión</option>
                 <option value="0" {{ request('con_guia') == '0' ? 'selected' : '' }}>Sin Guía de Remisión</option>
             </select>
-            <select name="estado_guia" class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+            <select name="estado_guia" class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <option value="">Estado Guía</option>
                 <option value="pendiente"   {{ request('estado_guia') == 'pendiente'   ? 'selected' : '' }}>Pendiente</option>
                 <option value="en_transito" {{ request('estado_guia') == 'en_transito' ? 'selected' : '' }}>En Tránsito</option>
@@ -84,9 +84,9 @@
             </select>
             <div class="grid grid-cols-2 gap-2">
                 <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}"
-                       class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                       class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
                 <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
-                       class="rounded-lg border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
+                       class="rounded-lg border-gray-300 dark:border-slate-600 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
     </x-filter-bar>
 
@@ -145,33 +145,33 @@
                     };
                     $tieneGuia = $comp->guiaRemision !== null;
                 @endphp
-                <tr class="hover:bg-gray-50">
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                     <td class="px-4 py-3">
                         @if($comp->serieComprobante && $comp->correlativo)
-                            <span class="font-mono font-semibold text-gray-800">
+                            <span class="font-mono font-semibold text-gray-800 dark:text-slate-200">
                                 {{ $comp->serieComprobante->serie }}-{{ str_pad($comp->correlativo, 8, '0', STR_PAD_LEFT) }}
                             </span>
                         @else
-                            <span class="font-mono text-gray-400 text-xs">#{{ str_pad($comp->id, 6, '0', STR_PAD_LEFT) }}</span>
+                            <span class="font-mono text-gray-400 dark:text-slate-500 text-xs">#{{ str_pad($comp->id, 6, '0', STR_PAD_LEFT) }}</span>
                             <span class="block text-[10px] text-amber-500 font-medium leading-none mt-0.5">Sin serie asignada</span>
                         @endif
                     </td>
                     <td class="px-4 py-3">
                         <x-badge :tone="$tipoTono">{{ $tipoLabel }}</x-badge>
                         @if($tieneGuia)
-                            <span class="block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-teal-100 text-teal-700 w-fit">
+                            <span class="block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 w-fit">
                                 <i class="fas fa-truck mr-0.5"></i>Guía Rem.
                             </span>
                         @endif
                     </td>
                     <td class="px-4 py-3">
-                        <p class="font-medium text-gray-900 truncate max-w-[200px]">{{ $comp->cliente?->nombre ?? 'Sin cliente' }}</p>
-                        <p class="text-xs text-gray-500">{{ $comp->cliente?->documento ?? '-' }}</p>
+                        <p class="font-medium text-gray-900 dark:text-slate-100 truncate max-w-[200px]">{{ $comp->cliente?->nombre ?? 'Sin cliente' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ $comp->cliente?->documento ?? '-' }}</p>
                     </td>
-                    <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <td class="px-4 py-3 text-gray-600 dark:text-slate-400 whitespace-nowrap">
                         {{ \Carbon\Carbon::parse($comp->fecha)->format('d/m/Y') }}
                     </td>
-                    <td class="px-4 py-3 text-right font-semibold text-gray-800">
+                    <td class="px-4 py-3 text-right font-semibold text-gray-800 dark:text-slate-200">
                         S/ {{ number_format($comp->total, 2) }}
                     </td>
                     <td class="px-4 py-3">
@@ -182,14 +182,7 @@
                             <form action="{{ route('facturacion.guia-estado', $comp) }}" method="POST">
                                 @csrf @method('PATCH')
                                 <select name="estado" onchange="this.form.submit()"
-                                        class="text-xs border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-teal-500 cursor-pointer
-                                               {{ match($comp->guiaRemision->estado) {
-                                                   'pendiente'   => 'bg-amber-50 text-amber-700 border-amber-300',
-                                                   'en_transito' => 'bg-blue-50 text-blue-700 border-blue-300',
-                                                   'entregada'   => 'bg-green-50 text-green-700 border-green-300',
-                                                   'anulada'     => 'bg-gray-100 text-gray-500 border-gray-300',
-                                                   default       => '',
-                                               } }}">
+                                        class="text-xs border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1 focus:ring-2 focus:ring-teal-500 cursor-pointer {{ match($comp->guiaRemision->estado) { 'pendiente' => 'bg-amber-50 text-amber-700 dark:text-amber-300 border-amber-300', 'en_transito' => 'bg-blue-50 text-blue-700 dark:text-blue-300 border-blue-300', 'entregada' => 'bg-green-50 text-green-700 dark:text-green-300 border-green-300', 'anulada' => 'bg-gray-100 text-gray-500 dark:text-slate-400 border-gray-300', default => '', } }}">
                                     <option value="pendiente"   {{ $comp->guiaRemision->estado === 'pendiente'   ? 'selected' : '' }}>Pendiente</option>
                                     <option value="en_transito" {{ $comp->guiaRemision->estado === 'en_transito' ? 'selected' : '' }}>En Tránsito</option>
                                     <option value="entregada"   {{ $comp->guiaRemision->estado === 'entregada'   ? 'selected' : '' }}>Entregada</option>
@@ -197,19 +190,19 @@
                                 </select>
                             </form>
                         @else
-                            <span class="text-xs text-gray-400">—</span>
+                            <span class="text-xs text-gray-400 dark:text-slate-500">—</span>
                         @endif
                     </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
                             <a href="{{ route('ventas.show', $comp) }}" target="_blank"
-                               class="text-blue-600 hover:text-blue-800 transition" title="Ver detalle">
+                               class="text-blue-600 dark:text-blue-400 hover:text-blue-800 transition" title="Ver detalle">
                                 <i class="fas fa-eye"></i>
                             </a>
                             @if(in_array($comp->estado_sunat, ['pendiente_envio', 'rechazado']))
                                 <form action="{{ route('facturacion.enviar-sunat', $comp) }}" method="POST" class="inline">
                                     @csrf
-                                    <button type="submit" class="text-amber-600 hover:text-amber-800 transition" title="Enviar a SUNAT"
+                                    <button type="submit" class="text-amber-600 dark:text-amber-400 hover:text-amber-800 transition" title="Enviar a SUNAT"
                                             onclick="return confirm('¿Enviar este comprobante a SUNAT?')">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
@@ -224,12 +217,12 @@
                                 <i class="fas fa-file-pdf"></i>
                             </a>
                             <a href="{{ route('facturacion.xml', $comp) }}"
-                               class="text-green-600 hover:text-green-800 transition" title="Descargar XML">
+                               class="text-green-600 dark:text-green-400 hover:text-green-800 transition" title="Descargar XML">
                                 <i class="fas fa-file-code"></i>
                             </a>
                             @if($tieneGuia)
                                 <a href="{{ route('ventas.guia-pdf', $comp) }}" target="_blank"
-                                   class="text-teal-600 hover:text-teal-800 transition" title="Ver Guía de Remisión">
+                                   class="text-teal-600 dark:text-teal-400 hover:text-teal-800 transition" title="Ver Guía de Remisión">
                                     <i class="fas fa-truck"></i>
                                 </a>
                             @endif
@@ -238,7 +231,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="px-6 py-12 text-center text-gray-400">
+                    <td colspan="8" class="px-6 py-12 text-center text-gray-400 dark:text-slate-500">
                         <i class="fas fa-file-invoice text-4xl mb-3 block"></i>
                         <p class="font-medium">No se encontraron comprobantes</p>
                     </td>

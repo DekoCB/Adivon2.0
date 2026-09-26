@@ -8,7 +8,7 @@
 
 
         <div class="flex items-center justify-between mb-1">
-            <a href="{{ route('cajero.dashboard') }}" class="text-sm text-gray-500 hover:text-blue-700">
+            <a href="{{ route('cajero.dashboard') }}" class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700">
                 <i class="fas fa-arrow-left mr-1"></i> Mi Panel
             </a>
         </div>
@@ -16,26 +16,26 @@
 
         {{-- Counter badge --}}
         <div class="flex items-center gap-3 mb-6">
-            <span class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-sm font-semibold px-4 py-2 rounded-full">
+            <span class="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-sm font-semibold px-4 py-2 rounded-full">
                 <i class="fas fa-clock"></i>
                 <span x-text="ventas.length"></span> venta(s) en cola
             </span>
-            <span class="text-xs text-gray-400">
+            <span class="text-xs text-gray-400 dark:text-slate-500">
                 <i class="fas fa-sync-alt mr-1"></i>Última actualización: <span x-text="ultimaActualizacion"></span>
             </span>
         </div>
 
         {{-- Grid de ventas --}}
         <div x-show="ventas.length === 0" x-cloak
-             class="bg-white rounded-2xl shadow-sm p-12 text-center text-gray-400">
+             class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-12 text-center text-gray-400 dark:text-slate-500">
             <i class="fas fa-check-circle text-4xl text-green-400 block mb-3"></i>
-            <p class="font-semibold text-gray-600">Cola vacía</p>
+            <p class="font-semibold text-gray-600 dark:text-slate-400">Cola vacía</p>
             <p class="text-sm mt-1">No hay ventas pendientes de cobro en este momento.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <template x-for="v in ventas" :key="v.id">
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
                     {{-- Header card --}}
                     <div class="bg-gradient-to-r from-amber-500 to-amber-400 px-4 py-3 flex items-center justify-between">
                         <span class="font-mono text-white font-bold text-sm" x-text="v.codigo"></span>
@@ -44,16 +44,16 @@
                     <div class="p-4 space-y-3">
                         {{-- Cliente --}}
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs shrink-0"
+                            <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold text-xs shrink-0"
                                  x-text="(v.cliente ?? '?').charAt(0).toUpperCase()"></div>
                             <div>
-                                <p class="font-semibold text-gray-800 text-sm" x-text="v.cliente || 'Sin cliente'"></p>
-                                <p class="text-xs text-gray-400" x-text="'Vendedor: ' + v.vendedor"></p>
+                                <p class="font-semibold text-gray-800 dark:text-slate-200 text-sm" x-text="v.cliente || 'Sin cliente'"></p>
+                                <p class="text-xs text-gray-400 dark:text-slate-500" x-text="'Vendedor: ' + v.vendedor"></p>
                             </div>
                         </div>
 
                         {{-- Productos --}}
-                        <div class="text-xs text-gray-600 bg-gray-50 rounded-lg p-2 max-h-24 overflow-y-auto">
+                        <div class="text-xs text-gray-600 dark:text-slate-400 bg-gray-50 dark:bg-slate-900/60 rounded-lg p-2 max-h-24 overflow-y-auto">
                             <template x-for="d in v.detalles" :key="d.id">
                                 <div class="flex justify-between py-0.5">
                                     <span x-text="d.cantidad + 'x ' + d.producto"></span>
@@ -63,9 +63,9 @@
                         </div>
 
                         {{-- Total --}}
-                        <div class="flex items-center justify-between pt-1 border-t border-gray-100">
-                            <span class="text-sm text-gray-600 font-medium">Total</span>
-                            <span class="text-xl font-bold text-gray-800" x-text="'S/ ' + v.total.toFixed(2)"></span>
+                        <div class="flex items-center justify-between pt-1 border-t border-gray-100 dark:border-slate-700">
+                            <span class="text-sm text-gray-600 dark:text-slate-400 font-medium">Total</span>
+                            <span class="text-xl font-bold text-gray-800 dark:text-slate-200" x-text="'S/ ' + v.total.toFixed(2)"></span>
                         </div>
 
                         {{-- Acciones --}}
@@ -76,7 +76,7 @@
                                 <i class="fas fa-money-bill-wave"></i> Cobrar
                             </button>
                             <a :href="'/ventas/' + v.id + '/pdf'" target="_blank"
-                               class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition" title="Ver comprobante">
+                               class="px-3 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-300 rounded-xl transition" title="Ver comprobante">
                                 <i class="fas fa-file-pdf text-red-500"></i>
                             </a>
                         </div>
@@ -90,7 +90,7 @@
              class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4">
             <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="!procesandoCobro && cerrarModal()"></div>
 
-            <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg z-10 flex flex-col max-h-[95vh]">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg z-10 flex flex-col max-h-[95vh]">
 
                 {{-- Header --}}
                 <div class="bg-gradient-to-r from-green-700 to-green-600 px-5 py-4 rounded-t-2xl flex items-center justify-between shrink-0">
@@ -110,12 +110,12 @@
 
                 {{-- ── ESTADO: ÉXITO ── --}}
                 <div x-show="cobroExitoso" x-cloak class="p-6 text-center space-y-4">
-                    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
-                        <i class="fas fa-check text-green-600 text-2xl"></i>
+                    <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center mx-auto">
+                        <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
                     </div>
                     <div>
-                        <p class="text-lg font-bold text-gray-800">Pago confirmado</p>
-                        <p class="text-sm text-gray-500 mt-1" x-text="'Venta ' + ventaActual?.codigo + ' cobrada exitosamente'"></p>
+                        <p class="text-lg font-bold text-gray-800 dark:text-slate-200">Pago confirmado</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-1" x-text="'Venta ' + ventaActual?.codigo + ' cobrada exitosamente'"></p>
                     </div>
                     <div class="flex gap-3">
                         <a :href="printUrl" target="_blank"
@@ -123,7 +123,7 @@
                             <i class="fas fa-print"></i> Imprimir
                         </a>
                         <button @click="cerrarModal()"
-                                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl text-sm font-semibold">
+                                class="flex-1 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-300 py-2.5 rounded-xl text-sm font-semibold">
                             Cerrar
                         </button>
                     </div>
@@ -134,22 +134,22 @@
                     <div class="p-5 space-y-4">
 
                         {{-- Resumen de la venta --}}
-                        <div class="bg-gray-50 rounded-2xl p-4 space-y-2">
+                        <div class="bg-gray-50 dark:bg-slate-900/60 rounded-2xl p-4 space-y-2">
                             <div class="flex items-start justify-between gap-3">
                                 <div>
-                                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Cliente</p>
-                                    <p class="text-sm font-bold text-gray-800" x-text="ventaActual?.cliente || 'Consumidor final'"></p>
-                                    <p class="text-xs text-gray-400" x-text="'Vendedor: ' + (ventaActual?.vendedor ?? '—')"></p>
+                                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Cliente</p>
+                                    <p class="text-sm font-bold text-gray-800 dark:text-slate-200" x-text="ventaActual?.cliente || 'Consumidor final'"></p>
+                                    <p class="text-xs text-gray-400 dark:text-slate-500" x-text="'Vendedor: ' + (ventaActual?.vendedor ?? '—')"></p>
                                 </div>
                                 <div class="text-right shrink-0">
-                                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Total a cobrar</p>
-                                    <p class="text-2xl font-bold text-green-700" x-text="'S/ ' + ventaActual?.total"></p>
+                                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium uppercase tracking-wide">Total a cobrar</p>
+                                    <p class="text-2xl font-bold text-green-700 dark:text-green-300" x-text="'S/ ' + ventaActual?.total"></p>
                                 </div>
                             </div>
                             {{-- Ítems --}}
-                            <div class="border-t border-gray-200 pt-2 space-y-0.5 max-h-28 overflow-y-auto">
+                            <div class="border-t border-gray-200 dark:border-slate-700 pt-2 space-y-0.5 max-h-28 overflow-y-auto">
                                 <template x-for="d in ventaActual?.detalles ?? []" :key="d.id">
-                                    <div class="flex justify-between text-xs text-gray-600">
+                                    <div class="flex justify-between text-xs text-gray-600 dark:text-slate-400">
                                         <span x-text="d.cantidad + '× ' + d.producto" class="truncate mr-2"></span>
                                         <span class="font-mono font-semibold whitespace-nowrap" x-text="'S/ ' + parseFloat(d.subtotal).toFixed(2)"></span>
                                     </div>
@@ -159,15 +159,15 @@
 
                         {{-- Formato impresión --}}
                         <div>
-                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Formato de impresión</p>
+                            <p class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-2">Formato de impresión</p>
                             <div class="flex gap-2">
                                 <button @click="setFormato('ticket')"
-                                        :class="formato === 'ticket' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 hover:bg-gray-50'"
+                                        :class="formato === 'ticket' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
                                         class="flex-1 py-2 border-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
                                     <i class="fas fa-receipt"></i> Ticket 80mm
                                 </button>
                                 <button @click="setFormato('a4')"
-                                        :class="formato === 'a4' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 hover:bg-gray-50'"
+                                        :class="formato === 'a4' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
                                         class="flex-1 py-2 border-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
                                     <i class="fas fa-file-alt"></i> A4
                                 </button>
@@ -176,23 +176,23 @@
 
                         {{-- Método de pago --}}
                         <div>
-                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Método de pago</p>
+                            <p class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-2">Método de pago</p>
 
                             {{-- Filas de pago (una por cada pago agregado) --}}
                             <div class="space-y-3">
                                 <template x-for="(p, i) in pagos" :key="i">
-                                    <div class="rounded-2xl border border-gray-200 p-3 space-y-2 bg-gray-50/50">
+                                    <div class="rounded-2xl border border-gray-200 dark:border-slate-700 p-3 space-y-2 bg-gray-50/50">
 
                                         {{-- Header fila: etiqueta + monto + quitar --}}
                                         <div class="flex items-center gap-2">
-                                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide shrink-0"
+                                            <span class="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wide shrink-0"
                                                   x-text="pagos.length > 1 ? 'Pago ' + (i+1) : 'Método'"></span>
                                             <div class="flex-1"></div>
                                             <input type="number" x-model.number="p.monto" step="0.50" min="0"
                                                    :placeholder="pagos.length === 1 ? totalVenta.toFixed(2) : '0.00'"
-                                                   class="w-28 bg-white border border-gray-300 rounded-lg px-2 py-1.5 text-sm text-right font-mono font-bold text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                                   class="w-28 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1.5 text-sm text-right font-mono font-bold text-gray-800 dark:text-slate-200 focus:ring-2 focus:ring-green-500 focus:border-green-500">
                                             <button x-show="pagos.length > 1" @click="pagos.splice(i,1)" x-cloak
-                                                    class="w-7 h-7 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition shrink-0">
+                                                    class="w-7 h-7 rounded-lg text-gray-400 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition shrink-0">
                                                 <i class="fas fa-times text-xs"></i>
                                             </button>
                                         </div>
@@ -201,9 +201,7 @@
                                         <div class="grid grid-cols-4 gap-1.5">
                                             <template x-for="m in metodos" :key="m.k">
                                                 <button @click="p.metodo = m.k; p.referencia = ''"
-                                                        :class="p.metodo === m.k
-                                                            ? 'border-green-600 bg-green-600 text-white shadow-sm'
-                                                            : 'border-gray-200 bg-white text-gray-500 hover:border-green-300 hover:text-green-700'"
+                                                        :class="p.metodo === m.k ? 'border-green-600 bg-green-600 text-white shadow-sm' : 'border-gray-200 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:border-green-300 hover:text-green-700'"
                                                         class="flex flex-col items-center gap-1 py-2 rounded-xl border-2 text-[10px] font-bold transition">
                                                     <i class="fas text-sm" :class="p.metodo === m.k ? m.icon + ' text-white' : m.icon + ' text-' + m.color + '-500'"></i>
                                                     <span x-text="m.label"></span>
@@ -215,13 +213,13 @@
                                         <div x-show="p.metodo === 'efectivo' && pagos.length === 1" x-cloak>
                                             <div class="flex flex-wrap gap-1">
                                                 <button @click="p.monto = parseFloat(totalVenta.toFixed(2))"
-                                                        class="px-2 py-0.5 bg-green-50 text-green-700 border border-green-200 rounded-lg text-[10px] font-bold hover:bg-green-100 transition">
+                                                        class="px-2 py-0.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg text-[10px] font-bold hover:bg-green-100 transition">
                                                     Exacto
                                                 </button>
                                                 <template x-for="amt in [10,20,50,100,200,500]" :key="amt">
                                                     <button x-show="amt >= Math.floor(totalVenta)"
                                                             @click="p.monto = amt"
-                                                            class="px-2 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-lg text-[10px] font-bold hover:bg-gray-200 transition"
+                                                            class="px-2 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 border border-gray-200 dark:border-slate-700 rounded-lg text-[10px] font-bold hover:bg-gray-200 dark:hover:bg-slate-600 transition"
                                                             x-text="'S/ ' + amt"></button>
                                                 </template>
                                             </div>
@@ -232,7 +230,7 @@
                                             <input type="text" x-model="p.referencia"
                                                    :placeholder="p.metodo === 'transferencia' ? 'N° operación bancaria' : 'Código de operación ' + p.metodo"
                                                    maxlength="100"
-                                                   class="w-full bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 placeholder-amber-400 focus:ring-2 focus:ring-amber-400">
+                                                   class="w-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg px-3 py-1.5 text-xs text-gray-700 dark:text-slate-300 placeholder-amber-400 focus:ring-2 focus:ring-amber-400">
                                         </div>
 
                                     </div>
@@ -241,27 +239,27 @@
 
                             {{-- Agregar pago --}}
                             <button x-show="pagos.length < 3" @click="agregarPago()" x-cloak
-                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-xs font-semibold text-gray-500 hover:border-green-400 hover:text-green-600 hover:bg-green-50 transition flex items-center justify-center gap-1.5">
+                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-gray-500 dark:text-slate-400 hover:border-green-400 hover:text-green-600 hover:bg-green-50 transition flex items-center justify-center gap-1.5">
                                 <i class="fas fa-plus text-[9px]"></i> Agregar otro método de pago
                             </button>
 
                             {{-- Totales / Vuelto / Falta --}}
-                            <div class="mt-3 pt-3 border-t border-gray-200 space-y-1.5">
+                            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 space-y-1.5">
                                 <template x-for="(p, i) in pagos" x-show="pagos.length > 1" :key="'tot'+i">
-                                    <div class="flex justify-between text-xs text-gray-500">
+                                    <div class="flex justify-between text-xs text-gray-500 dark:text-slate-400">
                                         <span x-text="'Pago ' + (i+1) + ' (' + p.metodo + ')'"></span>
                                         <span class="font-mono" x-text="'S/ ' + (parseFloat(p.monto)||0).toFixed(2)"></span>
                                     </div>
                                 </template>
-                                <div class="flex justify-between text-sm font-bold text-gray-800">
+                                <div class="flex justify-between text-sm font-bold text-gray-800 dark:text-slate-200">
                                     <span>Total a cobrar</span>
                                     <span class="font-mono" x-text="'S/ ' + totalVenta.toFixed(2)"></span>
                                 </div>
-                                <div x-show="vuelto > 0" x-cloak class="flex justify-between text-base font-bold text-green-700">
+                                <div x-show="vuelto > 0" x-cloak class="flex justify-between text-base font-bold text-green-700 dark:text-green-300">
                                     <span><i class="fas fa-arrow-left text-xs mr-1"></i>Vuelto</span>
                                     <span class="font-mono" x-text="'S/ ' + vuelto.toFixed(2)"></span>
                                 </div>
-                                <div x-show="falta > 0 && totalPagado > 0" x-cloak class="flex justify-between text-sm font-bold text-red-600">
+                                <div x-show="falta > 0 && totalPagado > 0" x-cloak class="flex justify-between text-sm font-bold text-red-600 dark:text-red-400">
                                     <span>Falta</span>
                                     <span class="font-mono" x-text="'S/ ' + falta.toFixed(2)"></span>
                                 </div>
@@ -269,7 +267,7 @@
                         </div>
 
                         {{-- Error --}}
-                        <div x-show="errorCobro" x-cloak class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 flex items-start gap-2">
+                        <div x-show="errorCobro" x-cloak class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm rounded-xl px-4 py-3 flex items-start gap-2">
                             <i class="fas fa-exclamation-circle mt-0.5 shrink-0"></i>
                             <span x-text="errorCobro"></span>
                         </div>
@@ -278,9 +276,9 @@
                 </div>
 
                 {{-- Footer sticky --}}
-                <div x-show="!cobroExitoso" class="px-5 pb-5 pt-3 border-t border-gray-100 shrink-0 flex gap-3">
+                <div x-show="!cobroExitoso" class="px-5 pb-5 pt-3 border-t border-gray-100 dark:border-slate-700 shrink-0 flex gap-3">
                     <button type="button" @click="cerrarModal()" :disabled="procesandoCobro"
-                            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-40 font-semibold transition">
+                            class="flex-1 px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-xl text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 disabled:opacity-40 font-semibold transition">
                         Cancelar
                     </button>
                     <button type="button" @click="procesarCobro()"
