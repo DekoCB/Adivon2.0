@@ -66,23 +66,22 @@ class DashboardController extends Controller
             : 0;
 
         // ── Boletas y Facturas ────────────────────────────────────────────────
-        $boletasTotal = Venta::where('tipo_comprobante', 'boleta')
-            ->where('estado_pago', 'pagado')
-            ->count();
-        $boletasMes = Venta::where('tipo_comprobante', 'boleta')
-            ->where('estado_pago', 'pagado')
-            ->whereMonth('fecha', $mesActual)
-            ->whereYear('fecha', $anioActual)
-            ->count();
+        // Los 4 conteos comparten el filtro estado_pago=pagado, así que se piden
+        // en una sola consulta con SUM condicional en vez de 4 counts separados.
+        // SUM() devuelve NULL (no 0) cuando ninguna fila matchea, por eso el ?? 0.
+        $comprobantesStats = Venta::where('estado_pago', 'pagado')
+            ->selectRaw("
+                SUM(CASE WHEN tipo_comprobante = 'boleta' THEN 1 ELSE 0 END) as boletas_total,
+                SUM(CASE WHEN tipo_comprobante = 'boleta' AND MONTH(fecha) = ? AND YEAR(fecha) = ? THEN 1 ELSE 0 END) as boletas_mes,
+                SUM(CASE WHEN tipo_comprobante = 'factura' THEN 1 ELSE 0 END) as facturas_total,
+                SUM(CASE WHEN tipo_comprobante = 'factura' AND MONTH(fecha) = ? AND YEAR(fecha) = ? THEN 1 ELSE 0 END) as facturas_mes
+            ", [$mesActual, $anioActual, $mesActual, $anioActual])
+            ->first();
 
-        $facturasTotal = Venta::where('tipo_comprobante', 'factura')
-            ->where('estado_pago', 'pagado')
-            ->count();
-        $facturasMes = Venta::where('tipo_comprobante', 'factura')
-            ->where('estado_pago', 'pagado')
-            ->whereMonth('fecha', $mesActual)
-            ->whereYear('fecha', $anioActual)
-            ->count();
+        $boletasTotal  = (int) ($comprobantesStats->boletas_total ?? 0);
+        $boletasMes    = (int) ($comprobantesStats->boletas_mes ?? 0);
+        $facturasTotal = (int) ($comprobantesStats->facturas_total ?? 0);
+        $facturasMes   = (int) ($comprobantesStats->facturas_mes ?? 0);
 
         // Ventas por mes del año actual (para el gráfico)
         $ventasPorMes = Venta::where('estado_pago', 'pagado')
@@ -184,15 +183,21 @@ class DashboardController extends Controller
 
         // Cajas de días anteriores sin cerrar (todas las del sistema)
         $cajasAtrasadas = $this->cajaService->cajasAtrasadasTodas();
+        // 3 counts de usuarios en 1 sola consulta (mismo motivo que boletas/facturas).
+        $usuariosStats = User::selectRaw("
+                COUNT(*) as total,
+                SUM(CASE WHEN estado = 'activo' THEN 1 ELSE 0 END) as activos,
+                SUM(CASE WHEN estado = 'inactivo' THEN 1 ELSE 0 END) as inactivos
+            ")->first();
 
         $data = [
             // Cajas atrasadas
             'cajas_atrasadas'   => $cajasAtrasadas,
 
             // Usuarios
-            'total_usuarios'    => User::count(),
-            'usuarios_activos'  => User::where('estado', 'activo')->count(),
-            'usuarios_inactivos'=> User::where('estado', 'inactivo')->count(),
+            'total_usuarios'    => (int) $usuariosStats->total,
+            'usuarios_activos'  => (int) ($usuariosStats->activos ?? 0),
+            'usuarios_inactivos'=> (int) ($usuariosStats->inactivos ?? 0),
             'usuarios_por_rol'  => User::join('roles', 'users.role_id', '=', 'roles.id')
                 ->selectRaw('roles.nombre, COUNT(*) as total')
                 ->groupBy('roles.nombre')
