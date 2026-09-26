@@ -203,7 +203,7 @@
                                 <input type="checkbox" name="imei_seleccionado" value="{{ $imei->id }}" class="imei-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-sm font-mono font-bold text-gray-900">{{ $imei->codigo_imei }}</span>
+                                <x-code>{{ $imei->codigo_imei }}</x-code>
                             </td>
                             <td class="px-6 py-4">
                                 <p class="text-sm font-medium text-gray-900">{{ $imei->producto->nombre ?? '-' }}</p>

@@ -33,7 +33,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 text-sm">
                         <span class="inline-flex px-2 py-1 text-xs font-semibold rounded bg-gray-100 text-gray-700 mr-1">{{ $cliente->tipo_documento }}</span>
-                        <span class="font-mono">{{ $cliente->numero_documento }}</span>
+                        <x-code>{{ $cliente->numero_documento }}</x-code>
                     </td>
                     <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $cliente->nombre }}</td>
                     <td class="px-6 py-4 text-sm text-gray-500">{{ $cliente->telefono ?? '-' }}</td>

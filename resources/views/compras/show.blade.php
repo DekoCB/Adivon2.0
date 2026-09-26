@@ -97,7 +97,7 @@
                 </div>
                 <div>
                     <p class="text-xs text-gray-500">Código</p>
-                    <p class="font-semibold text-gray-900 text-sm font-mono">{{ $compra->codigo }}</p>
+                    <x-code>{{ $compra->codigo }}</x-code>
                 </div>
             </div>
             <!-- Fecha -->
@@ -180,7 +180,7 @@
                         @if(($compra->proveedor->nombre_comercial ?? '') !== ($compra->proveedor->razon_social ?? ''))
                             <p class="text-gray-500 mt-0.5">{{ $compra->proveedor->razon_social }}</p>
                         @endif
-                        <p class="text-blue-700 font-mono mt-1">RUC: {{ $compra->proveedor->ruc }}</p>
+                        <p class="text-gray-500 mt-1">RUC: <x-code>{{ $compra->proveedor->ruc }}</x-code></p>
                         @if($compra->proveedor->direccion)
                             <p class="text-gray-500 mt-1 text-xs">{{ $compra->proveedor->direccion }}</p>
                         @endif

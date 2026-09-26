@@ -82,7 +82,7 @@
                 @foreach($cotizaciones as $cot)
                 <tr class="hover:bg-gray-50/60 transition-colors">
                     <td class="px-6 py-4">
-                        <span class="font-mono font-bold text-purple-600 text-sm">{{ $cot->codigo }}</span>
+                        <x-code>{{ $cot->codigo }}</x-code>
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-600">
                         {{ $cot->fecha->format('d/m/Y') }}

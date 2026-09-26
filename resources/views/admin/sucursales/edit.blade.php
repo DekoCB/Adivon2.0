@@ -277,7 +277,7 @@
                                 <div class="flex items-center gap-2">
                                     <span class="font-semibold text-gray-800">{{ $serie->tipo_nombre }}</span>
                                     <span class="text-xs text-gray-400 font-mono bg-gray-200 px-1.5 py-0.5 rounded">{{ $serie->tipo_comprobante }}</span>
-                                    <span class="text-xs font-mono font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">{{ $serie->serie }}</span>
+                                    <x-code>{{ $serie->serie }}</x-code>
                                 </div>
                                 {{-- Toggle activo --}}
                                 <form action="{{ route('admin.sucursales.series.update', [$sucursal, $serie]) }}" method="POST">

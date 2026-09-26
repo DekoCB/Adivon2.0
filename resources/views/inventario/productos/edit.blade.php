@@ -14,7 +14,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
                         <span class="font-medium text-gray-500">Código:</span>
-                        <span class="block text-gray-900 font-mono font-bold">{{ $producto->codigo }}</span>
+                        <x-code>{{ $producto->codigo }}</x-code>
                     </div>
                     <div>
                         <span class="font-medium text-gray-500">Tipo:</span>

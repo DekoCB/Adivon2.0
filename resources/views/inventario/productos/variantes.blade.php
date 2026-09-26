@@ -92,7 +92,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <p class="text-xs text-gray-400 uppercase tracking-wide">Código</p>
-                                <p class="font-mono text-gray-700">{{ $producto->codigo }}</p>
+                                <x-code>{{ $producto->codigo }}</x-code>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 uppercase tracking-wide">Tipo</p>

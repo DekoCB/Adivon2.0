@@ -37,7 +37,7 @@
                         <i class="fas fa-info-circle mr-2 text-blue-600"></i>Información del Pedido
                     </h3>
                     <dl class="space-y-3 text-sm">
-                        <div class="flex justify-between"><dt class="text-gray-500">Código:</dt><dd class="font-mono font-bold text-blue-900">{{ $pedido->codigo }}</dd></div>
+                        <div class="flex justify-between"><dt class="text-gray-500">Código:</dt><dd><x-code>{{ $pedido->codigo }}</x-code></dd></div>
                         <div class="flex justify-between">
                             <dt class="text-gray-500">Proveedor:</dt>
                             <dd class="font-semibold">

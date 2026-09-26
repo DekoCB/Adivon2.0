@@ -59,7 +59,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
                                 <p class="text-xs text-gray-500">Código IMEI</p>
-                                <p class="font-mono font-bold text-gray-900">{{ $imei->codigo_imei }}</p>
+                                <x-code>{{ $imei->codigo_imei }}</x-code>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-500">Producto</p>

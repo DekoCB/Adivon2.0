@@ -144,7 +144,7 @@
                                 $cuenta = $compra->cuentaPorPagar;
                             @endphp
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 text-sm font-mono font-semibold text-blue-700">{{ $compra->codigo }}</td>
+                                <td class="px-6 py-4"><x-code>{{ $compra->codigo }}</x-code></td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $compra->proveedor->razon_social ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $compra->numero_factura }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $compra->fecha->format('d/m/Y') }}</td>

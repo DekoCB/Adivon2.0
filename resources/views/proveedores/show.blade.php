@@ -30,7 +30,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 mb-1">RUC</label>
-                                    <p class="text-lg font-mono font-bold text-gray-900">{{ $proveedor->ruc }}</p>
+                                    <x-code>{{ $proveedor->ruc }}</x-code>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 mb-1">Estado</label>
@@ -169,7 +169,7 @@
                             @foreach($proveedor->compras->take(10) as $compra)
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="text-sm font-mono font-semibold text-blue-900">{{ $compra->codigo }}</span>
+                                    <x-code>{{ $compra->codigo }}</x-code>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <i class="fas fa-calendar mr-1 text-gray-400"></i>{{ $compra->fecha->format('d/m/Y') }}

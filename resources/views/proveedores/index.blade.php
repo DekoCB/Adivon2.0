@@ -82,7 +82,7 @@
 
                     @forelse($proveedores as $proveedor)
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 text-sm font-mono font-semibold text-gray-700">{{ $proveedor->ruc }}</td>
+                            <td class="px-6 py-4"><x-code>{{ $proveedor->ruc }}</x-code></td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $proveedor->razon_social }}</td>
                             <td class="px-6 py-4 text-sm text-gray-500">{{ $proveedor->telefono ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm text-gray-500">{{ $proveedor->email ?? '-' }}</td>

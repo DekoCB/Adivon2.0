@@ -125,7 +125,7 @@
 
                         @forelse($pedidos as $pedido)
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 text-sm font-mono font-semibold text-blue-700">{{ $pedido->codigo }}</td>
+                                <td class="px-6 py-4"><x-code>{{ $pedido->codigo }}</x-code></td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $pedido->proveedor->razon_social ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $pedido->almacen->nombre ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $pedido->fecha->format('d/m/Y') }}</td>

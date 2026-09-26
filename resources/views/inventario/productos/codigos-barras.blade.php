@@ -208,7 +208,7 @@
                                 @forelse($codigosBarras as $codigo)
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4">
-                                        <span class="text-sm font-mono">{{ $codigo->codigo_barras }}</span>
+                                        <x-code>{{ $codigo->codigo_barras }}</x-code>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">{{ $codigo->descripcion ?? '-' }}</span>
@@ -317,7 +317,7 @@
                                    data-codigo="{{ $codigo->codigo_barras }}"
                                    data-desc="{{ $codigo->descripcion }}"
                                    class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
-                            <span class="flex-1 font-mono text-sm">{{ $codigo->codigo_barras }}</span>
+                            <x-code class="flex-1">{{ $codigo->codigo_barras }}</x-code>
                             @if($codigo->descripcion)
                                 <span class="text-xs text-gray-500">({{ $codigo->descripcion }})</span>
                             @endif

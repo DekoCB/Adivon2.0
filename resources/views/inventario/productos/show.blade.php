@@ -49,13 +49,13 @@
                         <div class="space-y-3">
                             <div class="flex justify-between">
                                 <span class="text-sm font-medium text-gray-500">Código:</span>
-                                <span class="text-sm text-gray-900 font-mono">{{ $producto->codigo }}</span>
+                                <x-code>{{ $producto->codigo }}</x-code>
                             </div>
-                            
+
                             @if($producto->codigo_barras)
                             <div class="flex justify-between">
                                 <span class="text-sm font-medium text-gray-500">Código Barras:</span>
-                                <span class="text-sm text-gray-900 font-mono">{{ $producto->codigo_barras }}</span>
+                                <x-code>{{ $producto->codigo_barras }}</x-code>
                             </div>
                             @endif
                             

@@ -78,7 +78,7 @@
                             @endphp
                             <div class="border {{ $serieCss }} rounded-lg p-3 flex items-center justify-between">
                                 <div>
-                                    <p class="font-mono font-bold text-gray-800">{{ $serie->serie }}</p>
+                                    <x-code>{{ $serie->serie }}</x-code>
                                     <p class="text-xs text-gray-500">{{ $serie->tipo_nombre }}</p>
                                 </div>
                                 <div class="text-right">

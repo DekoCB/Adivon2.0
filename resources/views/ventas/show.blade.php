@@ -810,7 +810,7 @@
                 <dl class="space-y-3">
                     <div class="flex justify-between items-center">
                         <dt class="text-sm text-gray-400">Código</dt>
-                        <dd class="font-mono font-bold text-blue-600">{{ $venta->codigo }}</dd>
+                        <dd><x-code>{{ $venta->codigo }}</x-code></dd>
                     </div>
                     <div class="flex justify-between items-center">
                         <dt class="text-sm text-gray-400">Fecha</dt>

@@ -33,9 +33,7 @@
                     <div class="flex items-start justify-between p-5 border-b border-gray-100">
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 flex-wrap mb-1">
-                                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">
-                                    {{ $sucursal->codigo }}
-                                </span>
+                                <x-code>{{ $sucursal->codigo }}</x-code>
                                 <span class="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200 flex items-center gap-1">
                                     <i class="fas fa-store text-[10px]"></i> Tienda
                                 </span>

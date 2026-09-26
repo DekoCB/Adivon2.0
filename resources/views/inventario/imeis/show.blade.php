@@ -223,7 +223,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Código IMEI</p>
-                                <p class="text-lg font-mono font-bold text-gray-900">{{ $imei->codigo_imei }}</p>
+                                <x-code>{{ $imei->codigo_imei }}</x-code>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Número de Serie</p>

@@ -129,7 +129,7 @@
                         @forelse($ventas as $venta)
                         <tr class="hover:bg-gray-50/70 transition-colors">
                             <td class="px-6 py-4">
-                                <span class="font-mono text-sm font-bold text-blue-600">{{ $venta->codigo }}</span>
+                                <x-code>{{ $venta->codigo }}</x-code>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="text-sm text-gray-700">{{ $venta->fecha->format('d/m/Y') }}</span>

@@ -64,7 +64,7 @@
                             {{ $serie->tipo_nombre }}
                         </span>
                     </td>
-                    <td class="px-5 py-3 font-mono font-bold text-blue-700 text-base">{{ $serie->serie }}</td>
+                    <td class="px-5 py-3"><x-code>{{ $serie->serie }}</x-code></td>
                     <td class="px-5 py-3 text-right font-mono text-gray-800">{{ str_pad($serie->correlativo_actual, 8, '0', STR_PAD_LEFT) }}</td>
                     <td class="px-5 py-3 text-gray-600">{{ $serie->formato_impresion }}</td>
                     <td class="px-5 py-3">
