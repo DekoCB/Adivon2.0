@@ -950,7 +950,18 @@
             </ul>
         </nav>
 
-        <div class="p-4 border-t border-blue-700">
+        <div class="p-4 border-t border-blue-700 space-y-1"
+             x-data="{ dark: document.documentElement.classList.contains('dark') }">
+            <button type="button"
+                    @click="
+                        dark = !dark;
+                        document.documentElement.classList.toggle('dark', dark);
+                        localStorage.setItem('adivon-theme', dark ? 'dark' : 'light');
+                    "
+                    class="w-full flex items-center px-4 py-3 text-sm rounded-lg hover:bg-blue-700 transition-colors">
+                <i class="fas mr-3" :class="dark ? 'fa-sun' : 'fa-moon'"></i>
+                <span x-text="dark ? 'Modo claro' : 'Modo oscuro'"></span>
+            </button>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full flex items-center px-4 py-3 text-sm rounded-lg hover:bg-red-600 transition-colors">

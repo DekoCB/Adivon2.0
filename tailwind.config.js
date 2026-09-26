@@ -23,8 +23,10 @@ export default {
                 // disciplina solo donde hay un código real que mostrar.
                 coral: {
                     50: '#fbe9e4',
+                    300: '#e8a692',
                     600: '#c6452e',
                     700: '#a83a26',
+                    950: '#3a1f16',
                 },
             },
         },
