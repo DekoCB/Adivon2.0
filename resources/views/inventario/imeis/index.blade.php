@@ -310,19 +310,19 @@
                                             <div id="estado-menu-{{ $imei->id }}" 
                                                  class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-gray-200 dark:border-slate-700 z-10">
                                                 <div class="py-1">
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'en_stock')" class="block w-full text-left px-4 py-2 text-sm text-green-700 dark:text-green-300 hover:bg-green-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'en_stock')" class="block w-full text-left px-4 py-2 text-sm text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/30">
                                                         <i class="fas fa-check-circle mr-2"></i>En Stock
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'reservado')" class="block w-full text-left px-4 py-2 text-sm text-yellow-700 dark:text-yellow-300 hover:bg-yellow-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'reservado')" class="block w-full text-left px-4 py-2 text-sm text-yellow-700 dark:text-yellow-300 hover:bg-yellow-50 dark:hover:bg-yellow-900/30">
                                                         <i class="fas fa-clock mr-2"></i>Reservado
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'vendido')" class="block w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-300 hover:bg-red-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'vendido')" class="block w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/30">
                                                         <i class="fas fa-shopping-cart mr-2"></i>Vendido
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'garantia')" class="block w-full text-left px-4 py-2 text-sm text-blue-700 dark:text-blue-300 hover:bg-blue-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'garantia')" class="block w-full text-left px-4 py-2 text-sm text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30">
                                                         <i class="fas fa-shield-alt mr-2"></i>Garantía
                                                     </button>
-                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'devuelto')" class="block w-full text-left px-4 py-2 text-sm text-orange-700 dark:text-orange-300 hover:bg-orange-50">
+                                                    <button onclick="cambiarEstado({{ $imei->id }}, 'devuelto')" class="block w-full text-left px-4 py-2 text-sm text-orange-700 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30">
                                                         <i class="fas fa-undo mr-2"></i>Devuelto
                                                     </button>
                                                 </div>

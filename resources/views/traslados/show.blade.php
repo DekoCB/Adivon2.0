@@ -32,7 +32,7 @@
 
             @if($puedeAnular)
             <button @click="showAnular = true"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 text-red-700 dark:text-red-300 text-sm font-semibold rounded-lg transition-colors">
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 dark:hover:bg-red-800/50 text-red-700 dark:text-red-300 text-sm font-semibold rounded-lg transition-colors">
                 <i class="fas fa-ban"></i> Anular Traslado
             </button>
 

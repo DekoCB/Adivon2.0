@@ -215,7 +215,7 @@
                              class="absolute z-20 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden">
                             <template x-for="item in destinatarioResultados" :key="item.id">
                                 <button type="button" @click="seleccionarDestinatario(item)"
-                                        class="w-full text-left px-4 py-2.5 text-sm hover:bg-teal-50 border-b border-gray-50 last:border-0">
+                                        class="w-full text-left px-4 py-2.5 text-sm hover:bg-teal-50 dark:hover:bg-teal-900/30 border-b border-gray-50 last:border-0">
                                     <span class="font-medium text-gray-800 dark:text-slate-200" x-text="item.nombre"></span>
                                     <span class="text-xs text-gray-400 dark:text-slate-500 ml-2 font-mono" x-text="item.ruc ?? item.documento"></span>
                                 </button>
@@ -344,7 +344,7 @@
                             @endif
                         </div>
                         @if($ultimoConductor)
-                        <div class="mb-4 flex items-center gap-3 px-4 py-3 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 rounded-xl text-sm">
+                        <div class="mb-4 flex items-center gap-3 px-4 py-3 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-xl text-sm">
                             <i class="fas fa-user-check text-purple-400 shrink-0"></i>
                             <div class="flex-1 text-purple-800 dark:text-purple-300">
                                 Último: <strong>{{ $ultimoConductor->conductor_nombre }}</strong>
@@ -405,7 +405,7 @@
                         <p class="text-purple-200 text-xs">Se importan automáticamente del traslado</p>
                     </div>
                 </div>
-                <div class="p-5 flex items-center gap-3 text-sm text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border-t border-purple-100">
+                <div class="p-5 flex items-center gap-3 text-sm text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border-t border-purple-100 dark:border-purple-800">
                     <i class="fas fa-check-circle text-purple-400 shrink-0 text-lg"></i>
                     <div>
                         <p class="font-semibold">Productos ya registrados en el traslado <span class="font-mono">{{ $fromTraslado }}</span></p>
@@ -446,7 +446,7 @@
                                         <i class="fas fa-barcode"></i> IMEI
                                     </span>
                                     <button type="button" @click="eliminarProducto(idx)" x-show="productos.length > 1"
-                                            class="text-gray-400 dark:text-slate-500 hover:text-red-500 p-1 rounded-lg hover:bg-red-50">
+                                            class="text-gray-400 dark:text-slate-500 hover:text-red-500 p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30">
                                         <i class="fas fa-trash text-xs"></i>
                                     </button>
                                 </div>

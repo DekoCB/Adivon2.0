@@ -84,7 +84,7 @@
                             <p class="text-xs text-gray-400 dark:text-slate-500 font-medium mb-2">Series activas</p>
                             <div class="flex flex-wrap gap-1.5">
                                 @foreach($sucursal->series as $serie)
-                                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-mono font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100"
+                                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-mono font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800"
                                         title="{{ $serie->tipo_nombre }}">
                                         {{ $serie->serie }}
                                         <span class="text-indigo-400 font-normal">#{{ str_pad($serie->correlativo_actual, 3, '0', STR_PAD_LEFT) }}</span>
@@ -105,7 +105,7 @@
                             <i class="fas fa-edit"></i> Editar
                         </a>
                         <a href="{{ route('admin.sucursales.comprobantes', $sucursal) }}"
-                            class="flex-1 text-center bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-100 text-purple-700 dark:text-purple-300 text-xs font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5">
+                            class="flex-1 text-center bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-100 dark:hover:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5">
                             <i class="fas fa-file-invoice"></i> Comprobantes
                         </a>
                         @if(!$sucursal->es_principal)
@@ -113,7 +113,7 @@
                                 onsubmit="return confirm('¿Eliminar la sucursal {{ $sucursal->nombre }}? Esta acción no se puede deshacer.')">
                                 @csrf @method('DELETE')
                                 <button type="submit"
-                                    class="bg-red-50 dark:bg-red-900/30 hover:bg-red-100 text-red-700 dark:text-red-300 text-xs font-semibold py-1.5 px-3 rounded-lg transition-colors">
+                                    class="bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold py-1.5 px-3 rounded-lg transition-colors">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -54,22 +54,22 @@
             <i class="fas fa-chart-pie mr-1"></i> Desglose de ventas por método de pago
         </h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="text-center p-3 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-100">
+            <div class="text-center p-3 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-100 dark:border-green-800">
                 <i class="fas fa-money-bill-wave text-green-600 dark:text-green-400 text-xl mb-1"></i>
                 <p class="text-xs text-gray-500 dark:text-slate-400">Efectivo</p>
                 <p class="text-lg font-bold text-green-700 dark:text-green-300">S/ {{ number_format($arqueo['ventas_efectivo'], 2) }}</p>
             </div>
-            <div class="text-center p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg border border-purple-100">
+            <div class="text-center p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg border border-purple-100 dark:border-purple-800">
                 <i class="fas fa-mobile-alt text-purple-600 dark:text-purple-400 text-xl mb-1"></i>
                 <p class="text-xs text-gray-500 dark:text-slate-400">Yape</p>
                 <p class="text-lg font-bold text-purple-700 dark:text-purple-300">S/ {{ number_format($arqueo['ventas_yape'], 2) }}</p>
             </div>
-            <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100">
+            <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100 dark:border-blue-800">
                 <i class="fas fa-mobile text-blue-600 dark:text-blue-400 text-xl mb-1"></i>
                 <p class="text-xs text-gray-500 dark:text-slate-400">Plin</p>
                 <p class="text-lg font-bold text-blue-700 dark:text-blue-300">S/ {{ number_format($arqueo['ventas_plin'], 2) }}</p>
             </div>
-            <div class="text-center p-3 bg-orange-50 dark:bg-orange-900/30 rounded-lg border border-orange-100">
+            <div class="text-center p-3 bg-orange-50 dark:bg-orange-900/30 rounded-lg border border-orange-100 dark:border-orange-800">
                 <i class="fas fa-university text-orange-600 dark:text-orange-400 text-xl mb-1"></i>
                 <p class="text-xs text-gray-500 dark:text-slate-400">Transferencia</p>
                 <p class="text-lg font-bold text-orange-700 dark:text-orange-300">S/ {{ number_format($arqueo['ventas_transferencia'], 2) }}</p>
@@ -247,7 +247,7 @@
                         <td class="px-4 py-3 text-center no-print">
                             @if($mov->venta && $mov->venta->tipo_comprobante !== 'cotizacion')
                                 <a href="{{ route('ventas.pdf', [$mov->venta, 'formato' => 'ticket']) }}" target="_blank"
-                                   class="inline-flex items-center gap-1 px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 text-xs rounded-lg transition" title="Reimprimir ticket">
+                                   class="inline-flex items-center gap-1 px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs rounded-lg transition" title="Reimprimir ticket">
                                     <i class="fas fa-print text-xs"></i> Ticket
                                 </a>
                             @elseif($mov->venta)

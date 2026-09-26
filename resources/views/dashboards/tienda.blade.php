@@ -123,33 +123,33 @@
                     <div class="quick-actions-scroll overflow-x-auto pb-1">
                         <div class="flex items-center gap-2 min-w-max">
                             <a href="{{ route('ventas.create') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-plus-circle text-xs"></i>
                                 <span>Venta</span>
                             </a>
 
                             <a href="{{ route('caja.index') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-100 dark:hover:bg-green-900/40 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-cash-register text-xs"></i>
                                 <span>Caja</span>
                             </a>
 
                             @if($caja)
                                 <a href="{{ route('caja.actual') }}"
-                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 transition whitespace-nowrap text-sm font-medium">
+                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/40 transition whitespace-nowrap text-sm font-medium">
                                     <i class="fas fa-lock text-xs"></i>
                                     <span>Cerrar Caja</span>
                                 </a>
                             @else
                                 <a href="{{ route('caja.abrir') }}"
-                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100 transition whitespace-nowrap text-sm font-medium">
+                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition whitespace-nowrap text-sm font-medium">
                                     <i class="fas fa-lock-open text-xs"></i>
                                     <span>Abrir Caja</span>
                                 </a>
                             @endif
 
                             <a href="{{ route('tienda.inventario.ver') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-100 dark:hover:bg-yellow-900/40 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-boxes text-xs"></i>
                                 <span>Stock</span>
                             </a>
@@ -161,7 +161,7 @@
                             </a>
 
                             <a href="{{ route('clientes.create') }}"
-                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100 transition whitespace-nowrap text-sm font-medium">
+                               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition whitespace-nowrap text-sm font-medium">
                                 <i class="fas fa-user-plus text-xs"></i>
                                 <span>Cliente</span>
                             </a>

@@ -100,7 +100,7 @@
                     <template x-for="c in filtered" :key="c.id">
                         <button type="button"
                                 @click="select(c)"
-                                class="w-full text-left px-4 py-2.5 hover:bg-blue-50 flex items-center justify-between gap-3 border-b border-gray-100 dark:border-slate-700 last:border-0 transition-colors">
+                                class="w-full text-left px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center justify-between gap-3 border-b border-gray-100 dark:border-slate-700 last:border-0 transition-colors">
                             <span class="flex items-center gap-2">
                                 <i class="fas fa-user text-gray-300 text-xs"></i>
                                 <span x-text="c.nombre" class="text-sm font-medium text-gray-800 dark:text-slate-200"></span>
@@ -189,7 +189,7 @@
                             <span><i class="fas fa-box mr-1"></i>{{ $detallesDisponibles->count() }} ítem(s) disponibles</span>
                             <span class="font-semibold text-gray-700 dark:text-slate-300">S/ {{ number_format($venta->total, 2) }}</span>
                             <button type="button" @click="setMax('{{ $venta->id }}')"
-                                    class="px-2 py-1 bg-orange-50 dark:bg-orange-900/30 hover:bg-orange-100 text-orange-700 dark:text-orange-300 rounded font-medium transition">
+                                    class="px-2 py-1 bg-orange-50 dark:bg-orange-900/30 hover:bg-orange-100 dark:hover:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded font-medium transition">
                                 Todo
                             </button>
                             <button type="button" @click="clearVenta('{{ $venta->id }}')"

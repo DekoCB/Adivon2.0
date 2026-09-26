@@ -148,7 +148,7 @@
                         @endforeach
 
                 <x-slot:tfoot>
-                        <tr class="bg-blue-50 dark:bg-blue-900/30 border-t border-blue-100">
+                        <tr class="bg-blue-50 dark:bg-blue-900/30 border-t border-blue-100 dark:border-blue-800">
                             <td colspan="5" class="px-4 py-3 text-right text-xs font-semibold text-blue-700 dark:text-blue-300">
                                 Total página:
                             </td>
@@ -225,7 +225,7 @@
                         @endforeach
 
                 <x-slot:tfoot>
-                        <tr class="bg-amber-50 dark:bg-amber-900/30 border-t border-amber-100">
+                        <tr class="bg-amber-50 dark:bg-amber-900/30 border-t border-amber-100 dark:border-amber-800">
                             <td colspan="4" class="px-4 py-3 text-right text-xs font-semibold text-amber-700 dark:text-amber-300">
                                 Total página:
                             </td>
@@ -240,7 +240,7 @@
     </div>
 
     {{-- Nota informativa --}}
-    <div class="mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 rounded-2xl p-4 flex gap-3">
+    <div class="mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-2xl p-4 flex gap-3">
         <i class="fas fa-info-circle text-blue-400 mt-0.5 shrink-0"></i>
         <div class="text-sm text-blue-700 dark:text-blue-300">
             <p class="font-semibold">¿Cómo se calculan?</p>

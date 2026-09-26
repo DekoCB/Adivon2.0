@@ -99,7 +99,7 @@
 
             @if($guia->puedeAnular())
             <button @click="showAnular = true"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 text-red-700 dark:text-red-300 text-sm font-medium rounded-lg transition">
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 dark:hover:bg-red-800/50 text-red-700 dark:text-red-300 text-sm font-medium rounded-lg transition">
                 <i class="fas fa-ban"></i> Anular
             </button>
             @endif
@@ -323,7 +323,7 @@
                     @endif
 
                     <a href="https://e-factura.sunat.gob.pe/ol-ti-itconsvalid/allowOp.htm" target="_blank" rel="noopener noreferrer"
-                       class="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-amber-50 dark:bg-amber-900/30 hover:bg-amber-100 text-amber-800 dark:text-amber-300 text-sm font-semibold rounded-lg border border-amber-200 dark:border-amber-800 transition">
+                       class="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-amber-50 dark:bg-amber-900/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-sm font-semibold rounded-lg border border-amber-200 dark:border-amber-800 transition">
                         <i class="fas fa-external-link-alt text-xs"></i> Verificar en portal SUNAT
                     </a>
                 </div>

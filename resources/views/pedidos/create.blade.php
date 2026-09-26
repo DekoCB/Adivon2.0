@@ -51,7 +51,7 @@
                                          class="absolute z-50 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-xl mt-1 max-h-64 overflow-y-auto">
                                         <template x-for="p in proveedorResultados" :key="p.id">
                                             <div @click="seleccionarProveedor(p)"
-                                                 class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0">
+                                                 class="px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900/30 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0">
                                                 <div class="font-medium text-gray-900 dark:text-slate-100 text-sm" x-text="p.nombre_comercial || p.razon_social"></div>
                                                 <div class="text-xs text-gray-500 dark:text-slate-400 mt-0.5 flex items-center gap-3">
                                                     <span x-show="p.nombre_comercial && p.nombre_comercial !== p.razon_social" x-text="p.razon_social"></span>
@@ -165,7 +165,7 @@
                                                  class="absolute z-40 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-xl mt-1 max-h-56 overflow-y-auto">
                                                 <template x-for="p in detalle.resultados" :key="p.id">
                                                     <div @click="seleccionarProducto(detalle, p)"
-                                                         class="px-3 py-2.5 hover:bg-blue-50 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0">
+                                                         class="px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/30 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0">
                                                         <div class="font-medium text-gray-900 dark:text-slate-100 text-sm" x-text="p.nombre"></div>
                                                         <div class="text-xs text-gray-500 dark:text-slate-400" x-text="p.categoria + (p.tiene_variantes ? ' · tiene variantes' : '')"></div>
                                                     </div>

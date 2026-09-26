@@ -257,7 +257,7 @@
                     @csrf
                     <button type="submit"
                         onclick="return confirm('¿Generar las series estándar faltantes (FA, BA, FC, FD, T, CO)?')"
-                        class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 text-xs font-semibold px-3 py-2 rounded-lg transition-colors border border-indigo-200 dark:border-indigo-800">
+                        class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold px-3 py-2 rounded-lg transition-colors border border-indigo-200 dark:border-indigo-800">
                         <i class="fas fa-magic"></i> Generar series estándar
                     </button>
                 </form>

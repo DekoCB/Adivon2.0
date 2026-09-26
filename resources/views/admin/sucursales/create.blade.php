@@ -30,7 +30,7 @@
                             <label class="cursor-pointer">
                                 <input type="radio" name="tipo" value="tienda" class="hidden peer"
                                     {{ old('tipo', 'tienda') === 'tienda' ? 'checked' : '' }}>
-                                <div class="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
                                     <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
                                         <i class="fas fa-store text-blue-600 dark:text-blue-400 text-lg"></i>
                                     </div>
@@ -44,7 +44,7 @@
                             <label class="cursor-pointer">
                                 <input type="radio" name="tipo" value="almacen" class="hidden peer"
                                     {{ old('tipo') === 'almacen' ? 'checked' : '' }}>
-                                <div class="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:border-orange-300 transition-colors">
+                                <div class="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:border-orange-300 dark:hover:border-orange-600 transition-colors">
                                     <div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center shrink-0">
                                         <i class="fas fa-warehouse text-orange-600 dark:text-orange-400 text-lg"></i>
                                     </div>

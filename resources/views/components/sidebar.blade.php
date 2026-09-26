@@ -266,8 +266,7 @@
                     @if(count($m['children']))
                         <button type="button"
                                 @click="activeModule = (activeModule === '{{ $m['key'] }}' ? null : '{{ $m['key'] }}')"
-                                class="relative flex flex-col items-start gap-2 p-2.5 rounded-xl border text-left transition-colors
-                                    {{ $m['active'] ? 'bg-blue-700 border-blue-600' : 'bg-blue-800/40 border-blue-800 hover:bg-blue-700/60' }}"
+                                class="relative flex flex-col items-start gap-2 p-2.5 rounded-xl border text-left transition-colors {{ $m['active'] ? 'bg-blue-700 border-blue-600' : 'bg-blue-800/40 border-blue-800 hover:bg-blue-700/60' }}"
                                 :class="activeModule === '{{ $m['key'] }}' ? 'bg-blue-700 border-blue-600' : ''">
                             <span class="w-7 h-7 rounded-lg bg-blue-900/50 flex items-center justify-center text-blue-100">
                                 <i class="fas {{ $m['icon'] }} text-xs"></i>
@@ -279,8 +278,7 @@
                         </button>
                     @else
                         <a href="{{ $m['route'] }}"
-                           class="relative flex flex-col items-start gap-2 p-2.5 rounded-xl border text-left transition-colors
-                               {{ $m['active'] ? 'bg-blue-700 border-blue-600' : 'bg-blue-800/40 border-blue-800 hover:bg-blue-700/60' }}">
+                           class="relative flex flex-col items-start gap-2 p-2.5 rounded-xl border text-left transition-colors {{ $m['active'] ? 'bg-blue-700 border-blue-600' : 'bg-blue-800/40 border-blue-800 hover:bg-blue-700/60' }}">
                             <span class="w-7 h-7 rounded-lg bg-blue-900/50 flex items-center justify-center text-blue-100">
                                 <i class="fas {{ $m['icon'] }} text-xs"></i>
                             </span>

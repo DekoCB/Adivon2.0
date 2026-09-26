@@ -106,7 +106,7 @@
             <i class="fas fa-lock text-base"></i>
             <span class="flex-1">Caja cerrada — No puedes registrar ventas de contado hasta abrir tu caja.</span>
             <a href="{{ route('caja.actual') }}"
-               class="bg-white dark:bg-slate-800 text-red-700 dark:text-red-300 hover:bg-red-50 px-3 py-1 rounded-lg text-xs font-bold transition-colors whitespace-nowrap">
+               class="bg-white dark:bg-slate-800 text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1 rounded-lg text-xs font-bold transition-colors whitespace-nowrap">
                 <i class="fas fa-cash-register mr-1"></i>Abrir Caja
             </a>
         </div>
@@ -118,7 +118,7 @@
             La caja abierta es del día <strong>{{ $cajaActual->fecha->format('d/m/Y') }}</strong> — Ciérrala y abre una nueva para registrar ventas de hoy correctamente.
         </span>
         <a href="{{ route('caja.actual') }}"
-           class="bg-white dark:bg-slate-800 text-amber-700 dark:text-amber-300 hover:bg-amber-50 px-3 py-1 rounded-lg text-xs font-bold transition-colors whitespace-nowrap">
+           class="bg-white dark:bg-slate-800 text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 px-3 py-1 rounded-lg text-xs font-bold transition-colors whitespace-nowrap">
             <i class="fas fa-cash-register mr-1"></i>Ver Caja
         </a>
     </div>
@@ -1377,7 +1377,7 @@
                 <div class="max-h-36 overflow-y-auto space-y-1">
                     <template x-for="imei in imeisDisponibles" :key="imei.id">
                         <button @click="toggleImei(imei)"
-                                :class="isImeiSeleccionado(imei) ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300 dark:text-purple-300' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-slate-300 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-700'"
+                                :class="isImeiSeleccionado(imei) ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300 dark:text-purple-300' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-slate-300 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-600 dark:hover:border-purple-700'"
                                 class="w-full text-left flex items-center justify-between px-3 py-2 border rounded-lg text-sm font-mono transition">
                             <span x-text="imei.codigo_imei"></span>
                             <i class="fas" :class="isImeiSeleccionado(imei) ? 'fa-check-circle text-purple-500' : 'fa-circle text-gray-200 dark:text-gray-600'"></i>

@@ -331,7 +331,7 @@
                                          class="absolute z-20 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-48 overflow-y-auto">
                                         <template x-for="prov in resultadosProv" :key="prov.id">
                                             <button type="button" @click="seleccionarProveedor(prov)"
-                                                    class="w-full text-left px-3 py-2.5 hover:bg-yellow-50 transition-colors border-b border-gray-50 last:border-0">
+                                                    class="w-full text-left px-3 py-2.5 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 transition-colors border-b border-gray-50 last:border-0">
                                                 <div class="text-sm font-medium text-gray-800 dark:text-slate-200" x-text="prov.razon_social"></div>
                                                 <div class="text-xs text-gray-400 dark:text-slate-500" x-text="'RUC: ' + prov.ruc"></div>
                                             </button>
@@ -382,7 +382,7 @@
                                     </div>
                                     <button type="button"
                                             @click="usarPrecioCompra()"
-                                            class="shrink-0 text-xs text-blue-700 dark:text-blue-300 font-semibold bg-blue-100 dark:bg-blue-900/40 hover:bg-blue-200 px-2 py-0.5 rounded transition-colors whitespace-nowrap">
+                                            class="shrink-0 text-xs text-blue-700 dark:text-blue-300 font-semibold bg-blue-100 dark:bg-blue-900/40 hover:bg-blue-200 dark:hover:bg-blue-800/50 px-2 py-0.5 rounded transition-colors whitespace-nowrap">
                                         Usar precio
                                     </button>
                                 </div>

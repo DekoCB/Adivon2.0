@@ -42,7 +42,7 @@
                                     <input type="radio" name="categoria" value="{{ $valor }}"
                                            {{ $tipoOld == $valor ? 'checked' : '' }}
                                            class="sr-only peer">
-                                    <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 hover:border-blue-300 transition text-gray-500 dark:text-slate-400 text-center">
+                                    <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 hover:border-blue-300 dark:hover:border-blue-600 transition text-gray-500 dark:text-slate-400 text-center">
                                         <i class="fas {{ $info['icono'] }} text-xl mb-1"></i>
                                         <span class="text-xs font-medium">{{ $info['label'] }}</span>
                                     </div>

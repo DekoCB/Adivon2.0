@@ -23,7 +23,7 @@
                         <i class="fas fa-search mr-2"></i>Búsqueda por RUC (SUNAT)
                     </h2>
                 </div>
-                <div class="p-6 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100">
+                <div class="p-6 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100 dark:border-blue-800">
                     <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Consultar datos del proveedor</label>
                     <div class="flex gap-3">
                         <input type="text" x-model="rucBuscar" maxlength="11" placeholder="Ingrese RUC de 11 dígitos"

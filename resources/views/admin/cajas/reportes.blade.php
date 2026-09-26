@@ -28,7 +28,7 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.cajas.alertas') }}"
-               class="relative inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-200 transition">
+               class="relative inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800/50 transition">
                 <i class="fas fa-bell"></i>
                 @if($alertasCount > 0)
                     <span class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">

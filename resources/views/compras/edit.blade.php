@@ -267,14 +267,14 @@
                                                 <button type="button"
                                                         onclick="abrirModalImeis({{ $detalle->id }}, '{{ addslashes($detalle->producto->nombre) }}')"
                                                         title="Gestionar IMEIs"
-                                                        class="p-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 transition text-xs">
+                                                        class="p-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-800/50 transition text-xs">
                                                     <i class="fas fa-microchip"></i>
                                                 </button>
                                                 @endif
                                                 <button type="button"
                                                         onclick="eliminarDetalle({{ $detalle->id }}, '{{ addslashes($detalle->producto->nombre) }}')"
                                                         title="Eliminar producto"
-                                                        class="p-1.5 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-200 transition text-xs btn-eliminar-detalle">
+                                                        class="p-1.5 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50 transition text-xs btn-eliminar-detalle">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
@@ -676,11 +676,11 @@
                         ${editable ? `
                         <div class="flex items-center justify-center gap-1">
                             <button onclick="abrirEditarImei(${imei.id}, '${imei.codigo_imei}')"
-                                    class="p-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 transition" title="Editar IMEI">
+                                    class="p-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 dark:hover:bg-blue-800/50 transition" title="Editar IMEI">
                                 <i class="fas fa-pen text-xs"></i>
                             </button>
                             <button onclick="eliminarImei(${imei.id}, '${imei.codigo_imei}')"
-                                    class="p-1 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded hover:bg-red-200 transition" title="Eliminar IMEI">
+                                    class="p-1 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-800/50 transition" title="Eliminar IMEI">
                                 <i class="fas fa-trash text-xs"></i>
                             </button>
                         </div>` : `<span class="text-xs text-gray-400 dark:text-slate-500">—</span>`}

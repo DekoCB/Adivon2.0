@@ -57,7 +57,7 @@
                         $rc  = $roleTono[$rn] ?? 'gray';
                         $ri  = $roleIcon[$rn]   ?? 'fa-user';
                     @endphp
-                    <tr class="hover:bg-blue-50/40 transition-colors">
+                    <tr class="hover:bg-blue-50/40 dark:hover:bg-blue-900/40 transition-colors">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full bg-gradient-to-br {{ $avatarColors[$user->id % count($avatarColors)] }} flex items-center justify-center text-white text-sm font-bold shrink-0">
@@ -94,18 +94,18 @@
                         <td class="px-6 py-4 text-center">
                             <div class="inline-flex items-center gap-1">
                                 <a href="{{ route('users.show', $user) }}"
-                                   class="p-2 rounded-lg text-blue-500 hover:bg-blue-100 transition-colors" title="Ver">
+                                   class="p-2 rounded-lg text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors" title="Ver">
                                     <i class="fas fa-eye text-sm"></i>
                                 </a>
                                 <button onclick="openEdit({{ $user->id }})"
-                                        class="p-2 rounded-lg text-amber-500 hover:bg-amber-100 transition-colors" title="Editar">
+                                        class="p-2 rounded-lg text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors" title="Editar">
                                     <i class="fas fa-pen text-sm"></i>
                                 </button>
                                 @if($user->id !== auth()->id())
                                 <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline"
                                       onsubmit="return confirm('¿Eliminar a {{ addslashes($user->name) }}? Esta acción no se puede deshacer.')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="p-2 rounded-lg text-red-400 hover:bg-red-100 transition-colors" title="Eliminar">
+                                    <button type="submit" class="p-2 rounded-lg text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors" title="Eliminar">
                                         <i class="fas fa-trash text-sm"></i>
                                     </button>
                                 </form>

@@ -83,7 +83,7 @@
                             </span>
                             @if($cuota->estado === 'pendiente' && in_array(auth()->user()->role->nombre, ['Administrador', 'Tienda']) && $cuenta->estado !== 'anulado')
                             <button @click="showPagoModal = true; cuotaId = {{ $cuota->id }}; montoCuota = {{ $cuota->monto }};"
-                                    class="text-xs bg-orange-50 dark:bg-orange-900/30 hover:bg-orange-100 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-800 px-2.5 py-1 rounded-lg font-semibold transition">
+                                    class="text-xs bg-orange-50 dark:bg-orange-900/30 hover:bg-orange-100 dark:hover:bg-orange-900/40 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-800 px-2.5 py-1 rounded-lg font-semibold transition">
                                 Pagar
                             </button>
                             @elseif($cuota->estado === 'pagado')

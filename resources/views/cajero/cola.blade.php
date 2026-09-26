@@ -192,7 +192,7 @@
                                                    :placeholder="pagos.length === 1 ? totalVenta.toFixed(2) : '0.00'"
                                                    class="w-28 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1.5 text-sm text-right font-mono font-bold text-gray-800 dark:text-slate-200 focus:ring-2 focus:ring-green-500 focus:border-green-500">
                                             <button x-show="pagos.length > 1" @click="pagos.splice(i,1)" x-cloak
-                                                    class="w-7 h-7 rounded-lg text-gray-400 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition shrink-0">
+                                                    class="w-7 h-7 rounded-lg text-gray-400 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center justify-center transition shrink-0">
                                                 <i class="fas fa-times text-xs"></i>
                                             </button>
                                         </div>
@@ -201,7 +201,7 @@
                                         <div class="grid grid-cols-4 gap-1.5">
                                             <template x-for="m in metodos" :key="m.k">
                                                 <button @click="p.metodo = m.k; p.referencia = ''"
-                                                        :class="p.metodo === m.k ? 'border-green-600 bg-green-600 text-white shadow-sm' : 'border-gray-200 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:border-green-300 hover:text-green-700'"
+                                                        :class="p.metodo === m.k ? 'border-green-600 bg-green-600 text-white shadow-sm' : 'border-gray-200 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:border-green-300 dark:hover:border-green-600 hover:text-green-700'"
                                                         class="flex flex-col items-center gap-1 py-2 rounded-xl border-2 text-[10px] font-bold transition">
                                                     <i class="fas text-sm" :class="p.metodo === m.k ? m.icon + ' text-white' : m.icon + ' text-' + m.color + '-500'"></i>
                                                     <span x-text="m.label"></span>
@@ -213,7 +213,7 @@
                                         <div x-show="p.metodo === 'efectivo' && pagos.length === 1" x-cloak>
                                             <div class="flex flex-wrap gap-1">
                                                 <button @click="p.monto = parseFloat(totalVenta.toFixed(2))"
-                                                        class="px-2 py-0.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg text-[10px] font-bold hover:bg-green-100 transition">
+                                                        class="px-2 py-0.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg text-[10px] font-bold hover:bg-green-100 dark:hover:bg-green-900/40 transition">
                                                     Exacto
                                                 </button>
                                                 <template x-for="amt in [10,20,50,100,200,500]" :key="amt">
@@ -239,7 +239,7 @@
 
                             {{-- Agregar pago --}}
                             <button x-show="pagos.length < 3" @click="agregarPago()" x-cloak
-                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-gray-500 dark:text-slate-400 hover:border-green-400 hover:text-green-600 hover:bg-green-50 transition flex items-center justify-center gap-1.5">
+                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-gray-500 dark:text-slate-400 hover:border-green-400 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-900/30 transition flex items-center justify-center gap-1.5">
                                 <i class="fas fa-plus text-[9px]"></i> Agregar otro método de pago
                             </button>
 

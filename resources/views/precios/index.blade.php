@@ -29,7 +29,7 @@
             </div>
         </div>
         <a href="{{ route('precios.index', array_merge(request()->except('tab','page'), ['tab' => 'sin_precio'])) }}"
-           class="bg-white dark:bg-slate-800 rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-100' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 transition-colors">
+           class="bg-white dark:bg-slate-800 rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-100' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 dark:hover:border-red-700 transition-colors">
             <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
                 <i class="fas fa-exclamation-circle text-red-500 text-base"></i>
             </div>
@@ -82,12 +82,12 @@
         <div class="flex flex-wrap gap-2 items-center">
             <span class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mr-1">Categoría:</span>
             <a href="{{ route('precios.index', array_merge(request()->except('categoria_id','page'), [])) }}"
-               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ !request('categoria_id') ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:text-blue-600' }}">
+               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ !request('categoria_id') ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600' }}">
                 Todas
             </a>
             @foreach($categorias as $cat)
             <a href="{{ route('precios.index', array_merge(request()->except('categoria_id','page'), ['categoria_id' => $cat->id])) }}"
-               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ request('categoria_id') == $cat->id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:text-blue-600' }}">
+               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors {{ request('categoria_id') == $cat->id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600' }}">
                 {{ $cat->nombre }}
             </a>
             @endforeach
@@ -171,7 +171,7 @@
                 <tbody x-data="{ open: false }">
 
                     {{-- ── Main row ── --}}
-                    <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-blue-50/20 transition-colors">
+                    <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
 
                         {{-- Producto --}}
                         <td class="px-5 py-3.5">
@@ -179,7 +179,7 @@
                                 @if($tieneVariantes)
                                 {{-- Expand toggle --}}
                                 <button type="button" @click="open = !open"
-                                        class="w-6 h-6 flex items-center justify-center rounded-md bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 hover:bg-blue-200 transition-colors shrink-0">
+                                        class="w-6 h-6 flex items-center justify-center rounded-md bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors shrink-0">
                                     <i class="fas fa-chevron-down text-[10px] transition-transform" :class="open ? 'rotate-180' : ''"></i>
                                 </button>
                                 @else
@@ -303,7 +303,7 @@
                                 </a>
                                 @if($tienePrecio)
                                 <a href="{{ route('precios.historial', $producto) }}"
-                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 hover:bg-purple-100 hover:text-purple-600 transition-colors"
+                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-600 transition-colors"
                                    title="Historial">
                                     <i class="fas fa-history text-xs"></i>
                                 </a>
@@ -321,7 +321,7 @@
                                 $hayPrecio = $pCap && (float)$pCap->precio > 0;
                             @endphp
                             <tr x-show="open" x-cloak
-                                class="border-b border-blue-100 bg-blue-50/40 transition-colors hover:bg-blue-50/70">
+                                class="border-b border-blue-100 dark:border-blue-800 bg-blue-50/40 dark:bg-blue-900/40 transition-colors hover:bg-blue-50/70 dark:hover:bg-blue-900/70">
                                 <td class="pl-14 pr-5 py-2.5 text-sm">
                                     <div class="flex items-center gap-2">
                                         <i class="fas fa-microchip text-blue-400 text-xs"></i>
@@ -381,7 +381,7 @@
                                 </td>
                                 <td class="px-5 py-2.5 text-center">
                                     <a href="{{ route('precios.show', $producto) }}?variante_id={{ $vars->first()->id }}"
-                                       class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition-colors">
+                                       class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
                                         <i class="fas fa-tags text-xs"></i> Gestionar
                                     </a>
                                 </td>

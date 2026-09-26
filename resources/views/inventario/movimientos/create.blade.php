@@ -377,7 +377,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                      class="absolute z-30 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg max-h-64 overflow-y-auto">
                                     <template x-for="p in resultados" :key="p.id">
                                         <button type="button" @click="seleccionar(p)"
-                                                class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b border-gray-50 last:border-0 transition-colors">
+                                                class="w-full text-left px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-b border-gray-50 last:border-0 transition-colors">
                                             <div class="flex items-center justify-between">
                                                 <div>
                                                     <p class="text-sm font-medium text-gray-900 dark:text-slate-100" x-text="p.nombre"></p>

@@ -175,7 +175,7 @@
                                     </select>
                                     <button type="button" onclick="abrirModalMarca()"
                                             title="Crear nueva marca"
-                                            class="px-3 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-200 transition shrink-0">
+                                            class="px-3 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800/50 transition shrink-0">
                                         <i class="fas fa-plus text-sm"></i>
                                     </button>
                                 </div>
@@ -199,7 +199,7 @@
                                     </select>
                                     <button type="button" onclick="abrirModalModelo()"
                                             title="Crear nuevo modelo"
-                                            class="px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 rounded-lg hover:bg-indigo-200 transition shrink-0">
+                                            class="px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-800/50 transition shrink-0">
                                         <i class="fas fa-plus text-sm"></i>
                                     </button>
                                 </div>
@@ -236,7 +236,7 @@
                                         <button type="button"
                                                 onclick="abrirModalUnidad()"
                                                 title="Crear nueva unidad de medida"
-                                                class="px-3 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-700 rounded-lg hover:bg-green-200 transition shrink-0">
+                                                class="px-3 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-700 rounded-lg hover:bg-green-200 dark:hover:bg-green-800/50 transition shrink-0">
                                             <i class="fas fa-plus text-sm"></i>
                                         </button>
                                     </div>
@@ -254,7 +254,7 @@
                                             <span class="ml-1 text-xs text-gray-400 dark:text-slate-500">(opcional)</span>
                                         </div>
                                         <button type="button" onclick="agregarUnidadAlternativa()"
-                                                class="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-800 hover:bg-blue-100 transition flex items-center gap-1">
+                                                class="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1">
                                             <i class="fas fa-plus"></i> Agregar
                                         </button>
                                     </div>
@@ -303,7 +303,7 @@
                                             </div>
                                             <div class="col-span-1 flex justify-end">
                                                 <button type="button" onclick="eliminarUnidad(this)"
-                                                        class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded-lg transition"
+                                                        class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition"
                                                         title="Eliminar">
                                                     <i class="fas fa-times"></i>
                                                 </button>
@@ -399,7 +399,7 @@
                                          class="absolute z-10 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
                                         <template x-for="r in resultados" :key="r.id">
                                             <button type="button" @click="elegir(r)"
-                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 border-b border-gray-100 dark:border-slate-700 last:border-0">
+                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-slate-700 last:border-0">
                                                 <span class="font-mono text-xs text-blue-700 dark:text-blue-300" x-text="r.codigo"></span>
                                                 <span class="block text-sm text-gray-800 dark:text-slate-200" x-text="r.producto"></span>
                                                 <span class="block text-xs text-gray-400 dark:text-slate-500" x-text="[r.segmento, r.familia, r.clase].filter(Boolean).join(' › ')"></span>
@@ -497,7 +497,7 @@
                                             </p>
                                         </div>
                                         <button type="button" @click="quitarVariante(idx)"
-                                                class="text-red-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition">
+                                                class="text-red-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
                                             <i class="fas fa-times text-sm"></i>
                                         </button>
                                         <!-- Campos hidden para envío -->
@@ -527,7 +527,7 @@
                                             @endforeach
                                         </select>
                                         <button type="button" onclick="abrirModalColorCreate()"
-                                                class="shrink-0 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 hover:bg-indigo-200 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium transition"
+                                                class="shrink-0 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 hover:bg-indigo-200 dark:hover:bg-indigo-800/50 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium transition"
                                                 title="Agregar nuevo color">
                                             <i class="fas fa-plus"></i>
                                         </button>
@@ -554,7 +554,7 @@
                         </div>
 
                         <button type="button" @click="agregarAbierto = true" x-show="!agregarAbierto"
-                                class="mt-3 w-full py-2.5 border-2 border-dashed border-indigo-300 dark:border-indigo-700 rounded-xl text-indigo-600 dark:text-indigo-400 hover:border-indigo-500 hover:bg-indigo-50 text-sm font-medium transition flex items-center justify-center gap-2">
+                                class="mt-3 w-full py-2.5 border-2 border-dashed border-indigo-300 dark:border-indigo-700 rounded-xl text-indigo-600 dark:text-indigo-400 hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-sm font-medium transition flex items-center justify-center gap-2">
                             <i class="fas fa-plus"></i> Agregar variante
                         </button>
                     </div>

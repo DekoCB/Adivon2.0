@@ -86,7 +86,7 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('local')"
                                    {{ old('tipo_compra', 'local') === 'local' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300">
+                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300 dark:hover:border-green-600">
                                 <div class="w-8 h-8 bg-green-100 dark:bg-green-900/40 rounded flex items-center justify-center shrink-0">
                                     <i class="fas fa-store text-green-700 dark:text-green-300 text-sm"></i>
                                 </div>
@@ -101,7 +101,7 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('importacion')"
                                    {{ old('tipo_compra') === 'importacion' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300">
+                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300 dark:hover:border-orange-600">
                                 <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900/40 rounded flex items-center justify-center shrink-0">
                                     <i class="fas fa-ship text-orange-700 dark:text-orange-300 text-sm"></i>
                                 </div>
@@ -495,7 +495,7 @@
                                        class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm">
                                 <button type="button" id="btnCargarTC" onclick="cargarTipoCambioSUNAT()"
                                         title="Cargar tipo de cambio desde SUNAT"
-                                        class="flex-shrink-0 px-2.5 py-2 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 rounded-lg border border-blue-200 dark:border-blue-800 transition text-sm font-medium whitespace-nowrap">
+                                        class="flex-shrink-0 px-2.5 py-2 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg border border-blue-200 dark:border-blue-800 transition text-sm font-medium whitespace-nowrap">
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
@@ -835,11 +835,11 @@
                         </span>
                         <div class="flex flex-wrap gap-2">
                             <button type="button" onclick="generarIMEIsAleatorios()"
-                                    class="px-3 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-200 text-sm flex items-center">
+                                    class="px-3 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-800/50 text-sm flex items-center">
                                 <i class="fas fa-magic mr-1"></i>Generar
                             </button>
                             <button type="button" onclick="limpiarIMEIs()"
-                                    class="px-3 py-1.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 text-sm flex items-center">
+                                    class="px-3 py-1.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50 text-sm flex items-center">
                                 <i class="fas fa-eraser mr-1"></i>Limpiar
                             </button>
                         </div>
@@ -988,7 +988,7 @@
                         const rs = (p.razon_social || '').replace(/\\/g,'\\\\').replace(/'/g, "\\'");
                         return `
                             <div onclick="seleccionarProveedor(${p.id},'${n}','${r}','${rs}')"
-                                 class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0 transition-colors">
+                                 class="px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900/30 cursor-pointer border-b border-gray-100 dark:border-slate-700 last:border-0 transition-colors">
                                 <div class="font-medium text-gray-900 dark:text-slate-100 text-sm">${nombre}</div>
                                 <div class="text-xs text-gray-500 dark:text-slate-400 mt-0.5 flex items-center gap-3">
                                     ${extra ? `<span>${extra}</span>` : ''}
@@ -1724,7 +1724,7 @@
         const moneda  = document.getElementById('tipo_moneda').value;
         const simbolo = moneda === 'USD' ? '$' : 'S/';
 
-        let html = `<div class="grid grid-cols-4 gap-2 font-semibold text-orange-700 dark:text-orange-300 border-b border-orange-100 pb-1 mb-1">
+        let html = `<div class="grid grid-cols-4 gap-2 font-semibold text-orange-700 dark:text-orange-300 border-b border-orange-100 dark:border-orange-800 pb-1 mb-1">
             <span>Producto</span><span class="text-right">Subtotal</span><span class="text-right">CIF asignado</span><span class="text-right font-bold">Costo total</span>
         </div>`;
 
@@ -1935,7 +1935,7 @@
                     ? `<span class="text-xs px-2 py-0.5 bg-indigo-600 text-white rounded-full font-semibold">${totalSelVariantes} sel.</span>` : '';
 
                 return `
-                    <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 hover:border-indigo-300 hover:shadow-lg transition-all">
+                    <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 hover:border-indigo-300 dark:hover:border-indigo-600 hover:shadow-lg transition-all">
                         <div class="flex items-center gap-2 mb-2">
                             <div class="w-9 h-9 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center shrink-0">
                                 <i class="fas fa-mobile-alt text-indigo-600 dark:text-indigo-400 text-sm"></i>
@@ -3001,7 +3001,7 @@ function npRenderVariantes() {
                 <span class="text-sm text-gray-800 dark:text-slate-200">${label}</span>
             </div>
             <button type="button" onclick="npEliminarVariante(${i})"
-                    class="text-red-400 hover:text-red-600 transition text-xs px-2 py-1 rounded hover:bg-red-50">
+                    class="text-red-400 hover:text-red-600 transition text-xs px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30">
                 <i class="fas fa-times"></i>
             </button>
         </div>`;
@@ -3413,7 +3413,7 @@ function guardarNuevoProducto() {
                     </select>
                     <button type="button" onclick="crearMarcaRapida()"
                             title="Nueva marca"
-                            class="px-3 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-100 transition shrink-0">
+                            class="px-3 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/40 transition shrink-0">
                         <i class="fas fa-plus text-sm"></i>
                     </button>
                 </div>
@@ -3433,7 +3433,7 @@ function guardarNuevoProducto() {
                     </select>
                     <button type="button" onclick="crearModeloRapido()"
                             title="Nuevo modelo"
-                            class="px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl hover:bg-indigo-100 transition shrink-0">
+                            class="px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition shrink-0">
                         <i class="fas fa-plus text-sm"></i>
                     </button>
                 </div>

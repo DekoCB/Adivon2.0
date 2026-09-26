@@ -155,7 +155,7 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <a href="{{ route('devoluciones.show', $dev->id) }}"
-                                   class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-lg transition">
+                                   class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-lg transition">
                                     <i class="fas fa-eye"></i> Ver
                                 </a>
                             </td>

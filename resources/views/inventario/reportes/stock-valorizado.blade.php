@@ -170,7 +170,7 @@
                                             x-transition:enter-start="opacity-0 -translate-y-1"
                                             x-transition:enter-end="opacity-100 translate-y-0"
                                             style="display:none"
-                                            class="bg-indigo-50/40 hover:bg-indigo-50 transition border-l-4 border-indigo-300 dark:border-indigo-700">
+                                            class="bg-indigo-50/40 dark:bg-indigo-900/40 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition border-l-4 border-indigo-300 dark:border-indigo-700">
                                             <td class="px-3 py-2.5"></td>
                                             <td class="px-4 py-2.5">
                                                 <div class="flex items-center gap-2 pl-4">

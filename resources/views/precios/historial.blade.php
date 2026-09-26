@@ -139,7 +139,7 @@
                                     : 0;
                                 $subio = $variacion >= 0;
                             @endphp
-                            <tr class="hover:bg-purple-50/20 transition-colors">
+                            <tr class="hover:bg-purple-50/20 dark:hover:bg-purple-900/20 transition-colors">
                                 <td class="px-4 py-3">
                                     <div class="text-sm text-gray-800 dark:text-slate-200 font-medium">{{ $item->created_at->format('d/m/Y') }}</div>
                                     <div class="text-xs text-gray-400 dark:text-slate-500">{{ $item->created_at->format('H:i') }}</div>

@@ -136,22 +136,22 @@
                     </div>
                     <div class="p-4">
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick="cambiarEstado('en_stock')" class="px-3 py-2 bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 rounded-lg hover:bg-green-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('en_stock')" class="px-3 py-2 bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-800/50 text-sm font-medium">
                                 <i class="fas fa-check-circle mr-1"></i>Stock
                             </button>
-                            <button onclick="cambiarEstado('reservado')" class="px-3 py-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 rounded-lg hover:bg-yellow-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('reservado')" class="px-3 py-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-800/50 text-sm font-medium">
                                 <i class="fas fa-clock mr-1"></i>Reservado
                             </button>
-                            <button onclick="cambiarEstado('vendido')" class="px-3 py-2 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 rounded-lg hover:bg-red-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('vendido')" class="px-3 py-2 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50 text-sm font-medium">
                                 <i class="fas fa-shopping-cart mr-1"></i>Vendido
                             </button>
-                            <button onclick="cambiarEstado('garantia')" class="px-3 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('garantia')" class="px-3 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800/50 text-sm font-medium">
                                 <i class="fas fa-shield-alt mr-1"></i>Garantía
                             </button>
-                            <button onclick="cambiarEstado('devuelto')" class="px-3 py-2 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300 rounded-lg hover:bg-orange-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('devuelto')" class="px-3 py-2 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300 rounded-lg hover:bg-orange-200 dark:hover:bg-orange-800/50 text-sm font-medium">
                                 <i class="fas fa-undo mr-1"></i>Devuelto
                             </button>
-                            <button onclick="cambiarEstado('reemplazado')" class="px-3 py-2 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 rounded-lg hover:bg-purple-200 text-sm font-medium">
+                            <button onclick="cambiarEstado('reemplazado')" class="px-3 py-2 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-800/50 text-sm font-medium">
                                 <i class="fas fa-exchange-alt mr-1"></i>Reemplazado
                             </button>
                         </div>

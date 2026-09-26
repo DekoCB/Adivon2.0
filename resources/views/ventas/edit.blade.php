@@ -105,7 +105,7 @@
                     <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1.5">Método de pago</label>
                     <div class="grid grid-cols-2 gap-2">
                         @foreach(['efectivo' => '💵 Efectivo', 'transferencia' => '🏦 Transferencia', 'yape' => '📱 Yape', 'plin' => '📱 Plin', 'mixto' => '🔀 Mixto'] as $metodo => $label)
-                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
                             <input type="radio" name="metodo_pago" value="{{ $metodo }}"
                                    {{ old('metodo_pago', $venta->metodo_pago) === $metodo ? 'checked' : '' }}
                                    class="text-blue-600 dark:text-blue-400">

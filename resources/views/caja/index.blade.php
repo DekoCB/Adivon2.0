@@ -127,12 +127,12 @@
                     <td class="px-4 py-3 text-right">
                         @if($caja->estado === 'abierta' && $caja->user_id === auth()->id())
                             <a href="{{ route('caja.actual') }}"
-                               class="text-xs bg-green-50 dark:bg-green-900/30 hover:bg-green-100 text-green-700 dark:text-green-300 font-medium px-3 py-1.5 rounded-lg flex items-center gap-1 justify-center">
+                               class="text-xs bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-700 dark:text-green-300 font-medium px-3 py-1.5 rounded-lg flex items-center gap-1 justify-center">
                                 <i class="fas fa-cash-register"></i> Mi Caja
                             </a>
                         @else
                             <a href="{{ route('caja.show', $caja) }}"
-                               class="text-xs bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 font-medium px-3 py-1.5 rounded-lg flex items-center gap-1 justify-center">
+                               class="text-xs bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium px-3 py-1.5 rounded-lg flex items-center gap-1 justify-center">
                                 <i class="fas fa-eye"></i> Detalle
                             </a>
                         @endif

@@ -206,7 +206,7 @@
                                         if ($horas > 0)  $tiempoStr .= $horas . 'h ';
                                         $tiempoStr .= $minutos . 'min';
                                     @endphp
-                                    <tr class="border-b border-red-100 last:border-0">
+                                    <tr class="border-b border-red-100 dark:border-red-800 last:border-0">
                                         <td class="py-2 pr-4 font-medium text-gray-800 dark:text-slate-200">
                                             {{ $cajaAtras->usuario->name ?? '—' }}
                                         </td>

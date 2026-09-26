@@ -400,7 +400,7 @@
                     var card = $(
                         '<button type="button" data-id="' + v.id + '" data-color-id="' + (v.color_id || '') + '" ' +
                         'data-color-nombre="' + (v.color_nombre || '') + '" data-capacidad="' + (v.capacidad || '') + '" ' +
-                        'class="variante-card text-left border-2 rounded-xl p-3 transition hover:border-indigo-400 hover:bg-indigo-50 border-gray-200 dark:border-slate-700">' +
+                        'class="variante-card text-left border-2 rounded-xl p-3 transition hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 border-gray-200 dark:border-slate-700">' +
                             '<div class="flex items-center gap-2 mb-1">' + colorBox +
                                 '<span class="text-sm font-semibold text-gray-800 dark:text-slate-200 truncate">' + nombre + '</span>' +
                             '</div>' +

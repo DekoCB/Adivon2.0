@@ -190,7 +190,7 @@
                                         <button type="button"
                                                 @click="eliminarProducto(idx)"
                                                 x-show="productos.length > 1"
-                                                class="text-gray-400 dark:text-slate-500 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50">
+                                                class="text-gray-400 dark:text-slate-500 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30">
                                             <i class="fas fa-trash text-xs"></i>
                                         </button>
                                     </div>

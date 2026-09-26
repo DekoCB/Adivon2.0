@@ -231,7 +231,7 @@
                             <td class="px-5 py-3.5 text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <a href="{{ route('cuentas-por-pagar.show', $cuenta) }}"
-                                       class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium transition"
+                                       class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium transition"
                                        title="Ver detalle y gestionar pagos">
                                         <i class="fas fa-eye"></i>Gestionar
                                     </a>

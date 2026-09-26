@@ -52,7 +52,7 @@
                 <p class="text-xs text-gray-500 dark:text-slate-400 uppercase font-semibold mb-1">Acciones rápidas</p>
                 <div class="flex flex-col gap-2 mt-2">
                     <a href="{{ route('cajero.cola') }}"
-                       class="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 rounded-lg text-xs font-semibold hover:bg-amber-100 transition">
+                       class="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 rounded-lg text-xs font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition">
                         <i class="fas fa-list-ul"></i> Ver Cola de Caja
                         @if($ventasPendientesCount > 0)
                             <span class="ml-auto bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">{{ $ventasPendientesCount }}</span>

@@ -204,24 +204,24 @@
                                         {{ $m['costo_unit'] > 0 ? 'S/ '.number_format($m['costo_unit'], 2) : '—' }}
                                     </td>
                                     {{-- Ingreso --}}
-                                    <td class="px-4 py-3 text-right bg-green-50/40 font-semibold text-green-700 dark:text-green-300">
+                                    <td class="px-4 py-3 text-right bg-green-50/40 dark:bg-green-900/40 font-semibold text-green-700 dark:text-green-300">
                                         {{ $esIngreso ? number_format($m['ingreso_qty']) : '—' }}
                                     </td>
-                                    <td class="px-4 py-3 text-right bg-green-50/40 text-green-700 dark:text-green-300 font-mono text-xs">
+                                    <td class="px-4 py-3 text-right bg-green-50/40 dark:bg-green-900/40 text-green-700 dark:text-green-300 font-mono text-xs">
                                         {{ $esIngreso ? 'S/ '.number_format($m['ingreso_val'], 2) : '—' }}
                                     </td>
                                     {{-- Salida --}}
-                                    <td class="px-4 py-3 text-right bg-red-50/40 font-semibold text-red-700 dark:text-red-300">
+                                    <td class="px-4 py-3 text-right bg-red-50/40 dark:bg-red-900/40 font-semibold text-red-700 dark:text-red-300">
                                         {{ $esSalida ? number_format($m['salida_qty']) : '—' }}
                                     </td>
-                                    <td class="px-4 py-3 text-right bg-red-50/40 text-red-700 dark:text-red-300 font-mono text-xs">
+                                    <td class="px-4 py-3 text-right bg-red-50/40 dark:bg-red-900/40 text-red-700 dark:text-red-300 font-mono text-xs">
                                         {{ $esSalida ? 'S/ '.number_format($m['salida_val'], 2) : '—' }}
                                     </td>
                                     {{-- Saldo --}}
-                                    <td class="px-4 py-3 text-right bg-blue-50/40 font-bold text-blue-700 dark:text-blue-300">
+                                    <td class="px-4 py-3 text-right bg-blue-50/40 dark:bg-blue-900/40 font-bold text-blue-700 dark:text-blue-300">
                                         {{ number_format($m['saldo_qty']) }}
                                     </td>
-                                    <td class="px-4 py-3 text-right bg-blue-50/40 text-blue-700 dark:text-blue-300 font-mono text-xs font-semibold">
+                                    <td class="px-4 py-3 text-right bg-blue-50/40 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-mono text-xs font-semibold">
                                         S/ {{ number_format($m['saldo_val'], 2) }}
                                     </td>
                                 </tr>
@@ -232,12 +232,12 @@
                                 <td colspan="6" class="px-4 py-3 text-sm font-bold text-gray-700 dark:text-slate-300">
                                     TOTALES — {{ $movimientos->count() }} movimientos
                                 </td>
-                                <td class="px-4 py-3 text-right font-bold text-green-700 dark:text-green-300 bg-green-50/40">{{ number_format($resumenKardex['total_ingresos_qty']) }}</td>
-                                <td class="px-4 py-3 text-right font-bold text-green-700 dark:text-green-300 bg-green-50/40 font-mono text-xs">S/ {{ number_format($resumenKardex['total_ingresos_val'], 2) }}</td>
-                                <td class="px-4 py-3 text-right font-bold text-red-700 dark:text-red-300 bg-red-50/40">{{ number_format($resumenKardex['total_salidas_qty']) }}</td>
-                                <td class="px-4 py-3 text-right font-bold text-red-700 dark:text-red-300 bg-red-50/40 font-mono text-xs">S/ {{ number_format($resumenKardex['total_salidas_val'], 2) }}</td>
-                                <td class="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-300 bg-blue-50/40">{{ number_format($resumenKardex['saldo_final_qty']) }}</td>
-                                <td class="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-300 bg-blue-50/40 font-mono text-xs">S/ {{ number_format($resumenKardex['saldo_final_val'], 2) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-green-700 dark:text-green-300 bg-green-50/40 dark:bg-green-900/40">{{ number_format($resumenKardex['total_ingresos_qty']) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-green-700 dark:text-green-300 bg-green-50/40 dark:bg-green-900/40 font-mono text-xs">S/ {{ number_format($resumenKardex['total_ingresos_val'], 2) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-red-700 dark:text-red-300 bg-red-50/40 dark:bg-red-900/40">{{ number_format($resumenKardex['total_salidas_qty']) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-red-700 dark:text-red-300 bg-red-50/40 dark:bg-red-900/40 font-mono text-xs">S/ {{ number_format($resumenKardex['total_salidas_val'], 2) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-300 bg-blue-50/40 dark:bg-blue-900/40">{{ number_format($resumenKardex['saldo_final_qty']) }}</td>
+                                <td class="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-300 bg-blue-50/40 dark:bg-blue-900/40 font-mono text-xs">S/ {{ number_format($resumenKardex['saldo_final_val'], 2) }}</td>
                             </tr>
                         </tfoot>
                     </table>

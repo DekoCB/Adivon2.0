@@ -76,7 +76,7 @@
             @foreach($almacenes as $alm)
             @php $movHoy = $movHoyPorAlmacen[$alm->id] ?? 0; @endphp
             <a href="{{ route('inventario.almacenes.show', $alm) }}"
-               class="shrink-0 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm px-5 py-4 min-w-45 hover:border-blue-300 hover:shadow-md transition-all group">
+               class="shrink-0 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm px-5 py-4 min-w-45 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all group">
                 <div class="flex items-center gap-2 mb-2">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $alm->tipo === 'principal' ? 'bg-purple-100' : 'bg-blue-100' }}">
                         <i class="fas {{ $alm->tipo === 'principal' ? 'fa-star text-purple-600' : 'fa-store text-blue-600' }} text-sm"></i>
@@ -191,7 +191,7 @@
                             default         => 'gray',
                         };
                     @endphp
-                    <tr class="hover:bg-blue-50/20 transition-colors">
+                    <tr class="hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
                         <td class="px-5 py-3 whitespace-nowrap">
                             <p class="text-sm text-gray-800 dark:text-slate-200">{{ $mov->created_at->format('d/m/Y') }}</p>
                             <p class="text-xs text-gray-400 dark:text-slate-500">{{ $mov->created_at->format('H:i') }}</p>
@@ -232,7 +232,7 @@
                         </td>
                         <td class="px-5 py-3 text-center">
                             <a href="{{ route('inventario.movimientos.show', $mov) }}"
-                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
+                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
                                title="Ver detalle">
                                 <i class="fas fa-eye text-xs"></i>
                             </a>

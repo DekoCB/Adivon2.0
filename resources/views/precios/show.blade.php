@@ -283,7 +283,7 @@
                                  class="absolute z-20 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-48 overflow-y-auto">
                                 <template x-for="prov in resultadosProv" :key="prov.id">
                                     <button type="button" @click="seleccionarProveedor(prov)"
-                                            class="w-full text-left px-3 py-2.5 hover:bg-emerald-50 transition-colors border-b border-gray-50 last:border-0">
+                                            class="w-full text-left px-3 py-2.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors border-b border-gray-50 last:border-0">
                                         <div class="text-sm font-medium text-gray-800 dark:text-slate-200" x-text="prov.razon_social"></div>
                                         <div class="text-xs text-gray-400 dark:text-slate-500" x-text="'RUC: ' + prov.ruc"></div>
                                     </button>
@@ -452,7 +452,7 @@
                         {{-- Botón calcular mayorista --}}
                         <button type="button" @click="calcularMayorista()"
                                 :disabled="(modoCalculoMayor==='margen' && !precioCompra) || (modoCalculoMayor==='precio' && !precioMayorista)"
-                                class="w-full py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-sm font-semibold rounded-lg hover:bg-amber-100 transition-colors disabled:opacity-40 border border-amber-200 dark:border-amber-800">
+                                class="w-full py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-sm font-semibold rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors disabled:opacity-40 border border-amber-200 dark:border-amber-800">
                             <i class="fas fa-calculator mr-1"></i> Calcular Mayorista
                         </button>
 
@@ -486,7 +486,7 @@
                     </div>
 
                     {{-- Replicar a tiendas --}}
-                    <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-100 transition-colors">
+                    <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
                         <input type="checkbox" name="replicar_tiendas" value="1" x-model="replicar"
                                class="mt-0.5 h-4 w-4 text-emerald-600 dark:text-emerald-400 border-gray-300 dark:border-slate-600 rounded focus:ring-emerald-500">
                         <div>
@@ -543,7 +543,7 @@
                             $pmVal   = $pMay?->precio ?? 'null';
                             $pmMrg   = $pMay?->margen ?? 10;
                         @endphp
-                        <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $esActual ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-100' }} shadow-sm p-4 cursor-pointer hover:border-blue-300 transition-all"
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $esActual ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-100' }} shadow-sm p-4 cursor-pointer hover:border-blue-300 dark:hover:border-blue-600 transition-all"
                              onclick="window.dispatchEvent(new CustomEvent('precarga-precio', { detail: { varianteId: {{ $varRep->id }}, precioCompra: {{ $pCap?->precio_compra ?? 0 }}, precioVenta: {{ $pCap?->precio ?? 0 }}, margen: {{ $pCap?->margen ?? 0 }}, precioMayorista: {{ $pmVal }}, margenMayor: {{ $pmMrg }} } }))">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="flex items-center gap-1.5 text-sm font-semibold text-gray-800 dark:text-slate-200">
@@ -569,7 +569,7 @@
                                         </span>
                                     </div>
                                     @if($pMay)
-                                        <div class="flex justify-between items-center border-t border-amber-100 pt-1.5 mt-1.5 bg-amber-50 dark:bg-amber-900/30 -mx-1 px-1 rounded">
+                                        <div class="flex justify-between items-center border-t border-amber-100 dark:border-amber-800 pt-1.5 mt-1.5 bg-amber-50 dark:bg-amber-900/30 -mx-1 px-1 rounded">
                                             <span class="flex items-center gap-1 text-xs text-amber-700 dark:text-amber-300 font-semibold">
                                                 <i class="fas fa-tags text-[9px]"></i> Mayorista
                                             </span>
@@ -672,7 +672,7 @@
                                         $pmHVal   = $pMayHist?->precio ?? 'null';
                                         $pmHMrg   = $pMayHist?->margen ?? 10;
                                     @endphp
-                                    <tr class="hover:bg-blue-50/30 transition-colors {{ $precio ? '' : 'bg-amber-50/30' }}">
+                                    <tr class="hover:bg-blue-50/30 dark:hover:bg-blue-900/30 transition-colors {{ $precio ? '' : 'bg-amber-50/30' }}">
                                         <td class="px-4 py-3 text-sm">
                                             <div class="font-medium text-gray-900 dark:text-slate-100">{{ $capacidad ?: 'Sin capacidad' }}</div>
                                             <div class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">
@@ -723,11 +723,11 @@
                                                 @if($precio)
                                                     <button type="button"
                                                             onclick="window.dispatchEvent(new CustomEvent('precarga-precio', { detail: { varianteId: {{ $varRep->id }}, precioCompra: {{ $precio->precio_compra ?? 0 }}, precioVenta: {{ $precio->precio }}, margen: {{ $precio->margen ?? 0 }}, precioMayorista: {{ $pmHVal }}, margenMayor: {{ $pmHMrg }} } }))"
-                                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs font-medium hover:bg-emerald-100 transition-colors">
+                                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs font-medium hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
                                                         <i class="fas fa-sync-alt"></i> Actualizar
                                                     </button>
                                                     <a href="{{ route('precios.edit', ['producto' => $producto->id, 'precio' => $precio->id]) }}"
-                                                       class="inline-flex items-center gap-1 px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800 rounded-lg text-xs font-medium hover:bg-yellow-100 transition-colors">
+                                                       class="inline-flex items-center gap-1 px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800 rounded-lg text-xs font-medium hover:bg-yellow-100 dark:hover:bg-yellow-900/40 transition-colors">
                                                         <i class="fas fa-edit"></i> Editar
                                                     </a>
                                                 @else
@@ -742,7 +742,7 @@
                                 {{-- Producto sin variantes: precio base --}}
                                 @php $precioBase = $preciosGlobalesActivos->first(); @endphp
                                 @if($precioBase)
-                                    <tr class="hover:bg-blue-50/30 transition-colors">
+                                    <tr class="hover:bg-blue-50/30 dark:hover:bg-blue-900/30 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-400 dark:text-slate-500 italic">Base</td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">{{ $precioBase->proveedor?->razon_social ?? '—' }}</td>
                                         <td class="px-4 py-3 text-sm text-right text-gray-700 dark:text-slate-300">
@@ -765,11 +765,11 @@
                                             <div class="flex items-center justify-center gap-1.5">
                                                 <button type="button"
                                                         onclick="window.dispatchEvent(new CustomEvent('precarga-precio', { detail: { varianteId: null, precioCompra: {{ $precioBase->precio_compra ?? 0 }}, precioVenta: {{ $precioBase->precio }}, margen: {{ $precioBase->margen ?? 0 }}, precioMayorista: {{ $precioMayoristaGlobal?->precio ?? 'null' }}, margenMayor: {{ $precioMayoristaGlobal?->margen ?? 10 }} } }))"
-                                                        class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs font-medium hover:bg-emerald-100 transition-colors">
+                                                        class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs font-medium hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
                                                     <i class="fas fa-sync-alt"></i> Actualizar
                                                 </button>
                                                 <a href="{{ route('precios.edit', ['producto' => $producto->id, 'precio' => $precioBase->id]) }}"
-                                                   class="inline-flex items-center gap-1 px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800 rounded-lg text-xs font-medium hover:bg-yellow-100 transition-colors">
+                                                   class="inline-flex items-center gap-1 px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800 rounded-lg text-xs font-medium hover:bg-yellow-100 dark:hover:bg-yellow-900/40 transition-colors">
                                                     <i class="fas fa-edit"></i> Editar
                                                 </a>
                                             </div>
@@ -970,19 +970,19 @@
                 <i class="fas fa-check-square"></i> Acciones masivas:
             </span>
             <button type="button" @click="bulkUpdatePrice()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium rounded-lg hover:bg-blue-100 transition-colors">
+                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
                 <i class="fas fa-dollar-sign"></i> Cambiar Precio
             </button>
             <button type="button" @click="bulkActivate()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium rounded-lg hover:bg-green-100 transition-colors">
+                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors">
                 <i class="fas fa-check-circle"></i> Activar
             </button>
             <button type="button" @click="bulkDeactivate()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium rounded-lg hover:bg-red-100 transition-colors">
+                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors">
                 <i class="fas fa-ban"></i> Desactivar
             </button>
             <button type="button" @click="bulkRestoreGlobal()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-medium rounded-lg hover:bg-purple-100 transition-colors">
+                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-medium rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors">
                 <i class="fas fa-undo-alt"></i> Restaurar Global
             </button>
             <span x-show="selectedPrices.length > 0" class="text-xs text-emerald-600 dark:text-emerald-400 ml-auto" x-text="selectedPrices.length + ' seleccionado(s)'"></span>
@@ -1038,7 +1038,7 @@
                                 <div class="overflow-x-auto">
                                     <table class="min-w-full">
                                         <thead>
-                                            <tr class="border-b border-gray-100 dark:border-slate-700 bg-indigo-50/30">
+                                            <tr class="border-b border-gray-100 dark:border-slate-700 bg-indigo-50/30 dark:bg-indigo-900/30">
                                                 <th class="pl-14 pr-4 py-2 text-left text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide">Capacidad</th>
                                                 <th class="px-4 py-2 text-left text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide">Proveedor</th>
                                                 <th class="px-4 py-2 text-right text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide">P. Compra</th>
@@ -1054,7 +1054,7 @@
                                                     $pRep    = $preciosCap->first();
                                                     $capIds  = $preciosCap->pluck('id')->toArray();
                                                 @endphp
-                                                <tr class="hover:bg-indigo-50/30 transition-colors {{ $pRep->activo ? '' : 'opacity-60' }}">
+                                                <tr class="hover:bg-indigo-50/30 dark:hover:bg-indigo-900/30 transition-colors {{ $pRep->activo ? '' : 'opacity-60' }}">
                                                     <td class="pl-14 pr-4 py-2.5">
                                                         <div class="flex items-center gap-2">
                                                             <input type="checkbox"
@@ -1100,7 +1100,7 @@
                                                     <td class="px-4 py-2.5 text-center">
                                                         <div class="flex items-center justify-center gap-1.5">
                                                             <a href="{{ route('precios.edit', ['producto' => $producto->id, 'precio' => $pRep->id]) }}"
-                                                               class="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 rounded-lg text-xs font-medium hover:bg-indigo-100 transition-colors">
+                                                               class="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 rounded-lg text-xs font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors">
                                                                 <i class="fas fa-edit"></i> Editar
                                                             </a>
                                                             @php
@@ -1116,7 +1116,7 @@
                                                                             'Sí, restaurar', 'bg-purple-600 hover:bg-purple-700',
                                                                             () => applyToSelected('restore_global', null, {{ json_encode($capIds) }})
                                                                         )"
-                                                                        class="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 rounded-lg text-xs font-medium hover:bg-purple-100 transition-colors"
+                                                                        class="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 rounded-lg text-xs font-medium hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors"
                                                                         title="Restaurar precio global">
                                                                     <i class="fas fa-undo-alt"></i>
                                                                 </button>

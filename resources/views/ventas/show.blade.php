@@ -231,7 +231,7 @@
                 </a>
                 <a href="{{ route('ventas.guia-pdf', $venta) }}" target="_blank"
                    onclick="setTimeout(() => { const w = window.open(this.href, '_blank'); w && w.print(); }, 200); return false;"
-                   class="inline-flex items-center gap-2 border border-teal-300 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 hover:bg-teal-100 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                   class="inline-flex items-center gap-2 border border-teal-300 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-900/40 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
                     <i class="fas fa-print"></i> Imprimir guía
                 </a>
                 @endif
@@ -333,11 +333,11 @@
                                 <div class="mb-4">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Tipo de Comprobante *</label>
                                     <div class="grid grid-cols-2 gap-2">
-                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
                                             <input type="radio" x-model="tipoComprobante" value="boleta" class="text-purple-600 dark:text-purple-400" required>
                                             <span class="text-sm font-medium">Boleta</span>
                                         </label>
-                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
                                             <input type="radio" x-model="tipoComprobante" value="factura" class="text-purple-600 dark:text-purple-400">
                                             <span class="text-sm font-medium">Factura</span>
                                         </label>
@@ -347,7 +347,7 @@
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Método de Pago *</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         @foreach(['efectivo' => 'fa-money-bill-wave', 'transferencia' => 'fa-university', 'yape' => 'fa-mobile-alt', 'plin' => 'fa-mobile-alt'] as $metodo => $icono)
-                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
                                             <input type="radio" x-model="metodoPago" value="{{ $metodo }}" class="text-purple-600 dark:text-purple-400" required>
                                             <i class="fas {{ $icono }} text-gray-500 dark:text-slate-400 text-sm"></i>
                                             <span class="text-sm font-medium capitalize">{{ $metodo }}</span>
@@ -389,7 +389,7 @@
                                     </div>
                                 </template>
 
-                                <div x-show="errMsg" x-cloak class="mb-4 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-100 rounded-lg px-3 py-2" x-text="errMsg"></div>
+                                <div x-show="errMsg" x-cloak class="mb-4 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 rounded-lg px-3 py-2" x-text="errMsg"></div>
 
                                 <div class="bg-gray-50 dark:bg-slate-900/60 rounded-xl px-4 py-3 mb-5 flex justify-between items-center">
                                     <span class="text-sm text-gray-500 dark:text-slate-400">Total a cobrar</span>
@@ -435,7 +435,7 @@
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Método de Pago *</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         @foreach(['efectivo' => 'fa-money-bill-wave', 'transferencia' => 'fa-university', 'yape' => 'fa-mobile-alt', 'plin' => 'fa-mobile-alt'] as $metodo => $icono)
-                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
+                                        <label class="flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl p-3 cursor-pointer hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 transition-all has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
                                             <input type="radio" name="metodo_pago" value="{{ $metodo }}" class="text-green-600 dark:text-green-400 focus:ring-green-500" required>
                                             <i class="fas {{ $icono }} text-gray-500 dark:text-slate-400 text-sm"></i>
                                             <span class="text-sm font-medium capitalize">{{ $metodo }}</span>
@@ -568,7 +568,7 @@
                     {{-- Botón Nota de Crédito SUNAT (solo si doc ya fue aceptado) --}}
                     @if($puedeGenerarNC)
                     <button @click="iniciarAccion('nota_credito')"
-                            class="inline-flex items-center gap-2 border border-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
+                            class="inline-flex items-center gap-2 border border-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
                         <i class="fas fa-file-minus"></i> Nota de Crédito
                     </button>
                     @endif
@@ -576,7 +576,7 @@
                     {{-- Botón Anular --}}
                     @if($puedeAnular)
                     <button @click="iniciarAccion('anular')"
-                            class="inline-flex items-center gap-2 border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
+                            class="inline-flex items-center gap-2 border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/40 px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow-sm">
                         <i class="fas fa-ban"></i> Anular
                     </button>
                     @endif
@@ -880,7 +880,7 @@
                     </div>
                     <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex-1">Cliente</h3>
                     <button @click="showEdit = true"
-                            class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 transition">
+                            class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                         <i class="fas fa-pencil-alt"></i> Editar
                     </button>
                 </div>
@@ -1051,7 +1051,7 @@
         {{-- Guía de Remisión card --}}
         @if($venta->guiaRemision)
         @php $guia = $venta->guiaRemision; @endphp
-        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-teal-100 shadow-sm p-6 mb-7">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-teal-100 dark:border-teal-800 shadow-sm p-6 mb-7">
             <div class="flex items-center justify-between mb-5">
                 <div class="flex items-center gap-2">
                     <div class="w-10 h-10 bg-teal-50 dark:bg-teal-900/30 rounded-xl flex items-center justify-center">
@@ -1161,7 +1161,7 @@
                             $precioFinal = round((float) ($detalle->precio_con_igv ?? $detalle->precio_unitario * 1.18), 2);
                             $totalFinal  = round((float) ($detalle->subtotal_con_igv ?? $detalle->subtotal * 1.18), 2);
                         @endphp
-                        <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50' }} hover:bg-blue-50/20 transition-colors">
+                        <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50' }} hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
                             <td class="px-4 py-4 text-center text-sm text-gray-500 dark:text-slate-400 font-medium">{{ $i + 1 }}</td>
                             <td class="px-4 py-4 text-sm font-mono text-gray-700 dark:text-slate-300">{{ $detalle->producto->codigo ?? '—' }}</td>
                             <td class="px-4 py-4">

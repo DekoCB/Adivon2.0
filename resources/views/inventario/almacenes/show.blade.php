@@ -118,7 +118,7 @@
                 $movHoy         = $almacen->movimientos->filter(fn($m) => $m->created_at->isToday())->count();
             @endphp
             <div class="grid grid-cols-1 gap-3">
-                <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-100 rounded-xl p-4 flex items-center gap-3">
+                <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-xl p-4 flex items-center gap-3">
                     <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center">
                         <i class="fas fa-boxes text-blue-700 dark:text-blue-300"></i>
                     </div>
@@ -127,7 +127,7 @@
                         <p class="text-xl font-bold text-blue-900">{{ $totalProductos }}</p>
                     </div>
                 </div>
-                <div class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 rounded-xl p-4 flex items-center gap-3">
+                <div class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800 rounded-xl p-4 flex items-center gap-3">
                     <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg flex items-center justify-center">
                         <i class="fas fa-cubes text-emerald-700 dark:text-emerald-300"></i>
                     </div>
@@ -136,7 +136,7 @@
                         <p class="text-xl font-bold text-emerald-900">{{ number_format($totalUnidades) }}</p>
                     </div>
                 </div>
-                <div class="bg-purple-50 dark:bg-purple-900/30 border border-purple-100 rounded-xl p-4 flex items-center gap-3">
+                <div class="bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-xl p-4 flex items-center gap-3">
                     <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
                         <i class="fas fa-calendar-day text-purple-700 dark:text-purple-300"></i>
                     </div>
@@ -303,7 +303,7 @@
                         </td>
                         <td class="px-5 py-3 text-center">
                             <a href="{{ route('inventario.movimientos.show', $mov) }}"
-                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
+                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
                                title="Ver detalle">
                                 <i class="fas fa-eye text-xs"></i>
                             </a>

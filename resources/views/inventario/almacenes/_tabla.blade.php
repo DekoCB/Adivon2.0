@@ -86,12 +86,12 @@
                 <td class="px-5 py-4 whitespace-nowrap text-center">
                     <div class="inline-flex items-center gap-1">
                         <a href="{{ route('inventario.almacenes.show', $almacen) }}"
-                            class="p-2 rounded-lg text-purple-500 hover:bg-purple-100 transition-colors" title="Ver detalle">
+                            class="p-2 rounded-lg text-purple-500 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors" title="Ver detalle">
                             <i class="fas fa-eye text-sm"></i>
                         </a>
                         @if($canEdit)
                             <button onclick="openAlmacenEdit({{ $almacen->id }})"
-                                class="p-2 rounded-lg text-blue-500 hover:bg-blue-100 transition-colors" title="Editar">
+                                class="p-2 rounded-lg text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors" title="Editar">
                                 <i class="fas fa-pen text-sm"></i>
                             </button>
                         @endif
@@ -99,7 +99,7 @@
                             <form action="{{ route('inventario.almacenes.destroy', $almacen) }}" method="POST"
                                 class="inline" onsubmit="return confirm('¿Eliminar {{ addslashes($almacen->nombre) }}?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="p-2 rounded-lg text-red-400 hover:bg-red-100 transition-colors" title="Eliminar">
+                                <button type="submit" class="p-2 rounded-lg text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors" title="Eliminar">
                                     <i class="fas fa-trash text-sm"></i>
                                 </button>
                             </form>

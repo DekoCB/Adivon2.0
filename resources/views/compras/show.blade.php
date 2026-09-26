@@ -251,7 +251,7 @@
                             <span class="font-medium text-gray-900 dark:text-slate-100 text-right">{{ $compra->agente_aduanas }}</span>
                         </div>
                         @endif
-                        <div class="pt-2 border-t border-orange-100 space-y-1.5">
+                        <div class="pt-2 border-t border-orange-100 dark:border-orange-800 space-y-1.5">
                             @if(($compra->flete_usd ?? 0) > 0)
                             <div class="flex justify-between">
                                 <span class="text-gray-500 dark:text-slate-400">Flete (USD):</span>
@@ -550,7 +550,7 @@
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm">
-                            <thead class="bg-orange-50 dark:bg-orange-900/30 border-b border-orange-100">
+                            <thead class="bg-orange-50 dark:bg-orange-900/30 border-b border-orange-100 dark:border-orange-800">
                                 <tr>
                                     <th class="px-5 py-3 text-left text-xs font-semibold text-orange-800 dark:text-orange-300 uppercase">Producto</th>
                                     <th class="px-5 py-3 text-right text-xs font-semibold text-orange-800 dark:text-orange-300 uppercase">Cant.</th>

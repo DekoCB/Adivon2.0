@@ -19,7 +19,7 @@
                 </span>
             @elseif(in_array(auth()->user()->role->nombre, ['Administrador', 'Almacenero', 'Tienda']))
                 <button type="button" onclick="document.getElementById('modalAnularDevolucion').classList.remove('hidden')"
-                        class="bg-red-50 dark:bg-red-900/30 hover:bg-red-100 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition">
+                        class="bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition">
                     <i class="fas fa-ban"></i> Anular Devolución
                 </button>
             @endif

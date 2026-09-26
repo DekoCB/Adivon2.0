@@ -136,7 +136,7 @@
 
                         @if($puedeRechazar)
                             <button type="button" @click="showRechazar = true"
-                                    class="flex items-center gap-1.5 border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 text-red-700 dark:text-red-300 font-semibold px-4 py-2 rounded-lg text-sm transition-colors">
+                                    class="flex items-center gap-1.5 border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-700 dark:text-red-300 font-semibold px-4 py-2 rounded-lg text-sm transition-colors">
                                 <i class="fas fa-times"></i> Rechazar
                             </button>
                         @endif

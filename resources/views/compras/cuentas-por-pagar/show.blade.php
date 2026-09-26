@@ -208,7 +208,7 @@
                     </div>
 
                     {{-- Formulario para generar cuotas (oculto por defecto si ya hay cuotas) --}}
-                    <div id="formGenerarCuotas" class="{{ $cuenta->cuotas->count() > 0 ? 'hidden' : '' }} p-5 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100">
+                    <div id="formGenerarCuotas" class="{{ $cuenta->cuotas->count() > 0 ? 'hidden' : '' }} p-5 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100 dark:border-blue-800">
                         <p class="text-sm text-blue-700 dark:text-blue-300 mb-3">
                             <i class="fas fa-info-circle mr-1"></i>
                             Días de crédito: <strong>{{ $cuenta->dias_credito ?? 30 }}</strong> días.

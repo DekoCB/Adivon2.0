@@ -308,7 +308,7 @@
                                          class="absolute z-10 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
                                         <template x-for="r in resultados" :key="r.id">
                                             <button type="button" @click="elegir(r)"
-                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 border-b border-gray-100 dark:border-slate-700 last:border-0">
+                                                    class="w-full text-left px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-slate-700 last:border-0">
                                                 <span class="font-mono text-xs text-blue-700 dark:text-blue-300" x-text="r.codigo"></span>
                                                 <span class="block text-sm text-gray-800 dark:text-slate-200" x-text="r.producto"></span>
                                                 <span class="block text-xs text-gray-400 dark:text-slate-500" x-text="[r.segmento, r.familia, r.clase].filter(Boolean).join(' › ')"></span>
@@ -415,7 +415,7 @@
                     <!-- Botones -->
                     <div class="flex items-center justify-between pt-6 border-t border-gray-200 dark:border-slate-700">
                         <a href="{{ route('inventario.productos.codigos-barras', $producto) }}"
-                           class="px-4 py-2 text-sm text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-50">
+                           class="px-4 py-2 text-sm text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30">
                             <i class="fas fa-barcode mr-2"></i>Gestionar Códigos de Barras
                         </a>
                         <div class="flex space-x-3">

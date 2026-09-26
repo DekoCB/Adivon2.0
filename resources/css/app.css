@@ -25,3 +25,39 @@
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.4);
 }
+
+/* Scroll del resto de la página (contenido, tablas, modales): a diferencia
+   del sidebar, el fondo sí cambia con el tema, así que el scroll también
+   tiene que cambiar — gris sutil en claro, blanco translúcido en oscuro.
+   Regla general de baja especificidad; .sidebar-scroll arriba sigue
+   ganando ahí por ser más específica. */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+}
+html.dark {
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(203 213 225);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(148 163 184);
+}
+html.dark ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+    background-clip: content-box;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.28);
+}

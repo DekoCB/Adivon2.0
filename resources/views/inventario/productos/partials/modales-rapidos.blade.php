@@ -92,7 +92,7 @@
 
         <div class="px-6 py-5 space-y-4">
             {{-- Marca actual (solo lectura) --}}
-            <div class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 rounded-lg px-3 py-2">
+            <div class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-lg px-3 py-2">
                 <i class="fas fa-trademark text-indigo-400 text-sm"></i>
                 <span class="text-sm text-indigo-700 dark:text-indigo-300">
                     Marca: <strong id="modalModeloMarcaNombre" class="font-semibold"></strong>

@@ -183,7 +183,7 @@
                                         @endforeach
                                     </select>
                                     <button type="button" onclick="abrirModalColor()"
-                                            class="shrink-0 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 hover:bg-indigo-200 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium transition"
+                                            class="shrink-0 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/40 hover:bg-indigo-200 dark:hover:bg-indigo-800/50 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium transition"
                                             title="Agregar nuevo color">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -300,7 +300,7 @@
                                         {{-- Acciones --}}
                                         @if($producto->tipo_inventario === 'serie')
                                             <a href="{{ route('inventario.imeis.index', ['producto_id' => $producto->id, 'variante_id' => $variante->id]) }}"
-                                               class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 transition"
+                                               class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
                                                title="Ver IMEIs de esta variante">
                                                 <i class="fas fa-sim-card text-sm"></i>
                                             </a>
@@ -314,7 +314,7 @@
                                                         capacidad: '{{ $variante->capacidad ?? '' }}',
                                                         stock_minimo: '{{ $variante->stock_minimo }}'
                                                     })"
-                                                    class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 transition"
+                                                    class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
                                                     title="Editar">
                                                 <i class="fas fa-pencil-alt text-sm"></i>
                                             </button>
@@ -326,7 +326,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                        class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition"
+                                                        class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition"
                                                         title="Desactivar">
                                                     <i class="fas fa-ban text-sm"></i>
                                                 </button>

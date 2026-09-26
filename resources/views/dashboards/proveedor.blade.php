@@ -88,7 +88,7 @@
                     <i class="fas fa-box-open mr-2 text-blue-900"></i>
                     Mi Catálogo
                 </h2>
-                <a href="#" class="block p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-100 transition-colors text-center">
+                <a href="#" class="block p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors text-center">
                     <i class="fas fa-plus-circle text-blue-900 text-2xl mb-2"></i>
                     <p class="font-medium text-blue-900">Agregar Producto al Catálogo</p>
                 </a>

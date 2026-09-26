@@ -366,7 +366,7 @@
                             ['value' => '3x6',  'icon' => 'fa-th-large','cols' => '3 col.', 'rows' => '6 fil.', 'total' => '18/hoja'],
                             ['value' => '4x8',  'icon' => 'fa-th-list', 'cols' => '4 col.', 'rows' => '8 fil.', 'total' => '32/hoja'],
                         ] as $d)
-                        <label class="diseno-card cursor-pointer border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-blue-300 transition {{ $loop->first ? 'border-blue-500 bg-blue-50' : '' }}">
+                        <label class="diseno-card cursor-pointer border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-blue-300 dark:hover:border-blue-600 transition {{ $loop->first ? 'border-blue-500 bg-blue-50' : '' }}">
                             <input type="radio" name="diseno" value="{{ $d['value'] }}" class="hidden" {{ $loop->first ? 'checked' : '' }}>
                             <i class="fas {{ $d['icon'] }} text-2xl text-gray-400 dark:text-slate-500 mb-1 block"></i>
                             <p class="text-xs font-medium text-gray-700 dark:text-slate-300">{{ $d['cols'] }} × {{ $d['rows'] }}</p>

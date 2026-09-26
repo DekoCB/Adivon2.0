@@ -84,7 +84,7 @@
                             <form action="{{ route('pedidos.cambiar-estado', $pedido) }}" method="POST">
                                 @csrf @method('PATCH')
                                 <input type="hidden" name="estado" value="cancelado">
-                                <button type="submit" class="w-full bg-red-50 dark:bg-red-900/30 hover:bg-red-100 text-red-700 dark:text-red-300 font-semibold py-2.5 px-4 rounded-lg transition-colors border border-red-200 dark:border-red-800"
+                                <button type="submit" class="w-full bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-700 dark:text-red-300 font-semibold py-2.5 px-4 rounded-lg transition-colors border border-red-200 dark:border-red-800"
                                         onclick="return confirm('¿Cancelar este pedido? Esta acción no se puede deshacer.')">
                                     <i class="fas fa-times mr-2"></i>Cancelar Pedido
                                 </button>

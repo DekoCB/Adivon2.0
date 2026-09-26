@@ -143,7 +143,7 @@
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center gap-1">
                                     <a href="{{ route('ventas.show', $venta) }}"
-                                       class="inline-flex items-center px-2 py-1 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-100 transition-colors"
+                                       class="inline-flex items-center px-2 py-1 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors"
                                        title="Ver detalle">
                                         <i class="fas fa-eye"></i>
                                     </a>

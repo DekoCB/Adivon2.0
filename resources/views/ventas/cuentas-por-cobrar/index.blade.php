@@ -27,19 +27,19 @@
                 <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Total pendiente</p>
                 <p class="text-xl font-bold text-gray-900 dark:text-slate-100">S/ {{ number_format($stats['total_pendiente'], 2) }}</p>
             </div>
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-red-100 p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-red-100 dark:border-red-800 p-4">
                 <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Total vencido</p>
                 <p class="text-xl font-bold text-red-600 dark:text-red-400">S/ {{ number_format($stats['total_vencido'], 2) }}</p>
             </div>
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-green-100 p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-green-100 dark:border-green-800 p-4">
                 <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Cobrado este mes</p>
                 <p class="text-xl font-bold text-green-600 dark:text-green-400">S/ {{ number_format($stats['cobrado_mes'], 2) }}</p>
             </div>
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-amber-100 p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-amber-100 dark:border-amber-800 p-4">
                 <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Por vencer (7d)</p>
                 <p class="text-xl font-bold text-amber-600 dark:text-amber-400">{{ $stats['por_vencer_7dias'] }}</p>
             </div>
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-orange-100 p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-orange-100 dark:border-orange-800 p-4">
                 <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Cuotas vencidas</p>
                 <p class="text-xl font-bold text-orange-600 dark:text-orange-400">{{ $stats['cuotas_vencidas'] }}</p>
             </div>

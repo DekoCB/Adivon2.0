@@ -445,7 +445,7 @@
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit"
-                                            class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-green-50 dark:bg-green-900/30 hover:bg-green-100 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg transition">
+                                            class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg transition">
                                         <i class="fas fa-redo-alt"></i> Reactivar
                                     </button>
                                 </form>

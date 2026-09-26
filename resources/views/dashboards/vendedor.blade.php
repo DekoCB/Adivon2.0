@@ -115,7 +115,7 @@
                     <h2 class="text-2xl font-bold mb-2">¿Listo para vender?</h2>
                     <p class="text-green-100">Comienza una nueva venta ahora</p>
                 </div>
-                <a href="#" class="bg-white dark:bg-slate-800 text-green-600 dark:text-green-400 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors flex items-center">
+                <a href="#" class="bg-white dark:bg-slate-800 text-green-600 dark:text-green-400 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 dark:hover:bg-green-900/30 transition-colors flex items-center">
                     <i class="fas fa-plus-circle mr-2"></i>
                     Nueva Venta
                 </a>
