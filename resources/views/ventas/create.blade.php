@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nueva Venta · POS</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <script>
         // Aplica el tema guardado antes del primer paint, para no parpadear claro→oscuro
         // (mismo criterio que layouts/app-layout.blade.php — misma clave adivon-theme).

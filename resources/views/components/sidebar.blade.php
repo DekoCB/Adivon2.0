@@ -226,37 +226,19 @@
             x-data="{ activeModule: {{ $initialActive ? "'{$initialActive['key']}'" : 'null' }} }">
 
         @php $empresa = \App\Models\Empresa::instancia(); @endphp
-        <div class="p-4 border-b border-blue-700 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2 min-w-0">
-                @if($empresa?->logo_url)
-                    <img src="{{ $empresa->logo_url }}" alt="Logo" class="h-10 w-10 object-contain rounded-lg bg-white/10 p-0.5 shrink-0">
+        <div class="relative border-b border-blue-700">
+            <div class="p-3">
+                @if(file_exists(public_path('images/logo-transparente.png')))
+                    <img src="{{ asset('images/logo-transparente.png') }}" alt="{{ $empresa?->nombre_display ?? 'ADIVON' }}" class="w-full h-auto max-h-24 object-contain">
+                @elseif($empresa?->logo_url)
+                    <img src="{{ $empresa->logo_url }}" alt="{{ $empresa?->nombre_display ?? 'ADIVON' }}" class="w-full h-auto max-h-24 object-contain">
                 @else
-                    <i class="fas fa-home text-2xl text-blue-300 shrink-0"></i>
+                    <p class="font-display text-lg font-bold text-center py-4">{{ $empresa?->nombre_display ?? 'ADIVON' }}</p>
                 @endif
-                <div class="min-w-0">
-                    <h1 class="font-display text-sm font-bold leading-tight truncate">{{ $empresa?->nombre_display ?? 'CORPORACIÓN' }}</h1>
-                    @if($empresa && $empresa->nombre_comercial && $empresa->nombre_comercial !== $empresa->razon_social)
-                        <p class="text-[11px] text-blue-300 truncate">{{ $empresa->razon_social }}</p>
-                    @elseif(!$empresa)
-                        <p class="text-[11px] text-blue-300 truncate">ADIVON SAC</p>
-                    @endif
-                </div>
             </div>
-            <button @click="sidebarOpen = false" class="md:hidden text-blue-300 hover:text-white shrink-0">
+            <button @click="sidebarOpen = false" class="md:hidden absolute top-2 right-2 text-blue-300 hover:text-white">
                 <i class="fas fa-times text-xl"></i>
             </button>
-        </div>
-
-        <div class="p-4 bg-blue-800/50">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 rounded-full p-2">
-                    <i class="fas fa-user text-white"></i>
-                </div>
-                <div class="flex-1">
-                    <p class="text-sm font-semibold">{{ auth()->user()->name }}</p>
-                    <p class="text-xs text-blue-300">{{ $role }}</p>
-                </div>
-            </div>
         </div>
 
         <nav class="sidebar-scroll flex-1 overflow-y-auto p-3">
