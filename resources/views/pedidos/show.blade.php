@@ -13,16 +13,16 @@
 <div>
         <div class="max-w-5xl">
             <div class="mb-6 flex justify-between items-center">
-                <a href="{{ route('pedidos.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-sm">
+                <a href="{{ route('pedidos.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm">
                     <i class="fas fa-arrow-left mr-1"></i>Volver a pedidos
                 </a>
                 @php
                     $ep = match($pedido->estado) {
-                        'pendiente' => 'bg-yellow-100 text-yellow-800',
-                        'aprobado' => 'bg-blue-100 text-blue-800',
-                        'recibido' => 'bg-green-100 text-green-800',
-                        'cancelado' => 'bg-red-100 text-red-800',
-                        default => 'bg-gray-100 text-gray-800',
+                        'pendiente' => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                        'aprobado' => 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300',
+                        'recibido' => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                        'cancelado' => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
+                        default => 'bg-gray-100 dark:bg-slate-700/50 text-gray-800',
                     };
                 @endphp
                 <span class="inline-flex px-3 py-1.5 text-sm font-semibold rounded-full {{ $ep }}">
@@ -125,12 +125,12 @@
                                             {{ $idx + 1 }}
                                         @endif
                                     </div>
-                                    <span class="mt-1.5 font-medium {{ $idx <= $estadoActualIdx ? 'text-green-600' : 'text-gray-400' }}">
+                                    <span class="mt-1.5 font-medium {{ $idx <= $estadoActualIdx ? 'text-green-600 dark:text-green-400' : 'text-gray-400' }}">
                                         {{ ucfirst($estado) }}
                                     </span>
                                 </div>
                                 @if(!$loop->last)
-                                    <div class="flex-1 h-1 rounded {{ $idx < $estadoActualIdx ? 'bg-green-500' : 'bg-gray-200' }} mx-2 mb-5"></div>
+                                    <div class="flex-1 h-1 rounded {{ $idx < $estadoActualIdx ? 'bg-green-500' : 'bg-gray-200 dark:bg-slate-700/60' }} mx-2 mb-5"></div>
                                 @endif
                             @endforeach
                         </div>

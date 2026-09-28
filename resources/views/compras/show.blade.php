@@ -12,16 +12,16 @@
         <!-- Breadcrumb + Header -->
         <div class="mb-6">
             <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-2">
-                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Dashboard</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
-                <a href="{{ route('compras.index') }}" class="hover:text-blue-900">Compras</a>
+                <a href="{{ route('compras.index') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Compras</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Compra #{{ $compra->numero_factura }}</span>
             </div>
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                        <i class="fas fa-file-invoice mr-3 text-blue-900"></i>
+                        <i class="fas fa-file-invoice mr-3 text-blue-900 dark:text-blue-200"></i>
                         Detalle de Compra
                     </h1>
                     @php
@@ -30,7 +30,7 @@
                         $tc = $compra->tipo_compra ?? 'local';
                         $color = $tipoColor[$tc] ?? 'gray';
                     @endphp
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $color === 'green' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800' }}">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $color === 'green' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300' }}">
                         @if($tc === 'importacion') <i class="fas fa-ship mr-1"></i>
                         @else <i class="fas fa-store mr-1"></i>
                         @endif
@@ -80,8 +80,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <!-- Estado -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow p-4 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 {{ $compra->estado === 'completado' ? 'bg-green-100' : ($compra->estado === 'anulado' ? 'bg-red-100' : 'bg-gray-100') }}">
-                    <i class="fas fa-{{ $compra->estado === 'completado' ? 'check-circle text-green-600' : ($compra->estado === 'anulado' ? 'ban text-red-600' : 'clock text-gray-500') }}"></i>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 {{ $compra->estado === 'completado' ? 'bg-green-100 dark:bg-green-900/40' : ($compra->estado === 'anulado' ? 'bg-red-100 dark:bg-red-900/40' : 'bg-gray-100 dark:bg-slate-700/50') }}">
+                    <i class="fas fa-{{ $compra->estado === 'completado' ? 'check-circle text-green-600 dark:text-green-400' : ($compra->estado === 'anulado' ? 'ban text-red-600 dark:text-red-400' : 'clock text-gray-500') }}"></i>
                 </div>
                 <div>
                     <p class="text-xs text-gray-500 dark:text-slate-400">Estado</p>
@@ -219,7 +219,7 @@
                         @endif
                         <div class="pt-2 border-t border-gray-100 dark:border-slate-700 flex justify-between font-bold text-base">
                             <span class="text-gray-700 dark:text-slate-300">Total:</span>
-                            <span class="text-blue-900">{{ $compra->moneda_simbolo }} {{ number_format($compra->total, 2) }}</span>
+                            <span class="text-blue-900 dark:text-blue-200">{{ $compra->moneda_simbolo }} {{ number_format($compra->total, 2) }}</span>
                         </div>
                     </div>
                 </div>
@@ -333,7 +333,7 @@
                             </div>
                             <div class="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-3 text-center">
                                 <p class="text-xs text-gray-500 dark:text-slate-400 mb-1">Vencimiento</p>
-                                <p class="text-sm font-bold text-blue-900">{{ $compra->cuentaPorPagar->fecha_vencimiento->format('d/m/Y') }}</p>
+                                <p class="text-sm font-bold text-blue-900 dark:text-blue-200">{{ $compra->cuentaPorPagar->fecha_vencimiento->format('d/m/Y') }}</p>
                             </div>
                         </div>
                         <a href="{{ route('cuentas-por-pagar.show', $compra->cuentaPorPagar) }}"
@@ -414,7 +414,7 @@
                                     <td class="px-5 py-4 text-right text-gray-700 dark:text-slate-300">
                                         {{ $compra->moneda_simbolo }} {{ number_format($detalle->precio_unitario, 2) }}
                                     </td>
-                                    <td class="px-5 py-4 text-right font-semibold text-blue-900">
+                                    <td class="px-5 py-4 text-right font-semibold text-blue-900 dark:text-blue-200">
                                         {{ $compra->moneda_simbolo }} {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }}
                                     </td>
                                 </tr>
@@ -468,7 +468,7 @@
 
                                 <div class="flex justify-between pt-2 border-t-2 border-blue-200 dark:border-blue-800 font-bold text-base">
                                     <span class="text-gray-900 dark:text-slate-100">Total:</span>
-                                    <span class="text-blue-900">{{ $compra->moneda_simbolo }} {{ number_format($compra->total, 2) }}</span>
+                                    <span class="text-blue-900 dark:text-blue-200">{{ $compra->moneda_simbolo }} {{ number_format($compra->total, 2) }}</span>
                                 </div>
 
                                 @if($compra->tipo_moneda === 'USD' && $compra->tipo_cambio)
@@ -640,7 +640,7 @@
                                         TC aplicado: {{ number_format($tcVal, 3) }}
                                     </td>
                                     <td class="px-5 py-3 text-right text-xs font-semibold text-orange-800 dark:text-orange-300">Total gastos:</td>
-                                    <td class="px-5 py-3 text-right font-bold text-orange-900 bg-orange-100 dark:bg-orange-900/40">
+                                    <td class="px-5 py-3 text-right font-bold text-orange-900 dark:text-orange-200 bg-orange-100 dark:bg-orange-900/40">
                                         S/ {{ number_format($gastosPen, 2) }}
                                     </td>
                                 </tr>
@@ -687,7 +687,7 @@
                                     @endif
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <span class="text-sm {{ $completo ? 'text-green-600 font-semibold' : 'text-orange-500 font-semibold' }}">
+                                    <span class="text-sm {{ $completo ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-orange-500 font-semibold' }}">
                                         {{ $registrados }}/{{ $esperados }} IMEIs
                                     </span>
                                     @if(!$completo && $compra->estado !== 'anulado')
@@ -739,7 +739,7 @@
                                     placeholder="123456789012345&#10;123456789012346&#10;123456789012347"
                                     class="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm font-mono focus:ring-2 focus:ring-purple-400 focus:border-purple-400 resize-none"></textarea>
                                 <button type="button" onclick="parsearPegado()"
-                                    class="mt-1.5 text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 font-medium">
+                                    class="mt-1.5 text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium">
                                     <i class="fas fa-arrow-down mr-1"></i>Cargar en lista
                                 </button>
                             </div>
@@ -747,7 +747,7 @@
                             <!-- Lista de IMEIs ingresados -->
                             <div id="imeiList" class="space-y-2 mb-4 max-h-48 overflow-y-auto"></div>
                             <button type="button" onclick="agregarFilaImei()"
-                                class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 font-medium flex items-center gap-1 mb-4">
+                                class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium flex items-center gap-1 mb-4">
                                 <i class="fas fa-plus-circle"></i> Agregar IMEI manualmente
                             </button>
 

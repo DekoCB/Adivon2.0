@@ -70,7 +70,7 @@
                 class="px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2">
             <i class="fas fa-percentage text-xs"></i> Comisiones
             <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                  :class="tab==='comisiones' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-600'">
+                  :class="tab==='comisiones' ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600'">
                 {{ $comisiones->total() }}
             </span>
         </button>
@@ -79,7 +79,7 @@
                 class="px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2">
             <i class="fas fa-star text-xs"></i> Bonos
             <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                  :class="tab==='bonos' ? 'bg-amber-400 text-white' : 'bg-gray-100 text-gray-600'">
+                  :class="tab==='bonos' ? 'bg-amber-400 text-white' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600'">
                 {{ $bonos->total() }}
             </span>
         </button>
@@ -122,7 +122,7 @@
                             </td>
                             <td class="px-4 py-3">
                                 <span class="text-xs text-gray-500 dark:text-slate-400">{{ $c->regla?->nombre ?? '—' }}</span>
-                                <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded-full {{ $c->tipo_calculo === 'porcentaje_margen' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500' }}">
+                                <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded-full {{ $c->tipo_calculo === 'porcentaje_margen' ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-500' }}">
                                     {{ $c->tipo_calculo === 'porcentaje'        ? '%venta'
                                       : ($c->tipo_calculo === 'porcentaje_margen' ? '%margen'
                                       : 'S/fijo') }}

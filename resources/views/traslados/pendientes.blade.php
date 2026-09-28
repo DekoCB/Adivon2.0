@@ -13,7 +13,7 @@
 <div>
         {{-- Nav --}}
         <div class="flex flex-wrap gap-3 mb-6">
-            <a href="{{ route('traslados.index') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.index') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-exchange-alt"></i> Historial
             </a>
             <span class="text-gray-300">|</span>
@@ -26,11 +26,11 @@
                 @endif
             </span>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-boxes"></i> Stock por Almacén
             </a>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.create') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.create') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-plus-circle"></i> Nuevo Traslado
             </a>
         </div>
@@ -105,7 +105,7 @@
                         <div class="mt-2 flex flex-wrap gap-1.5">
                             @foreach($movimientos as $mov)
                                 @php $esS = $mov->producto->tipo_inventario === 'serie'; @endphp
-                                <span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-lg border font-medium {{ $esS ? 'bg-purple-50 border-purple-200 dark:border-purple-800 text-purple-700' : 'bg-blue-50 border-blue-200 dark:border-blue-800 text-blue-700' }}">
+                                <span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-lg border font-medium {{ $esS ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300' : 'bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300' }}">
                                     @if($esS)
                                         <i class="fas fa-barcode text-[10px]"></i>
                                     @else

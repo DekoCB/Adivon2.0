@@ -173,7 +173,7 @@ $catalogoJson = $productos->map(fn($p) => [
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
-        <a href="{{ route('inventario.movimientos.index') }}" class="hover:text-blue-700 transition-colors">Movimientos</a>
+        <a href="{{ route('inventario.movimientos.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Movimientos</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium">Nuevo Movimiento</span>
     </nav>
@@ -284,7 +284,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                   x-text="productoStock + ' ' + productoUnidad"></span>
                         </div>
                         <button type="button" @click="limpiarProducto()"
-                                class="w-full text-xs text-red-500 hover:text-red-700 transition-colors mt-1">
+                                class="w-full text-xs text-red-500 hover:text-red-700 dark:hover:text-red-300 transition-colors mt-1">
                             <i class="fas fa-times-circle mr-1"></i> Cambiar producto
                         </button>
                     </div>
@@ -332,7 +332,7 @@ $catalogoJson = $productos->map(fn($p) => [
                             <i class="fas fa-arrow-right"></i> Ir a Nuevo Traslado
                         </a>
                         <a href="{{ route('traslados.index') }}"
-                           class="text-xs text-gray-400 dark:text-slate-500 hover:text-purple-600 transition-colors">
+                           class="text-xs text-gray-400 dark:text-slate-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                             Ver historial de traslados →
                         </a>
                     </div>
@@ -363,7 +363,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                            @input.debounce.200ms="buscar()"
                                            @focus="if(resultados.length) abierto = true"
                                            :readonly="!!productoId"
-                                           :class="productoId ? 'bg-gray-50 text-gray-500 dark:text-slate-400 cursor-default' : ''"
+                                           :class="productoId ? 'bg-gray-50 dark:bg-slate-800/40 text-gray-500 dark:text-slate-400 cursor-default' : ''"
                                            placeholder="Buscar por nombre o código..."
                                            class="w-full pl-9 pr-9 py-2.5 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     <button x-show="productoId" type="button" @click="limpiarProducto()"
@@ -452,7 +452,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                 <div x-show="!cargandoImeis">
                                     <select name="imei_id" x-model="imeiId"
                                             :disabled="imeis.length === 0"
-                                            class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-400">
+                                            class="w-full border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 dark:disabled:bg-slate-800/40 disabled:text-gray-400">
                                         <option value="">— Selecciona un IMEI —</option>
                                         <template x-for="imei in imeis" :key="imei.id">
                                             <option :value="imei.id"
@@ -499,7 +499,7 @@ $catalogoJson = $productos->map(fn($p) => [
                                     <label class="cursor-pointer block">
                                         <input type="radio" name="motivo_movimiento_id" :value="m.id"
                                                x-model="motivoId" class="peer hidden">
-                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-gray-300 dark:hover:border-slate-500 transition-all">
+                                        <div class="flex items-center gap-3 p-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 hover:border-gray-300 dark:hover:border-slate-500 transition-all">
                                             <i class="fas fa-tag text-gray-300 shrink-0"></i>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-semibold text-gray-800 dark:text-slate-200" x-text="m.nombre"></p>

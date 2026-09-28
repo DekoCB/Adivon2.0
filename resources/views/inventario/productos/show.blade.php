@@ -156,7 +156,7 @@
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
                                 <p class="text-xs text-gray-500 dark:text-slate-400">Stock Actual</p>
-                                @php $colorStock = $stockReal <= 0 ? 'text-red-600' : ($stockReal <= $producto->stock_minimo ? 'text-yellow-600' : 'text-green-600'); @endphp
+                                @php $colorStock = $stockReal <= 0 ? 'text-red-600 dark:text-red-400' : ($stockReal <= $producto->stock_minimo ? 'text-yellow-600 dark:text-yellow-400' : 'text-green-600 dark:text-green-400'); @endphp
                                 <p class="text-2xl font-bold {{ $colorStock }}">{{ $stockReal }}</p>
                             </div>
                             <div>
@@ -212,7 +212,7 @@
                                     : $variante->stock_actual;
                                 $labelVar = $producto->tipo_inventario === 'serie' ? 'imeis' : 'unt';
                             @endphp
-                            <span class="text-sm font-bold {{ $stockVar <= ($variante->stock_minimo ?? 0) ? 'text-red-600' : 'text-gray-800' }}">
+                            <span class="text-sm font-bold {{ $stockVar <= ($variante->stock_minimo ?? 0) ? 'text-red-600 dark:text-red-400' : 'text-gray-800' }}">
                                 {{ $stockVar }} <span class="text-xs font-normal text-gray-400 dark:text-slate-500">{{ $labelVar }}</span>
                             </span>
                         </div>
@@ -294,7 +294,7 @@
                                             <span class="px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 rounded-full text-xs">Salida</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-right text-sm {{ $movimiento->tipo_movimiento === 'ingreso' ? 'text-green-600' : 'text-red-600' }}">
+                                    <td class="px-6 py-4 text-right text-sm {{ $movimiento->tipo_movimiento === 'ingreso' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                         {{ $movimiento->tipo_movimiento === 'ingreso' ? '+' : '-' }}{{ $movimiento->cantidad }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">{{ $movimiento->motivo }}</td>
@@ -305,7 +305,7 @@
                     </div>
                     @if($producto->movimientos->count() >= 10)
                     <div class="px-6 py-3 bg-gray-50 dark:bg-slate-900/60 border-t">
-                        <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-900">Ver todos los movimientos →</a>
+                        <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Ver todos los movimientos →</a>
                     </div>
                     @endif
                 </div>

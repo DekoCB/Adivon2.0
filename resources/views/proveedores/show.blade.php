@@ -34,7 +34,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">Estado</label>
-                                    <span class="inline-flex items-center px-3 py-1 text-sm font-bold rounded-full {{ $proveedor->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    <span class="inline-flex items-center px-3 py-1 text-sm font-bold rounded-full {{ $proveedor->estado === 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' }}">
                                         <i class="fas fa-circle text-xs mr-2"></i>
                                         {{ ucfirst($proveedor->estado) }}
                                     </span>
@@ -101,7 +101,7 @@
                                 <div class="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 rounded-lg p-4">
                                     <div class="flex items-center justify-between">
                                         <div>
-                                            <p class="text-sm font-medium text-blue-900">Total Compras</p>
+                                            <p class="text-sm font-medium text-blue-900 dark:text-blue-200">Total Compras</p>
                                             <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{{ $proveedor->compras->count() }}</p>
                                         </div>
                                         <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
@@ -112,7 +112,7 @@
                                 <div class="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 rounded-lg p-4">
                                     <div class="flex items-center justify-between">
                                         <div>
-                                            <p class="text-sm font-medium text-green-900">Pedidos</p>
+                                            <p class="text-sm font-medium text-green-900 dark:text-green-200">Pedidos</p>
                                             <p class="text-3xl font-bold text-green-600 dark:text-green-400">{{ $proveedor->pedidos->count() }}</p>
                                         </div>
                                         <div class="bg-green-100 dark:bg-green-900/40 rounded-full p-3">
@@ -187,7 +187,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
                                     <a href="{{ route('compras.show', $compra) }}"
-                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900 font-medium">
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200 font-medium">
                                         <i class="fas fa-eye mr-1"></i>Ver Detalle
                                     </a>
                                 </td>

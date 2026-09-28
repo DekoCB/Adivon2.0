@@ -69,7 +69,7 @@
                         <span class="font-medium">S/ {{ number_format($arqueo['total_egresos'], 2) }}</span>
                     </div>
                     @endif
-                    <div class="border-t border-gray-200 dark:border-slate-700 pt-2 mt-1 flex justify-between font-bold text-blue-900">
+                    <div class="border-t border-gray-200 dark:border-slate-700 pt-2 mt-1 flex justify-between font-bold text-blue-900 dark:text-blue-200">
                         <span>Saldo esperado (efectivo)</span>
                         <span>S/ {{ number_format($arqueo['saldo_esperado'], 2) }}</span>
                     </div>
@@ -81,7 +81,7 @@
                             <span class="font-semibold">S/ {{ number_format($caja->monto_real_cierre, 2) }}</span>
                         </div>
                         @php $dif = (float) $caja->diferencia_cierre; @endphp
-                        <div class="flex justify-between py-1 font-bold {{ abs($dif) < 0.01 ? 'text-green-700' : ($dif > 0 ? 'text-blue-700' : 'text-red-700') }}">
+                        <div class="flex justify-between py-1 font-bold {{ abs($dif) < 0.01 ? 'text-green-700 dark:text-green-300' : ($dif > 0 ? 'text-blue-700 dark:text-blue-300' : 'text-red-700 dark:text-red-300') }}">
                             <span>Diferencia</span>
                             <span>{{ $dif >= 0 ? '+' : '' }}S/ {{ number_format($dif, 2) }}</span>
                         </div>
@@ -103,11 +103,11 @@
                     <i class="fas fa-credit-card mr-1"></i> Ventas por método
                 </h3>
                 <div class="space-y-3">
-                    @foreach(['ventas_efectivo' => ['Efectivo', 'text-green-700', 'bg-green-50'],
-                              'ventas_yape'     => ['Yape',     'text-purple-700', 'bg-purple-50'],
-                              'ventas_plin'     => ['Plin',     'text-blue-700',   'bg-blue-50'],
-                              'ventas_transferencia' => ['Transferencia', 'text-orange-700', 'bg-orange-50'],
-                              'ventas_mixto'    => ['Mixto',    'text-gray-700',   'bg-gray-50']] as $key => [$label, $color, $bg])
+                    @foreach(['ventas_efectivo' => ['Efectivo', 'text-green-700 dark:text-green-300', 'bg-green-50 dark:bg-green-900/30'],
+                              'ventas_yape'     => ['Yape',     'text-purple-700 dark:text-purple-300', 'bg-purple-50 dark:bg-purple-900/30'],
+                              'ventas_plin'     => ['Plin',     'text-blue-700 dark:text-blue-300',   'bg-blue-50 dark:bg-blue-900/30'],
+                              'ventas_transferencia' => ['Transferencia', 'text-orange-700 dark:text-orange-300', 'bg-orange-50 dark:bg-orange-900/30'],
+                              'ventas_mixto'    => ['Mixto',    'text-gray-700',   'bg-gray-50 dark:bg-slate-800/40']] as $key => [$label, $color, $bg])
                     @if(($arqueo[$key] ?? 0) > 0)
                     <div class="flex items-center justify-between p-2 rounded-lg {{ $bg }}">
                         <span class="text-sm {{ $color }} font-medium">{{ $label }}</span>
@@ -190,7 +190,7 @@
                             <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                 <td class="px-4 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $mov->created_at->format('H:i') }}</td>
                                 <td class="px-4 py-3">
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $mov->tipo === 'ingreso' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $mov->tipo === 'ingreso' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' }}">
                                         {{ ucfirst($mov->tipo) }}
                                     </span>
                                 </td>
@@ -210,7 +210,7 @@
                                     {{ $mov->metodo_pago ?? 'efectivo' }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    <span class="font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600' : 'text-red-600' }}">
+                                    <span class="font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                         {{ $mov->tipo === 'ingreso' ? '+' : '-' }} S/ {{ number_format($mov->monto, 2) }}
                                     </span>
                                 </td>
@@ -228,7 +228,7 @@
                         <tfoot class="bg-gray-50 dark:bg-slate-900/60 border-t-2 border-gray-200 dark:border-slate-700">
                             <tr>
                                 <td colspan="4" class="px-4 py-3 text-right text-sm font-semibold text-gray-600 dark:text-slate-400">Saldo en sistema:</td>
-                                <td class="px-4 py-3 text-right text-sm font-bold text-blue-900">
+                                <td class="px-4 py-3 text-right text-sm font-bold text-blue-900 dark:text-blue-200">
                                     S/ {{ number_format($caja->monto_final, 2) }}
                                 </td>
                             </tr>

@@ -13,15 +13,15 @@
         <!-- Breadcrumb + título -->
         <div class="mb-6">
             <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-2">
-                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Dashboard</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
-                <a href="{{ route('cuentas-por-pagar.index') }}" class="hover:text-blue-900">Cuentas por Pagar</a>
+                <a href="{{ route('cuentas-por-pagar.index') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Cuentas por Pagar</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Factura {{ $cuenta->numero_factura }}</span>
             </div>
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                    <i class="fas fa-credit-card mr-3 text-blue-900"></i>
+                    <i class="fas fa-credit-card mr-3 text-blue-900 dark:text-blue-200"></i>
                     Detalle de Cuenta por Pagar
                 </h1>
                 <div class="flex gap-2">
@@ -57,10 +57,10 @@
                             <span class="text-gray-500 dark:text-slate-400">Estado:</span>
                             @php
                                 $badges = [
-                                    'pagado'   => 'bg-green-100 text-green-800',
-                                    'pendiente'=> 'bg-yellow-100 text-yellow-800',
-                                    'parcial'  => 'bg-orange-100 text-orange-800',
-                                    'vencido'  => 'bg-red-100 text-red-800',
+                                    'pagado'   => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                                    'pendiente'=> 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                                    'parcial'  => 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300',
+                                    'vencido'  => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
                                 ];
                                 $icons = [
                                     'pagado'   => 'fa-check-circle',
@@ -84,7 +84,7 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500 dark:text-slate-400">Vencimiento:</span>
-                            <span class="font-medium {{ $cuenta->esta_vencida ? 'text-red-600' : '' }}">
+                            <span class="font-medium {{ $cuenta->esta_vencida ? 'text-red-600 dark:text-red-400' : '' }}">
                                 {{ $cuenta->fecha_vencimiento->format('d/m/Y') }}
                             </span>
                         </div>
@@ -177,7 +177,7 @@
                         @php
                             $dias = now()->startOfDay()->diffInDays(\Carbon\Carbon::parse($cuenta->fecha_vencimiento)->startOfDay(), false);
                         @endphp
-                        <div class="mt-4 p-3 rounded-lg {{ $dias < 0 ? 'bg-red-50 text-red-700' : ($dias <= 7 ? 'bg-yellow-50 text-yellow-700' : 'bg-blue-50 text-blue-700') }}">
+                        <div class="mt-4 p-3 rounded-lg {{ $dias < 0 ? 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300' : ($dias <= 7 ? 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300') }}">
                             @if($dias < 0)
                                 <i class="fas fa-exclamation-triangle mr-2"></i>Vencida hace {{ abs($dias) }} días
                             @elseif($dias == 0)
@@ -258,15 +258,15 @@
                                     $venc = $cuota->fecha_vencimiento->startOfDay();
                                     $diasCuota = $hoy->diffInDays($venc, false);
                                     $rowClass = '';
-                                    if ($cuota->estado === 'pagado') $rowClass = 'bg-green-50';
-                                    elseif ($diasCuota < 0) $rowClass = 'bg-red-50';
-                                    elseif ($diasCuota <= 3) $rowClass = 'bg-yellow-50';
+                                    if ($cuota->estado === 'pagado') $rowClass = 'bg-green-50 dark:bg-green-900/30';
+                                    elseif ($diasCuota < 0) $rowClass = 'bg-red-50 dark:bg-red-900/30';
+                                    elseif ($diasCuota <= 3) $rowClass = 'bg-yellow-50 dark:bg-yellow-900/30';
                                 @endphp
                                 <tr class="{{ $rowClass }}">
                                     <td class="px-4 py-3 font-semibold text-gray-700 dark:text-slate-300">
                                         {{ $cuota->numero_cuota }}/{{ $cuota->total_cuotas }}
                                     </td>
-                                    <td class="px-4 py-3 {{ $cuota->estado !== 'pagado' && $diasCuota < 0 ? 'text-red-600 font-medium' : 'text-gray-700' }}">
+                                    <td class="px-4 py-3 {{ $cuota->estado !== 'pagado' && $diasCuota < 0 ? 'text-red-600 dark:text-red-400 font-medium' : 'text-gray-700' }}">
                                         {{ $cuota->fecha_vencimiento->format('d/m/Y') }}
                                         @if($cuota->estado === 'pendiente' && $diasCuota < 0)
                                             <span class="text-xs text-red-500 block">Vencida</span>
@@ -303,7 +303,7 @@
                                         @if($cuota->pago && $cuota->pago->comprobante_path)
                                             <a href="{{ Storage::url($cuota->pago->comprobante_path) }}"
                                                target="_blank"
-                                               class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs">
+                                               class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs">
                                                 <img src="{{ Storage::url($cuota->pago->comprobante_path) }}"
                                                      alt="voucher"
                                                      class="w-8 h-8 object-cover rounded border border-blue-200 dark:border-blue-800">

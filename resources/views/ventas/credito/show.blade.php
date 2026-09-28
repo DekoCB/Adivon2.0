@@ -8,9 +8,9 @@
 
 
         <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-slate-500 mb-1">
-            <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 transition-colors">Ventas</a>
+            <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ventas</a>
             <i class="fas fa-chevron-right text-xs"></i>
-            <a href="{{ route('ventas.show', $venta) }}" class="hover:text-blue-600 transition-colors">{{ $venta->codigo }}</a>
+            <a href="{{ route('ventas.show', $venta) }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{ $venta->codigo }}</a>
             <i class="fas fa-chevron-right text-xs"></i>
             <span class="text-gray-700 dark:text-slate-300 font-medium">Crédito</span>
         </div>
@@ -63,7 +63,7 @@
                     @php $vencida = $cuota->estado === 'pendiente' && $cuota->fecha_vencimiento->lt(now()); @endphp
                     <div class="px-6 py-3 flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 {{ $cuota->estado === 'pagado' ? 'bg-green-100 text-green-600' : ($vencida ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600') }}">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 {{ $cuota->estado === 'pagado' ? 'bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400' : ($vencida ? 'bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400' : 'bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400') }}">
                                 {{ $cuota->numero_cuota }}
                             </div>
                             <div>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="text-sm font-mono font-semibold {{ $cuota->estado === 'pagado' ? 'text-green-600 line-through' : ($vencida ? 'text-red-600' : 'text-gray-700') }}">
+                            <span class="text-sm font-mono font-semibold {{ $cuota->estado === 'pagado' ? 'text-green-600 dark:text-green-400 line-through' : ($vencida ? 'text-red-600 dark:text-red-400' : 'text-gray-700') }}">
                                 S/ {{ number_format($cuota->monto, 2) }}
                             </span>
                             @if($cuota->estado === 'pendiente' && in_array(auth()->user()->role->nombre, ['Administrador', 'Tienda']) && $cuenta->estado !== 'anulado')

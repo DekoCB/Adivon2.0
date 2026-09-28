@@ -111,7 +111,7 @@
             {{-- Diferencia total si aplica --}}
             @php $diferencia = $totales['valor_prorateado'] - $totales['valor_cpp']; @endphp
             @if($totales['valor_prorateado'] > 0 && abs($diferencia) > 0.01)
-                <div class="rounded-xl p-4 flex items-center gap-3 {{ $diferencia > 0 ? 'bg-amber-50 border border-amber-200' : 'bg-green-50 border border-green-200' }}">
+                <div class="rounded-xl p-4 flex items-center gap-3 {{ $diferencia > 0 ? 'bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700' : 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700' }}">
                     <i class="fas {{ $diferencia > 0 ? 'fa-exclamation-triangle text-amber-500' : 'fa-check-circle text-green-500' }} text-xl"></i>
                     <div>
                         <p class="font-semibold text-gray-800 dark:text-slate-200 text-sm">
@@ -166,13 +166,13 @@
                                     <td class="px-4 py-3 text-sm text-right text-gray-700 dark:text-slate-300">
                                         {{ $prod['costo_cpp'] > 0 ? number_format($prod['costo_cpp'], 2) : '—' }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-right {{ $prod['tiene_prorrateo'] ? 'font-semibold text-orange-700' : 'text-gray-400 italic' }}">
+                                    <td class="px-4 py-3 text-sm text-right {{ $prod['tiene_prorrateo'] ? 'font-semibold text-orange-700 dark:text-orange-300' : 'text-gray-400 italic' }}">
                                         {{ $prod['tiene_prorrateo'] ? number_format($prod['costo_prorateado'], 2) : 'Sin prorrateo' }}
                                     </td>
                                     <td class="px-4 py-3 text-sm text-right">
                                         @if($prod['tiene_prorrateo'] && $prod['costo_cpp'] > 0)
                                             @php $dif = $prod['diferencia']; @endphp
-                                            <span class="{{ $dif > 0.01 ? 'text-amber-600' : ($dif < -0.01 ? 'text-green-600' : 'text-gray-400') }} font-medium">
+                                            <span class="{{ $dif > 0.01 ? 'text-amber-600 dark:text-amber-400' : ($dif < -0.01 ? 'text-green-600 dark:text-green-400' : 'text-gray-400') }} font-medium">
                                                 {{ $dif > 0 ? '+' : '' }}{{ number_format($dif, 2) }}
                                             </span>
                                         @else

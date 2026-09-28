@@ -28,7 +28,7 @@
             <div class="px-6 py-3 flex justify-between items-center">
                 <div>
                     <h1 class="font-display text-2xl font-bold text-gray-800 dark:text-slate-200">
-                        <i class="fas fa-chart-line text-blue-900 mr-2"></i>
+                        <i class="fas fa-chart-line text-blue-900 dark:text-blue-200 mr-2"></i>
                         ¡Hola, {{ auth()->user()->name }}!
                     </h1>
                     <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
@@ -59,7 +59,7 @@
                                 <span class="font-semibold text-sm">
                                     <i class="fas fa-bell mr-2"></i>Notificaciones
                                 </span>
-                                <span class="bg-white dark:bg-slate-800 text-blue-900 text-xs font-bold px-2 py-0.5 rounded-full">
+                                <span class="bg-white dark:bg-slate-800 text-blue-900 dark:text-blue-200 text-xs font-bold px-2 py-0.5 rounded-full">
                                     {{ $total_notificaciones }}
                                 </span>
                             </div>
@@ -83,8 +83,8 @@
                                 <a href="{{ route('cuentas-por-pagar.index') }}"
                                    class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700/60 border-b border-gray-100 dark:border-slate-700 transition-colors">
                                     <div class="mt-0.5 shrink-0">
-                                        <span class="w-8 h-8 rounded-full flex items-center justify-center {{ $vencida ? 'bg-red-100' : ($hoy ? 'bg-orange-100' : 'bg-yellow-100') }}">
-                                            <i class="fas fa-exclamation-circle text-sm {{ $vencida ? 'text-red-600' : ($hoy ? 'text-orange-600' : 'text-yellow-600') }}"></i>
+                                        <span class="w-8 h-8 rounded-full flex items-center justify-center {{ $vencida ? 'bg-red-100 dark:bg-red-900/40' : ($hoy ? 'bg-orange-100 dark:bg-orange-900/40' : 'bg-yellow-100 dark:bg-yellow-900/40') }}">
+                                            <i class="fas fa-exclamation-circle text-sm {{ $vencida ? 'text-red-600 dark:text-red-400' : ($hoy ? 'text-orange-600 dark:text-orange-400' : 'text-yellow-600 dark:text-yellow-400') }}"></i>
                                         </span>
                                     </div>
                                     <div class="flex-1 min-w-0">
@@ -145,7 +145,7 @@
 
                             <div class="px-4 py-2 bg-gray-50 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 text-center">
                                 <a href="{{ route('cuentas-por-pagar.index') }}"
-                                   class="text-xs text-blue-900 hover:underline font-medium">
+                                   class="text-xs text-blue-900 dark:text-blue-200 hover:underline font-medium">
                                     Ver cuentas por pagar <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
                             </div>
@@ -257,7 +257,7 @@
                             </div>
                         </div>
                         <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-lg">
-                            <i class="fas fa-chart-line text-blue-900 text-2xl"></i>
+                            <i class="fas fa-chart-line text-blue-900 dark:text-blue-200 text-2xl"></i>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-gray-100 dark:border-slate-700">
@@ -326,7 +326,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">Alertas de Stock</p>
-                            <p class="stat-value {{ $productos_bajo_stock > 0 ? 'text-orange-600' : 'text-green-600' }}">
+                            <p class="stat-value {{ $productos_bajo_stock > 0 ? 'text-orange-600 dark:text-orange-400' : 'text-green-600 dark:text-green-400' }}">
                                 {{ $productos_bajo_stock }}
                             </p>
                             <p class="text-xs text-orange-600 dark:text-orange-400 mt-1">productos por reabastecer</p>
@@ -355,7 +355,7 @@
 
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex items-center gap-3">
                     <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center shrink-0">
-                        <i class="fas fa-store text-blue-900"></i>
+                        <i class="fas fa-store text-blue-900 dark:text-blue-200"></i>
                     </div>
                     <div>
                         <p class="text-xs text-gray-500 dark:text-slate-400">Sucursales</p>
@@ -423,7 +423,7 @@
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 chart-card">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">
-                            <i class="fas fa-chart-line text-blue-900 mr-2"></i>
+                            <i class="fas fa-chart-line text-blue-900 dark:text-blue-200 mr-2"></i>
                             Ventas Mensuales {{ $anio_chart }}
                         </h3>
                         <span class="text-xs text-gray-500 dark:text-slate-400 bg-gray-100 dark:bg-slate-700 rounded px-2 py-1">S/ Soles</span>
@@ -474,10 +474,10 @@
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 mb-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">
-                        <i class="fas fa-history text-blue-900 mr-2"></i>
+                        <i class="fas fa-history text-blue-900 dark:text-blue-200 mr-2"></i>
                         Últimos Movimientos de Inventario
                     </h3>
-                    <a href="{{ route('inventario.movimientos.index') }}" class="text-sm text-blue-900 hover:text-blue-700 font-semibold">
+                    <a href="{{ route('inventario.movimientos.index') }}" class="text-sm text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
                         Ver todos <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
@@ -497,14 +497,14 @@
                             @forelse($ultimos_movimientos as $mov)
                             @php
                                 $colorMap = [
-                                    'ingreso'       => 'bg-green-100 text-green-800',
-                                    'salida'        => 'bg-red-100 text-red-800',
-                                    'transferencia' => 'bg-yellow-100 text-yellow-800',
-                                    'ajuste'        => 'bg-blue-100 text-blue-800',
-                                    'devolucion'    => 'bg-orange-100 text-orange-800',
-                                    'merma'         => 'bg-gray-100 text-gray-800',
+                                    'ingreso'       => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                                    'salida'        => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
+                                    'transferencia' => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                                    'ajuste'        => 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300',
+                                    'devolucion'    => 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300',
+                                    'merma'         => 'bg-gray-100 dark:bg-slate-700/50 text-gray-800',
                                 ];
-                                $colorClass = $colorMap[$mov->tipo_movimiento] ?? 'bg-gray-100 text-gray-800';
+                                $colorClass = $colorMap[$mov->tipo_movimiento] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-800';
                                 $signo = in_array($mov->tipo_movimiento, ['ingreso','devolucion']) ? '+' : '-';
                             @endphp
                             <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/60">
@@ -519,7 +519,7 @@
                                         {{ ucfirst($mov->tipo_movimiento) }}
                                     </span>
                                 </td>
-                                <td class="py-3 text-sm font-semibold {{ in_array($mov->tipo_movimiento, ['ingreso','devolucion']) ? 'text-green-600' : 'text-red-600' }}">
+                                <td class="py-3 text-sm font-semibold {{ in_array($mov->tipo_movimiento, ['ingreso','devolucion']) ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                     {{ $signo }}{{ $mov->cantidad }}
                                 </td>
                                 <td class="py-3 text-sm text-gray-600 dark:text-slate-400">
@@ -553,13 +553,13 @@
                 {{-- Usuarios por Rol --}}
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">
-                        <i class="fas fa-users text-blue-900 mr-2"></i>
+                        <i class="fas fa-users text-blue-900 dark:text-blue-200 mr-2"></i>
                         Usuarios del Sistema
                     </h3>
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 text-center">
                             <p class="text-xs text-gray-500 dark:text-slate-400">Total</p>
-                            <p class="text-2xl font-bold text-blue-900">{{ $total_usuarios }}</p>
+                            <p class="text-2xl font-bold text-blue-900 dark:text-blue-200">{{ $total_usuarios }}</p>
                         </div>
                         <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-4 text-center">
                             <p class="text-xs text-gray-500 dark:text-slate-400">Activos</p>

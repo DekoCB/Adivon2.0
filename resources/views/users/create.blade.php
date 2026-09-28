@@ -105,7 +105,7 @@
                             {{-- Info cuando hay 1 único almacén --}}
                             <div id="almacen_unico_info" class="hidden items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg text-sm">
                                 <i class="fas fa-warehouse text-blue-500"></i>
-                                <span id="almacen_unico_nombre" class="font-medium text-blue-900"></span>
+                                <span id="almacen_unico_nombre" class="font-medium text-blue-900 dark:text-blue-200"></span>
                                 <span class="text-xs text-blue-400 ml-auto">Auto-seleccionado</span>
                             </div>
 

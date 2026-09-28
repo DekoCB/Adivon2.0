@@ -86,7 +86,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full border {{ $user->estado === 'activo' ? 'bg-green-100 text-green-800 dark:text-green-300 border-green-200' : 'bg-red-100 text-red-800 dark:text-red-300 border-red-200' }}">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full border {{ $user->estado === 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 border-green-200 dark:border-green-700' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 border-red-200 dark:border-red-700' }}">
                                 <span class="w-1.5 h-1.5 rounded-full {{ $user->estado === 'activo' ? 'bg-green-500' : 'bg-red-500' }}"></span>
                                 {{ ucfirst($user->estado) }}
                             </span>
@@ -231,12 +231,12 @@
                                 @foreach($roles as $role)
                                 @php
                                     $ccfg = [
-                                        'Administrador' => ['icon'=>'fa-crown',        'border'=>'hover:border-purple-400','checked'=>'peer-checked:border-purple-500 peer-checked:bg-purple-50','badge'=>'bg-purple-500','text'=>'text-purple-700'],
-                                        'Almacenero'    => ['icon'=>'fa-warehouse',     'border'=>'hover:border-blue-400',  'checked'=>'peer-checked:border-blue-500 peer-checked:bg-blue-50',  'badge'=>'bg-blue-500',  'text'=>'text-blue-700'],
-                                        'Cajero'        => ['icon'=>'fa-cash-register', 'border'=>'hover:border-orange-400','checked'=>'peer-checked:border-orange-500 peer-checked:bg-orange-50','badge'=>'bg-orange-500','text'=>'text-orange-700'],
-                                        'Proveedor'     => ['icon'=>'fa-truck',         'border'=>'hover:border-teal-400',  'checked'=>'peer-checked:border-teal-500 peer-checked:bg-teal-50',  'badge'=>'bg-teal-500',  'text'=>'text-teal-700'],
-                                        'Tienda'        => ['icon'=>'fa-store',         'border'=>'hover:border-emerald-400','checked'=>'peer-checked:border-emerald-500 peer-checked:bg-emerald-50','badge'=>'bg-emerald-500','text'=>'text-emerald-700'],
-                                        'Vendedor'      => ['icon'=>'fa-handshake',     'border'=>'hover:border-amber-400', 'checked'=>'peer-checked:border-amber-500 peer-checked:bg-amber-50', 'badge'=>'bg-amber-500', 'text'=>'text-amber-700'],
+                                        'Administrador' => ['icon'=>'fa-crown',        'border'=>'hover:border-purple-400','checked'=>'peer-checked:border-purple-500 peer-checked:bg-purple-50','badge'=>'bg-purple-500','text'=>'text-purple-700 dark:text-purple-300'],
+                                        'Almacenero'    => ['icon'=>'fa-warehouse',     'border'=>'hover:border-blue-400',  'checked'=>'peer-checked:border-blue-500 peer-checked:bg-blue-50',  'badge'=>'bg-blue-500',  'text'=>'text-blue-700 dark:text-blue-300'],
+                                        'Cajero'        => ['icon'=>'fa-cash-register', 'border'=>'hover:border-orange-400','checked'=>'peer-checked:border-orange-500 peer-checked:bg-orange-50','badge'=>'bg-orange-500','text'=>'text-orange-700 dark:text-orange-300'],
+                                        'Proveedor'     => ['icon'=>'fa-truck',         'border'=>'hover:border-teal-400',  'checked'=>'peer-checked:border-teal-500 peer-checked:bg-teal-50',  'badge'=>'bg-teal-500',  'text'=>'text-teal-700 dark:text-teal-300'],
+                                        'Tienda'        => ['icon'=>'fa-store',         'border'=>'hover:border-emerald-400','checked'=>'peer-checked:border-emerald-500 peer-checked:bg-emerald-50','badge'=>'bg-emerald-500','text'=>'text-emerald-700 dark:text-emerald-300'],
+                                        'Vendedor'      => ['icon'=>'fa-handshake',     'border'=>'hover:border-amber-400', 'checked'=>'peer-checked:border-amber-500 peer-checked:bg-amber-50', 'badge'=>'bg-amber-500', 'text'=>'text-amber-700 dark:text-amber-300'],
                                     ][$role->nombre] ?? ['icon'=>'fa-user','border'=>'hover:border-gray-400','checked'=>'peer-checked:border-gray-500 peer-checked:bg-gray-50','badge'=>'bg-gray-500','text'=>'text-gray-700'];
                                 @endphp
                                 <label class="relative cursor-pointer">
@@ -285,7 +285,7 @@
                                     </div>
                                     <div id="c-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl text-sm">
                                         <i class="fas fa-warehouse text-blue-500"></i>
-                                        <span id="c-alm-unico-nombre" class="font-medium text-blue-900 text-sm"></span>
+                                        <span id="c-alm-unico-nombre" class="font-medium text-blue-900 dark:text-blue-200 text-sm"></span>
                                         <span class="text-xs text-blue-400 ml-auto">Auto</span>
                                     </div>
                                     <div id="c-alm-empty" class="px-3 py-2.5 bg-gray-50 dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl text-xs text-gray-400 dark:text-slate-500 italic">
@@ -411,12 +411,12 @@
                                 @foreach($roles as $role)
                                 @php
                                     $ecfg = [
-                                        'Administrador' => ['icon'=>'fa-crown',        'border'=>'hover:border-purple-400','checked'=>'peer-checked:border-purple-500 peer-checked:bg-purple-50','badge'=>'bg-purple-500','text'=>'text-purple-700'],
-                                        'Almacenero'    => ['icon'=>'fa-warehouse',     'border'=>'hover:border-blue-400',  'checked'=>'peer-checked:border-blue-500 peer-checked:bg-blue-50',  'badge'=>'bg-blue-500',  'text'=>'text-blue-700'],
-                                        'Cajero'        => ['icon'=>'fa-cash-register', 'border'=>'hover:border-orange-400','checked'=>'peer-checked:border-orange-500 peer-checked:bg-orange-50','badge'=>'bg-orange-500','text'=>'text-orange-700'],
-                                        'Proveedor'     => ['icon'=>'fa-truck',         'border'=>'hover:border-teal-400',  'checked'=>'peer-checked:border-teal-500 peer-checked:bg-teal-50',  'badge'=>'bg-teal-500',  'text'=>'text-teal-700'],
-                                        'Tienda'        => ['icon'=>'fa-store',         'border'=>'hover:border-emerald-400','checked'=>'peer-checked:border-emerald-500 peer-checked:bg-emerald-50','badge'=>'bg-emerald-500','text'=>'text-emerald-700'],
-                                        'Vendedor'      => ['icon'=>'fa-handshake',     'border'=>'hover:border-amber-400', 'checked'=>'peer-checked:border-amber-500 peer-checked:bg-amber-50', 'badge'=>'bg-amber-500', 'text'=>'text-amber-700'],
+                                        'Administrador' => ['icon'=>'fa-crown',        'border'=>'hover:border-purple-400','checked'=>'peer-checked:border-purple-500 peer-checked:bg-purple-50','badge'=>'bg-purple-500','text'=>'text-purple-700 dark:text-purple-300'],
+                                        'Almacenero'    => ['icon'=>'fa-warehouse',     'border'=>'hover:border-blue-400',  'checked'=>'peer-checked:border-blue-500 peer-checked:bg-blue-50',  'badge'=>'bg-blue-500',  'text'=>'text-blue-700 dark:text-blue-300'],
+                                        'Cajero'        => ['icon'=>'fa-cash-register', 'border'=>'hover:border-orange-400','checked'=>'peer-checked:border-orange-500 peer-checked:bg-orange-50','badge'=>'bg-orange-500','text'=>'text-orange-700 dark:text-orange-300'],
+                                        'Proveedor'     => ['icon'=>'fa-truck',         'border'=>'hover:border-teal-400',  'checked'=>'peer-checked:border-teal-500 peer-checked:bg-teal-50',  'badge'=>'bg-teal-500',  'text'=>'text-teal-700 dark:text-teal-300'],
+                                        'Tienda'        => ['icon'=>'fa-store',         'border'=>'hover:border-emerald-400','checked'=>'peer-checked:border-emerald-500 peer-checked:bg-emerald-50','badge'=>'bg-emerald-500','text'=>'text-emerald-700 dark:text-emerald-300'],
+                                        'Vendedor'      => ['icon'=>'fa-handshake',     'border'=>'hover:border-amber-400', 'checked'=>'peer-checked:border-amber-500 peer-checked:bg-amber-50', 'badge'=>'bg-amber-500', 'text'=>'text-amber-700 dark:text-amber-300'],
                                     ][$role->nombre] ?? ['icon'=>'fa-user','border'=>'hover:border-gray-400','checked'=>'peer-checked:border-gray-500 peer-checked:bg-gray-50','badge'=>'bg-gray-500','text'=>'text-gray-700'];
                                 @endphp
                                 <label class="relative cursor-pointer">
@@ -461,7 +461,7 @@
                                     </div>
                                     <div id="e-alm-unico" class="hidden items-center gap-2 px-3 py-2.5 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl text-sm">
                                         <i class="fas fa-warehouse text-amber-500"></i>
-                                        <span id="e-alm-unico-nombre" class="font-medium text-amber-900 text-sm"></span>
+                                        <span id="e-alm-unico-nombre" class="font-medium text-amber-900 dark:text-amber-200 text-sm"></span>
                                         <span class="text-xs text-amber-400 ml-auto">Auto</span>
                                     </div>
                                     <div id="e-alm-empty" class="px-3 py-2.5 bg-gray-50 dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl text-xs text-gray-400 dark:text-slate-500 italic">

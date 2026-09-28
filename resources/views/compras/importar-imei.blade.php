@@ -9,7 +9,7 @@
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200">
-                        <i class="fas fa-file-import mr-2 text-blue-900"></i>
+                        <i class="fas fa-file-import mr-2 text-blue-900 dark:text-blue-200"></i>
                         Importar IMEI - {{ $producto->nombre }}
                     </h2>
                     <a href="{{ route('compras.create') }}" class="text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200">
@@ -48,7 +48,7 @@
                             <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 dark:text-slate-500 mb-3"></i>
                             <p class="text-gray-600 dark:text-slate-400 mb-2">
                                 <button type="button" onclick="document.getElementById('archivo').click()" 
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium">
+                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
                                     Haz clic para seleccionar
                                 </button>
                             </p>

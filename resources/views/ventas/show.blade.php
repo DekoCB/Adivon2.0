@@ -26,7 +26,7 @@
         @if(request()->has('nuevo'))
         <div x-data="{ show: true }" x-show="show" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
             <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="show = false"></div>
-            <div class="relative bg-white dark:bg-slate-800 dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
                  x-transition:enter-end="opacity-100 scale-100">
@@ -44,12 +44,12 @@
                     <p class="text-green-100 text-sm mt-1">{{ $venta->codigo }}</p>
                 </div>
                 <div class="p-6 text-center">
-                    <div class="text-gray-600 dark:text-slate-400 dark:text-gray-300 text-sm mb-1">Total cobrado</div>
-                    <div class="text-3xl font-bold text-gray-900 dark:text-slate-100 dark:text-white mb-4">
+                    <div class="text-gray-600 dark:text-slate-400 text-sm mb-1">Total cobrado</div>
+                    <div class="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                         S/ {{ number_format($venta->total, 2) }}
                     </div>
                     @if($venta->tipo_comprobante !== 'cotizacion' && $venta->metodo_pago)
-                    <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-slate-700 dark:bg-gray-700 text-gray-700 dark:text-slate-300 dark:text-gray-200 rounded-full px-3 py-1 text-xs font-medium mb-4">
+                    <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 rounded-full px-3 py-1 text-xs font-medium mb-4">
                         <i class="fas fa-credit-card"></i>
                         {{ ucfirst($venta->metodo_pago) }}
                     </div>
@@ -67,7 +67,7 @@
                         </button>
                     </div>
                     <a href="{{ route('ventas.create') }}"
-                       class="block mt-3 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium transition">
+                       class="block mt-3 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition">
                         <i class="fas fa-plus-circle mr-1"></i> Nueva Venta
                     </a>
                 </div>
@@ -141,7 +141,7 @@
         <div class="flex items-start justify-between mb-6 no-print">
             <div>
                 <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-slate-500 mb-1">
-                    <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 transition-colors">Ventas</a>
+                    <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ventas</a>
                     <i class="fas fa-chevron-right text-xs"></i>
                     <span class="text-gray-700 dark:text-slate-300 font-medium">{{ $venta->codigo }}</span>
                 </div>
@@ -365,7 +365,7 @@
                                                 <div class="flex items-center justify-between mb-2">
                                                     <span class="text-sm font-medium text-gray-800 dark:text-slate-200" x-text="d.nombre"></span>
                                                     <span class="text-xs font-semibold"
-                                                          :class="(imeisSeleccionados[d.id]?.length || 0) === d.cantidad ? 'text-emerald-600' : 'text-amber-600'"
+                                                          :class="(imeisSeleccionados[d.id]?.length || 0) === d.cantidad ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'"
                                                           x-text="(imeisSeleccionados[d.id]?.length || 0) + ' / ' + d.cantidad"></span>
                                                 </div>
                                                 <div x-show="cargandoImeis[d.id]" class="text-xs text-gray-400 dark:text-slate-500">Cargando IMEIs disponibles...</div>
@@ -375,7 +375,7 @@
                                                 <div class="max-h-32 overflow-y-auto space-y-1">
                                                     <template x-for="imei in (imeisDisponibles[d.id] || [])" :key="imei.id">
                                                         <label class="flex items-center gap-2 text-xs px-2 py-1 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/60"
-                                                               :class="seleccionado(d.id, imei) ? 'bg-purple-50' : ''">
+                                                               :class="seleccionado(d.id, imei) ? 'bg-purple-50 dark:bg-purple-900/30' : ''">
                                                             <input type="checkbox"
                                                                    :checked="seleccionado(d.id, imei)"
                                                                    @change="toggleImei(d.id, imei)"
@@ -745,14 +745,14 @@
         {{-- Estado badge --}}
         @php
             $estadoConfig = [
-                'pendiente'   => ['bg-amber-50 text-amber-700 border-amber-200', 'fa-clock', 'Pago Pendiente'],
-                'pagado'      => ['bg-green-50 text-green-700 border-green-200', 'fa-check-circle', 'Pagado'],
-                'cancelado'   => ['bg-red-50 text-red-700 border-red-200', 'fa-times-circle', 'Cancelado'],
-                'anulado'     => ['bg-red-50 text-red-700 border-red-200', 'fa-ban', 'Anulado'],
-                'cotizacion'  => ['bg-purple-50 text-purple-700 border-purple-200', 'fa-file-contract', 'Cotización'],
-                'credito'     => ['bg-orange-50 text-orange-700 border-orange-200', 'fa-calendar-alt', 'Crédito'],
+                'pendiente'   => ['bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700', 'fa-clock', 'Pago Pendiente'],
+                'pagado'      => ['bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700', 'fa-check-circle', 'Pagado'],
+                'cancelado'   => ['bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700', 'fa-times-circle', 'Cancelado'],
+                'anulado'     => ['bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700', 'fa-ban', 'Anulado'],
+                'cotizacion'  => ['bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700', 'fa-file-contract', 'Cotización'],
+                'credito'     => ['bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-700', 'fa-calendar-alt', 'Crédito'],
             ];
-            [$badgeClass, $badgeIcon, $badgeLabel] = $estadoConfig[$venta->estado_pago] ?? ['bg-gray-50 text-gray-700 border-gray-200', 'fa-circle', ucfirst($venta->estado_pago)];
+            [$badgeClass, $badgeIcon, $badgeLabel] = $estadoConfig[$venta->estado_pago] ?? ['bg-gray-50 dark:bg-slate-800/40 text-gray-700 border-gray-200 dark:border-slate-600', 'fa-circle', ucfirst($venta->estado_pago)];
         @endphp
         <div class="flex flex-wrap items-center gap-3 mb-6">
             {{-- Badge estado de pago --}}
@@ -768,14 +768,14 @@
             @if(!in_array($venta->tipo_comprobante, ['cotizacion']))
             @php
                 $sunatConfig = [
-                    'pendiente_envio' => ['bg-yellow-50 text-yellow-700 border-yellow-300', 'fa-clock', 'Pendiente envío SUNAT'],
-                    'enviado'         => ['bg-blue-50 text-blue-700 border-blue-300',   'fa-paper-plane', 'Enviado a SUNAT'],
-                    'aceptado'        => ['bg-green-50 text-green-700 border-green-300', 'fa-shield-alt', 'Aceptado por SUNAT'],
-                    'rechazado'       => ['bg-red-50 text-red-700 border-red-300',       'fa-times-circle', 'Rechazado por SUNAT'],
-                    'anulado_baja'    => ['bg-gray-50 text-gray-600 border-gray-300',   'fa-ban', 'Anulado (NC emitida)'],
-                    'no_aplica'       => ['bg-gray-50 text-gray-500 border-gray-200',   'fa-minus-circle', 'No aplica SUNAT'],
+                    'pendiente_envio' => ['bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-600', 'fa-clock', 'Pendiente envío SUNAT'],
+                    'enviado'         => ['bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600',   'fa-paper-plane', 'Enviado a SUNAT'],
+                    'aceptado'        => ['bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-300 dark:border-green-600', 'fa-shield-alt', 'Aceptado por SUNAT'],
+                    'rechazado'       => ['bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-300 dark:border-red-600',       'fa-times-circle', 'Rechazado por SUNAT'],
+                    'anulado_baja'    => ['bg-gray-50 dark:bg-slate-800/40 text-gray-600 border-gray-300 dark:border-slate-500',   'fa-ban', 'Anulado (NC emitida)'],
+                    'no_aplica'       => ['bg-gray-50 dark:bg-slate-800/40 text-gray-500 border-gray-200 dark:border-slate-600',   'fa-minus-circle', 'No aplica SUNAT'],
                 ];
-                [$sBadge, $sIcon, $sLabel] = $sunatConfig[$venta->estado_sunat] ?? ['bg-gray-50 text-gray-500 border-gray-200', 'fa-question', $venta->estado_sunat ?? '—'];
+                [$sBadge, $sIcon, $sLabel] = $sunatConfig[$venta->estado_sunat] ?? ['bg-gray-50 dark:bg-slate-800/40 text-gray-500 border-gray-200 dark:border-slate-600', 'fa-question', $venta->estado_sunat ?? '—'];
             @endphp
             <div class="inline-flex items-center gap-2 border {{ $sBadge }} px-3 py-1.5 rounded-full text-xs font-semibold">
                 <i class="fas {{ $sIcon }}"></i>
@@ -880,7 +880,7 @@
                     </div>
                     <h3 class="font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex-1">Cliente</h3>
                     <button @click="showEdit = true"
-                            class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+                            class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                         <i class="fas fa-pencil-alt"></i> Editar
                     </button>
                 </div>
@@ -1161,7 +1161,7 @@
                             $precioFinal = round((float) ($detalle->precio_con_igv ?? $detalle->precio_unitario * 1.18), 2);
                             $totalFinal  = round((float) ($detalle->subtotal_con_igv ?? $detalle->subtotal * 1.18), 2);
                         @endphp
-                        <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50' }} hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
+                        <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50 dark:bg-slate-800/40' }} hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
                             <td class="px-4 py-4 text-center text-sm text-gray-500 dark:text-slate-400 font-medium">{{ $i + 1 }}</td>
                             <td class="px-4 py-4 text-sm font-mono text-gray-700 dark:text-slate-300">{{ $detalle->producto->codigo ?? '—' }}</td>
                             <td class="px-4 py-4">
@@ -1238,7 +1238,7 @@
                     <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">Crédito — Plan de Cuotas</h3>
                 </div>
                 <a href="{{ route('ventas.credito.show', $venta) }}"
-                   class="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 font-medium transition">
+                   class="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium transition">
                     Ver detalle completo <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -1276,7 +1276,7 @@
                             <span class="text-[10px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded-full font-semibold">Pagada</span>
                             @endif
                         </div>
-                        <span class="text-sm font-mono font-semibold {{ $cuota->estado === 'pagado' ? 'text-green-600 line-through' : ($vencida ? 'text-red-600' : 'text-gray-700') }}">
+                        <span class="text-sm font-mono font-semibold {{ $cuota->estado === 'pagado' ? 'text-green-600 dark:text-green-400 line-through' : ($vencida ? 'text-red-600 dark:text-red-400' : 'text-gray-700') }}">
                             S/ {{ number_format($cuota->monto, 2) }}
                         </span>
                     </div>

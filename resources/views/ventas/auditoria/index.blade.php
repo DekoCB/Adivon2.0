@@ -88,10 +88,10 @@
                 @foreach($registros as $reg)
                 @php
                     $accionConfig = match($reg->accion) {
-                        'editar'   => ['bg' => 'bg-blue-100 text-blue-700',   'icon' => 'fa-edit',     'label' => 'Editado'],
-                        'anular'   => ['bg' => 'bg-red-100 text-red-700',     'icon' => 'fa-ban',      'label' => 'Anulado'],
+                        'editar'   => ['bg' => 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300',   'icon' => 'fa-edit',     'label' => 'Editado'],
+                        'anular'   => ['bg' => 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300',     'icon' => 'fa-ban',      'label' => 'Anulado'],
                         'eliminar' => ['bg' => 'bg-gray-800 text-white',      'icon' => 'fa-trash-alt','label' => 'Eliminado'],
-                        default    => ['bg' => 'bg-gray-100 text-gray-600',   'icon' => 'fa-circle',   'label' => ucfirst($reg->accion)],
+                        default    => ['bg' => 'bg-gray-100 dark:bg-slate-700/50 text-gray-600',   'icon' => 'fa-circle',   'label' => ucfirst($reg->accion)],
                     };
                     $tieneDiff = $reg->datos_anteriores || $reg->datos_nuevos;
                 @endphp
@@ -104,7 +104,7 @@
                         <td class="px-5 py-4">
                             @if($reg->venta)
                                 <a href="{{ route('ventas.show', $reg->venta) }}"
-                                   class="font-mono text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 font-semibold text-xs hover:underline">
+                                   class="font-mono text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold text-xs hover:underline">
                                     {{ $reg->venta->codigo }}
                                 </a>
                                 <div class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">S/ {{ number_format($reg->venta->total, 2) }}</div>
@@ -137,7 +137,7 @@
                         <td class="px-5 py-4 text-center">
                             @if($tieneDiff)
                             <button @click="open = !open"
-                                    class="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 font-medium transition-colors">
+                                    class="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium transition-colors">
                                 <i class="fas" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                                 <span x-text="open ? 'Ocultar' : 'Ver diff'"></span>
                             </button>

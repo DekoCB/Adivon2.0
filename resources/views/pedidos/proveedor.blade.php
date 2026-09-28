@@ -62,7 +62,7 @@
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 class="text-lg font-bold text-blue-900">{{ $pedido->codigo }}</h3>
+                                    <h3 class="text-lg font-bold text-blue-900 dark:text-blue-200">{{ $pedido->codigo }}</h3>
                                     <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
                                         Solicitado el {{ $pedido->fecha->format('d/m/Y') }}
                                         @if($pedido->fecha_esperada)
@@ -73,11 +73,11 @@
                                 </div>
                                 @php
                                     $ep = match($pedido->estado) {
-                                        'pendiente' => 'bg-yellow-100 text-yellow-800',
-                                        'aprobado' => 'bg-blue-100 text-blue-800',
-                                        'recibido' => 'bg-green-100 text-green-800',
-                                        'cancelado' => 'bg-red-100 text-red-800',
-                                        default => 'bg-gray-100 text-gray-800',
+                                        'pendiente' => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                                        'aprobado' => 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300',
+                                        'recibido' => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                                        'cancelado' => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
+                                        default => 'bg-gray-100 dark:bg-slate-700/50 text-gray-800',
                                     };
                                 @endphp
                                 <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full {{ $ep }}">

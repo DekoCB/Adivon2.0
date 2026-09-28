@@ -12,7 +12,7 @@
 @section('content')
 <div>
 <div class="flex flex-wrap gap-3 mb-6 text-sm">
-        <a href="{{ route('guias-remision.index') }}" class="text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+        <a href="{{ route('guias-remision.index') }}" class="text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
             <i class="fas fa-list"></i> Listado
         </a>
         <span class="text-gray-300">|</span>
@@ -171,7 +171,7 @@
                         <label class="cursor-pointer">
                             <input type="radio" value="{{ $val }}" x-model="tipoDestino" @change="onTipoDestinoChange()" class="sr-only">
                             <div class="px-4 py-2 border-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2"
-                                 :class="tipoDestino === '{{ $val }}' ? 'border-teal-600 bg-teal-50 dark:bg-teal-900/30 text-teal-700' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:border-teal-300'">
+                                 :class="tipoDestino === '{{ $val }}' ? 'border-teal-600 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300' : 'border-gray-200 dark:border-slate-600 text-gray-600 dark:text-slate-400 hover:border-teal-300'">
                                 <i class="{{ $icon }}"></i> {{ $label }}
                             </div>
                         </label>
@@ -338,7 +338,7 @@
                             </p>
                             @if($ultimoConductor)
                             <button type="button" @click="restaurarUltimoConductor()"
-                                    class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 flex items-center gap-1">
+                                    class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 flex items-center gap-1">
                                 <i class="fas fa-history"></i> Usar último conductor
                             </button>
                             @endif
@@ -436,7 +436,7 @@
 
                     <template x-for="(producto, idx) in productos" :key="producto._id">
                         <div class="border border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden"
-                             :class="esDuplicado(idx) ? 'border-red-300 bg-red-50' : 'bg-gray-50/40'">
+                             :class="esDuplicado(idx) ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/30' : 'bg-gray-50/40 dark:bg-slate-800/40'">
 
                             <div class="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700">
                                 <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">Producto <span x-text="idx+1"></span></span>
@@ -477,7 +477,7 @@
                                                    @keydown.escape="producto.resultados = []"
                                                    :placeholder="almacenId ? 'Buscar por nombre o código...' : 'Selecciona almacén origen primero'"
                                                    :disabled="!almacenId"
-                                                   class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed">
+                                                   class="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-slate-700/50 disabled:cursor-not-allowed">
                                             <div x-show="producto.buscando" class="absolute right-3 top-2.5">
                                                 <i class="fas fa-spinner fa-spin text-gray-400 dark:text-slate-500 text-xs"></i>
                                             </div>
@@ -488,13 +488,13 @@
                                                 <button type="button" @click="seleccionarProducto(idx, item)"
                                                         :disabled="estaUsado(item.id, idx)"
                                                         class="w-full text-left px-4 py-2.5 text-sm border-b border-gray-50 last:border-0 disabled:opacity-40 disabled:cursor-not-allowed"
-                                                        :class="estaUsado(item.id, idx) ? 'bg-gray-50' : 'hover:bg-blue-50'">
+                                                        :class="estaUsado(item.id, idx) ? 'bg-gray-50 dark:bg-slate-800/40' : 'hover:bg-blue-50'">
                                                     <div class="flex items-center gap-2">
                                                         <span class="flex-1 font-medium text-gray-800 dark:text-slate-200" x-text="item.nombre"></span>
                                                         <span class="text-[10px] font-mono text-gray-400 dark:text-slate-500" x-text="item.codigo"></span>
                                                         <span x-show="item.es_serie" class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold shrink-0">IMEI</span>
                                                     </div>
-                                                    <span class="text-[10px]" :class="item.stock_origen > 0 ? 'text-green-600' : 'text-red-500'"
+                                                    <span class="text-[10px]" :class="item.stock_origen > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500'"
                                                           x-text="'Stock: ' + item.stock_origen + (item.es_serie ? ' IMEIs' : ' unid.')"></span>
                                                 </button>
                                             </template>
@@ -509,7 +509,7 @@
                                 {{-- Stock badge --}}
                                 <div x-show="producto.productoId && producto.stockOrigen !== null" x-cloak>
                                     <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                                          :class="producto.stockOrigen > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'">
+                                          :class="producto.stockOrigen > 0 ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400'">
                                         <i class="fas fa-cubes mr-1"></i>Disponible: <strong x-text="producto.stockOrigen"></strong>
                                         <span x-show="producto.esSerie"> IMEIs</span>
                                         <span x-show="!producto.esSerie"> unid.</span>
@@ -583,7 +583,7 @@
                                              class="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
                                             <div class="flex items-center justify-between px-3 py-1.5 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-100 dark:border-slate-700 sticky top-0">
                                                 <button type="button" @click="seleccionarTodos(idx)"
-                                                        class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-800">
+                                                        class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300">
                                                     <i class="fas fa-check-double text-[10px]"></i>
                                                     <span x-text="imeisFiltrados(idx).length > 0 && imeisFiltrados(idx).every(i => producto.imeisSeleccionados.includes(i.id)) ? 'Deseleccionar todos' : 'Seleccionar todos'"></span>
                                                 </button>
@@ -592,12 +592,12 @@
                                                 <template x-for="imei in imeisFiltrados(idx)" :key="imei.id">
                                                     <label :for="`imei-${producto._id}-${imei.id}`"
                                                            class="flex items-center gap-2.5 px-3 py-2 cursor-pointer transition-colors"
-                                                           :class="isSelected(idx, imei.id) ? 'bg-purple-50 hover:bg-purple-100' : 'hover:bg-gray-50'">
+                                                           :class="isSelected(idx, imei.id) ? 'bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-100' : 'hover:bg-gray-50'">
                                                         <input type="checkbox" :id="`imei-${producto._id}-${imei.id}`"
                                                                :checked="isSelected(idx, imei.id)" @change="toggleImei(idx, imei.id)"
                                                                class="w-3.5 h-3.5 accent-purple-600 cursor-pointer shrink-0">
                                                         <span class="font-mono text-xs font-semibold"
-                                                              :class="isSelected(idx, imei.id) ? 'text-purple-700' : 'text-gray-800'"
+                                                              :class="isSelected(idx, imei.id) ? 'text-purple-700 dark:text-purple-300' : 'text-gray-800'"
                                                               x-text="imei.codigo_imei"></span>
                                                         <span x-show="imei.serie" class="text-[10px] text-gray-400 dark:text-slate-500 font-mono ml-1" x-text="'S/N: ' + imei.serie"></span>
                                                     </label>
@@ -636,7 +636,7 @@
                     </template>
 
                     <button type="button" @click="agregarProducto()"
-                            class="w-full py-2.5 border-2 border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 text-blue-500 hover:text-blue-700 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                            class="w-full py-2.5 border-2 border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 text-blue-500 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
                         <i class="fas fa-plus-circle"></i> Agregar otro producto
                     </button>
                 </div>

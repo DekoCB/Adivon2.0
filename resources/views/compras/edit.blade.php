@@ -12,16 +12,16 @@
         <!-- Header con breadcrumb -->
         <div class="mb-6">
             <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-2">
-                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Dashboard</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
-                <a href="{{ route('compras.index') }}" class="hover:text-blue-900">Compras</a>
+                <a href="{{ route('compras.index') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Compras</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
-                <a href="{{ route('compras.show', $compra) }}" class="hover:text-blue-900">Compra #{{ $compra->numero_factura }}</a>
+                <a href="{{ route('compras.show', $compra) }}" class="hover:text-blue-900 dark:hover:text-blue-200">Compra #{{ $compra->numero_factura }}</a>
                 <i class="fas fa-chevron-right mx-2 text-xs"></i>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Editar</span>
             </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                <i class="fas fa-edit mr-3 text-blue-900"></i>
+                <i class="fas fa-edit mr-3 text-blue-900 dark:text-blue-200"></i>
                 Editar Compra #{{ $compra->numero_factura }}
             </h1>
         </div>
@@ -57,7 +57,7 @@
                 <div class="mb-10">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 flex items-center">
                         <span class="w-8 h-8 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center mr-2">
-                            <i class="fas fa-file-invoice text-blue-900 text-sm"></i>
+                            <i class="fas fa-file-invoice text-blue-900 dark:text-blue-200 text-sm"></i>
                         </span>
                         Información General
                     </h3>
@@ -133,7 +133,7 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Almacén Destino</label>
                             <div class="flex items-center gap-2 px-4 py-3 bg-yellow-50 dark:bg-yellow-900/30 border-2 border-yellow-200 dark:border-yellow-800 rounded-xl">
                                 <i class="fas fa-warehouse text-yellow-600 dark:text-yellow-400"></i>
-                                <span id="edit_almacen_unico_nombre" class="text-sm font-semibold text-yellow-900"></span>
+                                <span id="edit_almacen_unico_nombre" class="text-sm font-semibold text-yellow-900 dark:text-yellow-200"></span>
                                 <span class="text-xs text-yellow-500 ml-auto">Auto-seleccionado</span>
                             </div>
                         </div>
@@ -297,7 +297,7 @@
                                     @endphp
                                     <tr>
                                         <td colspan="5" class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-slate-300">Subtotal:</td>
-                                        <td class="px-4 py-2 text-right font-bold text-blue-900" id="resumen-subtotal">{{ number_format($compra->subtotal, 2) }}</td>
+                                        <td class="px-4 py-2 text-right font-bold text-blue-900 dark:text-blue-200" id="resumen-subtotal">{{ number_format($compra->subtotal, 2) }}</td>
                                     </tr>
                                     @if($tipoOp === '01')
                                     <tr>
@@ -306,16 +306,16 @@
                                                 <input type="hidden" name="incluye_igv" value="0">
                                                 <input type="checkbox" id="incluir_igv_edit" name="incluye_igv" value="1"
                                                        {{ $compra->incluye_igv ? 'checked' : '' }}
-                                                       class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-900">
+                                                       class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 dark:text-blue-200 focus:ring-blue-900">
                                                 <span class="text-sm font-semibold text-gray-700 dark:text-slate-300">IGV (18%):</span>
                                             </label>
                                         </td>
-                                        <td class="px-4 py-2 text-right font-bold text-blue-900" id="resumen-igv">{{ number_format($compra->igv, 2) }}</td>
+                                        <td class="px-4 py-2 text-right font-bold text-blue-900 dark:text-blue-200" id="resumen-igv">{{ number_format($compra->igv, 2) }}</td>
                                     </tr>
                                     @endif
                                     <tr class="border-t-2 border-gray-300 dark:border-slate-600">
                                         <td colspan="5" class="px-4 py-3 text-right font-bold text-gray-900 dark:text-slate-100">Total:</td>
-                                        <td class="px-4 py-3 text-right font-bold text-blue-900 text-base" id="resumen-total">{{ number_format($compra->total, 2) }}</td>
+                                        <td class="px-4 py-3 text-right font-bold text-blue-900 dark:text-blue-200 text-base" id="resumen-total">{{ number_format($compra->total, 2) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -610,13 +610,13 @@
         let detalleIdActivo = null;
 
         const estadoImeiLabels = {
-            'en_stock':    { label: 'En Stock',    cls: 'bg-green-100 text-green-700' },
-            'en_transito': { label: 'En Tránsito', cls: 'bg-blue-100 text-blue-700' },
-            'reservado':   { label: 'Reservado',   cls: 'bg-yellow-100 text-yellow-700' },
-            'vendido':     { label: 'Vendido',      cls: 'bg-red-100 text-red-700' },
-            'garantia':    { label: 'Garantía',    cls: 'bg-orange-100 text-orange-700' },
-            'devuelto':    { label: 'Devuelto',    cls: 'bg-gray-100 text-gray-600' },
-            'reemplazado': { label: 'Reemplazado', cls: 'bg-gray-100 text-gray-600' },
+            'en_stock':    { label: 'En Stock',    cls: 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' },
+            'en_transito': { label: 'En Tránsito', cls: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' },
+            'reservado':   { label: 'Reservado',   cls: 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300' },
+            'vendido':     { label: 'Vendido',      cls: 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300' },
+            'garantia':    { label: 'Garantía',    cls: 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300' },
+            'devuelto':    { label: 'Devuelto',    cls: 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' },
+            'reemplazado': { label: 'Reemplazado', cls: 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' },
         };
 
         function abrirModalImeis(detalleId, nombreProducto) {
@@ -662,7 +662,7 @@
             vacio.classList.add('hidden');
 
             imeis.forEach((imei, idx) => {
-                const estadoInfo = estadoImeiLabels[imei.estado_imei] || { label: imei.estado_imei, cls: 'bg-gray-100 text-gray-600' };
+                const estadoInfo = estadoImeiLabels[imei.estado_imei] || { label: imei.estado_imei, cls: 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' };
                 const editable   = imei.estado_imei !== 'vendido';
                 const tr = document.createElement('tr');
                 tr.id = `imei-row-${imei.id}`;

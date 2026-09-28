@@ -17,15 +17,15 @@
                 <i class="fas fa-exchange-alt"></i> Historial
             </span>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.pendientes') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1.5">
+            <a href="{{ route('traslados.pendientes') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1.5">
                 <i class="fas fa-clock"></i> Pendientes
             </a>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.stock') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-boxes"></i> Stock por Almacén
             </a>
             <span class="text-gray-300">|</span>
-            <a href="{{ route('traslados.create') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('traslados.create') }}" class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-plus-circle"></i> Nuevo Traslado
             </a>
         </div>
@@ -46,7 +46,7 @@
                 </thead>
                 <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                     @php
-                        $colores = ['pendiente' => 'bg-yellow-100 text-yellow-800', 'confirmado' => 'bg-green-100 text-green-800', 'anulado' => 'bg-red-100 text-red-800'];
+                        $colores = ['pendiente' => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300', 'confirmado' => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300', 'anulado' => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300'];
                         $rolActual = auth()->user()->role->nombre;
                         $puedeGestionarAnulacion = in_array($rolActual, ['Administrador', 'Almacenero']);
                         $puedeEliminar = $rolActual === 'Administrador';
@@ -92,7 +92,7 @@
                                 {{ $primero->usuario->name }}
                             </td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $colores[$estado] ?? 'bg-gray-100 text-gray-700' }}">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $colores[$estado] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-700' }}">
                                     {{ ucfirst($estado) }}
                                 </span>
                             </td>
@@ -100,12 +100,12 @@
                                 <div class="flex items-center gap-3">
                                     <a href="{{ route('traslados.show', $primero) }}"
                                        title="Ver detalle"
-                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium">
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     @if($puedeAnular)
                                     <button type="button" @click="showAnular = true" title="Anular traslado"
-                                            class="text-red-600 dark:text-red-400 hover:text-red-800 font-medium">
+                                            class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium">
                                         <i class="fas fa-ban"></i>
                                     </button>
 

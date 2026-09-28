@@ -10,11 +10,11 @@
 <div x-data="reporteApp()">
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
         <a href="{{ route('comisiones.index') }}"
-           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
             <i class="fas fa-arrow-left"></i> Volver a configuración
         </a>
         <a href="{{ route('comisiones.progreso-bonos') }}"
-           class="text-sm text-gray-500 dark:text-slate-400 hover:text-purple-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-1">
             <i class="fas fa-trophy"></i> Ver progreso de metas
         </a>
     </div>

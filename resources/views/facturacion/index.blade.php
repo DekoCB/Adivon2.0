@@ -182,7 +182,7 @@
                             <form action="{{ route('facturacion.guia-estado', $comp) }}" method="POST">
                                 @csrf @method('PATCH')
                                 <select name="estado" onchange="this.form.submit()"
-                                        class="text-xs border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1 focus:ring-2 focus:ring-teal-500 cursor-pointer {{ match($comp->guiaRemision->estado) { 'pendiente' => 'bg-amber-50 text-amber-700 dark:text-amber-300 border-amber-300', 'en_transito' => 'bg-blue-50 text-blue-700 dark:text-blue-300 border-blue-300', 'entregada' => 'bg-green-50 text-green-700 dark:text-green-300 border-green-300', 'anulada' => 'bg-gray-100 text-gray-500 dark:text-slate-400 border-gray-300', default => '', } }}">
+                                        class="text-xs border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1 focus:ring-2 focus:ring-teal-500 cursor-pointer {{ match($comp->guiaRemision->estado) { 'pendiente' => 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600', 'en_transito' => 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600', 'entregada' => 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-300 dark:border-green-600', 'anulada' => 'bg-gray-100 dark:bg-slate-700/50 text-gray-500 dark:text-slate-400 border-gray-300 dark:border-slate-500', default => '', } }}">
                                     <option value="pendiente"   {{ $comp->guiaRemision->estado === 'pendiente'   ? 'selected' : '' }}>Pendiente</option>
                                     <option value="en_transito" {{ $comp->guiaRemision->estado === 'en_transito' ? 'selected' : '' }}>En Tránsito</option>
                                     <option value="entregada"   {{ $comp->guiaRemision->estado === 'entregada'   ? 'selected' : '' }}>Entregada</option>
@@ -196,13 +196,13 @@
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
                             <a href="{{ route('ventas.show', $comp) }}" target="_blank"
-                               class="text-blue-600 dark:text-blue-400 hover:text-blue-800 transition" title="Ver detalle">
+                               class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition" title="Ver detalle">
                                 <i class="fas fa-eye"></i>
                             </a>
                             @if(in_array($comp->estado_sunat, ['pendiente_envio', 'rechazado']))
                                 <form action="{{ route('facturacion.enviar-sunat', $comp) }}" method="POST" class="inline">
                                     @csrf
-                                    <button type="submit" class="text-amber-600 dark:text-amber-400 hover:text-amber-800 transition" title="Enviar a SUNAT"
+                                    <button type="submit" class="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 transition" title="Enviar a SUNAT"
                                             onclick="return confirm('¿Enviar este comprobante a SUNAT?')">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
@@ -213,16 +213,16 @@
                                 </span>
                             @endif
                             <a href="{{ route('ventas.pdf', $comp) }}" target="_blank"
-                               class="text-red-500 hover:text-red-700 transition" title="Descargar PDF">
+                               class="text-red-500 hover:text-red-700 dark:hover:text-red-300 transition" title="Descargar PDF">
                                 <i class="fas fa-file-pdf"></i>
                             </a>
                             <a href="{{ route('facturacion.xml', $comp) }}"
-                               class="text-green-600 dark:text-green-400 hover:text-green-800 transition" title="Descargar XML">
+                               class="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition" title="Descargar XML">
                                 <i class="fas fa-file-code"></i>
                             </a>
                             @if($tieneGuia)
                                 <a href="{{ route('ventas.guia-pdf', $comp) }}" target="_blank"
-                                   class="text-teal-600 dark:text-teal-400 hover:text-teal-800 transition" title="Ver Guía de Remisión">
+                                   class="text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-300 transition" title="Ver Guía de Remisión">
                                     <i class="fas fa-truck"></i>
                                 </a>
                             @endif

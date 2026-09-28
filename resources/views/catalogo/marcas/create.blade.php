@@ -48,7 +48,7 @@
                                 <input type="file" name="logo" id="logo"
                                        accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml"
                                        onchange="previewLogo(event)"
-                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900/30 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/40">
                                 <p class="mt-1 text-xs text-gray-400 dark:text-slate-500">JPG, PNG, WEBP, SVG. Máx 2MB</p>
                             </div>
                         </div>

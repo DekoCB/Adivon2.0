@@ -8,9 +8,9 @@
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
-        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 transition-colors">Gestión de Precios</a>
+        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Gestión de Precios</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
-        <a href="{{ route('precios.show', $producto) }}" class="hover:text-blue-700 transition-colors truncate max-w-xs">{{ $producto->nombre }}</a>
+        <a href="{{ route('precios.show', $producto) }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors truncate max-w-xs">{{ $producto->nombre }}</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium">Editar Precio</span>
     </nav>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="flex items-center justify-between text-sm">
                         <span class="text-gray-500 dark:text-slate-400">Margen</span>
-                        <span class="font-semibold {{ $precio->margen >= 20 ? 'text-green-700' : 'text-yellow-700' }}">
+                        <span class="font-semibold {{ $precio->margen >= 20 ? 'text-green-700 dark:text-green-300' : 'text-yellow-700 dark:text-yellow-300' }}">
                             {{ $precio->margen }}%
                         </span>
                     </div>
@@ -156,7 +156,7 @@
 
             {{-- Info tips --}}
             <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
-                <h4 class="text-xs font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                <h4 class="text-xs font-semibold text-blue-900 dark:text-blue-200 mb-2 flex items-center gap-2">
                     <i class="fas fa-info-circle"></i> Información
                 </h4>
                 <ul class="text-xs text-blue-800 dark:text-blue-300 space-y-1.5 list-disc list-inside">
@@ -402,13 +402,13 @@
                                 <div class="flex rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden w-full">
                                     <button type="button"
                                             @click="modoCalculo='margen'; calcularPrecioVenta()"
-                                            :class="modoCalculo==='margen' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                            :class="modoCalculo==='margen' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                             class="flex-1 py-2 text-xs font-semibold transition-colors border-r border-gray-200 dark:border-slate-700">
                                         <i class="fas fa-percentage mr-1"></i> Margen %
                                     </button>
                                     <button type="button"
                                             @click="modoCalculo='precio'; calcularMargen()"
-                                            :class="modoCalculo==='precio' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                            :class="modoCalculo==='precio' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                             class="flex-1 py-2 text-xs font-semibold transition-colors">
                                         <i class="fas fa-tag mr-1"></i> Precio de venta
                                     </button>
@@ -425,7 +425,7 @@
                                        x-model="margen"
                                        @input="if(modoCalculo==='margen') calcularPrecioVenta()"
                                        :readonly="modoCalculo==='precio'"
-                                       :class="modoCalculo==='precio' ? 'bg-gray-50 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
+                                       :class="modoCalculo==='precio' ? 'bg-gray-50 dark:bg-slate-800/40 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
                                        step="0.1" min="0" max="1000"
                                        required
                                        class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
@@ -445,7 +445,7 @@
                                        x-model="precioVenta"
                                        @input="if(modoCalculo==='precio') calcularMargen()"
                                        :readonly="modoCalculo==='margen'"
-                                       :class="modoCalculo==='margen' ? 'bg-gray-50 text-blue-700 dark:text-blue-300 font-semibold cursor-not-allowed' : 'text-blue-700 font-semibold'"
+                                       :class="modoCalculo==='margen' ? 'bg-gray-50 dark:bg-slate-800/40 text-blue-700 dark:text-blue-300 font-semibold cursor-not-allowed' : 'text-blue-700 dark:text-blue-300 font-semibold'"
                                        step="0.01" min="0.01"
                                        required
                                        class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">

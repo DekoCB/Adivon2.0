@@ -108,7 +108,7 @@
                     <td class="px-4 py-3 text-right text-sm">
                         @if($caja->diferencia_cierre !== null)
                             @php $dif = (float) $caja->diferencia_cierre; @endphp
-                            <span class="font-semibold {{ abs($dif) < 0.01 ? 'text-green-600' : ($dif > 0 ? 'text-blue-600' : 'text-red-600') }}">
+                            <span class="font-semibold {{ abs($dif) < 0.01 ? 'text-green-600 dark:text-green-400' : ($dif > 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400') }}">
                                 {{ $dif >= 0 ? '+' : '' }}S/ {{ number_format($dif, 2) }}
                             </span>
                         @else

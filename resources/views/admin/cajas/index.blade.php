@@ -136,7 +136,7 @@
                                 <td class="px-4 py-3 text-right text-teal-700 dark:text-teal-300 text-xs">S/ {{ number_format($caja->arqueo['ventas_transferencia'] ?? 0, 2) }}</td>
                                 <td class="px-4 py-3 text-right">
                                     @if($caja->diferencia_cierre !== null)
-                                        <span class="{{ $caja->diferencia_cierre < 0 ? 'text-red-600 font-semibold' : ($caja->diferencia_cierre > 0 ? 'text-green-600' : 'text-gray-400') }}">
+                                        <span class="{{ $caja->diferencia_cierre < 0 ? 'text-red-600 dark:text-red-400 font-semibold' : ($caja->diferencia_cierre > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-400') }}">
                                             S/ {{ number_format($caja->diferencia_cierre, 2) }}
                                         </span>
                                     @else
@@ -156,7 +156,7 @@
                                 </td>
                                 <td class="px-4 py-3 text-right">
                                     <a href="{{ route('admin.cajas.show', $caja) }}"
-                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium">Ver →</a>
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium">Ver →</a>
                                 </td>
                             </tr>
                         @empty
@@ -192,7 +192,7 @@
                             <td class="px-4 py-2 text-right text-xs font-semibold text-teal-700 dark:text-teal-300">
                                 S/ {{ number_format($cajas->sum(fn($c) => $c->arqueo['ventas_transferencia'] ?? 0), 2) }}
                             </td>
-                            <td class="px-4 py-2 text-right text-xs font-semibold {{ $cajas->sum('diferencia_cierre') < 0 ? 'text-red-600' : 'text-gray-700' }}">
+                            <td class="px-4 py-2 text-right text-xs font-semibold {{ $cajas->sum('diferencia_cierre') < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-700' }}">
                                 S/ {{ number_format($cajas->sum('diferencia_cierre'), 2) }}
                             </td>
                             <td colspan="2"></td>

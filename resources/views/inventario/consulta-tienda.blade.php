@@ -39,7 +39,7 @@
         <x-data-table :paginator="$productos">
             <x-slot:cardHeader>
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                    <i class="fas fa-boxes mr-2 text-blue-900"></i>
+                    <i class="fas fa-boxes mr-2 text-blue-900 dark:text-blue-200"></i>
                     Productos Disponibles
                 </h2>
             </x-slot:cardHeader>
@@ -115,7 +115,7 @@
 
         <!-- Leyenda -->
         <div class="mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <p class="text-sm text-blue-900">
+            <p class="text-sm text-blue-900 dark:text-blue-200">
                 <i class="fas fa-lock mr-2"></i>
                 <strong>Vista de solo consulta.</strong> Para gestionar inventario, contacta al Administrador o Almacenero.
             </p>

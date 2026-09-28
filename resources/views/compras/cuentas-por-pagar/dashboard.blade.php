@@ -9,7 +9,7 @@
     <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                <i class="fas fa-chart-pie mr-3 text-blue-900"></i>
+                <i class="fas fa-chart-pie mr-3 text-blue-900 dark:text-blue-200"></i>
                 Dashboard Financiero
             </h1>
             <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Panorama de cuentas por pagar a proveedores</p>
@@ -85,7 +85,7 @@
     <x-data-table>
         <x-slot:cardHeader>
             <h2 class="text-base font-semibold text-gray-800 dark:text-slate-200 flex items-center gap-2">
-                <i class="fas fa-calendar-day text-blue-900"></i>
+                <i class="fas fa-calendar-day text-blue-900 dark:text-blue-200"></i>
                 Próximos Vencimientos (7 días)
             </h2>
         </x-slot:cardHeader>

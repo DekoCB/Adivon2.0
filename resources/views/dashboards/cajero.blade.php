@@ -66,7 +66,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <a href="{{ route('cajero.cola') }}"
                class="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 hover:shadow-lg transition group">
-                <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center group-hover:bg-amber-200 transition">
+                <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center group-hover:bg-amber-200 dark:group-hover:bg-amber-800/50 transition">
                     <i class="fas fa-list-ul text-amber-600 dark:text-amber-400 text-2xl"></i>
                 </div>
                 <div>
@@ -78,7 +78,7 @@
 
             <a href="{{ route('ventas.create') }}"
                class="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 hover:shadow-lg transition group">
-                <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center group-hover:bg-blue-200 transition">
+                <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition">
                     <i class="fas fa-cash-register text-blue-600 dark:text-blue-400 text-2xl"></i>
                 </div>
                 <div>

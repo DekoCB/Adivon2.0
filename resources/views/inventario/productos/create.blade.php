@@ -37,7 +37,7 @@
                     <!-- SECCIÓN 1: TIPO DE INVENTARIO -->
                     <div class="mb-8">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
-                            <i class="fas fa-mobile-alt mr-2 text-blue-900"></i>
+                            <i class="fas fa-mobile-alt mr-2 text-blue-900 dark:text-blue-200"></i>
                             Tipo de Inventario
                         </h3>
 
@@ -51,7 +51,7 @@
                                         class="peer hidden" 
                                         {{ old('tipo_inventario', 'cantidad') == 'cantidad' ? 'checked' : '' }}
                                         required>
-                                <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-green-500 peer-checked:border-green-500 peer-checked:bg-green-50 transition-all">
+                                <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-green-500 peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 transition-all">
                                     <i class="fas fa-boxes text-5xl text-green-600 dark:text-green-400 mb-3"></i>
                                     <p class="text-lg font-semibold text-gray-900 dark:text-slate-100">Stock por Cantidad</p>
                                     <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Accesorios, repuestos, consumibles</p>
@@ -66,7 +66,7 @@
                                         id="tipo_serie"
                                         class="peer hidden" 
                                         {{ old('tipo_inventario') == 'serie' ? 'checked' : '' }}>
-                                <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all">
+                                <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 transition-all">
                                     <i class="fas fa-mobile-alt text-5xl text-blue-600 dark:text-blue-400 mb-3"></i>
                                     <p class="text-lg font-semibold text-gray-900 dark:text-slate-100">Stock por Serie/IMEI</p>
                                     <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Celulares, equipos con número único</p>
@@ -81,7 +81,7 @@
 
                     <!-- SECCIÓN 1.1: GARANTÍA (SOLO PARA TIPO SERIE) -->
                     <div id="garantiaSection" class="mb-8 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800" style="display: none;">
-                        <h4 class="font-semibold text-blue-900 mb-3">
+                        <h4 class="font-semibold text-blue-900 dark:text-blue-200 mb-3">
                             <i class="fas fa-shield-alt mr-2"></i>
                             Configuración de Garantía
                         </h4>
@@ -111,7 +111,7 @@
                     <!-- SECCIÓN 2: INFORMACIÓN BÁSICA (CON SELECTORES EN CADENA) -->
                     <div class="mb-8">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
-                            <i class="fas fa-info-circle mr-2 text-blue-900"></i>
+                            <i class="fas fa-info-circle mr-2 text-blue-900 dark:text-blue-200"></i>
                             Información Básica
                         </h3>
 
@@ -212,7 +212,7 @@
                             <!-- SECCIÓN DE UNIDADES DE MEDIDA -->
                             <div class="md:col-span-2 bg-gray-50 dark:bg-slate-900/60 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
                                 <h3 class="text-base font-semibold text-gray-800 dark:text-slate-200 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-balance-scale text-blue-900"></i>
+                                    <i class="fas fa-balance-scale text-blue-900 dark:text-blue-200"></i>
                                     Unidades de Medida
                                 </h3>
 
@@ -303,7 +303,7 @@
                                             </div>
                                             <div class="col-span-1 flex justify-end">
                                                 <button type="button" onclick="eliminarUnidad(this)"
-                                                        class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition"
+                                                        class="text-red-500 hover:text-red-700 dark:hover:text-red-300 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition"
                                                         title="Eliminar">
                                                     <i class="fas fa-times"></i>
                                                 </button>
@@ -430,7 +430,7 @@
                     <!-- SECCIÓN 3: CONTROL DE STOCK (sin cambios) -->
                     <div class="mb-8">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
-                            <i class="fas fa-boxes mr-2 text-blue-900"></i>
+                            <i class="fas fa-boxes mr-2 text-blue-900 dark:text-blue-200"></i>
                             Control de Stock
                         </h3>
 
@@ -497,7 +497,7 @@
                                             </p>
                                         </div>
                                         <button type="button" @click="quitarVariante(idx)"
-                                                class="text-red-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
+                                                class="text-red-400 hover:text-red-600 dark:hover:text-red-400 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
                                             <i class="fas fa-times text-sm"></i>
                                         </button>
                                         <!-- Campos hidden para envío -->
@@ -570,7 +570,7 @@
                                     <img id="imagePreview" src="" alt="Vista previa" class="h-20 w-20 object-cover rounded-lg border">
                                 </div>
                                 <input type="file" name="imagen" id="imagen" accept="image/*"
-                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900/30 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/40"
                                        onchange="previewImage(event)">
                             </div>
                         </div>
@@ -1007,14 +1007,14 @@
             const icoEl   = document.getElementById('prev-tipo-icono');
             const badgeEl = document.getElementById('prev-tipo-badge');
             if (tipo === 'serie') {
-                icoEl.className   = 'w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl bg-blue-100 text-blue-700';
+                icoEl.className   = 'w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300';
                 icoEl.innerHTML   = '<i class="fas fa-mobile-alt"></i>';
-                badgeEl.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1 bg-blue-100 text-blue-700';
+                badgeEl.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300';
                 badgeEl.innerHTML = '<i class="fas fa-microchip text-xs"></i> Stock por Serie / IMEI';
             } else {
-                icoEl.className   = 'w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl bg-green-100 text-green-700';
+                icoEl.className   = 'w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300';
                 icoEl.innerHTML   = '<i class="fas fa-boxes"></i>';
-                badgeEl.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1 bg-green-100 text-green-700';
+                badgeEl.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300';
                 badgeEl.innerHTML = '<i class="fas fa-layer-group text-xs"></i> Stock por Cantidad';
             }
 
@@ -1026,7 +1026,7 @@
 
             // ── Estado ───────────────────────────────────────────────────
             const estadoMap = {
-                activo:        { txt: 'Activo',        cls: 'text-green-600' },
+                activo:        { txt: 'Activo',        cls: 'text-green-600 dark:text-green-400' },
                 inactivo:      { txt: 'Inactivo',      cls: 'text-gray-500' },
                 descontinuado: { txt: 'Descontinuado', cls: 'text-red-500' },
             };

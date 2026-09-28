@@ -76,7 +76,7 @@
                         <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">S/ {{ number_format($ventas_mes, 2) }}</p>
                     </div>
                     <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
-                        <i class="fas fa-calendar-alt text-blue-900 text-2xl"></i>
+                        <i class="fas fa-calendar-alt text-blue-900 dark:text-blue-200 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
         <!-- Últimas Ventas -->
         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
             <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                <i class="fas fa-history mr-2 text-blue-900"></i>
+                <i class="fas fa-history mr-2 text-blue-900 dark:text-blue-200"></i>
                 Últimas Ventas
             </h2>
             <div class="text-center py-12 text-gray-500 dark:text-slate-400">

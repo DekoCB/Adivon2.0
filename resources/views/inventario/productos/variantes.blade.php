@@ -67,9 +67,9 @@
 
         {{-- Breadcrumb --}}
         <div class="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-4">
-            <a href="{{ route('inventario.productos.index') }}" class="hover:text-blue-900">Productos</a>
+            <a href="{{ route('inventario.productos.index') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Productos</a>
             <i class="fas fa-chevron-right mx-2 text-xs"></i>
-            <a href="{{ route('inventario.productos.show', $producto) }}" class="hover:text-blue-900 truncate max-w-xs">{{ $producto->nombre }}</a>
+            <a href="{{ route('inventario.productos.show', $producto) }}" class="hover:text-blue-900 dark:hover:text-blue-200 truncate max-w-xs">{{ $producto->nombre }}</a>
             <i class="fas fa-chevron-right mx-2 text-xs"></i>
             <span class="text-gray-700 dark:text-slate-300 font-medium">Variantes</span>
         </div>
@@ -96,7 +96,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wide">Tipo</p>
-                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold {{ $producto->tipo_inventario === 'serie' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' }}">
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold {{ $producto->tipo_inventario === 'serie' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300' : 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' }}">
                                     {{ $producto->tipo_inventario === 'serie' ? 'Serie/IMEI' : 'Cantidad' }}
                                 </span>
                             </div>
@@ -249,7 +249,7 @@
                     @else
                         <div class="divide-y divide-gray-100 dark:divide-slate-700">
                             @foreach($producto->variantes->sortBy('estado') as $variante)
-                                <div class="p-4 flex items-center justify-between gap-4 {{ $variante->estado === 'inactivo' ? 'opacity-50 bg-gray-50' : '' }}">
+                                <div class="p-4 flex items-center justify-between gap-4 {{ $variante->estado === 'inactivo' ? 'opacity-50 bg-gray-50 dark:bg-slate-800/40' : '' }}">
                                     <div class="flex items-center gap-4 min-w-0">
                                         {{-- Color dot --}}
                                         @if($variante->color && $variante->color->codigo_hex)
@@ -289,7 +289,7 @@
                                                     ? ($stockRealPorVariante[$variante->id] ?? 0)
                                                     : $variante->stock_actual;
                                             @endphp
-                                            <p class="text-lg font-bold {{ $stockVar <= $variante->stock_minimo ? 'text-red-600' : 'text-gray-900' }}">
+                                            <p class="text-lg font-bold {{ $stockVar <= $variante->stock_minimo ? 'text-red-600 dark:text-red-400' : 'text-gray-900' }}">
                                                 {{ $stockVar }}
                                             </p>
                                             <p class="text-xs text-gray-400 dark:text-slate-500">
@@ -300,7 +300,7 @@
                                         {{-- Acciones --}}
                                         @if($producto->tipo_inventario === 'serie')
                                             <a href="{{ route('inventario.imeis.index', ['producto_id' => $producto->id, 'variante_id' => $variante->id]) }}"
-                                               class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
+                                               class="text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
                                                title="Ver IMEIs de esta variante">
                                                 <i class="fas fa-sim-card text-sm"></i>
                                             </a>
@@ -314,7 +314,7 @@
                                                         capacidad: '{{ $variante->capacidad ?? '' }}',
                                                         stock_minimo: '{{ $variante->stock_minimo }}'
                                                     })"
-                                                    class="text-indigo-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
+                                                    class="text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
                                                     title="Editar">
                                                 <i class="fas fa-pencil-alt text-sm"></i>
                                             </button>
@@ -326,7 +326,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                        class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition"
+                                                        class="text-red-400 hover:text-red-600 dark:hover:text-red-400 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition"
                                                         title="Desactivar">
                                                     <i class="fas fa-ban text-sm"></i>
                                                 </button>

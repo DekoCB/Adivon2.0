@@ -219,7 +219,7 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-3 text-sm text-right text-gray-800 dark:text-slate-200">{{ number_format($compra->total_pen, 2) }}</td>
-                                    <td class="px-4 py-3 text-sm text-right {{ $compra->gastos_importacion_pen > 0 ? 'text-orange-600 font-medium' : 'text-gray-400' }}">
+                                    <td class="px-4 py-3 text-sm text-right {{ $compra->gastos_importacion_pen > 0 ? 'text-orange-600 dark:text-orange-400 font-medium' : 'text-gray-400' }}">
                                         {{ $compra->gastos_importacion_pen > 0 ? number_format($compra->gastos_importacion_pen, 2) : '—' }}
                                     </td>
                                     <td class="px-4 py-3 text-sm text-right font-bold text-gray-900 dark:text-slate-100">
@@ -228,11 +228,11 @@
                                     <td class="px-4 py-3 text-center">
                                         @php
                                             $estadoBadge = match($compra->estado_pago ?? '') {
-                                                'pagado'   => 'bg-green-100 text-green-800',
-                                                'pendiente'=> 'bg-yellow-100 text-yellow-800',
-                                                'parcial'  => 'bg-orange-100 text-orange-800',
-                                                'vencido'  => 'bg-red-100 text-red-800',
-                                                default    => 'bg-gray-100 text-gray-600',
+                                                'pagado'   => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                                                'pendiente'=> 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                                                'parcial'  => 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300',
+                                                'vencido'  => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
+                                                default    => 'bg-gray-100 dark:bg-slate-700/50 text-gray-600',
                                             };
                                         @endphp
                                         <span class="inline-flex px-2 py-0.5 text-xs font-semibold rounded-full {{ $estadoBadge }}">

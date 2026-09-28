@@ -13,22 +13,22 @@
         <div class="border-b border-gray-200 dark:border-slate-700">
             <nav class="flex -mb-px">
                 <button @click="tab = 'datos'"
-                    :class="tab === 'datos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
+                    :class="tab === 'datos' ? 'border-blue-600 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-building"></i> Datos Iniciales
                 </button>
                 <button @click="tab = 'graficos'"
-                    :class="tab === 'graficos' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
+                    :class="tab === 'graficos' ? 'border-blue-600 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-image"></i> Gráficos / Logos
                 </button>
                 <button @click="tab = 'redes'"
-                    :class="tab === 'redes' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
+                    :class="tab === 'redes' ? 'border-blue-600 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-share-alt"></i> Redes Sociales
                 </button>
                 <button @click="tab = 'api'"
-                    :class="tab === 'api' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
+                    :class="tab === 'api' ? 'border-blue-600 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                     class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors">
                     <i class="fas fa-plug"></i> Integración API / SUNAT
                 </button>
@@ -63,7 +63,7 @@
 
                         {{-- Alerta resultado SUNAT --}}
                         <div x-show="sunatMsg" x-cloak class="mt-2 px-3 py-2 rounded-lg text-sm flex items-center gap-2"
-                            :class="sunatOk ? 'bg-green-50 text-green-700 dark:text-green-300 border border-green-200' : 'bg-red-50 text-red-700 dark:text-red-300 border border-red-200'">
+                            :class="sunatOk ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700'">
                             <i :class="sunatOk ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'"></i>
                             <span x-text="sunatMsg"></span>
                         </div>
@@ -143,7 +143,7 @@
                             </div>
                         @endif
                         <input type="file" name="logo" accept="image/*"
-                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900/30 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/40">
                         <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">PNG, JPG — máx. 2MB. Aparece en el encabezado del sistema.</p>
                     </div>
                     <div>
@@ -154,7 +154,7 @@
                             </div>
                         @endif
                         <input type="file" name="logo_pdf" accept="image/*"
-                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900/30 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/40">
                         <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">PNG, JPG — máx. 2MB. Aparece en boletas, facturas y guías.</p>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                                 </div>
                             @endif
                             <input type="file" name="certificado_pfx" accept=".pfx,.p12"
-                                class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
+                                class="w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 dark:file:bg-purple-900/30 file:text-purple-700 dark:file:text-purple-300 hover:file:bg-purple-100 dark:hover:file:bg-purple-900/40">
                             <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">Archivo .pfx o .p12 del certificado digital de SUNAT. Se reemplazará el anterior si sube uno nuevo.</p>
                         </div>
                         <div>
@@ -288,13 +288,13 @@
                 <div class="border-t pt-5">
                     <h3 class="text-sm font-semibold text-gray-700 dark:text-slate-300 uppercase tracking-wide mb-3">Estado de configuración</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border {{ $empresa->tieneCredencialesSunat() ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200' }}">
+                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border {{ $empresa->tieneCredencialesSunat() ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700' }}">
                             <i class="fas {{ $empresa->tieneCredencialesSunat() ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-400' }}"></i>
-                            <span class="text-sm {{ $empresa->tieneCredencialesSunat() ? 'text-green-700' : 'text-red-600' }}">Clave SOL</span>
+                            <span class="text-sm {{ $empresa->tieneCredencialesSunat() ? 'text-green-700 dark:text-green-300' : 'text-red-600 dark:text-red-400' }}">Clave SOL</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border {{ $empresa->tieneCertificado() ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200' }}">
+                        <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border {{ $empresa->tieneCertificado() ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700' }}">
                             <i class="fas {{ $empresa->tieneCertificado() ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-400' }}"></i>
-                            <span class="text-sm {{ $empresa->tieneCertificado() ? 'text-green-700' : 'text-red-600' }}">Certificado Digital</span>
+                            <span class="text-sm {{ $empresa->tieneCertificado() ? 'text-green-700 dark:text-green-300' : 'text-red-600 dark:text-red-400' }}">Certificado Digital</span>
                         </div>
                         <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800">
                             <i class="fas fa-info-circle text-blue-500"></i>

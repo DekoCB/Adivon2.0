@@ -91,11 +91,11 @@
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">{{ $proveedor->compras_count }}</td>
                             <td class="px-6 py-4 text-sm space-x-3">
-                                <a href="{{ route('proveedores.show', $proveedor) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800" title="Ver">
+                                <a href="{{ route('proveedores.show', $proveedor) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" title="Ver">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 @if($canEdit)
-                                    <a href="{{ route('proveedores.edit', $proveedor) }}" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800" title="Editar">
+                                    <a href="{{ route('proveedores.edit', $proveedor) }}" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-300" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endif
@@ -103,7 +103,7 @@
                                     <form action="{{ route('proveedores.destroy', $proveedor) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este proveedor?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800" title="Eliminar">
+                                        <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300" title="Eliminar">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

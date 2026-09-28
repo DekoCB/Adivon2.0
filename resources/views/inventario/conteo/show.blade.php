@@ -10,7 +10,7 @@
         <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
             <div>
                 <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-1">
-                    <a href="{{ route('inventario-fisico.index') }}" class="hover:text-blue-700">
+                    <a href="{{ route('inventario-fisico.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300">
                         <i class="fas fa-arrow-left mr-1"></i> Conteos
                     </a>
                 </div>
@@ -176,8 +176,8 @@
                                            value="{{ $det->stock_fisico }}"
                                            placeholder="—"
                                            @blur="autoSave({{ $det->id }}, $event.target.value)"
-                                           class="w-24 text-center px-2 py-1.5 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 {{ $det->stock_fisico !== null ? 'border-green-400 bg-green-50' : 'border-gray-300' }}"
-                                           :class="saved[{{ $det->id }}] ? 'border-green-400 bg-green-50' : ''">
+                                           class="w-24 text-center px-2 py-1.5 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 {{ $det->stock_fisico !== null ? 'border-green-400 bg-green-50 dark:bg-green-900/30' : 'border-gray-300 dark:border-slate-500' }}"
+                                           :class="saved[{{ $det->id }}] ? 'border-green-400 bg-green-50 dark:bg-green-900/30' : ''">
                                     <span x-show="saving[{{ $det->id }}]" class="ml-1 text-gray-400 dark:text-slate-500">
                                         <i class="fas fa-spinner fa-spin text-xs"></i>
                                     </span>
@@ -296,8 +296,8 @@
                         // Update input styling
                         const input = document.getElementById(`sf-${detalleId}`);
                         if (input && stockFisico !== '') {
-                            input.classList.add('border-green-400', 'bg-green-50');
-                            input.classList.remove('border-gray-300');
+                            input.classList.add('border-green-400', 'bg-green-50 dark:bg-green-900/30');
+                            input.classList.remove('border-gray-300 dark:border-slate-500');
                         }
                     }
                 })

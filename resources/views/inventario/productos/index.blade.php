@@ -32,7 +32,7 @@
                         <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $productos->total() }}</p>
                     </div>
                     <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
-                        <i class="fas fa-box text-blue-900 text-2xl"></i>
+                        <i class="fas fa-box text-blue-900 dark:text-blue-200 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
         <x-data-table :paginator="$productos">
             <x-slot:cardHeader>
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    <i class="fas fa-list mr-2 text-blue-900 dark:text-blue-200"></i>
                     Listado de Productos
                 </h2>
                 @if($canCreate)
@@ -286,7 +286,7 @@
                                     </a>
 
                                     @if($canEdit)
-                                        <a href="{{ route('inventario.productos.edit', $producto) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900" title="Editar">
+                                        <a href="{{ route('inventario.productos.edit', $producto) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
@@ -294,7 +294,7 @@
                                     <!-- Botón Gestionar Variantes -->
                                     @if($producto->variantesActivas->count() > 0 || $producto->tipo_inventario === 'serie')
                                         <a href="{{ route('inventario.productos.variantes', $producto) }}"
-                                           class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900"
+                                           class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-200"
                                            title="Gestionar variantes{{ $producto->variantesActivas->count() > 0 ? ' (' . $producto->variantesActivas->count() . ')' : '' }}">
                                             <i class="fas fa-layer-group"></i>
                                         </a>
@@ -303,7 +303,7 @@
                                     <!-- Botón para gestionar IMEIs (solo para tipo serie) -->
                                     @if($producto->tipo_inventario === 'serie')
                                         <a href="{{ route('inventario.imeis.index', ['producto_id' => $producto->id]) }}"
-                                           class="text-purple-600 dark:text-purple-400 hover:text-purple-900"
+                                           class="text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-200"
                                            title="Gestionar IMEIs">
                                             <i class="fas fa-sim-card"></i>
                                         </a>
@@ -311,14 +311,14 @@
 
                                     <!-- Ver stock por almacén -->
                                     <a href="{{ route('traslados.stock', ['buscar' => $producto->nombre]) }}"
-                                       class="text-teal-600 dark:text-teal-400 hover:text-teal-900"
+                                       class="text-teal-600 dark:text-teal-400 hover:text-teal-900 dark:hover:text-teal-200"
                                        title="Ver stock por almacén">
                                         <i class="fas fa-boxes"></i>
                                     </a>
 
                                     <!-- Botón para gestionar códigos de barras adicionales -->
                                     <a href="{{ route('inventario.productos.codigos-barras', $producto) }}"
-                                       class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900"
+                                       class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-200"
                                        title="Códigos de barras">
                                         <i class="fas fa-barcode"></i>
                                     </a>
@@ -328,7 +328,7 @@
                                               onsubmit="return confirm('Si el producto tiene movimientos se desactivará (no se borrará). ¿Continuar?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900" title="Desactivar / Eliminar">
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-200" title="Desactivar / Eliminar">
                                                 <i class="fas fa-power-off"></i>
                                             </button>
                                         </form>

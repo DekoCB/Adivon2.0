@@ -13,7 +13,7 @@
 <div>
 <div class="max-w-2xl mx-auto">
             <div class="flex items-center mb-6">
-                <a href="{{ route('clientes.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 mr-4">
+                <a href="{{ route('clientes.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mr-4">
                     <i class="fas fa-arrow-left"></i>
                 </a>
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200">Registrar Cliente</h2>
@@ -33,7 +33,7 @@
                         <button type="button"
                                 @click="mostrarForm()"
                                 x-show="!formVisible"
-                                class="text-xs text-gray-500 dark:text-slate-400 hover:text-blue-700 underline underline-offset-2">
+                                class="text-xs text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2">
                             Ingresar manualmente
                         </button>
                     </div>
@@ -67,7 +67,7 @@
 
                     {{-- Mensaje resultado --}}
                     <div x-show="mensaje" x-transition class="mt-2 flex items-start gap-2 text-sm rounded-lg px-3 py-2"
-                         :class="exito ? 'bg-green-50 text-green-700 dark:text-green-300 border border-green-200' : 'bg-red-50 text-red-600 dark:text-red-400 border border-red-200'">
+                         :class="exito ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-700'">
                         <i class="mt-0.5 text-xs" :class="exito ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'"></i>
                         <span x-text="mensaje"></span>
                     </div>

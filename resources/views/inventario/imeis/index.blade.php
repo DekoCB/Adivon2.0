@@ -168,7 +168,7 @@
         <x-data-table :paginator="$imeis">
             <x-slot:cardHeader>
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    <i class="fas fa-list mr-2 text-blue-900 dark:text-blue-200"></i>
                     Listado de IMEIs
                 </h2>
                 @if(auth()->user()->role->nombre != 'Tienda')
@@ -241,7 +241,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($imei->compra?->proveedor)
                                     <a href="{{ route('compras.show', $imei->compra_id) }}"
-                                       class="text-sm font-medium text-blue-700 dark:text-blue-300 hover:text-blue-900 hover:underline"
+                                       class="text-sm font-medium text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200 hover:underline"
                                        title="Ver compra {{ $imei->compra->numero_factura }}">
                                         {{ $imei->compra->proveedor->razon_social }}
                                     </a>
@@ -271,7 +271,7 @@
                                 <div class="flex items-center justify-center space-x-2">
                                     <!-- Ver detalles -->
                                     <a href="{{ route('inventario.imeis.show', $imei) }}" 
-                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900" 
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200" 
                                        title="Ver detalles">
                                         <i class="fas fa-eye"></i>
                                     </a>
@@ -279,7 +279,7 @@
                                     <!-- Editar -->
                                     @if(auth()->user()->role->nombre != 'Tienda')
                                         <a href="{{ route('inventario.imeis.edit', $imei) }}" 
-                                           class="text-green-600 dark:text-green-400 hover:text-green-900" 
+                                           class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-200" 
                                            title="Editar IMEI">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -287,7 +287,7 @@
                                     
                                     <!-- Ver QR -->
                                     <button onclick="verQR({{ $imei->id }})" 
-                                            class="text-purple-600 dark:text-purple-400 hover:text-purple-900" 
+                                            class="text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-200" 
                                             title="Ver código QR">
                                         <i class="fas fa-qrcode"></i>
                                     </button>
@@ -303,7 +303,7 @@
                                     @if(auth()->user()->role->nombre != 'Tienda')
                                         <div class="relative inline-block">
                                             <button onclick="toggleEstadoMenu({{ $imei->id }})" 
-                                                    class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-900"
+                                                    class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-900 dark:hover:text-yellow-200"
                                                     title="Cambiar estado">
                                                 <i class="fas fa-sync-alt"></i>
                                             </button>

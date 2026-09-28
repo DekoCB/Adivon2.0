@@ -63,9 +63,9 @@
                 </p>
                 <p class="text-xs text-purple-500 mt-1">{{ $estadoSucursales->where('estado_label','warning')->count() }} con alerta</p>
             </div>
-            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 {{ abs($diferenciasMes) > 0 ? 'border-red-500' : 'border-gray-300' }}">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-5 border-l-4 {{ abs($diferenciasMes) > 0 ? 'border-red-500' : 'border-gray-300 dark:border-slate-500' }}">
                 <p class="text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">Diferencias (mes)</p>
-                <p class="text-2xl font-bold {{ $diferenciasMes < 0 ? 'text-red-600' : 'text-gray-800' }} mt-1">
+                <p class="text-2xl font-bold {{ $diferenciasMes < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-800' }} mt-1">
                     S/ {{ number_format($diferenciasMes, 2) }}
                 </p>
                 <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">{{ now()->format('m/Y') }}</p>
@@ -81,9 +81,9 @@
                 @forelse($estadoSucursales as $item)
                     @php
                         $colors = [
-                            'open'    => ['bg' => 'bg-green-50 border-green-200',  'dot' => 'bg-green-500',            'label' => 'Abierta', 'txt' => 'text-green-700'],
-                            'warning' => ['bg' => 'bg-yellow-50 border-yellow-200','dot' => 'bg-yellow-500 animate-pulse','label' => 'Alerta',  'txt' => 'text-yellow-700'],
-                            'closed'  => ['bg' => 'bg-gray-50 border-gray-200',    'dot' => 'bg-gray-400',             'label' => 'Cerrada', 'txt' => 'text-gray-500'],
+                            'open'    => ['bg' => 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700',  'dot' => 'bg-green-500',            'label' => 'Abierta', 'txt' => 'text-green-700 dark:text-green-300'],
+                            'warning' => ['bg' => 'bg-yellow-50 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-700','dot' => 'bg-yellow-500 animate-pulse','label' => 'Alerta',  'txt' => 'text-yellow-700 dark:text-yellow-300'],
+                            'closed'  => ['bg' => 'bg-gray-50 dark:bg-slate-800/40 border-gray-200 dark:border-slate-600',    'dot' => 'bg-gray-400',             'label' => 'Cerrada', 'txt' => 'text-gray-500'],
                         ];
                         $c = $colors[$item['estado_label']];
                     @endphp
@@ -108,7 +108,7 @@
                                 </div>
                                 <div>
                                     <p class="text-gray-400 dark:text-slate-500">Abierta hace</p>
-                                    <p class="font-semibold {{ $item['alerta'] ? 'text-yellow-600' : 'text-gray-700' }}">
+                                    <p class="font-semibold {{ $item['alerta'] ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-700' }}">
                                         {{ $item['horas_abierta'] }}
                                     </p>
                                 </div>

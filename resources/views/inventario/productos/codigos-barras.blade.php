@@ -28,7 +28,7 @@
                         <i class="fas fa-info-circle mr-1"></i>
                         <strong>Código principal del producto:</strong>
                     </p>
-                    <p class="text-xl font-mono font-bold text-blue-900 mt-1">
+                    <p class="text-xl font-mono font-bold text-blue-900 dark:text-blue-200 mt-1">
                         {{ $producto->codigo_barras }}
                     </p>
                     <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">
@@ -221,7 +221,7 @@
                                         @else
                                             <form action="{{ route('inventario.productos.codigos-barras.principal', $codigo) }}" method="POST" class="inline">
                                                 @csrf
-                                                <button type="submit" class="text-gray-400 dark:text-slate-500 hover:text-green-600" title="Establecer como principal">
+                                                <button type="submit" class="text-gray-400 dark:text-slate-500 hover:text-green-600 dark:hover:text-green-400" title="Establecer como principal">
                                                     <i class="far fa-circle"></i>
                                                 </button>
                                             </form>
@@ -234,7 +234,7 @@
                                               onsubmit="return confirm('¿Estás seguro de eliminar este código de barras?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900" title="Eliminar">
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-200" title="Eliminar">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -366,7 +366,7 @@
                             ['value' => '3x6',  'icon' => 'fa-th-large','cols' => '3 col.', 'rows' => '6 fil.', 'total' => '18/hoja'],
                             ['value' => '4x8',  'icon' => 'fa-th-list', 'cols' => '4 col.', 'rows' => '8 fil.', 'total' => '32/hoja'],
                         ] as $d)
-                        <label class="diseno-card cursor-pointer border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-blue-300 dark:hover:border-blue-600 transition {{ $loop->first ? 'border-blue-500 bg-blue-50' : '' }}">
+                        <label class="diseno-card cursor-pointer border-2 border-gray-200 dark:border-slate-700 rounded-xl p-3 text-center hover:border-blue-300 dark:hover:border-blue-600 transition {{ $loop->first ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30' : '' }}">
                             <input type="radio" name="diseno" value="{{ $d['value'] }}" class="hidden" {{ $loop->first ? 'checked' : '' }}>
                             <i class="fas {{ $d['icon'] }} text-2xl text-gray-400 dark:text-slate-500 mb-1 block"></i>
                             <p class="text-xs font-medium text-gray-700 dark:text-slate-300">{{ $d['cols'] }} × {{ $d['rows'] }}</p>
@@ -402,7 +402,7 @@
                 <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 flex items-center justify-between">
                     <div class="text-sm text-blue-800 dark:text-blue-300">
                         <i class="fas fa-tag mr-1"></i>
-                        Total de etiquetas: <span id="totalEtiquetas" class="font-bold text-blue-900">0</span>
+                        Total de etiquetas: <span id="totalEtiquetas" class="font-bold text-blue-900 dark:text-blue-200">0</span>
                     </div>
                     <div class="text-sm text-blue-600 dark:text-blue-400" id="resumenHojas"></div>
                 </div>
@@ -449,8 +449,8 @@
             .then(data => {
                 if (data.success) {
                     codigoInput.value = data.codigo;
-                    codigoInput.classList.add('border-green-500', 'bg-green-50');
-                    setTimeout(() => codigoInput.classList.remove('border-green-500', 'bg-green-50'), 1000);
+                    codigoInput.classList.add('border-green-500', 'bg-green-50 dark:bg-green-900/30');
+                    setTimeout(() => codigoInput.classList.remove('border-green-500', 'bg-green-50 dark:bg-green-900/30'), 1000);
                 } else {
                     alert('Error: ' + data.message);
                 }
@@ -485,11 +485,11 @@
         document.querySelectorAll('.diseno-card').forEach(card => {
             card.addEventListener('click', function() {
                 document.querySelectorAll('.diseno-card').forEach(c => {
-                    c.classList.remove('border-blue-500', 'bg-blue-50');
-                    c.classList.add('border-gray-200');
+                    c.classList.remove('border-blue-500', 'bg-blue-50 dark:bg-blue-900/30');
+                    c.classList.add('border-gray-200 dark:border-slate-600');
                 });
-                this.classList.add('border-blue-500', 'bg-blue-50');
-                this.classList.remove('border-gray-200');
+                this.classList.add('border-blue-500', 'bg-blue-50 dark:bg-blue-900/30');
+                this.classList.remove('border-gray-200 dark:border-slate-600');
                 this.querySelector('input[type=radio]').checked = true;
                 actualizarTotalEtiquetas();
             });

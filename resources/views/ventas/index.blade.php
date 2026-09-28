@@ -40,12 +40,12 @@
                 </div>
             </div>
             <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-5 flex items-center gap-4">
-                <div class="w-12 h-12 {{ $stats['pendientes'] > 0 ? 'bg-amber-50' : 'bg-gray-50' }} rounded-xl flex items-center justify-center shrink-0">
+                <div class="w-12 h-12 {{ $stats['pendientes'] > 0 ? 'bg-amber-50 dark:bg-amber-900/30' : 'bg-gray-50 dark:bg-slate-800/40' }} rounded-xl flex items-center justify-center shrink-0">
                     <i class="fas fa-clock {{ $stats['pendientes'] > 0 ? 'text-amber-500' : 'text-gray-300' }} text-xl"></i>
                 </div>
                 <div>
                     <p class="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Pendientes</p>
-                    <p class="text-xl font-bold mt-0.5 {{ $stats['pendientes'] > 0 ? 'text-amber-600' : 'text-gray-900' }}">
+                    <p class="text-xl font-bold mt-0.5 {{ $stats['pendientes'] > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-gray-900' }}">
                         {{ $stats['pendientes'] }}
                     </p>
                 </div>
@@ -193,7 +193,7 @@
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <a href="{{ route('ventas.show', $venta) }}"
-                                   class="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium text-sm transition-colors">
+                                   class="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm transition-colors">
                                     <i class="fas fa-eye text-xs"></i> Ver
                                 </a>
                             </td>

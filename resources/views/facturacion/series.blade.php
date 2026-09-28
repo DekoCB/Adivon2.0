@@ -10,7 +10,7 @@
 <div x-data="seriesPage()">
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-6">
-        <a href="{{ route('facturacion.index') }}" class="hover:text-blue-600 transition">Facturación Electrónica</a>
+        <a href="{{ route('facturacion.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Facturación Electrónica</a>
         <i class="fas fa-chevron-right text-xs"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium">Series de Comprobantes</span>
     </div>
@@ -54,8 +54,8 @@
             <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                 @forelse($series as $serie)
                 @php
-                    $tipoCodes = ['01'=>'bg-blue-100 text-blue-800','03'=>'bg-purple-100 text-purple-800','07'=>'bg-orange-100 text-orange-700','08'=>'bg-red-100 text-red-700','09'=>'bg-teal-100 text-teal-700','NE'=>'bg-gray-100 text-gray-600'];
-                    $tipoCss = $tipoCodes[$serie->tipo_comprobante] ?? 'bg-gray-100 text-gray-600';
+                    $tipoCodes = ['01'=>'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300','03'=>'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300','07'=>'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300','08'=>'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300','09'=>'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300','NE'=>'bg-gray-100 dark:bg-slate-700/50 text-gray-600'];
+                    $tipoCss = $tipoCodes[$serie->tipo_comprobante] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-600';
                 @endphp
                 <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                     <td class="px-5 py-3 font-medium text-gray-900 dark:text-slate-100">{{ $serie->sucursal?->nombre ?? 'N/A' }}</td>
@@ -81,12 +81,12 @@
                     <td class="px-5 py-3">
                         <div class="flex items-center gap-3">
                             <button @click="abrirEditar({{ $serie->id }}, '{{ addslashes($serie->tipo_nombre) }}', {{ $serie->correlativo_actual }}, '{{ $serie->formato_impresion }}', {{ $serie->activo ? 'true' : 'false' }}, '{{ $serie->serie }}')"
-                                class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 transition" title="Editar">
+                                class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-300 transition" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <form action="{{ route('facturacion.series.destroy', $serie) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700 transition" title="Eliminar"
+                                <button type="submit" class="text-red-500 hover:text-red-700 dark:hover:text-red-300 transition" title="Eliminar"
                                         onclick="return confirm('¿Eliminar la serie {{ $serie->serie }}?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

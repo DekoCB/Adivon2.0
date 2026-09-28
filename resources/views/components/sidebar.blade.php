@@ -27,9 +27,9 @@
         // badge_html (HTML ya armado, igual que antes, para no perder
         // ningún badge dinámico ni condición por fecha).
         $mostrarNuevo = \Carbon\Carbon::now()->lt(\Carbon\Carbon::parse('2026-05-05'));
-        $tagNew = $mostrarNuevo ? '<span class="text-[9px] font-bold bg-emerald-400 text-emerald-900 px-1.5 py-0.5 rounded-full leading-none">NEW</span>' : null;
-        $tagUpd = $mostrarNuevo ? '<span class="text-[9px] font-bold bg-emerald-400 text-emerald-900 px-1.5 py-0.5 rounded-full leading-none">UPD</span>' : null;
-        $tagNuevo = '<span class="text-[10px] font-bold bg-green-400 text-green-900 px-1.5 py-0.5 rounded-full leading-none">Nuevo</span>';
+        $tagNew = $mostrarNuevo ? '<span class="text-[9px] font-bold bg-emerald-400 text-emerald-900 dark:text-emerald-200 px-1.5 py-0.5 rounded-full leading-none">NEW</span>' : null;
+        $tagUpd = $mostrarNuevo ? '<span class="text-[9px] font-bold bg-emerald-400 text-emerald-900 dark:text-emerald-200 px-1.5 py-0.5 rounded-full leading-none">UPD</span>' : null;
+        $tagNuevo = '<span class="text-[10px] font-bold bg-green-400 text-green-900 dark:text-green-200 px-1.5 py-0.5 rounded-full leading-none">Nuevo</span>';
 
         $nb_count = function($n, $cap = 99) {
             $val = $n > $cap ? "{$cap}+" : $n;

@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-0.5">
-                <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600">Dashboard Cajas</a>
+                <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Dashboard Cajas</a>
                 <span>/</span>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Alertas</span>
             </div>
@@ -84,8 +84,8 @@
                         @php
                             $esCritico = in_array($alerta['tipo'], ['sin_cerrar', 'diferencia']);
                             $color = $esCritico
-                                ? ['bg' => 'bg-red-50',    'icon_bg' => 'bg-red-100',    'icon_txt' => 'text-red-600',    'border' => 'border-red-200']
-                                : ['bg' => 'bg-yellow-50', 'icon_bg' => 'bg-yellow-100', 'icon_txt' => 'text-yellow-600', 'border' => 'border-yellow-200'];
+                                ? ['bg' => 'bg-red-50 dark:bg-red-900/30',    'icon_bg' => 'bg-red-100 dark:bg-red-900/40',    'icon_txt' => 'text-red-600 dark:text-red-400',    'border' => 'border-red-200 dark:border-red-700']
+                                : ['bg' => 'bg-yellow-50 dark:bg-yellow-900/30', 'icon_bg' => 'bg-yellow-100 dark:bg-yellow-900/40', 'icon_txt' => 'text-yellow-600 dark:text-yellow-400', 'border' => 'border-yellow-200 dark:border-yellow-700'];
                             $icon = match($alerta['tipo']) {
                                 'sin_cerrar' => 'fas fa-door-open',
                                 'caja_larga' => 'fas fa-clock',

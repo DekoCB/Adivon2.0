@@ -10,7 +10,7 @@
     <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-0.5">
-                <a href="{{ route('admin.cajas.index') }}" class="hover:text-blue-600">Historial</a>
+                <a href="{{ route('admin.cajas.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Historial</a>
                 <span>/</span>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Caja #{{ $caja->id }}</span>
             </div>
@@ -92,8 +92,8 @@
                     @if($caja->monto_real_cierre !== null)
                         <div class="flex justify-between"><dt class="text-gray-500 dark:text-slate-400">Real al cierre</dt><dd class="font-medium">S/ {{ number_format($caja->monto_real_cierre, 2) }}</dd></div>
                         <div class="flex justify-between pt-2 border-t font-bold text-base">
-                            <dt class="{{ ($caja->diferencia_cierre ?? 0) < 0 ? 'text-red-600' : 'text-gray-800' }}">Diferencia</dt>
-                            <dd class="{{ ($caja->diferencia_cierre ?? 0) < 0 ? 'text-red-600' : (($caja->diferencia_cierre ?? 0) > 0 ? 'text-green-600' : 'text-gray-600') }}">
+                            <dt class="{{ ($caja->diferencia_cierre ?? 0) < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-800' }}">Diferencia</dt>
+                            <dd class="{{ ($caja->diferencia_cierre ?? 0) < 0 ? 'text-red-600 dark:text-red-400' : (($caja->diferencia_cierre ?? 0) > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-600') }}">
                                 S/ {{ number_format($caja->diferencia_cierre ?? 0, 2) }}
                             </dd>
                         </div>
@@ -138,8 +138,8 @@
                         <div class="px-5 py-3 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors divide-y divide-gray-50">
                             <div class="flex items-start justify-between gap-4">
                                 <div class="flex items-start gap-3 min-w-0">
-                                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 {{ $mov->tipo === 'ingreso' ? 'bg-green-100' : 'bg-red-100' }}">
-                                        <i class="fas {{ $mov->tipo === 'ingreso' ? 'fa-arrow-down text-green-600' : 'fa-arrow-up text-red-600' }} text-xs"></i>
+                                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 {{ $mov->tipo === 'ingreso' ? 'bg-green-100 dark:bg-green-900/40' : 'bg-red-100 dark:bg-red-900/40' }}">
+                                        <i class="fas {{ $mov->tipo === 'ingreso' ? 'fa-arrow-down text-green-600 dark:text-green-400' : 'fa-arrow-up text-red-600 dark:text-red-400' }} text-xs"></i>
                                     </div>
                                     <div class="min-w-0">
                                         <p class="text-sm font-medium text-gray-800 dark:text-slate-200 truncate">{{ $mov->concepto }}</p>
@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
                                 <div class="text-right shrink-0">
-                                    <span class="text-sm font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600' : 'text-red-600' }}">
+                                    <span class="text-sm font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                         {{ $mov->tipo === 'ingreso' ? '+' : '-' }} S/ {{ number_format($mov->monto, 2) }}
                                     </span>
                                 </div>

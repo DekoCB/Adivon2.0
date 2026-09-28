@@ -158,7 +158,7 @@
                             <i class="fas fa-shopping-cart text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vVentas >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vVentas) }}% vs período anterior
                     </div>
@@ -176,7 +176,7 @@
                             <i class="fas fa-box text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vCosto <= 0 ? 'text-green-600' : 'text-gray-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vCosto <= 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-500' }}">
                         <i class="fas fa-arrow-{{ $vCosto >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vCosto) }}% vs período anterior
                     </div>
@@ -194,7 +194,7 @@
                             <i class="fas fa-coins text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vGanancia >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vGanancia >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vGanancia >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vGanancia) }}% vs período anterior
                     </div>
@@ -213,7 +213,7 @@
                             <i class="fas fa-receipt text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                    <div class="mt-3 flex items-center gap-1 text-xs font-medium {{ $vVentas >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500' }}">
                         <i class="fas fa-arrow-{{ $vVentas >= 0 ? 'up' : 'down' }}"></i>
                         {{ abs($vVentas) }}% ventas vs período anterior
                     </div>
@@ -358,11 +358,11 @@
                                     <td class="px-4 py-3 text-right font-semibold text-gray-800 dark:text-slate-200">{{ number_format($row->cantidad_vendida) }}</td>
                                     <td class="px-4 py-3 text-right text-gray-700 dark:text-slate-300">S/ {{ number_format($row->precio_promedio, 2) }}</td>
                                     <td class="px-4 py-3 text-right text-gray-500 dark:text-slate-400">S/ {{ number_format($row->costo_unitario, 2) }}</td>
-                                    <td class="px-4 py-3 text-right font-medium {{ $row->ganancia_unitaria >= 0 ? 'text-green-600' : 'text-red-500' }}">
+                                    <td class="px-4 py-3 text-right font-medium {{ $row->ganancia_unitaria >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500' }}">
                                         S/ {{ number_format($row->ganancia_unitaria, 2) }}
                                     </td>
                                     <td class="px-4 py-3 text-right font-semibold text-gray-800 dark:text-slate-200">S/ {{ number_format($row->total_vendido, 2) }}</td>
-                                    <td class="px-4 py-3 text-right font-bold {{ $row->total_ganancia >= 0 ? 'text-green-700' : 'text-red-600' }}">
+                                    <td class="px-4 py-3 text-right font-bold {{ $row->total_ganancia >= 0 ? 'text-green-700 dark:text-green-300' : 'text-red-600 dark:text-red-400' }}">
                                         S/ {{ number_format($row->total_ganancia, 2) }}
                                     </td>
                                 </tr>

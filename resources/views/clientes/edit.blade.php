@@ -14,7 +14,7 @@
 <div>
 <div class="max-w-2xl mx-auto">
             <div class="flex items-center mb-6">
-                <a href="{{ route('clientes.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 mr-4"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ route('clientes.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mr-4"><i class="fas fa-arrow-left"></i></a>
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200">Editar Cliente</h2>
             </div>
 

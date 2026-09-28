@@ -178,9 +178,9 @@
                             @foreach($productos as $p)
                                 @php
                                     $claseColor = match($p['clase']) {
-                                        'A' => ['bg' => 'bg-red-100 text-red-700', 'row' => 'bg-red-50/20'],
-                                        'B' => ['bg' => 'bg-amber-100 text-amber-700', 'row' => 'bg-amber-50/20'],
-                                        'C' => ['bg' => 'bg-blue-100 text-blue-600', 'row' => ''],
+                                        'A' => ['bg' => 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300', 'row' => 'bg-red-50/20 dark:bg-red-900/20'],
+                                        'B' => ['bg' => 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300', 'row' => 'bg-amber-50/20 dark:bg-amber-900/20'],
+                                        'C' => ['bg' => 'bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400', 'row' => ''],
                                     };
                                 @endphp
                                 <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition {{ $claseColor['row'] }}">

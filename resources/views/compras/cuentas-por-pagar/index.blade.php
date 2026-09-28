@@ -14,7 +14,7 @@
         <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                    <i class="fas fa-credit-card mr-3 text-blue-900"></i>
+                    <i class="fas fa-credit-card mr-3 text-blue-900 dark:text-blue-200"></i>
                     Cuentas por Pagar
                 </h1>
                 <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Gestión de obligaciones con proveedores</p>
@@ -132,7 +132,7 @@
         <x-data-table :paginator="$cuentas">
             <x-slot:cardHeader>
                 <h2 class="text-base font-semibold text-gray-800 dark:text-slate-200 flex items-center gap-2">
-                    <i class="fas fa-list text-blue-900"></i>
+                    <i class="fas fa-list text-blue-900 dark:text-blue-200"></i>
                     Listado de Cuentas
                 </h2>
                 <span class="text-sm text-gray-500 dark:text-slate-400">
@@ -158,8 +158,8 @@
                                         ? min(100, round($cuenta->monto_pagado / $cuenta->monto_total * 100))
                                         : 0;
                             $rowBg = '';
-                            if ($cuenta->esta_vencida)      $rowBg = 'bg-red-50/50';
-                            elseif ($cuenta->por_vencer)    $rowBg = 'bg-yellow-50/50';
+                            if ($cuenta->esta_vencida)      $rowBg = 'bg-red-50/50 dark:bg-red-900/50';
+                            elseif ($cuenta->por_vencer)    $rowBg = 'bg-yellow-50/50 dark:bg-yellow-900/50';
                         @endphp
                         <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition {{ $rowBg }}">
 
@@ -178,7 +178,7 @@
 
                             {{-- Vencimiento + días --}}
                             <td class="px-5 py-3.5">
-                                <span class="{{ $cuenta->esta_vencida ? 'text-red-600 font-medium' : 'text-gray-700' }}">
+                                <span class="{{ $cuenta->esta_vencida ? 'text-red-600 dark:text-red-400 font-medium' : 'text-gray-700' }}">
                                     {{ $cuenta->fecha_vencimiento->format('d/m/Y') }}
                                 </span>
                                 @if($cuenta->estado !== 'pagado')
@@ -201,7 +201,7 @@
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center gap-2">
                                     <div class="flex-1 bg-gray-100 dark:bg-slate-700 rounded-full h-2">
-                                        <div class="h-2 rounded-full {{ $pct >= 100 ? 'bg-green-500' : ($pct > 0 ? 'bg-blue-500' : 'bg-gray-200') }}"
+                                        <div class="h-2 rounded-full {{ $pct >= 100 ? 'bg-green-500' : ($pct > 0 ? 'bg-blue-500' : 'bg-gray-200 dark:bg-slate-700/60') }}"
                                              style="width: {{ $pct }}%"></div>
                                     </div>
                                     <span class="text-xs text-gray-500 dark:text-slate-400 w-8 text-right">{{ $pct }}%</span>
@@ -209,7 +209,7 @@
                             </td>
 
                             {{-- Saldo --}}
-                            <td class="px-5 py-3.5 text-right font-bold {{ $cuenta->saldo_pendiente > 0 ? 'text-red-600' : 'text-green-600' }}">
+                            <td class="px-5 py-3.5 text-right font-bold {{ $cuenta->saldo_pendiente > 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400' }}">
                                 S/ {{ number_format($cuenta->saldo_pendiente, 2) }}
                             </td>
 

@@ -149,7 +149,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-sm">
-                                    <a href="{{ route('pedidos.show', $pedido) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800" title="Ver">
+                                    <a href="{{ route('pedidos.show', $pedido) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" title="Ver">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>

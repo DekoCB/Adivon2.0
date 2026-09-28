@@ -14,15 +14,15 @@
         <!-- Header con breadcrumb -->
         <div class="mb-4">
             <div class="flex items-center text-xs text-gray-500 dark:text-slate-400 mb-1">
-                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Dashboard</a>
                 <i class="fas fa-chevron-right mx-1.5 text-[10px]"></i>
-                <a href="{{ route('compras.index') }}" class="hover:text-blue-900">Compras</a>
+                <a href="{{ route('compras.index') }}" class="hover:text-blue-900 dark:hover:text-blue-200">Compras</a>
                 <i class="fas fa-chevron-right mx-1.5 text-[10px]"></i>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Nueva Compra</span>
             </div>
             <div class="flex items-center justify-between">
                 <h1 class="text-xl font-bold text-gray-900 dark:text-slate-100 flex items-center">
-                    <i class="fas fa-file-invoice mr-2 text-blue-900 text-lg"></i>
+                    <i class="fas fa-file-invoice mr-2 text-blue-900 dark:text-blue-200 text-lg"></i>
                     Registrar Nueva Compra
                 </h1>
                 <span class="px-2.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full text-xs font-medium">
@@ -86,7 +86,7 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('local')"
                                    {{ old('tipo_compra', 'local') === 'local' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300 dark:hover:border-green-600">
+                            <div class="peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-green-300 dark:hover:border-green-600">
                                 <div class="w-8 h-8 bg-green-100 dark:bg-green-900/40 rounded flex items-center justify-center shrink-0">
                                     <i class="fas fa-store text-green-700 dark:text-green-300 text-sm"></i>
                                 </div>
@@ -101,7 +101,7 @@
                                    class="sr-only peer"
                                    onchange="cambiarTipoCompra('importacion')"
                                    {{ old('tipo_compra') === 'importacion' ? 'checked' : '' }}>
-                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300 dark:hover:border-orange-600">
+                            <div class="peer-checked:border-orange-500 peer-checked:bg-orange-50 dark:peer-checked:bg-orange-900/30 border border-gray-200 dark:border-slate-700 rounded-lg p-3 flex items-center gap-2 transition hover:border-orange-300 dark:hover:border-orange-600">
                                 <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900/40 rounded flex items-center justify-center shrink-0">
                                     <i class="fas fa-ship text-orange-700 dark:text-orange-300 text-sm"></i>
                                 </div>
@@ -117,7 +117,7 @@
                 <!-- SECCIÓN IMPORTACIÓN (condicional) -->
                 <div id="seccion_importacion" class="{{ old('tipo_compra') === 'importacion' ? '' : 'hidden' }} mb-5">
                     <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
-                        <h3 class="text-sm font-semibold text-orange-900 mb-3 flex items-center">
+                        <h3 class="text-sm font-semibold text-orange-900 dark:text-orange-200 mb-3 flex items-center">
                             <i class="fas fa-ship mr-1.5 text-orange-600 dark:text-orange-400 text-xs"></i>
                             Datos de Importación
                         </h3>
@@ -297,7 +297,7 @@
                 <div class="mb-6">
                     <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-2 flex items-center">
                         <span class="w-6 h-6 bg-blue-100 dark:bg-blue-900/40 rounded flex items-center justify-center mr-1.5">
-                            <i class="fas fa-file-invoice text-blue-900 text-xs"></i>
+                            <i class="fas fa-file-invoice text-blue-900 dark:text-blue-200 text-xs"></i>
                         </span>
                         Información de la Factura
                     </h3>
@@ -336,7 +336,7 @@
                                 <div class="flex items-center gap-2 min-w-0">
                                     <i class="fas fa-building text-blue-700 dark:text-blue-300 text-sm shrink-0"></i>
                                     <div class="min-w-0">
-                                        <p id="proveedor_nombre_display" class="text-sm font-semibold text-blue-900 truncate">
+                                        <p id="proveedor_nombre_display" class="text-sm font-semibold text-blue-900 dark:text-blue-200 truncate">
                                             {{ $provSeleccionado?->nombre_comercial ?? $provSeleccionado?->razon_social ?? '' }}
                                         </p>
                                         <p id="proveedor_ruc_display" class="text-xs text-blue-600 dark:text-blue-400">
@@ -347,7 +347,7 @@
                                     </div>
                                 </div>
                                 <button type="button" onclick="limpiarProveedorSeleccionado()"
-                                        class="shrink-0 ml-2 text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 transition flex items-center gap-1 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
+                                        class="shrink-0 ml-2 text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 dark:hover:text-red-400 transition flex items-center gap-1 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
                                     <i class="fas fa-times"></i> Cambiar
                                 </button>
                             </div>
@@ -606,7 +606,7 @@
                                         <label class="flex items-center space-x-2 cursor-pointer">
                                             <input type="hidden" name="incluye_igv" value="0">
                                             <input type="checkbox" id="incluir_igv" name="incluye_igv" value="1" checked
-                                                   class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-900">
+                                                   class="w-4 h-4 rounded border-gray-300 dark:border-slate-600 text-blue-900 dark:text-blue-200 focus:ring-blue-900">
                                             <span class="text-gray-600 dark:text-slate-400">IGV (18%):</span>
                                         </label>
                                         <span id="igv" class="font-medium text-gray-900 dark:text-slate-100">S/ 0.00</span>
@@ -644,7 +644,7 @@
 
                                     <div class="flex justify-between font-bold text-base pt-3 border-t-2 border-gray-200 dark:border-slate-700">
                                         <span class="text-gray-900 dark:text-slate-100">Total:</span>
-                                        <span id="total" class="text-blue-900">S/ 0.00</span>
+                                        <span id="total" class="text-blue-900 dark:text-blue-200">S/ 0.00</span>
                                     </div>
                                     <!-- Equivalente en PEN (solo visible cuando moneda = USD) -->
                                     <div id="equivalentePEN" class="hidden pt-2 border-t border-dashed border-blue-200 dark:border-blue-800">
@@ -653,7 +653,7 @@
                                                 <i class="fas fa-exchange-alt text-xs text-blue-500"></i>
                                                 Equivalente en soles:
                                             </span>
-                                            <span id="totalPEN" class="font-semibold text-blue-900">S/ 0.00</span>
+                                            <span id="totalPEN" class="font-semibold text-blue-900 dark:text-blue-200">S/ 0.00</span>
                                         </div>
                                         <p class="text-xs text-gray-400 dark:text-slate-500 text-right mt-0.5">TC: <span id="tcUsado">—</span></p>
                                     </div>
@@ -753,7 +753,7 @@
 
                 <!-- Mensaje de carga -->
                 <div id="cargandoProductos" class="hidden text-center py-12">
-                    <i class="fas fa-spinner fa-spin text-4xl text-blue-900"></i>
+                    <i class="fas fa-spinner fa-spin text-4xl text-blue-900 dark:text-blue-200"></i>
                     <p class="mt-2 text-gray-500 dark:text-slate-400">Buscando productos...</p>
                 </div>
 
@@ -775,7 +775,7 @@
             <!-- Footer con acciones (mejorado) -->
             <div class="border-t border-gray-200 dark:border-slate-700 px-6 py-4 bg-gray-50 dark:bg-slate-900/60 flex justify-between items-center">
                 <div>
-                    <span id="productosSeleccionadosCount" class="text-sm font-medium text-blue-900">0 productos seleccionados</span>
+                    <span id="productosSeleccionadosCount" class="text-sm font-medium text-blue-900 dark:text-blue-200">0 productos seleccionados</span>
                     <span id="totalUnidadesCount" class="ml-2 text-sm text-gray-500 dark:text-slate-400">(0 unidades)</span>
                 </div>
                 <div class="flex space-x-3">
@@ -879,7 +879,7 @@
                             IMEIs escaneados: <span id="pistola_count" class="text-purple-700 dark:text-purple-300">0</span>
                         </span>
                         <button type="button" onclick="pistolaBorrarUltimo()"
-                                class="text-xs text-red-500 hover:text-red-700 transition flex items-center gap-1">
+                                class="text-xs text-red-500 hover:text-red-700 dark:hover:text-red-300 transition flex items-center gap-1">
                             <i class="fas fa-undo"></i> Deshacer último
                         </button>
                     </div>
@@ -1185,7 +1185,7 @@
 
         const row = document.createElement('tr');
         row.id = rowId;
-        row.className = 'border-b border-gray-100 hover:bg-gray-50';
+        row.className = 'border-b border-gray-100 dark:border-slate-700 hover:bg-gray-50';
         row.innerHTML = `
             <td class="px-2 py-2 text-center">
                 <span class="item-num inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 dark:bg-slate-700 text-gray-600 dark:text-slate-400 text-[10px] font-bold"></span>
@@ -1256,14 +1256,14 @@
                 </div>
                 <button type="button" onclick="gestionarIMEIs(${idx})"
                         id="btn_imei_${idx}"
-                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
                         disabled>
                     <i class="fas fa-microchip mr-0.5"></i>IMEIs
                 </button>
             </td>
             <td class="px-2 py-2 text-center">
                 <button type="button" onclick="eliminarProducto('${rowId}')"
-                        class="text-red-600 dark:text-red-400 hover:text-red-800 text-xs">
+                        class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-xs">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -1418,7 +1418,7 @@
         // Badge de stock
         if (badge) {
             badge.classList.remove('hidden');
-            badge.className = `text-xs mt-1 font-semibold ${stock > 0 ? 'text-green-600' : 'text-red-600'}`;
+            badge.className = `text-xs mt-1 font-semibold ${stock > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`;
             badge.textContent = stock > 0 ? `✓ ${stock} en stock` : '✗ Sin stock';
         }
 
@@ -1852,14 +1852,14 @@
                     <div class="flex items-start gap-3">
                         <div class="flex items-center mt-1">
                             <input type="checkbox"
-                                class="producto-checkbox w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-500"
+                                class="producto-checkbox w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 dark:text-blue-200 focus:ring-blue-500"
                                 value="${p.id}"
                                 data-producto-id="${p.id}"
                                 onchange="actualizarSeleccion(this, ${p.id})"
                                 ${productosSeleccionadosIds.has(p.id) ? 'checked' : ''}>
                         </div>
                         <div class="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition">
-                            <i class="fas fa-box text-blue-900"></i>
+                            <i class="fas fa-box text-blue-900 dark:text-blue-200"></i>
                         </div>
                         <div class="flex-1">
                             <h4 class="font-semibold text-gray-900 dark:text-slate-100">${p.nombre}</h4>
@@ -1894,7 +1894,7 @@
             <div class="col-span-full mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 text-center">
                 <button type="button"
                         onclick="abrirModalCrearProducto(document.getElementById('buscadorProductos').value)"
-                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 transition font-medium">
+                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-200 transition font-medium">
                     <i class="fas fa-plus-circle mr-1"></i>
                     ¿No está el producto? Créalo aquí
                 </button>
@@ -1915,9 +1915,9 @@
                     const dot = v.color_hex
                         ? `<span class="w-3 h-3 rounded-full border border-white shadow shrink-0 inline-block" style="background-color:${v.color_hex}"></span>`
                         : '<i class="fas fa-circle text-gray-300 text-xs shrink-0"></i>';
-                    const stockClr = v.stock_actual > 0 ? 'text-green-600' : 'text-red-500';
+                    const stockClr = v.stock_actual > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500';
                     const stockTxt = v.stock_actual > 0 ? `${v.stock_actual} u.` : 'Sin stock';
-                    const bordClr  = sel ? 'border-indigo-400 bg-indigo-50' : 'border-gray-200 bg-gray-50';
+                    const bordClr  = sel ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-900/30' : 'border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/40';
                     return `
                         <div id="vcard_${key}" class="flex items-center gap-2 px-2 py-1.5 rounded-lg border ${bordClr} transition-all cursor-pointer"
                              onclick="npToggleVariante(${p.id},${v.id})">
@@ -1964,12 +1964,12 @@
                     <div class="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition-all group">
                         <div class="flex items-start gap-3">
                             <input type="checkbox"
-                                   class="w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 focus:ring-blue-500 mt-1 shrink-0"
+                                   class="w-5 h-5 rounded border-gray-300 dark:border-slate-600 text-blue-900 dark:text-blue-200 focus:ring-blue-500 mt-1 shrink-0"
                                    value="${p.id}"
                                    onchange="actualizarSeleccion(this, ${p.id})"
                                    ${sel ? 'checked' : ''}>
                             <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex items-center justify-center shrink-0">
-                                <i class="fas fa-box text-blue-900"></i>
+                                <i class="fas fa-box text-blue-900 dark:text-blue-200"></i>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h4 class="font-semibold text-gray-900 dark:text-slate-100 text-sm truncate">${p.nombre}</h4>
@@ -2000,7 +2000,7 @@
             <div class="col-span-full mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 text-center">
                 <button type="button"
                         onclick="abrirModalCrearProducto(document.getElementById('buscadorProductos').value)"
-                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 transition font-medium">
+                        class="inline-flex items-center text-sm text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-200 transition font-medium">
                     <i class="fas fa-plus-circle mr-1"></i>¿No está el producto? Créalo aquí
                 </button>
             </div>`;
@@ -2284,10 +2284,10 @@
         document.getElementById('panel_manual').classList.toggle('hidden', modo !== 'manual');
         document.getElementById('panel_pistola').classList.toggle('hidden', modo !== 'pistola');
         document.getElementById('tab_manual').className  = modo === 'manual'
-            ? 'flex-1 py-2.5 text-sm font-medium text-purple-700 border-b-2 border-purple-600 bg-white transition'
+            ? 'flex-1 py-2.5 text-sm font-medium text-purple-700 dark:text-purple-300 border-b-2 border-purple-600 bg-white transition'
             : 'flex-1 py-2.5 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition';
         document.getElementById('tab_pistola').className = modo === 'pistola'
-            ? 'flex-1 py-2.5 text-sm font-medium text-purple-700 border-b-2 border-purple-600 bg-white transition'
+            ? 'flex-1 py-2.5 text-sm font-medium text-purple-700 dark:text-purple-300 border-b-2 border-purple-600 bg-white transition'
             : 'flex-1 py-2.5 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition';
         if (modo === 'pistola') {
             pistolaRenderLista();
@@ -2303,8 +2303,8 @@
         const valor = input.value.trim();
 
         if (valor.length !== 15) {
-            input.classList.add('border-red-400', 'bg-red-50');
-            setTimeout(() => input.classList.remove('border-red-400', 'bg-red-50'), 600);
+            input.classList.add('border-red-400', 'bg-red-50 dark:bg-red-900/30');
+            setTimeout(() => input.classList.remove('border-red-400', 'bg-red-50 dark:bg-red-900/30'), 600);
             return;
         }
 
@@ -2319,8 +2319,8 @@
         lista.push(valor);
         imeisPorFila[productoEnEdicion] = lista;
         input.value = '';
-        input.classList.add('border-green-400', 'bg-green-50');
-        setTimeout(() => input.classList.remove('border-green-400', 'bg-green-50'), 400);
+        input.classList.add('border-green-400', 'bg-green-50 dark:bg-green-900/30');
+        setTimeout(() => input.classList.remove('border-green-400', 'bg-green-50 dark:bg-green-900/30'), 400);
         pistolaRenderLista();
         actualizarContadorIMEI();
     }
@@ -2339,7 +2339,7 @@
         }
         vacio?.classList.add('hidden');
         div.innerHTML = lista.map((imei, i) => `
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border border-gray-100 dark:border-slate-700">
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg ${i % 2 === 0 ? 'bg-gray-50 dark:bg-slate-800/40' : 'bg-white'} border border-gray-100 dark:border-slate-700">
                 <div class="flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center justify-center shrink-0">${i + 1}</span>
                     <span class="font-mono text-sm text-gray-800 dark:text-slate-200 tracking-wider">${imei}</span>
@@ -2347,7 +2347,7 @@
                 <div class="flex items-center gap-2">
                     <i class="fas fa-check-circle text-green-500 text-sm"></i>
                     <button type="button" onclick="pistolaEliminar(${i})"
-                            class="text-red-400 hover:text-red-600 transition text-xs">
+                            class="text-red-400 hover:text-red-600 dark:hover:text-red-400 transition text-xs">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -2378,7 +2378,7 @@
 
         for (let i = 0; i < cantidad; i++) {
             const valor = imeisGuardados[i] || '';
-            const esValido = valor.length === 15 ? 'border-green-500 bg-green-50' : '';
+            const esValido = valor.length === 15 ? 'border-green-500 bg-green-50 dark:bg-green-900/30' : '';
 
             html += `
                 <div class="grid grid-cols-12 gap-3 items-center" id="imei_row_${i}">
@@ -2450,14 +2450,14 @@
                 variante,
             };
             if (card) {
-                card.classList.replace('border-gray-200', 'border-indigo-400');
-                card.classList.replace('bg-gray-50',    'bg-indigo-50');
+                card.classList.replace('border-gray-200 dark:border-slate-600', 'border-indigo-400');
+                card.classList.replace('bg-gray-50 dark:bg-slate-800/40',    'bg-indigo-50 dark:bg-indigo-900/30');
             }
         } else {
             delete variantesSeleccionadas[key];
             if (card) {
-                card.classList.replace('border-indigo-400', 'border-gray-200');
-                card.classList.replace('bg-indigo-50',     'bg-gray-50');
+                card.classList.replace('border-indigo-400', 'border-gray-200 dark:border-slate-600');
+                card.classList.replace('bg-indigo-50 dark:bg-indigo-900/30',     'bg-gray-50 dark:bg-slate-800/40');
             }
         }
         actualizarContadorUnidades();
@@ -2504,13 +2504,13 @@
     function validarIMEIInput(input) {
         const valor = input.value.trim();
         if (valor.length === 15) {
-            input.classList.add('border-green-500', 'bg-green-50');
-            input.classList.remove('border-red-500', 'bg-red-50');
+            input.classList.add('border-green-500', 'bg-green-50 dark:bg-green-900/30');
+            input.classList.remove('border-red-500', 'bg-red-50 dark:bg-red-900/30');
         } else if (valor.length > 0) {
-            input.classList.remove('border-green-500', 'bg-green-50');
-            input.classList.add('border-red-500', 'bg-red-50');
+            input.classList.remove('border-green-500', 'bg-green-50 dark:bg-green-900/30');
+            input.classList.add('border-red-500', 'bg-red-50 dark:bg-red-900/30');
         } else {
-            input.classList.remove('border-red-500', 'bg-red-50', 'border-green-500', 'bg-green-50');
+            input.classList.remove('border-red-500', 'bg-red-50 dark:bg-red-900/30', 'border-green-500', 'bg-green-50 dark:bg-green-900/30');
         }
         actualizarContadorIMEI();
     }
@@ -2542,12 +2542,12 @@
             inputs.forEach(input => {
                 const valor = input.value.trim();
                 if (valor.length !== 15) {
-                    input.classList.add('border-red-500', 'bg-red-50');
+                    input.classList.add('border-red-500', 'bg-red-50 dark:bg-red-900/30');
                     valido = false;
                     if (!primerError) primerError = input;
                 } else {
-                    input.classList.remove('border-red-500', 'bg-red-50');
-                    input.classList.add('border-green-500', 'bg-green-50');
+                    input.classList.remove('border-red-500', 'bg-red-50 dark:bg-red-900/30');
+                    input.classList.add('border-green-500', 'bg-green-50 dark:bg-green-900/30');
                     imeis.push(valor);
                 }
             });
@@ -2741,7 +2741,7 @@
             if (result.isConfirmed) {
                 document.querySelectorAll('.imei-input').forEach(input => {
                     input.value = '';
-                    input.classList.remove('border-green-500', 'bg-green-50', 'border-red-500', 'bg-red-50');
+                    input.classList.remove('border-green-500', 'bg-green-50 dark:bg-green-900/30', 'border-red-500', 'bg-red-50 dark:bg-red-900/30');
                 });
                 actualizarContadorIMEI();
             }
@@ -2769,18 +2769,18 @@
             countSpan.innerText = guardados.length;
             infoDiv.classList.remove('hidden');
             btnImei.innerHTML = `<i class="fas fa-check-circle mr-1 text-green-600 dark:text-green-400"></i>${guardados.length} IMEI(s)`;
-            btnImei.classList.remove('text-orange-600', 'font-medium');
-            btnImei.classList.add('text-green-700', 'font-medium');
+            btnImei.classList.remove('text-orange-600 dark:text-orange-400', 'font-medium');
+            btnImei.classList.add('text-green-700 dark:text-green-300', 'font-medium');
         } else if (guardados.length > 0 && pendientes > 0) {
             countSpan.innerText = guardados.length;
             infoDiv.classList.remove('hidden');
             btnImei.innerHTML = `<i class="fas fa-exclamation-triangle mr-1 text-orange-500"></i>${guardados.length}/${cantidad} IMEIs`;
-            btnImei.classList.remove('text-green-700');
-            btnImei.classList.add('text-orange-600', 'font-medium');
+            btnImei.classList.remove('text-green-700 dark:text-green-300');
+            btnImei.classList.add('text-orange-600 dark:text-orange-400', 'font-medium');
         } else {
             infoDiv.classList.add('hidden');
             btnImei.innerHTML = '<i class="fas fa-microchip mr-1"></i>IMEIs <span class="text-red-500 font-bold">*</span>';
-            btnImei.classList.remove('text-green-700', 'text-orange-600', 'font-medium');
+            btnImei.classList.remove('text-green-700 dark:text-green-300', 'text-orange-600 dark:text-orange-400', 'font-medium');
         }
     }
 
@@ -3001,7 +3001,7 @@ function npRenderVariantes() {
                 <span class="text-sm text-gray-800 dark:text-slate-200">${label}</span>
             </div>
             <button type="button" onclick="npEliminarVariante(${i})"
-                    class="text-red-400 hover:text-red-600 transition text-xs px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30">
+                    class="text-red-400 hover:text-red-600 dark:hover:text-red-400 transition text-xs px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30">
                 <i class="fas fa-times"></i>
             </button>
         </div>`;

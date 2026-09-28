@@ -75,7 +75,7 @@
                                     </p>
                                     <button type="button" 
                                             id="btnRegenerarQR"
-                                            class="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800">
+                                            class="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                                         <i class="fas fa-sync-alt mr-1"></i> Regenerar
                                     </button>
                                 </div>
@@ -260,7 +260,7 @@
                                             <input type="radio" name="estado_imei" value="en_stock" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei', 'en_stock') == 'en_stock' ? 'checked' : '' }} required>
-                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-check-circle text-green-500"></i>
                                                 <span class="block text-xs font-medium">En Stock</span>
                                             </div>
@@ -269,7 +269,7 @@
                                             <input type="radio" name="estado_imei" value="vendido" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'vendido' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-red-500 peer-checked:bg-red-50 dark:peer-checked:bg-red-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-shopping-cart text-red-500"></i>
                                                 <span class="block text-xs font-medium">Vendido</span>
                                             </div>
@@ -278,7 +278,7 @@
                                             <input type="radio" name="estado_imei" value="garantia" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'garantia' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-shield-alt text-blue-500"></i>
                                                 <span class="block text-xs font-medium">Garantía</span>
                                             </div>
@@ -287,7 +287,7 @@
                                             <input type="radio" name="estado_imei" value="devuelto" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'devuelto' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 dark:peer-checked:bg-yellow-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-undo text-yellow-500"></i>
                                                 <span class="block text-xs font-medium">Devuelto</span>
                                             </div>
@@ -296,7 +296,7 @@
                                             <input type="radio" name="estado_imei" value="reemplazado" 
                                                    class="hidden peer" 
                                                    {{ old('estado_imei') == 'reemplazado' ? 'checked' : '' }}>
-                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 dark:hover:bg-slate-700/60">
+                                            <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-2 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 dark:peer-checked:bg-purple-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60">
                                                 <i class="fas fa-exchange-alt text-purple-500"></i>
                                                 <span class="block text-xs font-medium">Reemplazado</span>
                                             </div>
@@ -311,7 +311,7 @@
                             <div class="flex items-start">
                                 <i class="fas fa-info-circle text-blue-500 mt-0.5 mr-3 text-lg"></i>
                                 <div>
-                                    <p class="font-medium text-blue-900 mb-1">Información importante:</p>
+                                    <p class="font-medium text-blue-900 dark:text-blue-200 mb-1">Información importante:</p>
                                     <ul class="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
                                         <li>Use esta pantalla para registros individuales o ajustes manuales</li>
                                         <li>Para compras en volumen, registre los IMEIs desde el módulo de Compras</li>
@@ -415,8 +415,8 @@
 
                 // Click handler
                 $(document).off('click', '.variante-card').on('click', '.variante-card', function() {
-                    $('.variante-card').removeClass('border-indigo-500 bg-indigo-50').addClass('border-gray-200');
-                    $(this).removeClass('border-gray-200').addClass('border-indigo-500 bg-indigo-50');
+                    $('.variante-card').removeClass('border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30').addClass('border-gray-200 dark:border-slate-600');
+                    $(this).removeClass('border-gray-200 dark:border-slate-600').addClass('border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30');
                     var vid = $(this).data('id');
                     var colorId = $(this).data('color-id');
                     var colorNombre = $(this).data('color-nombre');
@@ -452,16 +452,16 @@
                 var imei = $(this).val();
                 var soloNumeros = /^\d+$/.test(imei);
                 var longitudCorrecta = imei.length === 15;
-                $('#valid-longitud').toggleClass('text-green-600', longitudCorrecta).toggleClass('text-gray-400', !longitudCorrecta)
+                $('#valid-longitud').toggleClass('text-green-600 dark:text-green-400', longitudCorrecta).toggleClass('text-gray-400', !longitudCorrecta)
                     .html('<i class="fas fa-' + (longitudCorrecta ? 'check-circle' : 'circle') + ' mr-1 text-[8px]"></i> 15 dígitos');
-                $('#valid-numeros').toggleClass('text-green-600', soloNumeros && imei.length > 0).toggleClass('text-gray-400', !soloNumeros || !imei.length)
+                $('#valid-numeros').toggleClass('text-green-600 dark:text-green-400', soloNumeros && imei.length > 0).toggleClass('text-gray-400', !soloNumeros || !imei.length)
                     .html('<i class="fas fa-' + (soloNumeros && imei.length > 0 ? 'check-circle' : 'circle') + ' mr-1 text-[8px]"></i> Solo números');
                 if (longitudCorrecta && soloNumeros) {
-                    $('#valid-unico').toggleClass('text-green-600', true).toggleClass('text-gray-400', false)
+                    $('#valid-unico').toggleClass('text-green-600 dark:text-green-400', true).toggleClass('text-gray-400', false)
                         .html('<i class="fas fa-check-circle mr-1 text-[8px]"></i> IMEI válido');
                     $('#imei-validation').removeClass('hidden');
                 } else {
-                    $('#valid-unico').toggleClass('text-green-600', false).toggleClass('text-gray-400', true)
+                    $('#valid-unico').toggleClass('text-green-600 dark:text-green-400', false).toggleClass('text-gray-400', true)
                         .html('<i class="fas fa-circle mr-1 text-[8px]"></i> IMEI único');
                     $('#imei-validation').addClass('hidden');
                 }

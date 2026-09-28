@@ -14,7 +14,7 @@
     <div class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-10">
         <div class="px-6 py-3 flex justify-between items-center">
             <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200">
-                <i class="fas fa-store-alt text-blue-900 mr-2"></i>
+                <i class="fas fa-store-alt text-blue-900 dark:text-blue-200 mr-2"></i>
                 Inventario entre Tiendas
             </h1>
             <div class="flex items-center gap-3">
@@ -35,7 +35,7 @@
             <i class="fas fa-store text-blue-600 dark:text-blue-400 mr-3 text-xl"></i>
             <div>
                 <p class="text-sm text-gray-600 dark:text-slate-400">Tu tienda actual:</p>
-                <p class="font-semibold text-blue-900">{{ $tiendaActual?->nombre ?? 'Sin tienda asignada — contacta al administrador' }}</p>
+                <p class="font-semibold text-blue-900 dark:text-blue-200">{{ $tiendaActual?->nombre ?? 'Sin tienda asignada — contacta al administrador' }}</p>
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@
                     <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                         @if($i === 0)
                         <td class="px-6 py-4 align-top" rowspan="{{ $numFilas }}">
-                            <a href="{{ route('tienda.producto.ver', $producto) }}" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 hover:underline">{{ $producto->nombre }}</a>
+                            <a href="{{ route('tienda.producto.ver', $producto) }}" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline">{{ $producto->nombre }}</a>
                             <div class="text-xs text-gray-500 dark:text-slate-400">{{ $producto->codigo }}</div>
                         </td>
                         @endif
@@ -153,7 +153,7 @@
 
                             @if($otrasTiendas->count() > 0)
                                 <button onclick="abrirModalTraslado({{ $producto->id }}, {{ $fila->variante->id ?? 'null' }}, '{{ addslashes($etiqueta) }}')"
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800"
+                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                                         title="Solicitar traslado">
                                     <i class="fas fa-truck"></i>
                                 </button>

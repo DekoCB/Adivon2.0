@@ -7,9 +7,9 @@
 
 
     <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
-        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 transition-colors">Gestión de Precios</a>
+        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Gestión de Precios</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
-        <a href="{{ route('precios.show', $producto) }}" class="hover:text-blue-700 transition-colors truncate max-w-xs">{{ $producto->nombre }}</a>
+        <a href="{{ route('precios.show', $producto) }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors truncate max-w-xs">{{ $producto->nombre }}</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium">Historial</span>
     </nav>
@@ -60,12 +60,12 @@
                 </div>
                 <div class="p-4 space-y-2">
                     <a href="{{ route('precios.historial', $producto) }}"
-                       class="block px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ !request('variante_id') ? 'bg-indigo-50 text-indigo-700 dark:text-indigo-300 border border-indigo-200' : 'text-gray-600 hover:bg-gray-50' }}">
+                       class="block px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ !request('variante_id') ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700' : 'text-gray-600 hover:bg-gray-50' }}">
                         <i class="fas fa-layer-group mr-1.5 text-xs"></i> Todas las capacidades
                     </a>
                     @foreach($capacidades as $cap => $vars)
                         <a href="{{ route('precios.historial', ['producto' => $producto, 'variante_id' => $vars->first()->id]) }}"
-                           class="block px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request('variante_id') == $vars->first()->id ? 'bg-indigo-50 text-indigo-700 dark:text-indigo-300 border border-indigo-200' : 'text-gray-600 hover:bg-gray-50' }}">
+                           class="block px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request('variante_id') == $vars->first()->id ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700' : 'text-gray-600 hover:bg-gray-50' }}">
                             <i class="fas fa-microchip mr-1.5 text-xs"></i>
                             {{ $cap ?: 'Sin capacidad' }}
                             <span class="text-xs text-gray-400 dark:text-slate-500">({{ $vars->count() }} col.)</span>
@@ -168,7 +168,7 @@
                                     <span class="text-sm font-bold text-blue-700 dark:text-blue-300">S/ {{ number_format($item->precio_nuevo, 2) }}</span>
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    <span class="inline-flex items-center gap-1 text-sm font-semibold {{ $subio ? 'text-green-700' : 'text-red-600' }}">
+                                    <span class="inline-flex items-center gap-1 text-sm font-semibold {{ $subio ? 'text-green-700 dark:text-green-300' : 'text-red-600 dark:text-red-400' }}">
                                         <i class="fas fa-arrow-{{ $subio ? 'up' : 'down' }} text-xs"></i>
                                         {{ $subio ? '+' : '' }}S/ {{ number_format($variacion, 2) }}
                                         <span class="text-xs font-normal opacity-75">({{ $subio ? '+' : '' }}{{ number_format($porcentaje, 1) }}%)</span>

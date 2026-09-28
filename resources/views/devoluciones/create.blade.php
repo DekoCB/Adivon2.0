@@ -12,7 +12,7 @@
 @section('content')
 <div>
 <div class="flex flex-wrap gap-3 mb-6">
-            <a href="{{ route('devoluciones.index') }}" class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+            <a href="{{ route('devoluciones.index') }}" class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-arrow-left text-xs"></i> Historial
             </a>
             <span class="text-gray-300">|</span>
@@ -218,7 +218,7 @@
                                 $esImei      = (bool) $detalle->imei_id;
                                 $oldVal      = old("cantidades.{$detalle->id}", 0);
                             @endphp
-                            <tr class="{{ $disponible === 0 ? 'opacity-40 bg-gray-50' : 'hover:bg-orange-50' }} transition-colors"
+                            <tr class="{{ $disponible === 0 ? 'opacity-40 bg-gray-50 dark:bg-slate-800/40' : 'hover:bg-orange-50' }} transition-colors"
                                 data-nombre="{{ strtolower(($detalle->producto?->nombre ?? '') . ' ' . ($detalle->variante?->nombre_completo ?? '')) }}"
                                 x-show="!filtro || $el.dataset.nombre.includes(filtro.toLowerCase())">
 

@@ -14,12 +14,12 @@
 {{-- Navegación rápida --}}
         <div class="flex flex-wrap gap-3 mb-6">
             <a href="{{ route('traslados.index') }}"
-               class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+               class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-exchange-alt"></i> Traslados
             </a>
             <span class="text-gray-300">|</span>
             <a href="{{ route('traslados.pendientes') }}"
-               class="text-sm text-gray-600 dark:text-slate-400 hover:text-yellow-600 flex items-center gap-1">
+               class="text-sm text-gray-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400 flex items-center gap-1">
                 <i class="fas fa-clock"></i> Pendientes
             </a>
             <span class="text-gray-300">|</span>
@@ -28,7 +28,7 @@
             </span>
             <span class="text-gray-300">|</span>
             <a href="{{ route('traslados.create') }}"
-               class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+               class="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
                 <i class="fas fa-plus-circle"></i> Nuevo Traslado
             </a>
         </div>
@@ -109,7 +109,7 @@
                                 @endphp
                                 <td class="px-4 py-3 text-center border-l border-gray-100 dark:border-slate-700">
                                     @if($cantidad > 0)
-                                        <span class="inline-flex items-center justify-center min-w-[36px] px-2 py-0.5 text-xs font-bold rounded-full {{ $producto->es_serie ? 'bg-purple-100 text-purple-700' : 'bg-green-100 text-green-700' }}">
+                                        <span class="inline-flex items-center justify-center min-w-[36px] px-2 py-0.5 text-xs font-bold rounded-full {{ $producto->es_serie ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' }}">
                                             {{ $cantidad }}
                                             @if($producto->es_serie)
                                                 <span class="ml-0.5 font-normal opacity-70">u</span>
@@ -134,7 +134,7 @@
                             <td class="px-4 py-3 text-center">
                                 @if($total > 0)
                                     <a href="{{ route('traslados.create', ['producto_id' => $producto->id]) }}"
-                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium"
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium"
                                        title="Crear traslado">
                                         <i class="fas fa-exchange-alt mr-1"></i>Trasladar
                                     </a>

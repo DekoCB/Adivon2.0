@@ -96,7 +96,7 @@
                     <!-- GARANTÍA (solo para Serie/IMEI) -->
                     @if($producto->tipo_inventario == 'serie')
                     <div class="mb-8 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <h4 class="font-semibold text-blue-900 mb-3">
+                        <h4 class="font-semibold text-blue-900 dark:text-blue-200 mb-3">
                             <i class="fas fa-shield-alt mr-2"></i>
                             Garantía
                         </h4>
@@ -127,7 +127,7 @@
                     <!-- INFORMACIÓN BÁSICA -->
                     <div class="mb-8">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
-                            <i class="fas fa-info-circle mr-2 text-blue-900"></i>
+                            <i class="fas fa-info-circle mr-2 text-blue-900 dark:text-blue-200"></i>
                             Información Básica
                         </h3>
 
@@ -338,7 +338,7 @@
                     <!-- CONTROL DE STOCK -->
                     <div class="mb-8">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
-                            <i class="fas fa-boxes mr-2 text-blue-900"></i>
+                            <i class="fas fa-boxes mr-2 text-blue-900 dark:text-blue-200"></i>
                             Control de Stock
                         </h3>
 
@@ -389,7 +389,7 @@
                                     <img id="imagePreview" src="" alt="Vista previa" class="h-20 w-20 object-cover rounded-lg border">
                                 </div>
                                 <input type="file" name="imagen" id="imagen" accept="image/*"
-                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                       class="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900/30 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/40"
                                        onchange="previewImage(event)">
                             </div>
                             <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Deja vacío para conservar la imagen actual</p>
@@ -549,8 +549,8 @@
             .then(data => {
                 if (data.success) {
                     codigoInput.value = data.codigo;
-                    codigoInput.classList.add('border-green-500', 'bg-green-50');
-                    setTimeout(() => codigoInput.classList.remove('border-green-500', 'bg-green-50'), 1000);
+                    codigoInput.classList.add('border-green-500', 'bg-green-50 dark:bg-green-900/30');
+                    setTimeout(() => codigoInput.classList.remove('border-green-500', 'bg-green-50 dark:bg-green-900/30'), 1000);
                 } else {
                     alert('Error: ' + data.message);
                 }

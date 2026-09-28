@@ -97,7 +97,7 @@
                     <div class="flex items-center gap-4 mt-1 text-sm text-gray-500 dark:text-slate-400">
                         <span><i class="fas fa-tag mr-1"></i>{{ $productoSel->categoria?->nombre ?? '—' }}</span>
                         <span><i class="fas fa-trademark mr-1"></i>{{ $productoSel->marca?->nombre ?? '—' }}</span>
-                        <span class="px-2 py-0.5 rounded-full text-xs font-semibold {{ $productoSel->tipo_inventario === 'serie' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-semibold {{ $productoSel->tipo_inventario === 'serie' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' }}">
                             {{ ucfirst($productoSel->tipo_inventario) }}
                         </span>
                     </div>
@@ -181,13 +181,13 @@
                                     $esIngreso = $m['ingreso_qty'] > 0;
                                     $esSalida  = $m['salida_qty'] > 0;
                                     $tipoBadgeClass = match($m['tipo']) {
-                                        'ingreso'       => 'bg-green-100 text-green-700',
-                                        'devolucion'    => 'bg-teal-100 text-teal-700',
-                                        'salida'        => 'bg-red-100 text-red-700',
-                                        'merma'         => 'bg-rose-100 text-rose-700',
-                                        'ajuste'        => 'bg-yellow-100 text-yellow-700',
-                                        'transferencia' => 'bg-purple-100 text-purple-700',
-                                        default         => 'bg-gray-100 text-gray-600',
+                                        'ingreso'       => 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
+                                        'devolucion'    => 'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300',
+                                        'salida'        => 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300',
+                                        'merma'         => 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300',
+                                        'ajuste'        => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300',
+                                        'transferencia' => 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300',
+                                        default         => 'bg-gray-100 dark:bg-slate-700/50 text-gray-600',
                                     };
                                 @endphp
                                 <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition">

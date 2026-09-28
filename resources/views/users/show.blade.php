@@ -15,12 +15,12 @@
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden">
                 {{-- Header con avatar --}}
                 <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-8 text-white text-center">
-                    <div class="w-24 h-24 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-blue-900 font-bold text-3xl mx-auto mb-4">
+                    <div class="w-24 h-24 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-blue-900 dark:text-blue-200 font-bold text-3xl mx-auto mb-4">
                         {{ substr($user->name, 0, 2) }}
                     </div>
                     <h2 class="text-2xl font-bold">{{ $user->name }}</h2>
                     <p class="text-blue-200">{{ $user->email }}</p>
-                    <span class="inline-flex mt-2 px-3 py-1 text-sm font-semibold rounded-full @if($user->role->nombre == 'Administrador') bg-purple-200 dark:bg-purple-800/50 text-purple-900 @elseif($user->role->nombre == 'Almacenero') bg-blue-200 dark:bg-blue-800/50 text-blue-900 @elseif($user->role->nombre == 'Tienda') bg-green-200 dark:bg-green-800/50 text-green-900 @elseif($user->role->nombre == 'Vendedor') bg-yellow-200 dark:bg-yellow-800/50 text-yellow-900 @else bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-slate-100 @endif">
+                    <span class="inline-flex mt-2 px-3 py-1 text-sm font-semibold rounded-full @if($user->role->nombre == 'Administrador') bg-purple-200 dark:bg-purple-800/50 text-purple-900 dark:text-purple-200 @elseif($user->role->nombre == 'Almacenero') bg-blue-200 dark:bg-blue-800/50 text-blue-900 dark:text-blue-200 @elseif($user->role->nombre == 'Tienda') bg-green-200 dark:bg-green-800/50 text-green-900 dark:text-green-200 @elseif($user->role->nombre == 'Vendedor') bg-yellow-200 dark:bg-yellow-800/50 text-yellow-900 dark:text-yellow-200 @else bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-slate-100 @endif">
                         {{ $user->role->nombre }}
                     </span>
                 </div>
@@ -35,7 +35,7 @@
                         <div>
                             <p class="text-sm text-gray-500 dark:text-slate-400">Estado</p>
                             <p class="font-semibold">
-                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $user->estado == 'activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $user->estado == 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' }}">
                                     {{ ucfirst($user->estado) }}
                                 </span>
                             </p>
@@ -76,7 +76,7 @@
             {{-- Estadísticas adicionales del usuario --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 text-center">
-                    <p class="text-2xl font-bold text-blue-900">0</p>
+                    <p class="text-2xl font-bold text-blue-900 dark:text-blue-200">0</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">Ventas Realizadas</p>
                 </div>
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-4 text-center">

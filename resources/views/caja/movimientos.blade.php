@@ -61,7 +61,7 @@
                     </td>
                     <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">{{ $mov->nombre_metodo_pago }}</td>
                     <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">{{ $mov->caja->almacen->nombre ?? '—' }}</td>
-                    <td class="px-4 py-3 text-right text-sm font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-700' : 'text-red-700' }}">
+                    <td class="px-4 py-3 text-right text-sm font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300' }}">
                         {{ $mov->tipo === 'ingreso' ? '+' : '-' }}S/ {{ number_format($mov->monto, 2) }}
                     </td>
                 </tr>

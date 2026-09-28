@@ -179,7 +179,7 @@
                                             $margen = $precio - $costo;
                                             $pct    = $precio > 0 ? round($margen / $precio * 100, 1) : 0;
                                         @endphp
-                                        <p class="mt-0.5 {{ $margen >= 0 ? 'text-emerald-600' : 'text-red-500' }}">
+                                        <p class="mt-0.5 {{ $margen >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500' }}">
                                             Gan: S/ {{ number_format($margen, 2) }} ({{ $pct }}%)
                                         </p>
                                     @endif
@@ -202,13 +202,13 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <button @click="abrirEditarComision({{ $regla->id }}, '{{ addslashes($regla->nombre) }}', '{{ $regla->tipo_calculo }}', {{ $regla->valor }})"
-                                            class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs p-1.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition">
+                                            class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs p-1.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('comisiones.destroy', $regla) }}" method="POST"
                                           onsubmit="return confirm('¿Eliminar esta regla?')">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700 text-xs p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
+                                        <button type="submit" class="text-red-500 hover:text-red-700 dark:hover:text-red-300 text-xs p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -317,13 +317,13 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <button @click="abrirEditarBonus({{ $bonus->id }}, '{{ addslashes($bonus->nombre) }}', '{{ $bonus->tipo_calculo }}', {{ $bonus->valor }}, {{ $bonus->meta_unidades ?? 'null' }}, '{{ $bonus->meta_periodo ?? 'mensual' }}')"
-                                            class="text-amber-600 dark:text-amber-400 hover:text-amber-800 text-xs p-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
+                                            class="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 text-xs p-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('comisiones.bonus.destroy', $bonus) }}" method="POST"
                                           onsubmit="return confirm('¿Eliminar este bono?')">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700 text-xs p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
+                                        <button type="submit" class="text-red-500 hover:text-red-700 dark:hover:text-red-300 text-xs p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -476,7 +476,7 @@
                                 <p class="text-[10px] text-emerald-500 uppercase font-semibold">Costo promedio</p>
                                 <p class="font-bold text-emerald-800 dark:text-emerald-300" x-text="'S/ ' + margenProducto.costo.toFixed(2)"></p>
                             </div>
-                            <div :class="margenProducto.margen >= 0 ? 'text-emerald-700' : 'text-red-600'">
+                            <div :class="margenProducto.margen >= 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-red-600 dark:text-red-400'">
                                 <p class="text-[10px] uppercase font-semibold opacity-75">Ganancia real</p>
                                 <p class="font-bold" x-text="'S/ ' + margenProducto.margen.toFixed(2) + ' (' + margenProducto.pct.toFixed(1) + '%)'"></p>
                             </div>

@@ -12,9 +12,9 @@
 
 
         <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-slate-500 mb-1">
-            <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 transition-colors">Ventas</a>
+            <a href="{{ route('ventas.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ventas</a>
             <i class="fas fa-chevron-right text-xs"></i>
-            <a href="{{ route('ventas.show', $venta) }}" class="hover:text-blue-600 transition-colors">{{ $venta->codigo }}</a>
+            <a href="{{ route('ventas.show', $venta) }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{ $venta->codigo }}</a>
             <i class="fas fa-chevron-right text-xs"></i>
             <span class="text-gray-700 dark:text-slate-300 font-medium">Editar</span>
         </div>

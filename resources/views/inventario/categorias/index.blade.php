@@ -23,7 +23,7 @@
                         <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $categorias->count() }}</p>
                     </div>
                     <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
-                        <i class="fas fa-tags text-blue-900 text-2xl"></i>
+                        <i class="fas fa-tags text-blue-900 dark:text-blue-200 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
         <x-data-table>
             <x-slot:cardHeader>
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                    <i class="fas fa-list mr-2 text-blue-900"></i>
+                    <i class="fas fa-list mr-2 text-blue-900 dark:text-blue-200"></i>
                     Listado de Categorías
                 </h2>
                 @if($canCreate)
@@ -120,7 +120,7 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     @if($canEdit)
-                                        <a href="{{ route('inventario.categorias.edit', $categoria) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900" title="Editar">
+                                        <a href="{{ route('inventario.categorias.edit', $categoria) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
@@ -129,7 +129,7 @@
                                         <form action="{{ route('inventario.categorias.destroy', $categoria) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900" title="Eliminar">
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-200" title="Eliminar">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>

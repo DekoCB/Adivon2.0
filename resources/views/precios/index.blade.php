@@ -29,7 +29,7 @@
             </div>
         </div>
         <a href="{{ route('precios.index', array_merge(request()->except('tab','page'), ['tab' => 'sin_precio'])) }}"
-           class="bg-white dark:bg-slate-800 rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-100' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 dark:hover:border-red-700 transition-colors">
+           class="bg-white dark:bg-slate-800 rounded-xl border {{ request('tab') === 'sin_precio' ? 'border-red-300 dark:border-red-600 ring-2 ring-red-200' : 'border-gray-100 dark:border-slate-700' }} shadow-sm p-4 flex items-center gap-3 hover:border-red-200 dark:hover:border-red-700 transition-colors">
             <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
                 <i class="fas fa-exclamation-circle text-red-500 text-base"></i>
             </div>
@@ -100,7 +100,7 @@
            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ !request('tab') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50' }}">
             <i class="fas fa-list text-xs"></i>
             Todos los productos
-            <span class="text-xs {{ !request('tab') ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-500' }} px-1.5 py-0.5 rounded-full font-semibold">
+            <span class="text-xs {{ !request('tab') ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-500' }} px-1.5 py-0.5 rounded-full font-semibold">
                 {{ $totalProductos }}
             </span>
         </a>
@@ -109,7 +109,7 @@
             <i class="fas fa-exclamation-triangle text-xs"></i>
             Sin precio
             @if($sinPrecio > 0)
-            <span class="text-xs {{ request('tab') === 'sin_precio' ? 'bg-red-400 text-white' : 'bg-red-100 text-red-600' }} px-1.5 py-0.5 rounded-full font-semibold">
+            <span class="text-xs {{ request('tab') === 'sin_precio' ? 'bg-red-400 text-white' : 'bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400' }} px-1.5 py-0.5 rounded-full font-semibold">
                 {{ $sinPrecio }}
             </span>
             @endif
@@ -183,8 +183,8 @@
                                     <i class="fas fa-chevron-down text-[10px] transition-transform" :class="open ? 'rotate-180' : ''"></i>
                                 </button>
                                 @else
-                                <div class="w-9 h-9 rounded-xl {{ $tienePrecio ? 'bg-blue-100' : 'bg-red-50' }} flex items-center justify-center shrink-0">
-                                    <i class="fas fa-box {{ $tienePrecio ? 'text-blue-600' : 'text-red-400' }} text-sm"></i>
+                                <div class="w-9 h-9 rounded-xl {{ $tienePrecio ? 'bg-blue-100 dark:bg-blue-900/40' : 'bg-red-50 dark:bg-red-900/30' }} flex items-center justify-center shrink-0">
+                                    <i class="fas fa-box {{ $tienePrecio ? 'text-blue-600 dark:text-blue-400' : 'text-red-400' }} text-sm"></i>
                                 </div>
                                 @endif
                                 <div class="min-w-0">
@@ -267,7 +267,7 @@
                             <td class="px-5 py-3.5 text-right">
                                 @if($tienePrecio && $precio->margen !== null)
                                     @php $m = (float)$precio->margen; @endphp
-                                    @php $color = $m >= 30 ? 'text-emerald-700 bg-emerald-50' : ($m >= 15 ? 'text-yellow-700 bg-yellow-50' : 'text-red-600 bg-red-50'); @endphp
+                                    @php $color = $m >= 30 ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30' : ($m >= 15 ? 'text-yellow-700 dark:text-yellow-300 bg-yellow-50 dark:bg-yellow-900/30' : 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30'); @endphp
                                     <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold {{ $color }}">
                                         <i class="fas fa-arrow-{{ $m >= 15 ? 'up' : 'down' }} text-[10px]"></i>
                                         {{ number_format($m, 1) }}%
@@ -297,13 +297,13 @@
                         <td class="px-5 py-3.5 text-center">
                             <div class="flex items-center justify-center gap-1.5">
                                 <a href="{{ route('precios.show', $producto) }}"
-                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors {{ !$tienePrecio ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-50 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
+                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors {{ !$tienePrecio ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
                                     <i class="fas fa-{{ !$tienePrecio ? 'plus' : 'tags' }} text-xs"></i>
                                     {{ !$tienePrecio ? 'Asignar' : 'Gestionar' }}
                                 </a>
                                 @if($tienePrecio)
                                 <a href="{{ route('precios.historial', $producto) }}"
-                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-600 transition-colors"
+                                   class="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                                    title="Historial">
                                     <i class="fas fa-history text-xs"></i>
                                 </a>
@@ -359,7 +359,7 @@
                                 <td class="px-5 py-2.5 text-right">
                                     @if($hayPrecio && $pCap->margen !== null)
                                         @php $m = (float)$pCap->margen; @endphp
-                                        @php $color = $m >= 30 ? 'text-emerald-700 bg-emerald-50' : ($m >= 15 ? 'text-yellow-700 bg-yellow-50' : 'text-red-600 bg-red-50'); @endphp
+                                        @php $color = $m >= 30 ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30' : ($m >= 15 ? 'text-yellow-700 dark:text-yellow-300 bg-yellow-50 dark:bg-yellow-900/30' : 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30'); @endphp
                                         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold {{ $color }}">
                                             <i class="fas fa-arrow-{{ $m >= 15 ? 'up' : 'down' }} text-[10px]"></i>
                                             {{ number_format($m, 1) }}%

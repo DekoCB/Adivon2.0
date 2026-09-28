@@ -8,7 +8,7 @@
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
-        <a href="{{ route('inventario.almacenes.index') }}" class="hover:text-blue-700 transition-colors">Almacenes</a>
+        <a href="{{ route('inventario.almacenes.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Almacenes</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium truncate">{{ $almacen->nombre }}</span>
     </nav>
@@ -18,16 +18,16 @@
         <div class="flex items-center gap-3">
             @php
                 $tipoIcono = match($almacen->tipo) {
-                    'principal' => ['bg-purple-100', 'fa-star text-purple-600'],
-                    'tienda'    => ['bg-orange-100', 'fa-store text-orange-600'],
-                    'deposito'  => ['bg-teal-100',   'fa-boxes text-teal-600'],
-                    default     => ['bg-gray-100',   'fa-warehouse text-gray-600'],
+                    'principal' => ['bg-purple-100 dark:bg-purple-900/40', 'fa-star text-purple-600 dark:text-purple-400'],
+                    'tienda'    => ['bg-orange-100 dark:bg-orange-900/40', 'fa-store text-orange-600 dark:text-orange-400'],
+                    'deposito'  => ['bg-teal-100 dark:bg-teal-900/40',   'fa-boxes text-teal-600 dark:text-teal-400'],
+                    default     => ['bg-gray-100 dark:bg-slate-700/50',   'fa-warehouse text-gray-600'],
                 };
                 $tipoBadgeShow = match($almacen->tipo) {
-                    'principal' => 'bg-purple-100 text-purple-700',
-                    'tienda'    => 'bg-orange-100 text-orange-700',
-                    'deposito'  => 'bg-teal-100 text-teal-700',
-                    default     => 'bg-gray-100 text-gray-600',
+                    'principal' => 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300',
+                    'tienda'    => 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300',
+                    'deposito'  => 'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300',
+                    default     => 'bg-gray-100 dark:bg-slate-700/50 text-gray-600',
                 };
             @endphp
             <div class="w-12 h-12 rounded-xl flex items-center justify-center {{ $tipoIcono[0] }}">
@@ -40,7 +40,7 @@
                     <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {{ $tipoBadgeShow }}">
                         {{ $almacen->tipo_label }}
                     </span>
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {{ $almacen->estado === 'activo' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {{ $almacen->estado === 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' }}">
                         <i class="fas {{ $almacen->estado === 'activo' ? 'fa-check-circle' : 'fa-times-circle' }} text-[10px]"></i>
                         {{ ucfirst($almacen->estado) }}
                     </span>
@@ -124,7 +124,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-blue-600 dark:text-blue-400">Productos con stock</p>
-                        <p class="text-xl font-bold text-blue-900">{{ $totalProductos }}</p>
+                        <p class="text-xl font-bold text-blue-900 dark:text-blue-200">{{ $totalProductos }}</p>
                     </div>
                 </div>
                 <div class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800 rounded-xl p-4 flex items-center gap-3">
@@ -133,7 +133,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-emerald-600 dark:text-emerald-400">Unidades totales</p>
-                        <p class="text-xl font-bold text-emerald-900">{{ number_format($totalUnidades) }}</p>
+                        <p class="text-xl font-bold text-emerald-900 dark:text-emerald-200">{{ number_format($totalUnidades) }}</p>
                     </div>
                 </div>
                 <div class="bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-xl p-4 flex items-center gap-3">
@@ -142,7 +142,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-purple-600 dark:text-purple-400">Movimientos hoy</p>
-                        <p class="text-xl font-bold text-purple-900">{{ $movHoy }}</p>
+                        <p class="text-xl font-bold text-purple-900 dark:text-purple-200">{{ $movHoy }}</p>
                     </div>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                             <tr class="hover:bg-gray-50/60 dark:hover:bg-slate-800/60 transition-colors">
                                 <td class="px-5 py-3">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-lg {{ $esSerie ? 'bg-purple-100' : 'bg-gray-100' }} flex items-center justify-center shrink-0 overflow-hidden">
+                                        <div class="w-9 h-9 rounded-lg {{ $esSerie ? 'bg-purple-100 dark:bg-purple-900/40' : 'bg-gray-100 dark:bg-slate-700/50' }} flex items-center justify-center shrink-0 overflow-hidden">
                                             @if($item['producto']->imagen)
                                                 <img src="{{ $item['producto']->imagen_url }}"
                                                      alt="{{ $item['producto']->nombre }}"
@@ -203,7 +203,7 @@
                                     <span class="text-xs text-gray-500 dark:text-slate-400">{{ $item['producto']->categoria?->nombre ?? '—' }}</span>
                                 </td>
                                 <td class="px-5 py-3 text-center">
-                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold {{ $stockBajo ? 'bg-red-50 text-red-700 dark:text-red-300 border border-red-200' : 'bg-emerald-50 text-emerald-700 dark:text-emerald-300 border border-emerald-200' }}">
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold {{ $stockBajo ? 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700' : 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700' }}">
                                         @if($stockBajo)
                                             <i class="fas fa-exclamation-triangle text-xs"></i>
                                         @endif
@@ -269,12 +269,12 @@
                     @foreach($almacen->movimientos as $mov)
                     @php
                         $badgeClass = match($mov->tipo_movimiento) {
-                            'ingreso'       => 'bg-green-50 text-green-700 border-green-200',
-                            'salida'        => 'bg-red-50 text-red-700 border-red-200',
-                            'ajuste'        => 'bg-blue-50 text-blue-700 border-blue-200',
-                            'transferencia' => 'bg-purple-50 text-purple-700 border-purple-200',
-                            'devolucion'    => 'bg-orange-50 text-orange-700 border-orange-200',
-                            default         => 'bg-gray-100 text-gray-600 border-gray-200',
+                            'ingreso'       => 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700',
+                            'salida'        => 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700',
+                            'ajuste'        => 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700',
+                            'transferencia' => 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700',
+                            'devolucion'    => 'bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-700',
+                            default         => 'bg-gray-100 dark:bg-slate-700/50 text-gray-600 border-gray-200 dark:border-slate-600',
                         };
                         $esIngreso = in_array($mov->tipo_movimiento, ['ingreso', 'devolucion']);
                         $esSalida  = in_array($mov->tipo_movimiento, ['salida', 'merma']);
@@ -294,7 +294,7 @@
                             <p class="text-xs text-gray-400 dark:text-slate-500 font-mono">{{ $mov->producto->codigo }}</p>
                         </td>
                         <td class="px-5 py-3 text-center whitespace-nowrap">
-                            <span class="text-sm font-bold {{ $esIngreso ? 'text-green-600' : ($esSalida ? 'text-red-600' : 'text-blue-600') }}">
+                            <span class="text-sm font-bold {{ $esIngreso ? 'text-green-600 dark:text-green-400' : ($esSalida ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400') }}">
                                 {{ $esIngreso ? '+' : ($esSalida ? '−' : '') }}{{ $mov->cantidad }}
                             </span>
                         </td>
@@ -303,7 +303,7 @@
                         </td>
                         <td class="px-5 py-3 text-center">
                             <a href="{{ route('inventario.movimientos.show', $mov) }}"
-                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
+                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors border border-gray-200 dark:border-slate-700"
                                title="Ver detalle">
                                 <i class="fas fa-eye text-xs"></i>
                             </a>

@@ -78,14 +78,14 @@
             <a href="{{ route('inventario.almacenes.show', $alm) }}"
                class="shrink-0 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm px-5 py-4 min-w-45 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all group">
                 <div class="flex items-center gap-2 mb-2">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $alm->tipo === 'principal' ? 'bg-purple-100' : 'bg-blue-100' }}">
-                        <i class="fas {{ $alm->tipo === 'principal' ? 'fa-star text-purple-600' : 'fa-store text-blue-600' }} text-sm"></i>
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $alm->tipo === 'principal' ? 'bg-purple-100 dark:bg-purple-900/40' : 'bg-blue-100 dark:bg-blue-900/40' }}">
+                        <i class="fas {{ $alm->tipo === 'principal' ? 'fa-star text-purple-600 dark:text-purple-400' : 'fa-store text-blue-600 dark:text-blue-400' }} text-sm"></i>
                     </div>
-                    <span class="text-xs font-medium px-1.5 py-0.5 rounded {{ $alm->tipo === 'principal' ? 'bg-purple-50 text-purple-700' : 'bg-blue-50 text-blue-700' }}">
+                    <span class="text-xs font-medium px-1.5 py-0.5 rounded {{ $alm->tipo === 'principal' ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' }}">
                         {{ ucfirst($alm->tipo) }}
                     </span>
                 </div>
-                <p class="text-sm font-semibold text-gray-800 dark:text-slate-200 group-hover:text-blue-700 transition-colors leading-tight">{{ $alm->nombre }}</p>
+                <p class="text-sm font-semibold text-gray-800 dark:text-slate-200 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors leading-tight">{{ $alm->nombre }}</p>
                 <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">
                     @if($movHoy > 0)
                         <span class="text-green-600 dark:text-green-400 font-medium">{{ $movHoy }} mov. hoy</span>
@@ -213,7 +213,7 @@
                             @endif
                         </td>
                         <td class="px-5 py-3 text-center whitespace-nowrap">
-                            <span class="text-sm font-bold {{ $esIngreso ? 'text-green-600' : ($esSalida ? 'text-red-600' : 'text-blue-600') }}">
+                            <span class="text-sm font-bold {{ $esIngreso ? 'text-green-600 dark:text-green-400' : ($esSalida ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400') }}">
                                 {{ $esIngreso ? '+' : ($esSalida ? '−' : '') }}{{ $mov->cantidad }}
                             </span>
                         </td>
@@ -232,7 +232,7 @@
                         </td>
                         <td class="px-5 py-3 text-center">
                             <a href="{{ route('inventario.movimientos.show', $mov) }}"
-                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 transition-colors border border-gray-200 dark:border-slate-700"
+                               class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-900/60 text-gray-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors border border-gray-200 dark:border-slate-700"
                                title="Ver detalle">
                                 <i class="fas fa-eye text-xs"></i>
                             </a>

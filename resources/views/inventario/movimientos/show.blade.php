@@ -30,14 +30,14 @@
                 <div class="flex items-center gap-4 mb-6">
                     @php
                         $tipoConfig = [
-                            'ingreso'       => ['bg-green-100 text-green-800',  'fas fa-arrow-down',       'Ingreso'],
-                            'salida'        => ['bg-red-100 text-red-800',      'fas fa-arrow-up',         'Salida'],
-                            'transferencia' => ['bg-blue-100 text-blue-800',    'fas fa-exchange-alt',     'Transferencia'],
-                            'ajuste'        => ['bg-yellow-100 text-yellow-800','fas fa-sliders-h',        'Ajuste'],
-                            'devolucion'    => ['bg-purple-100 text-purple-800','fas fa-undo',             'Devolución'],
-                            'merma'         => ['bg-orange-100 text-orange-800','fas fa-exclamation-triangle','Merma'],
+                            'ingreso'       => ['bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',  'fas fa-arrow-down',       'Ingreso'],
+                            'salida'        => ['bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',      'fas fa-arrow-up',         'Salida'],
+                            'transferencia' => ['bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300',    'fas fa-exchange-alt',     'Transferencia'],
+                            'ajuste'        => ['bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300','fas fa-sliders-h',        'Ajuste'],
+                            'devolucion'    => ['bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300','fas fa-undo',             'Devolución'],
+                            'merma'         => ['bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300','fas fa-exclamation-triangle','Merma'],
                         ];
-                        [$badgeClass, $icon, $label] = $tipoConfig[$movimiento->tipo_movimiento] ?? ['bg-gray-100 text-gray-800', 'fas fa-circle', ucfirst($movimiento->tipo_movimiento)];
+                        [$badgeClass, $icon, $label] = $tipoConfig[$movimiento->tipo_movimiento] ?? ['bg-gray-100 dark:bg-slate-700/50 text-gray-800', 'fas fa-circle', ucfirst($movimiento->tipo_movimiento)];
                     @endphp
                     <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold {{ $badgeClass }}">
                         <i class="{{ $icon }}"></i> {{ $label }}
@@ -160,7 +160,7 @@
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500 dark:text-slate-400">Diferencia</span>
                         @php $diff = $movimiento->stock_nuevo - $movimiento->stock_anterior; @endphp
-                        <span class="text-sm font-semibold {{ $diff >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        <span class="text-sm font-semibold {{ $diff >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                             {{ $diff >= 0 ? '+' : '' }}{{ $diff }}
                         </span>
                     </div>

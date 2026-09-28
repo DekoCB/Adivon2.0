@@ -14,7 +14,7 @@
     <div class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-10">
         <div class="px-6 py-3 flex justify-between items-center">
             <h1 class="text-xl font-bold text-gray-800 dark:text-slate-200">
-                <i class="fas fa-clipboard-list text-blue-900 mr-2"></i>
+                <i class="fas fa-clipboard-list text-blue-900 dark:text-blue-200 mr-2"></i>
                 Mis Solicitudes de Traslado
             </h1>
             <div class="flex items-center gap-3">
@@ -89,7 +89,7 @@
                     <td class="px-6 py-4 text-center">
                         @if($solicitud->estado == 'pendiente')
                             <button onclick="cancelarSolicitud({{ $solicitud->id }})"
-                                    class="text-red-600 dark:text-red-400 hover:text-red-800 mx-1"
+                                    class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 mx-1"
                                     title="Cancelar solicitud">
                                 <i class="fas fa-times"></i>
                             </button>

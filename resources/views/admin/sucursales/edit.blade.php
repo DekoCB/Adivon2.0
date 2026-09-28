@@ -26,7 +26,7 @@
             @if($sucursal->es_principal)
                 <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300"><i class="fas fa-star mr-1"></i>Principal</span>
             @endif
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $sucursal->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600' }}">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $sucursal->estado === 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' }}">
                 {{ ucfirst($sucursal->estado) }}
             </span>
         </div>
@@ -55,7 +55,7 @@
                     ['key'=>'pagos',     'label'=>'Yape / Plin / Pagos',  'icon'=>'qrcode'],
                 ] as $t)
                     <button @click="tab = '{{ $t['key'] }}'"
-                        :class="tab === '{{ $t['key'] }}' ? 'border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50/50' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
+                        :class="tab === '{{ $t['key'] }}' ? 'border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/50' : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700'"
                         class="flex items-center gap-2 px-5 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap">
                         <i class="fas fa-{{ $t['icon'] }}"></i> {{ $t['label'] }}
                     </button>
@@ -200,9 +200,9 @@
             @else
                 <div class="space-y-2 mb-6">
                     @foreach($todosAlmacenes as $alm)
-                        <div class="flex items-center gap-3 px-4 py-3 border rounded-lg {{ $alm->estado === 'activo' ? 'border-gray-200 bg-white' : 'border-gray-100 bg-gray-50 dark:bg-slate-900/60 opacity-60' }}">
-                            <div class="w-8 h-8 rounded-lg {{ $alm->tipo === 'tienda' ? 'bg-blue-100' : 'bg-orange-100' }} flex items-center justify-center shrink-0">
-                                <i class="fas {{ $alm->tipo === 'tienda' ? 'fa-store text-blue-600' : 'fa-warehouse text-orange-600' }} text-sm"></i>
+                        <div class="flex items-center gap-3 px-4 py-3 border rounded-lg {{ $alm->estado === 'activo' ? 'border-gray-200 dark:border-slate-600 bg-white' : 'border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/60 opacity-60' }}">
+                            <div class="w-8 h-8 rounded-lg {{ $alm->tipo === 'tienda' ? 'bg-blue-100 dark:bg-blue-900/40' : 'bg-orange-100 dark:bg-orange-900/40' }} flex items-center justify-center shrink-0">
+                                <i class="fas {{ $alm->tipo === 'tienda' ? 'fa-store text-blue-600 dark:text-blue-400' : 'fa-warehouse text-orange-600 dark:text-orange-400' }} text-sm"></i>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-semibold text-gray-800 dark:text-slate-200">{{ $alm->nombre }}</p>
@@ -213,7 +213,7 @@
                             @else
                                 <span class="text-xs text-gray-400 dark:text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">Secundario</span>
                             @endif
-                            <span class="text-xs {{ $alm->estado === 'activo' ? 'text-green-700 bg-green-100' : 'text-gray-500 bg-gray-200' }} px-2 py-0.5 rounded-full">
+                            <span class="text-xs {{ $alm->estado === 'activo' ? 'text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/40' : 'text-gray-500 bg-gray-200 dark:bg-slate-700/60' }} px-2 py-0.5 rounded-full">
                                 {{ ucfirst($alm->estado) }}
                             </span>
                         </div>
@@ -271,7 +271,7 @@
             @else
                 <div class="space-y-4">
                     @foreach($sucursal->series->sortBy('tipo_comprobante') as $serie)
-                        <div class="border rounded-xl overflow-hidden {{ $serie->activo ? 'border-gray-200' : 'border-gray-100 opacity-60' }}">
+                        <div class="border rounded-xl overflow-hidden {{ $serie->activo ? 'border-gray-200 dark:border-slate-600' : 'border-gray-100 dark:border-slate-700 opacity-60' }}">
                             {{-- Cabecera de la serie --}}
                             <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-900/60 border-b border-gray-200 dark:border-slate-700">
                                 <div class="flex items-center gap-2">

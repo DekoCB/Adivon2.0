@@ -208,7 +208,7 @@ function crearOrden(id: number): Orden {
 function posApp() {
     return {
         // ── UI State ──
-        darkMode:        JSON.parse(localStorage.getItem('pos_dark') ?? 'false'),
+        darkMode:        localStorage.getItem('adivon-theme') === 'dark',
         sidebarCollapsed:JSON.parse(localStorage.getItem('pos_sidebar_collapsed') ?? 'false'),
         buscandoTransportista: false,
         errorTransportista:    '',
@@ -490,7 +490,7 @@ function posApp() {
         // ── Dark mode ──
         toggleDarkMode() {
             this.darkMode = !this.darkMode;
-            localStorage.setItem('pos_dark', this.darkMode);
+            localStorage.setItem('adivon-theme', this.darkMode ? 'dark' : 'light');
         },
 
         // ── Format selector ──

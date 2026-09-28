@@ -43,12 +43,12 @@
                     </td>
                     <td class="px-6 py-4 text-sm space-x-2">
                         @if($canEdit)
-                            <a href="{{ route('clientes.edit', $cliente) }}" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('clientes.edit', $cliente) }}" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-300"><i class="fas fa-edit"></i></a>
                         @endif
                         @if($canDelete)
                             <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este cliente?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"><i class="fas fa-trash"></i></button>
                             </form>
                         @endif
                     </td>

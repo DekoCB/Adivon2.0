@@ -10,11 +10,11 @@
 <div x-data="{ sel: 0 }">
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
         <a href="{{ route('comisiones.index') }}"
-           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
             <i class="fas fa-arrow-left"></i> Volver a configuración
         </a>
         <a href="{{ route('comisiones.reporte') }}"
-           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 flex items-center gap-1">
+           class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
             <i class="fas fa-chart-bar"></i> Ver reporte de pagos
         </a>
     </div>
@@ -99,9 +99,9 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @php $estadoCss = match($fila['estado']) {
-                                    'en_progreso' => 'bg-amber-100 text-amber-700',
-                                    'logrado'     => 'bg-emerald-100 text-emerald-700',
-                                    'pagado'      => 'bg-green-100 text-green-700',
+                                    'en_progreso' => 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
+                                    'logrado'     => 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300',
+                                    'pagado'      => 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
                                 }; @endphp
                                 <span class="px-2.5 py-1 rounded-full text-xs font-semibold {{ $estadoCss }}">
                                     {{ match($fila['estado']) {

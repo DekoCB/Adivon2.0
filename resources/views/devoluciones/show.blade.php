@@ -9,7 +9,7 @@
 @section('content')
 <div>
 <div class="flex items-center justify-between mb-6 gap-2">
-            <a href="{{ route('devoluciones.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800">
+            <a href="{{ route('devoluciones.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                 <i class="fas fa-arrow-left mr-1"></i> Volver
             </a>
 

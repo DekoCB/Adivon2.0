@@ -19,12 +19,12 @@
                     default     => ['gray',   'fa-warehouse', ucfirst($almacen->tipo)],
                 };
                 $roleBadge = [
-                    'Administrador' => 'bg-purple-100 text-purple-700',
-                    'Almacenero'    => 'bg-blue-100 text-blue-700',
-                    'Cajero'        => 'bg-orange-100 text-orange-700',
-                    'Proveedor'     => 'bg-teal-100 text-teal-700',
-                    'Tienda'        => 'bg-emerald-100 text-emerald-700',
-                    'Vendedor'      => 'bg-amber-100 text-amber-700',
+                    'Administrador' => 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300',
+                    'Almacenero'    => 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300',
+                    'Cajero'        => 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300',
+                    'Proveedor'     => 'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300',
+                    'Tienda'        => 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300',
+                    'Vendedor'      => 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
                 ];
                 // Combinar encargado + trabajadores sin duplicar
                 $personal = $almacen->trabajadores->keyBy('id');
@@ -62,7 +62,7 @@
                             @foreach($personal as $persona)
                             @php
                                 $rolNombre = $persona->role?->nombre ?? '';
-                                $rc = $roleBadge[$rolNombre] ?? 'bg-gray-100 text-gray-600';
+                                $rc = $roleBadge[$rolNombre] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-600';
                                 $esEncargado = $persona->id === $almacen->encargado_id;
                             @endphp
                             <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {{ $rc }} {{ $esEncargado ? 'ring-1 ring-offset-1 ring-current' : '' }}"
@@ -78,7 +78,7 @@
                     @endif
                 </td>
                 <td class="px-5 py-4 whitespace-nowrap text-center">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $almacen->estado === 'activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600' }}">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $almacen->estado === 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ $almacen->estado === 'activo' ? 'bg-green-500' : 'bg-gray-400' }}"></span>
                         {{ ucfirst($almacen->estado) }}
                     </span>

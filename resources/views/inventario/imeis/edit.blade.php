@@ -52,7 +52,7 @@
 
                     <!-- Información fija del equipo -->
                     <div class="mb-6 bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <h3 class="text-sm font-semibold text-blue-900 mb-3 flex items-center">
+                        <h3 class="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-3 flex items-center">
                             <i class="fas fa-lock mr-2"></i>
                             Información fija del equipo
                         </h3>
@@ -108,7 +108,7 @@
                                     @php $seleccionada = old('variante_id', $imei->variante_id) == $v['id']; @endphp
                                     <button type="button" data-id="{{ $v['id'] }}" data-color-id="{{ $v['color_id'] }}"
                                             data-color-nombre="{{ $v['color_nombre'] }}" data-capacidad="{{ $v['capacidad'] }}"
-                                            class="variante-card text-left border-2 rounded-xl p-3 transition {{ $seleccionada ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-400 hover:bg-indigo-50' }}">
+                                            class="variante-card text-left border-2 rounded-xl p-3 transition {{ $seleccionada ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30' : 'border-gray-200 dark:border-slate-600 hover:border-indigo-400 hover:bg-indigo-50' }}">
                                         <div class="flex items-center gap-2 mb-1">
                                             @if($v['color_hex'])
                                                 <span class="w-4 h-4 rounded-full shrink-0 border border-gray-300 dark:border-slate-600"
@@ -179,7 +179,7 @@
                                     <input type="radio" name="estado_imei" value="en_stock" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'en_stock' ? 'checked' : '' }} required>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-green-500 peer-checked:bg-green-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-check-circle text-green-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">En Stock</span>
                                     </div>
@@ -188,7 +188,7 @@
                                     <input type="radio" name="estado_imei" value="reservado" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'reservado' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 dark:peer-checked:bg-yellow-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-clock text-yellow-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Reservado</span>
                                     </div>
@@ -197,7 +197,7 @@
                                     <input type="radio" name="estado_imei" value="vendido" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'vendido' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-red-500 peer-checked:bg-red-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-red-500 peer-checked:bg-red-50 dark:peer-checked:bg-red-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-shopping-cart text-red-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Vendido</span>
                                     </div>
@@ -206,7 +206,7 @@
                                     <input type="radio" name="estado_imei" value="garantia" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'garantia' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-shield-alt text-blue-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Garantía</span>
                                     </div>
@@ -215,7 +215,7 @@
                                     <input type="radio" name="estado_imei" value="devuelto" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'devuelto' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 dark:peer-checked:bg-orange-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-undo text-orange-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Devuelto</span>
                                     </div>
@@ -224,7 +224,7 @@
                                     <input type="radio" name="estado_imei" value="reemplazado" 
                                            class="hidden peer" 
                                            {{ old('estado_imei', $imei->estado_imei) == 'reemplazado' ? 'checked' : '' }}>
-                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
+                                    <div class="border-2 border-gray-300 dark:border-slate-600 rounded-lg p-3 text-center peer-checked:border-purple-500 peer-checked:bg-purple-50 dark:peer-checked:bg-purple-900/30 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-all">
                                         <i class="fas fa-exchange-alt text-purple-500 text-xl"></i>
                                         <span class="block text-xs font-medium mt-1">Reemplazado</span>
                                     </div>
@@ -316,11 +316,11 @@
             document.querySelectorAll('.variante-card').forEach(function(card) {
                 card.addEventListener('click', function() {
                     document.querySelectorAll('.variante-card').forEach(function(c) {
-                        c.classList.remove('border-indigo-500', 'bg-indigo-50');
-                        c.classList.add('border-gray-200');
+                        c.classList.remove('border-indigo-500', 'bg-indigo-50 dark:bg-indigo-900/30');
+                        c.classList.add('border-gray-200 dark:border-slate-600');
                     });
-                    this.classList.remove('border-gray-200');
-                    this.classList.add('border-indigo-500', 'bg-indigo-50');
+                    this.classList.remove('border-gray-200 dark:border-slate-600');
+                    this.classList.add('border-indigo-500', 'bg-indigo-50 dark:bg-indigo-900/30');
                     document.getElementById('variante_id').value = this.dataset.id;
                     document.getElementById('color_id').value = this.dataset.colorId || '';
                 });

@@ -10,7 +10,7 @@
 <div>
 {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-6">
-        <a href="{{ route('facturacion.index') }}" class="hover:text-blue-600 transition">Facturación Electrónica</a>
+        <a href="{{ route('facturacion.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Facturación Electrónica</a>
         <i class="fas fa-chevron-right text-xs"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium">Configuración</span>
     </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="mt-4 pt-4 border-t">
                     <a href="{{ route('admin.empresa.edit') }}"
-                       class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium">
+                       class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
                         <i class="fas fa-edit mr-1"></i>Editar datos de la empresa
                     </a>
                 </div>
@@ -59,7 +59,7 @@
                         <i class="fas fa-list-ol text-blue-600 dark:text-blue-400"></i> Series por Sucursal
                     </h3>
                     <a href="{{ route('facturacion.series') }}"
-                       class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium">
+                       class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
                         <i class="fas fa-cog mr-1"></i>Gestionar series
                     </a>
                 </div>
@@ -73,8 +73,8 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             @foreach($sucursal->series as $serie)
                             @php
-                                $tipoCodes = ['01'=>'border-blue-200 bg-blue-50','03'=>'border-purple-200 bg-purple-50','07'=>'border-orange-200 bg-orange-50','08'=>'border-red-200 bg-red-50','09'=>'border-teal-200 bg-teal-50','NE'=>'border-gray-200 bg-gray-50'];
-                                $serieCss = $tipoCodes[$serie->tipo_comprobante] ?? 'border-gray-200 bg-gray-50';
+                                $tipoCodes = ['01'=>'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/30','03'=>'border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/30','07'=>'border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/30','08'=>'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/30','09'=>'border-teal-200 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/30','NE'=>'border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/40'];
+                                $serieCss = $tipoCodes[$serie->tipo_comprobante] ?? 'border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/40';
                             @endphp
                             <div class="border {{ $serieCss }} rounded-lg p-3 flex items-center justify-between">
                                 <div>

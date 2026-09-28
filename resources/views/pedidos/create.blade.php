@@ -67,12 +67,12 @@
                                     <div class="flex items-center gap-2 min-w-0">
                                         <i class="fas fa-building text-blue-700 dark:text-blue-300 text-sm shrink-0"></i>
                                         <div class="min-w-0">
-                                            <p class="text-sm font-semibold text-blue-900 truncate" x-text="proveedorSeleccionado?.nombre_comercial || proveedorSeleccionado?.razon_social"></p>
+                                            <p class="text-sm font-semibold text-blue-900 dark:text-blue-200 truncate" x-text="proveedorSeleccionado?.nombre_comercial || proveedorSeleccionado?.razon_social"></p>
                                             <p class="text-xs text-blue-600 dark:text-blue-400">RUC: <span x-text="proveedorSeleccionado?.ruc"></span></p>
                                         </div>
                                     </div>
                                     <button type="button" @click="quitarProveedor()"
-                                            class="shrink-0 ml-2 text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
+                                            class="shrink-0 ml-2 text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 dark:hover:text-red-400 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
                                         <i class="fas fa-times"></i> Cambiar
                                     </button>
                                 </div>
@@ -144,11 +144,11 @@
                         <template x-for="(detalle, index) in detalles" :key="detalle.uid">
                             <div class="bg-gray-50 dark:bg-slate-900/60 border-2 border-gray-200 dark:border-slate-700 rounded-lg p-5 mb-4 hover:border-blue-400 transition-colors">
                                 <div class="flex justify-between items-center mb-4">
-                                    <span class="text-sm font-bold text-blue-900">
+                                    <span class="text-sm font-bold text-blue-900 dark:text-blue-200">
                                         <i class="fas fa-cube mr-2"></i>Producto #<span x-text="index + 1"></span>
                                     </span>
                                     <button type="button" @click="detalles.splice(index, 1)"
-                                            class="text-red-600 dark:text-red-400 hover:text-red-700 text-sm font-semibold transition-colors">
+                                            class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-semibold transition-colors">
                                         <i class="fas fa-trash mr-1"></i>Eliminar
                                     </button>
                                 </div>
@@ -177,7 +177,7 @@
                                         <div class="p-2.5 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg flex items-center justify-between">
                                             <span class="text-sm font-medium text-gray-900 dark:text-slate-100" x-text="detalle.producto.nombre"></span>
                                             <button type="button" @click="quitarProducto(detalle)"
-                                                    class="text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
+                                                    class="text-xs text-blue-600 dark:text-blue-400 hover:text-red-600 dark:hover:text-red-400 border border-blue-300 dark:border-blue-700 hover:border-red-400 rounded-lg px-2 py-1">
                                                 <i class="fas fa-times"></i> Cambiar
                                             </button>
                                         </div>

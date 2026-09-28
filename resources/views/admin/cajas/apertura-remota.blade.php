@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-slate-800 shadow-sm px-6 py-4 flex items-center justify-between">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-0.5">
-                <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600">Dashboard Cajas</a>
+                <a href="{{ route('admin.cajas.dashboard') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Dashboard Cajas</a>
                 <span>/</span>
                 <span class="text-gray-700 dark:text-slate-300 font-medium">Apertura Remota</span>
             </div>

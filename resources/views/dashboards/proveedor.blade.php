@@ -49,7 +49,7 @@
                         <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $productos_catalogo }}</p>
                     </div>
                     <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
-                        <i class="fas fa-box-open text-blue-900 text-2xl"></i>
+                        <i class="fas fa-box-open text-blue-900 dark:text-blue-200 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         <!-- Órdenes Recientes -->
         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 mb-8">
             <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                <i class="fas fa-shopping-cart mr-2 text-blue-900"></i>
+                <i class="fas fa-shopping-cart mr-2 text-blue-900 dark:text-blue-200"></i>
                 Órdenes Recientes
             </h2>
             <div class="text-center py-12 text-gray-500 dark:text-slate-400">
@@ -85,18 +85,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                    <i class="fas fa-box-open mr-2 text-blue-900"></i>
+                    <i class="fas fa-box-open mr-2 text-blue-900 dark:text-blue-200"></i>
                     Mi Catálogo
                 </h2>
                 <a href="#" class="block p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors text-center">
-                    <i class="fas fa-plus-circle text-blue-900 text-2xl mb-2"></i>
-                    <p class="font-medium text-blue-900">Agregar Producto al Catálogo</p>
+                    <i class="fas fa-plus-circle text-blue-900 dark:text-blue-200 text-2xl mb-2"></i>
+                    <p class="font-medium text-blue-900 dark:text-blue-200">Agregar Producto al Catálogo</p>
                 </a>
             </div>
 
             <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                    <i class="fas fa-file-alt mr-2 text-blue-900"></i>
+                    <i class="fas fa-file-alt mr-2 text-blue-900 dark:text-blue-200"></i>
                     Información
                 </h2>
                 <div class="space-y-2 text-sm text-gray-600 dark:text-slate-400">

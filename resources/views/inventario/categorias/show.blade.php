@@ -21,7 +21,7 @@
     <x-data-table>
         <x-slot:cardHeader>
             <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                <i class="fas fa-box mr-2 text-blue-900"></i>
+                <i class="fas fa-box mr-2 text-blue-900 dark:text-blue-200"></i>
                 Productos ({{ $categoria->productos->count() }})
             </h2>
         </x-slot:cardHeader>
@@ -55,7 +55,7 @@
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                    <a href="{{ route('inventario.productos.show', $producto) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900" title="Ver producto">
+                    <a href="{{ route('inventario.productos.show', $producto) }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200" title="Ver producto">
                         <i class="fas fa-eye"></i>
                     </a>
                 </td>

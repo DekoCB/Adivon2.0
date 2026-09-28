@@ -86,7 +86,7 @@
                         <td class="px-6 py-4 font-medium text-gray-900 dark:text-slate-100">{{ $marca->nombre }}</td>
                         <td class="px-6 py-4 text-gray-600 dark:text-slate-400">{{ $marca->modelos_count ?? 0 }} modelos</td>
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium {{ $marca->estado == 'activo' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium {{ $marca->estado == 'activo' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' }}">
                                 <span class="w-1.5 h-1.5 rounded-full {{ $marca->estado == 'activo' ? 'bg-green-500' : 'bg-gray-400' }}"></span>
                                 {{ ucfirst($marca->estado) }}
                             </span>
@@ -94,12 +94,12 @@
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <button @click="abrirEditar({{ $marca->id }}, '{{ addslashes($marca->nombre) }}', '{{ addslashes($marca->descripcion ?? '') }}', '{{ $marca->estado }}')"
-                                    class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 transition" title="Editar">
+                                    class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-300 transition" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ route('catalogo.marcas.destroy', $marca) }}" method="POST" class="inline">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-700 transition" title="Eliminar"
+                                    <button type="submit" class="text-red-500 hover:text-red-700 dark:hover:text-red-300 transition" title="Eliminar"
                                             onclick="return confirm('¿Eliminar la marca «{{ $marca->nombre }}»?')">
                                         <i class="fas fa-trash"></i>
                                     </button>

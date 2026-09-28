@@ -12,7 +12,7 @@
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-4">
-        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 transition-colors">Gestión de Precios</a>
+        <a href="{{ route('precios.index') }}" class="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Gestión de Precios</a>
         <i class="fas fa-chevron-right text-xs text-gray-400 dark:text-slate-500"></i>
         <span class="text-gray-800 dark:text-slate-200 font-medium truncate">{{ $producto->nombre }}</span>
     </nav>
@@ -303,7 +303,7 @@
                         <label class="block text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">Precio Compra (S/)</label>
                         <input type="number" name="precio_compra" x-model="precioCompra"
                                step="0.01" min="0.01" placeholder="0.00" required
-                               class="w-full rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 {{ $errors->has('precio_compra') ? 'border-2 border-red-400' : 'border border-gray-200' }}">
+                               class="w-full rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 {{ $errors->has('precio_compra') ? 'border-2 border-red-400' : 'border border-gray-200 dark:border-slate-600' }}">
                         @error('precio_compra') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
 
                         <div x-show="ultimaCompra" class="mt-1.5 flex items-start gap-1.5 text-xs text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 px-2.5 py-1.5 rounded-lg">
@@ -319,13 +319,13 @@
                         <div class="flex rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
                             <button type="button"
                                     @click="modoCalculo='margen'; calcular()"
-                                    :class="modoCalculo==='margen' ? 'bg-emerald-600 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                    :class="modoCalculo==='margen' ? 'bg-emerald-600 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                     class="flex-1 py-2 text-xs font-semibold transition-colors border-r border-gray-200 dark:border-slate-700">
                                 <i class="fas fa-percentage mr-1"></i> Margen %
                             </button>
                             <button type="button"
                                     @click="modoCalculo='precio'"
-                                    :class="modoCalculo==='precio' ? 'bg-emerald-600 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                    :class="modoCalculo==='precio' ? 'bg-emerald-600 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                     class="flex-1 py-2 text-xs font-semibold transition-colors">
                                 <i class="fas fa-tag mr-1"></i> Precio de venta
                             </button>
@@ -338,7 +338,7 @@
                         <input type="number" name="margen" x-model="margen"
                                @input="if(modoCalculo==='margen') calcular()"
                                :readonly="modoCalculo==='precio'"
-                               :class="modoCalculo==='precio' ? 'bg-gray-50 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
+                               :class="modoCalculo==='precio' ? 'bg-gray-50 dark:bg-slate-800/40 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
                                step="0.1" min="0" max="1000"
                                class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500">
                         <p x-show="modoCalculo==='precio'" class="text-xs text-gray-400 dark:text-slate-500 mt-1">Calculado según el precio ingresado</p>
@@ -353,7 +353,7 @@
                         <input type="number" x-model="precioVenta"
                                @input="if(modoCalculo==='precio') calcular()"
                                :readonly="modoCalculo==='margen'"
-                               :class="modoCalculo==='margen' ? 'bg-gray-50 text-emerald-700 dark:text-emerald-300 font-semibold cursor-not-allowed' : 'text-emerald-700 font-semibold'"
+                               :class="modoCalculo==='margen' ? 'bg-gray-50 dark:bg-slate-800/40 text-emerald-700 dark:text-emerald-300 font-semibold cursor-not-allowed' : 'text-emerald-700 dark:text-emerald-300 font-semibold'"
                                step="0.01" min="0.01" placeholder="0.00"
                                class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500">
                         <p x-show="modoCalculo==='margen'" class="text-xs text-gray-400 dark:text-slate-500 mt-1">Calculado según el margen</p>
@@ -365,7 +365,7 @@
                     {{-- Botón calcular (para trigger explícito) --}}
                     <button type="button" @click="calcular()"
                             :disabled="!precioCompra || (modoCalculo==='precio' && !precioVenta)"
-                            class="w-full py-2 bg-slate-100 text-slate-700 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors disabled:opacity-40 border border-slate-200">
+                            class="w-full py-2 bg-slate-100 dark:bg-slate-700/50 text-slate-700 text-sm font-semibold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700/60 transition-colors disabled:opacity-40 border border-slate-200 dark:border-slate-600">
                         <i class="fas fa-calculator mr-1"></i> Calcular
                     </button>
 
@@ -409,13 +409,13 @@
                             <div class="flex rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
                                 <button type="button"
                                         @click="modoCalculoMayor='margen'; calcularMayorista()"
-                                        :class="modoCalculoMayor==='margen' ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                        :class="modoCalculoMayor==='margen' ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                         class="flex-1 py-2 text-xs font-semibold transition-colors border-r border-gray-200 dark:border-slate-700">
                                     <i class="fas fa-percentage mr-1"></i> Margen %
                                 </button>
                                 <button type="button"
                                         @click="modoCalculoMayor='precio'"
-                                        :class="modoCalculoMayor==='precio' ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-600'"
+                                        :class="modoCalculoMayor==='precio' ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/40'"
                                         class="flex-1 py-2 text-xs font-semibold transition-colors">
                                     <i class="fas fa-tag mr-1"></i> Precio directo
                                 </button>
@@ -428,7 +428,7 @@
                             <input type="number" x-model="margenMayor"
                                    @input="if(modoCalculoMayor==='margen') calcularMayorista()"
                                    :readonly="modoCalculoMayor==='precio'"
-                                   :class="modoCalculoMayor==='precio' ? 'bg-gray-50 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
+                                   :class="modoCalculoMayor==='precio' ? 'bg-gray-50 dark:bg-slate-800/40 text-gray-500 dark:text-slate-400 cursor-not-allowed' : ''"
                                    step="0.1" min="0" max="1000"
                                    class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400">
                             <p x-show="modoCalculoMayor==='precio'" class="text-xs text-gray-400 dark:text-slate-500 mt-1">Calculado según el precio ingresado</p>
@@ -443,7 +443,7 @@
                             <input type="number" x-model="precioMayorista"
                                    @input="if(modoCalculoMayor==='precio') calcularMayorista()"
                                    :readonly="modoCalculoMayor==='margen'"
-                                   :class="modoCalculoMayor==='margen' ? 'bg-gray-50 text-amber-700 dark:text-amber-300 font-semibold cursor-not-allowed' : 'text-amber-700 font-semibold'"
+                                   :class="modoCalculoMayor==='margen' ? 'bg-gray-50 dark:bg-slate-800/40 text-amber-700 dark:text-amber-300 font-semibold cursor-not-allowed' : 'text-amber-700 dark:text-amber-300 font-semibold'"
                                    step="0.01" min="0.01" placeholder="0.00"
                                    class="w-full border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400">
                             <p x-show="modoCalculoMayor==='margen'" class="text-xs text-gray-400 dark:text-slate-500 mt-1">Calculado según el margen</p>
@@ -543,7 +543,7 @@
                             $pmVal   = $pMay?->precio ?? 'null';
                             $pmMrg   = $pMay?->margen ?? 10;
                         @endphp
-                        <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $esActual ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-100' }} shadow-sm p-4 cursor-pointer hover:border-blue-300 dark:hover:border-blue-600 transition-all"
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $esActual ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-100 dark:border-slate-700' }} shadow-sm p-4 cursor-pointer hover:border-blue-300 dark:hover:border-blue-600 transition-all"
                              onclick="window.dispatchEvent(new CustomEvent('precarga-precio', { detail: { varianteId: {{ $varRep->id }}, precioCompra: {{ $pCap?->precio_compra ?? 0 }}, precioVenta: {{ $pCap?->precio ?? 0 }}, margen: {{ $pCap?->margen ?? 0 }}, precioMayorista: {{ $pmVal }}, margenMayor: {{ $pmMrg }} } }))">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="flex items-center gap-1.5 text-sm font-semibold text-gray-800 dark:text-slate-200">
@@ -564,7 +564,7 @@
                                     </div>
                                     <div class="flex justify-between text-xs border-t border-gray-100 dark:border-slate-700 pt-1.5 mt-1.5">
                                         <span class="text-gray-500 dark:text-slate-400">Margen</span>
-                                        <span class="font-bold {{ ($pCap->margen ?? 0) >= 20 ? 'text-green-700' : 'text-yellow-600' }}">
+                                        <span class="font-bold {{ ($pCap->margen ?? 0) >= 20 ? 'text-green-700 dark:text-green-300' : 'text-yellow-600 dark:text-yellow-400' }}">
                                             {{ $pCap->margen ? $pCap->margen . '%' : '—' }}
                                         </span>
                                     </div>
@@ -613,15 +613,15 @@
                     </div>
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm p-4 text-center">
                         <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Margen</p>
-                        <p class="text-xl font-bold {{ ($precioGlobal?->margen ?? 0) >= 20 ? 'text-green-700' : 'text-yellow-600' }}">
+                        <p class="text-xl font-bold {{ ($precioGlobal?->margen ?? 0) >= 20 ? 'text-green-700 dark:text-green-300' : 'text-yellow-600 dark:text-yellow-400' }}">
                             {{ $precioGlobal ? $precioGlobal->margen . '%' : '—' }}
                         </p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $precioMayoristaGlobal ? 'border-amber-200 bg-amber-50' : 'border-gray-100' }} shadow-sm p-4 text-center">
-                        <p class="text-xs {{ $precioMayoristaGlobal ? 'text-amber-600' : 'text-gray-500' }} uppercase tracking-wide mb-1 flex items-center justify-center gap-1">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl border {{ $precioMayoristaGlobal ? 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30' : 'border-gray-100 dark:border-slate-700' }} shadow-sm p-4 text-center">
+                        <p class="text-xs {{ $precioMayoristaGlobal ? 'text-amber-600 dark:text-amber-400' : 'text-gray-500' }} uppercase tracking-wide mb-1 flex items-center justify-center gap-1">
                             <i class="fas fa-tags text-[9px]"></i> Mayorista
                         </p>
-                        <p class="text-xl font-bold {{ $precioMayoristaGlobal ? 'text-amber-700' : 'text-gray-400' }}">
+                        <p class="text-xl font-bold {{ $precioMayoristaGlobal ? 'text-amber-700 dark:text-amber-300' : 'text-gray-400' }}">
                             {{ $precioMayoristaGlobal ? 'S/ ' . number_format($precioMayoristaGlobal->precio, 2) : '—' }}
                         </p>
                         @if($precioMayoristaGlobal?->margen)
@@ -672,7 +672,7 @@
                                         $pmHVal   = $pMayHist?->precio ?? 'null';
                                         $pmHMrg   = $pMayHist?->margen ?? 10;
                                     @endphp
-                                    <tr class="hover:bg-blue-50/30 dark:hover:bg-blue-900/30 transition-colors {{ $precio ? '' : 'bg-amber-50/30' }}">
+                                    <tr class="hover:bg-blue-50/30 dark:hover:bg-blue-900/30 transition-colors {{ $precio ? '' : 'bg-amber-50/30 dark:bg-amber-900/30' }}">
                                         <td class="px-4 py-3 text-sm">
                                             <div class="font-medium text-gray-900 dark:text-slate-100">{{ $capacidad ?: 'Sin capacidad' }}</div>
                                             <div class="text-xs text-gray-400 dark:text-slate-500 mt-0.5">
@@ -696,7 +696,7 @@
                                         </td>
                                         <td class="px-4 py-3 text-right">
                                             @if($precio?->margen)
-                                                <span class="text-sm font-semibold {{ ($precio->margen ?? 0) >= 20 ? 'text-green-700' : 'text-yellow-700' }}">
+                                                <span class="text-sm font-semibold {{ ($precio->margen ?? 0) >= 20 ? 'text-green-700 dark:text-green-300' : 'text-yellow-700 dark:text-yellow-300' }}">
                                                     {{ $precio->margen }}%
                                                 </span>
                                             @else
@@ -752,7 +752,7 @@
                                             <span class="text-sm font-bold text-blue-700 dark:text-blue-300">S/ {{ number_format($precioBase->precio, 2) }}</span>
                                         </td>
                                         <td class="px-4 py-3 text-right">
-                                            <span class="text-sm font-semibold {{ ($precioBase->margen ?? 0) >= 20 ? 'text-green-700' : 'text-yellow-700' }}">
+                                            <span class="text-sm font-semibold {{ ($precioBase->margen ?? 0) >= 20 ? 'text-green-700 dark:text-green-300' : 'text-yellow-700 dark:text-yellow-300' }}">
                                                 {{ $precioBase->margen ? $precioBase->margen . '%' : '—' }}
                                             </span>
                                         </td>

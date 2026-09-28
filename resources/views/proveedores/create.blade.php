@@ -37,15 +37,15 @@
                     <div x-show="mensajeSunat" class="mt-3">
                         <p x-text="mensajeSunat"
                            class="text-sm font-medium px-3 py-2 rounded-lg"
-                           :class="sunatExito ? 'text-green-700 bg-green-50 dark:bg-green-900/30 border border-green-200' : 'text-red-700 bg-red-50 dark:bg-red-900/30 border border-red-200'"></p>
+                           :class="sunatExito ? 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700' : 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700'"></p>
                         <div x-show="sunatExito" class="mt-2 flex flex-wrap gap-2 text-xs">
                             <span x-show="estadoRuc" class="px-2 py-1 rounded-full font-medium"
-                                  :class="estadoRuc === 'ACTIVO' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                                  :class="estadoRuc === 'ACTIVO' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'">
                                 <i class="fas fa-circle mr-1"></i>
                                 Estado: <span x-text="estadoRuc"></span>
                             </span>
                             <span x-show="condicionRuc" class="px-2 py-1 rounded-full font-medium"
-                                  :class="condicionRuc === 'HABIDO' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'">
+                                  :class="condicionRuc === 'HABIDO' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300'">
                                 <i class="fas fa-check-circle mr-1"></i>
                                 <span x-text="condicionRuc"></span>
                             </span>

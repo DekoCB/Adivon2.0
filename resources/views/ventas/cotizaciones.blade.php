@@ -105,7 +105,7 @@
                     </td>
                     <td class="px-6 py-4 text-center">
                         <a href="{{ route('ventas.show', $cot) }}"
-                           class="inline-flex items-center gap-1 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 font-medium transition-colors">
+                           class="inline-flex items-center gap-1 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium transition-colors">
                             <i class="fas fa-eye text-xs"></i> Ver detalle
                         </a>
                     </td>

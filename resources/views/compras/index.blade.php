@@ -208,7 +208,7 @@
                                 {{-- Vencimiento --}}
                                 <td class="px-6 py-4 text-sm">
                                     @if($cuenta && $cuenta->fecha_vencimiento)
-                                        <span class="{{ $cuenta->esta_vencida ? 'text-red-600 font-semibold' : 'text-gray-600' }}">
+                                        <span class="{{ $cuenta->esta_vencida ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-gray-600' }}">
                                             {{ $cuenta->fecha_vencimiento->format('d/m/Y') }}
                                             @if($cuenta->esta_vencida)
                                                 <i class="fas fa-exclamation-triangle text-red-500 ml-1" title="Vencida"></i>
@@ -223,13 +223,13 @@
                                 <td class="px-6 py-4 text-sm">
                                     <div class="flex items-center space-x-2">
                                         <a href="{{ route('compras.show', $compra) }}" 
-                                           class="text-blue-600 dark:text-blue-400 hover:text-blue-800" 
+                                           class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" 
                                            title="Ver detalle de compra">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         @if($cuenta)
                                             <a href="{{ route('cuentas-por-pagar.show', $cuenta) }}" 
-                                               class="text-green-600 dark:text-green-400 hover:text-green-800 ml-2" 
+                                               class="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 ml-2" 
                                                title="Ver cuenta por pagar">
                                                 <i class="fas fa-credit-card"></i>
                                             </a>

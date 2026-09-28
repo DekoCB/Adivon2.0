@@ -39,7 +39,7 @@
     <x-data-table>
         <x-slot:cardHeader>
             <h2 class="text-base font-semibold text-gray-800 dark:text-slate-200 flex items-center gap-2">
-                <i class="fas fa-warehouse text-blue-900"></i>
+                <i class="fas fa-warehouse text-blue-900 dark:text-blue-200"></i>
                 Stock en todas las tiendas
             </h2>
         </x-slot:cardHeader>

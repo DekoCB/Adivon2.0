@@ -8,7 +8,7 @@
 
 
         <div class="flex items-center justify-between mb-1">
-            <a href="{{ route('cajero.dashboard') }}" class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700">
+            <a href="{{ route('cajero.dashboard') }}" class="text-sm text-gray-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300">
                 <i class="fas fa-arrow-left mr-1"></i> Mi Panel
             </a>
         </div>
@@ -162,12 +162,12 @@
                             <p class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-2">Formato de impresión</p>
                             <div class="flex gap-2">
                                 <button @click="setFormato('ticket')"
-                                        :class="formato === 'ticket' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
+                                        :class="formato === 'ticket' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 dark:border-slate-600 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
                                         class="flex-1 py-2 border-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
                                     <i class="fas fa-receipt"></i> Ticket 80mm
                                 </button>
                                 <button @click="setFormato('a4')"
-                                        :class="formato === 'a4' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
+                                        :class="formato === 'a4' ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 dark:border-slate-600 text-gray-600 dark:text-slate-400 hover:bg-gray-50'"
                                         class="flex-1 py-2 border-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
                                     <i class="fas fa-file-alt"></i> A4
                                 </button>
@@ -201,7 +201,7 @@
                                         <div class="grid grid-cols-4 gap-1.5">
                                             <template x-for="m in metodos" :key="m.k">
                                                 <button @click="p.metodo = m.k; p.referencia = ''"
-                                                        :class="p.metodo === m.k ? 'border-green-600 bg-green-600 text-white shadow-sm' : 'border-gray-200 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:border-green-300 dark:hover:border-green-600 hover:text-green-700'"
+                                                        :class="p.metodo === m.k ? 'border-green-600 bg-green-600 text-white shadow-sm' : 'border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:border-green-300 dark:hover:border-green-600 hover:text-green-700'"
                                                         class="flex flex-col items-center gap-1 py-2 rounded-xl border-2 text-[10px] font-bold transition">
                                                     <i class="fas text-sm" :class="p.metodo === m.k ? m.icon + ' text-white' : m.icon + ' text-' + m.color + '-500'"></i>
                                                     <span x-text="m.label"></span>
@@ -239,7 +239,7 @@
 
                             {{-- Agregar pago --}}
                             <button x-show="pagos.length < 3" @click="agregarPago()" x-cloak
-                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-gray-500 dark:text-slate-400 hover:border-green-400 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-900/30 transition flex items-center justify-center gap-1.5">
+                                    class="mt-2 w-full py-2 border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-gray-500 dark:text-slate-400 hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 transition flex items-center justify-center gap-1.5">
                                 <i class="fas fa-plus text-[9px]"></i> Agregar otro método de pago
                             </button>
 

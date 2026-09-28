@@ -51,7 +51,7 @@
             <div class="py-16 text-center text-gray-400 dark:text-slate-500">
                 <i class="fas fa-file-invoice text-4xl mb-3 block"></i>
                 <p class="text-sm">No hay guías registradas.</p>
-                <a href="{{ route('guias-remision.create') }}" class="mt-3 inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800">
+                <a href="{{ route('guias-remision.create') }}" class="mt-3 inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                     <i class="fas fa-plus-circle"></i> Crear primera guía
                 </a>
             </div>
@@ -112,18 +112,18 @@
                         <td class="px-4 py-3 text-right">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('guias-remision.show', $guia) }}"
-                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium" title="Ver detalle">
+                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium" title="Ver detalle">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="{{ route('guias-remision.pdf', $guia) }}" target="_blank"
-                                   class="text-red-500 hover:text-red-700 text-xs font-medium" title="Descargar PDF">
+                                   class="text-red-500 hover:text-red-700 dark:hover:text-red-300 text-xs font-medium" title="Descargar PDF">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
                                 @if($guia->puedeEnviarSunat())
                                     <form action="{{ route('guias-remision.enviar-sunat', $guia) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit"
-                                                class="text-amber-600 dark:text-amber-400 hover:text-amber-800 text-xs font-medium transition"
+                                                class="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 text-xs font-medium transition"
                                                 title="Enviar a SUNAT"
                                                 onclick="return confirm('¿Enviar esta guía a SUNAT?')">
                                             <i class="fas fa-paper-plane"></i>
@@ -133,7 +133,7 @@
                                     <form action="{{ route('guias-remision.consultar-sunat', $guia) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit"
-                                                class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs font-medium transition"
+                                                class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-medium transition"
                                                 title="Consultar estado SUNAT">
                                             <i class="fas fa-sync-alt"></i>
                                         </button>

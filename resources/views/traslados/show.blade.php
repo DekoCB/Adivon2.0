@@ -10,9 +10,9 @@
 <div>
 @php
             $colores   = [
-                'pendiente'  => 'bg-yellow-100 text-yellow-800',
-                'confirmado' => 'bg-green-100 text-green-800',
-                'anulado'    => 'bg-red-100 text-red-800',
+                'pendiente'  => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300',
+                'confirmado' => 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300',
+                'anulado'    => 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300',
             ];
             $esGuia    = !str_starts_with($traslado->numero_guia ?? 'id:', 'id:');
             $titulo    = $esGuia ? $traslado->numero_guia : '# ' . $traslado->id;
@@ -21,11 +21,11 @@
 
         <div class="flex items-center justify-between mb-6" x-data="{ showAnular: false }">
             <div class="flex items-center gap-3">
-                <a href="{{ route('traslados.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800">
+                <a href="{{ route('traslados.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                     <i class="fas fa-arrow-left"></i>
                 </a>
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200">Traslado {{ $titulo }}</h2>
-                <span class="px-2.5 py-1 text-xs font-semibold rounded-full {{ $colores[$traslado->estado] ?? 'bg-gray-100 text-gray-700' }}">
+                <span class="px-2.5 py-1 text-xs font-semibold rounded-full {{ $colores[$traslado->estado] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-700' }}">
                     {{ ucfirst($traslado->estado) }}
                 </span>
             </div>
@@ -159,7 +159,7 @@
                     <div class="flex justify-between">
                         <dt class="text-gray-500 dark:text-slate-400 text-sm">Estado</dt>
                         <dd>
-                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full {{ $colores[$traslado->estado] ?? 'bg-gray-100 text-gray-700' }}">
+                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full {{ $colores[$traslado->estado] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-700' }}">
                                 {{ ucfirst($traslado->estado) }}
                             </span>
                         </dd>
@@ -201,9 +201,9 @@
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden">
 
                 {{-- Header producto --}}
-                <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100 dark:border-slate-700 {{ $esS ? 'bg-purple-50' : 'bg-blue-50' }}">
+                <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100 dark:border-slate-700 {{ $esS ? 'bg-purple-50 dark:bg-purple-900/30' : 'bg-blue-50 dark:bg-blue-900/30' }}">
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold px-2 py-0.5 rounded {{ $esS ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded {{ $esS ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' }}">
                             @if($esS)
                                 <i class="fas fa-barcode mr-1"></i>IMEI
                             @else
@@ -217,7 +217,7 @@
                         <span class="text-sm font-bold text-gray-700 dark:text-slate-300">
                             {{ $mov->cantidad }} {{ $esS ? 'IMEI(s)' : 'unid.' }}
                         </span>
-                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ $colores[$mov->estado] ?? 'bg-gray-100 text-gray-600' }}">
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ $colores[$mov->estado] ?? 'bg-gray-100 dark:bg-slate-700/50 text-gray-600' }}">
                             {{ ucfirst($mov->estado) }}
                         </span>
                     </div>
@@ -244,7 +244,7 @@
                             </p>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($mov->imeisTrasladados as $ti)
-                                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono {{ $mov->estado === 'confirmado' ? 'bg-green-50 border-green-200 dark:border-green-800 text-green-800' : 'bg-indigo-50 border-indigo-200 dark:border-indigo-800 text-indigo-800' }}">
+                                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono {{ $mov->estado === 'confirmado' ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300' : 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-800 text-indigo-800 dark:text-indigo-300' }}">
                                         <i class="fas fa-barcode text-[10px] opacity-60"></i>
                                         {{ $ti->imei->codigo_imei ?? '—' }}
                                         @if($ti->imei?->serie)

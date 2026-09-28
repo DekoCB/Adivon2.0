@@ -332,7 +332,7 @@
                                 @php
                                     $diasRestantes = $imei->fecha_garantia ? now()->diffInDays($imei->fecha_garantia, false) : 0;
                                 @endphp
-                                <p class="font-semibold {{ $diasRestantes > 30 ? 'text-green-600' : ($diasRestantes > 0 ? 'text-yellow-600' : 'text-red-600') }}">
+                                <p class="font-semibold {{ $diasRestantes > 30 ? 'text-green-600 dark:text-green-400' : ($diasRestantes > 0 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-600 dark:text-red-400') }}">
                                     {{ $diasRestantes > 0 ? $diasRestantes . ' días' : 'Vencida' }}
                                 </p>
                             </div>
@@ -363,7 +363,7 @@
                                         @endif
                                     </div>
                                     <div class="text-right">
-                                        <p class="text-sm font-semibold {{ $movimiento->tipo_movimiento === 'ingreso' ? 'text-green-600' : 'text-red-600' }}">
+                                        <p class="text-sm font-semibold {{ $movimiento->tipo_movimiento === 'ingreso' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                             {{ $movimiento->tipo_movimiento === 'ingreso' ? '+' : '-' }}{{ $movimiento->cantidad }}
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-slate-400">{{ $movimiento->created_at->format('d/m/Y H:i') }}</p>

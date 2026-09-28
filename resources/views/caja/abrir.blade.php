@@ -144,7 +144,7 @@
                                @class([
                                    'w-full pl-10 pr-4 py-3 border rounded-lg text-xl font-bold focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
                                    'border-red-400' => $errors->has('monto_inicial'),
-                                   'border-gray-300' => !$errors->has('monto_inicial'),
+                                   'border-gray-300 dark:border-slate-500' => !$errors->has('monto_inicial'),
                                ])
                                value="{{ old('monto_inicial', '0.00') }}"
                                placeholder="0.00" required autofocus>

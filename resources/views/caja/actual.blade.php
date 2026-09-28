@@ -205,7 +205,7 @@
                     <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/60">
                         <td class="px-4 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $mov->created_at->format('H:i') }}</td>
                         <td class="px-4 py-3">
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $mov->tipo === 'ingreso' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $mov->tipo === 'ingreso' ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' }}">
                                 <span class="w-1.5 h-1.5 rounded-full mr-1 {{ $mov->tipo === 'ingreso' ? 'bg-green-500' : 'bg-red-500' }}"></span>
                                 {{ ucfirst($mov->tipo) }}
                             </span>
@@ -222,10 +222,10 @@
                         <td class="px-4 py-3">
                             @php $mp = $mov->metodo_pago ?? 'efectivo'; @endphp
                             @php $mpColor = match($mp) {
-                                'yape'          => 'text-purple-600',
-                                'plin'          => 'text-teal-600',
-                                'transferencia' => 'text-blue-600',
-                                'mixto'         => 'text-orange-600',
+                                'yape'          => 'text-purple-600 dark:text-purple-400',
+                                'plin'          => 'text-teal-600 dark:text-teal-400',
+                                'transferencia' => 'text-blue-600 dark:text-blue-400',
+                                'mixto'         => 'text-orange-600 dark:text-orange-400',
                                 default         => 'text-gray-500',
                             }; @endphp
                             <span class="text-xs font-medium {{ $mpColor }} capitalize">{{ $mp }}</span>
@@ -240,7 +240,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right">
-                            <span class="font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600' : 'text-red-600' }}">
+                            <span class="font-semibold {{ $mov->tipo === 'ingreso' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                 {{ $mov->tipo === 'ingreso' ? '+' : '-' }} S/ {{ number_format($mov->monto, 2) }}
                             </span>
                         </td>
@@ -307,7 +307,7 @@
                         <label class="flex flex-col items-center justify-center cursor-pointer">
                             <input type="radio" name="metodo_pago" value="{{ $val }}" class="sr-only peer"
                                    {{ $val === 'efectivo' ? 'checked' : '' }}>
-                            <div class="w-full text-center py-2 px-1 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-xs font-medium peer-checked:border-green-500 peer-checked:bg-green-50 peer-checked:text-green-700 hover:border-gray-300 dark:hover:border-slate-500 transition-colors cursor-pointer">
+                            <div class="w-full text-center py-2 px-1 border-2 border-gray-200 dark:border-slate-700 rounded-lg text-xs font-medium peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-700 dark:peer-checked:text-green-300 hover:border-gray-300 dark:hover:border-slate-500 transition-colors cursor-pointer">
                                 {{ $lbl }}
                             </div>
                         </label>
@@ -454,7 +454,7 @@
                     <span class="font-medium">S/ {{ number_format($arqueo['total_egresos'], 2) }}</span>
                 </div>
                 @endif
-                <div class="border-t border-gray-200 dark:border-slate-700 pt-2 mt-2 flex justify-between font-bold text-blue-900">
+                <div class="border-t border-gray-200 dark:border-slate-700 pt-2 mt-2 flex justify-between font-bold text-blue-900 dark:text-blue-200">
                     <span>Saldo esperado (efectivo):</span>
                     <span>S/ {{ number_format($arqueo['saldo_esperado'], 2) }}</span>
                 </div>
@@ -489,9 +489,9 @@
                     <div class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
                         @foreach($opsDigitales as $op)
                         @php $mpCol = match($op->metodo_pago) {
-                            'yape' => 'text-purple-700 bg-purple-50 border-purple-200',
-                            'plin' => 'text-teal-700 bg-teal-50 border-teal-200',
-                            default => 'text-blue-700 bg-blue-50 border-blue-200',
+                            'yape' => 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border-purple-200 dark:border-purple-700',
+                            'plin' => 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/30 border-teal-200 dark:border-teal-700',
+                            default => 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700',
                         }; @endphp
                         <div class="flex items-center justify-between gap-2 rounded-lg border px-2 py-1 {{ $mpCol }}">
                             <div class="flex items-center gap-1.5 min-w-0">
@@ -528,9 +528,9 @@
 
                 {{-- Diferencia en tiempo real --}}
                 <div x-show="montoReal !== ''" class="rounded-lg p-3 text-center"
-                     :class="Math.abs(parseFloat(montoReal) - saldoSistema) < 0.01 ? 'bg-green-50 border border-green-200' : (parseFloat(montoReal) - saldoSistema) > 0 ? 'bg-blue-50 border border-blue-200' : 'bg-red-50 border border-red-200'">
+                     :class="Math.abs(parseFloat(montoReal) - saldoSistema) < 0.01 ? 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700' : (parseFloat(montoReal) - saldoSistema) > 0 ? 'bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700' : 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700'">
                     <p class="text-sm font-medium"
-                       :class="Math.abs(parseFloat(montoReal) - saldoSistema) < 0.01 ? 'text-green-700' : (parseFloat(montoReal) - saldoSistema) > 0 ? 'text-blue-700' : 'text-red-700'">
+                       :class="Math.abs(parseFloat(montoReal) - saldoSistema) < 0.01 ? 'text-green-700 dark:text-green-300' : (parseFloat(montoReal) - saldoSistema) > 0 ? 'text-blue-700 dark:text-blue-300' : 'text-red-700 dark:text-red-300'">
                         <span x-show="Math.abs(parseFloat(montoReal) - saldoSistema) < 0.01">
                             <i class="fas fa-check-circle mr-1"></i> Cuadra perfectamente
                         </span>

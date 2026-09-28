@@ -10,7 +10,7 @@
     <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
             <div class="flex items-center gap-3 mb-1">
-                <a href="{{ route('guias-remision.index') }}" class="text-gray-400 dark:text-slate-500 hover:text-blue-600 transition">
+                <a href="{{ route('guias-remision.index') }}" class="text-gray-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition">
                     <i class="fas fa-arrow-left"></i>
                 </a>
                 <h1 class="text-xl font-bold text-gray-900 dark:text-slate-100 font-mono">{{ $guia->numero_guia }}</h1>
@@ -249,7 +249,7 @@
                 </h3>
 
                 {{-- Estado SUNAT --}}
-                <div class="flex items-center justify-between px-3 py-2.5 rounded-lg {{ $guia->sunat_estado === 'aceptado' ? 'bg-green-50 border border-green-200' : ($guia->sunat_estado === 'error' || $guia->sunat_estado === 'rechazado' ? 'bg-red-50 border border-red-200' : ($guia->sunat_estado === 'enviado' ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200')) }}">
+                <div class="flex items-center justify-between px-3 py-2.5 rounded-lg {{ $guia->sunat_estado === 'aceptado' ? 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700' : ($guia->sunat_estado === 'error' || $guia->sunat_estado === 'rechazado' ? 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700' : ($guia->sunat_estado === 'enviado' ? 'bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700' : 'bg-gray-50 dark:bg-slate-800/40 border border-gray-200 dark:border-slate-600')) }}">
                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-slate-400">Estado</span>
                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold {{ $guia->sunat_estado_css }}">
                         @if($guia->sunat_estado === 'aceptado')

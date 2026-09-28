@@ -115,7 +115,7 @@
                             </td>
                             <td class="px-4 py-3">
                                 <a href="{{ route('ventas.show', $cuenta->venta_id) }}"
-                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-mono text-xs font-medium">
+                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-xs font-medium">
                                     {{ $cuenta->venta?->codigo }}
                                 </a>
                                 <p class="text-xs text-gray-400 dark:text-slate-500">{{ $cuenta->fecha_inicio->format('d/m/Y') }}</p>
@@ -126,10 +126,10 @@
                             <td class="px-4 py-3 text-right font-mono text-green-600 dark:text-green-400">
                                 S/ {{ number_format($cuenta->monto_pagado, 2) }}
                             </td>
-                            <td class="px-4 py-3 text-right font-mono font-bold {{ $cuenta->saldo_pendiente > 0 ? 'text-orange-600' : 'text-gray-400' }}">
+                            <td class="px-4 py-3 text-right font-mono font-bold {{ $cuenta->saldo_pendiente > 0 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-400' }}">
                                 S/ {{ number_format($cuenta->saldo_pendiente, 2) }}
                             </td>
-                            <td class="px-4 py-3 text-center text-xs {{ $cuenta->esta_vencida ? 'text-red-600 font-semibold' : 'text-gray-500' }}">
+                            <td class="px-4 py-3 text-center text-xs {{ $cuenta->esta_vencida ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-gray-500' }}">
                                 {{ $cuenta->fecha_vencimiento_final->format('d/m/Y') }}
                                 @if($cuenta->esta_vencida)
                                 <br><span class="text-[10px] text-red-400">Vencida</span>
@@ -148,7 +148,7 @@
                             </td>
                             <td class="px-4 py-3 text-right">
                                 <a href="{{ route('ventas.credito.show', $cuenta->venta_id) }}"
-                                   class="text-xs text-orange-600 dark:text-orange-400 hover:text-orange-700 font-medium">
+                                   class="text-xs text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium">
                                     Ver <i class="fas fa-arrow-right ml-0.5"></i>
                                 </a>
                             </td>

@@ -23,7 +23,7 @@
                         <p class="text-3xl font-bold text-gray-900 dark:text-slate-100 mt-2">{{ $productos_stock }}</p>
                     </div>
                     <div class="bg-blue-100 dark:bg-blue-900/40 rounded-full p-3">
-                        <i class="fas fa-boxes text-blue-900 text-2xl"></i>
+                        <i class="fas fa-boxes text-blue-900 dark:text-blue-200 text-2xl"></i>
                     </div>
                 </div>
             </div>
@@ -84,12 +84,12 @@
             <!-- Gestión de Productos -->
             <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                    <i class="fas fa-box mr-2 text-blue-900"></i>
+                    <i class="fas fa-box mr-2 text-blue-900 dark:text-blue-200"></i>
                     Gestión de Productos
                 </h2>
                 <div class="space-y-3">
                     <a href="#" class="block p-3 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
-                        <i class="fas fa-plus-circle text-blue-900 mr-2"></i>
+                        <i class="fas fa-plus-circle text-blue-900 dark:text-blue-200 mr-2"></i>
                         <span class="font-medium text-gray-900 dark:text-slate-100">Agregar Producto</span>
                     </a>
                     <a href="#" class="block p-3 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
@@ -106,7 +106,7 @@
             <!-- Movimientos de Inventario -->
             <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-                    <i class="fas fa-exchange-alt mr-2 text-blue-900"></i>
+                    <i class="fas fa-exchange-alt mr-2 text-blue-900 dark:text-blue-200"></i>
                     Movimientos Recientes
                 </h2>
                 <div class="text-center py-8 text-gray-500 dark:text-slate-400">
