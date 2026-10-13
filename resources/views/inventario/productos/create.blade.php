@@ -416,14 +416,6 @@
                                     Busca por descripción o código (ej: "diesel", "oro", "teléfono"). Opcional para la mayoría de productos; SUNAT lo exige desde agosto 2026 solo para ciertos bienes regulados (metales preciosos, combustibles, bienes con detracción/percepción).
                                 </p>
                             </div>
-
-                            <!-- Descripción -->
-                            <div class="md:col-span-2">
-                                <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Descripción</label>
-                                <textarea name="descripcion" id="descripcion" rows="2"
-                                          class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                          placeholder="Descripción detallada del producto">{{ old('descripcion') }}</textarea>
-                            </div>
                         </div>
                     </div>
 
@@ -464,8 +456,8 @@
                         </div>
                     </div>
 
-                    <!-- SECCIÓN 4: VARIANTES DEL PRODUCTO -->
-                    <div class="mb-8" x-data="variantesManager()" x-init="init()">
+                    <!-- SECCIÓN 4: VARIANTES DEL PRODUCTO (solo para stock por Serie/IMEI) -->
+                    <div id="variantesSection" class="mb-8" x-data="variantesManager()" x-init="init()" style="display: none;">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4 pb-2 border-b border-gray-200 dark:border-slate-700">
                             <i class="fas fa-layer-group mr-2 text-indigo-600 dark:text-indigo-400"></i>
                             Variantes del Producto
@@ -696,12 +688,6 @@
                         <div id="prev-variantes-lista" class="flex flex-wrap gap-2"></div>
                     </div>
 
-                    <!-- Descripción -->
-                    <div id="prev-descripcion-wrap" class="hidden">
-                        <p class="text-xs font-medium text-gray-400 dark:text-slate-500 uppercase tracking-wide mb-1">Descripción</p>
-                        <p id="prev-descripcion" class="text-sm text-gray-600 dark:text-slate-400 bg-gray-50 dark:bg-slate-900/60 rounded-xl p-3"></p>
-                    </div>
-
                     <!-- Aviso -->
                     <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-3 flex items-start gap-2">
                         <i class="fas fa-info-circle text-amber-500 mt-0.5 flex-shrink-0"></i>
@@ -742,17 +728,20 @@
         function toggleFieldsByType() {
             const tipo = document.querySelector('input[name="tipo_inventario"]:checked')?.value;
             const garantiaSection = document.getElementById('garantiaSection');
+            const variantesSection = document.getElementById('variantesSection');
             const modeloSelect = document.getElementById('modelo_id');
             const modeloRequeridoLabel = document.getElementById('modeloRequeridoLabel');
             const modeloOpcionalLabel = document.getElementById('modeloOpcionalLabel');
 
             if (tipo === 'serie') {
                 garantiaSection?.style.setProperty('display', 'block');
+                variantesSection?.style.setProperty('display', 'block');
                 if (modeloSelect) modeloSelect.required = true;
                 modeloRequeridoLabel?.classList.remove('hidden');
                 modeloOpcionalLabel?.classList.add('hidden');
             } else {
                 garantiaSection?.style.setProperty('display', 'none');
+                variantesSection?.style.setProperty('display', 'none');
                 if (modeloSelect) modeloSelect.required = false;
                 modeloRequeridoLabel?.classList.add('hidden');
                 modeloOpcionalLabel?.classList.remove('hidden');
@@ -987,7 +976,6 @@
             const stockMin  = form.querySelector('#stock_minimo')?.value || '0';
             const stockMax  = form.querySelector('#stock_maximo')?.value || '0';
             const estado    = form.querySelector('#estado')?.value || 'activo';
-            const descripcion = form.querySelector('#descripcion')?.value.trim() || '';
 
             const categoriaOpt = form.querySelector('#categoria_id')?.selectedOptions[0];
             const marcaOpt     = form.querySelector('#marca_id')?.selectedOptions[0];
@@ -1090,15 +1078,6 @@
                 variantesWrap.classList.remove('hidden');
             } else {
                 variantesWrap.classList.add('hidden');
-            }
-
-            // ── Descripción ──────────────────────────────────────────────
-            const descWrap = document.getElementById('prev-descripcion-wrap');
-            if (descripcion) {
-                document.getElementById('prev-descripcion').textContent = descripcion;
-                descWrap.classList.remove('hidden');
-            } else {
-                descWrap.classList.add('hidden');
             }
 
             // Mostrar modal

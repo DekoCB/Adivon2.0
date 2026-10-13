@@ -375,16 +375,16 @@
                             @enderror
                         </div>
 
-                        <!-- Almacén de Destino -->
+                        <!-- Sucursal de Destino -->
                         <div class="relative">
                             <label for="almacen_id" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
-                                Almacén de Destino <span class="text-red-500">*</span>
+                                Sucursal de Destino <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 @php $almacenSeleccionado = old('almacen_id', $pedidoOrigen['almacen_id'] ?? null); @endphp
                                 <select name="almacen_id" id="almacen_id" required
                                         class="w-full px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm appearance-none bg-white dark:bg-slate-800 text-sm">
-                                    <option value="">— Seleccione un almacén —</option>
+                                    <option value="">— Seleccione una sucursal —</option>
                                     @if($almacenesCentral->isNotEmpty())
                                         <optgroup label="── Almacenes Centrales">
                                             @foreach($almacenesCentral as $alm)

@@ -62,12 +62,39 @@
                                    value="{{ old('nombre_comercial', $proveedor->nombre_comercial) }}">
                         </div>
 
-                        <div>
+                        <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Dirección</label>
                             <input type="text" name="direccion"
                                    placeholder="Dirección fiscal"
                                    class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                    value="{{ old('direccion', $proveedor->direccion) }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Departamento / Región</label>
+                            <select name="departamento"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
+                                <option value="">— Seleccionar —</option>
+                                @foreach(['AMAZONAS','ÁNCASH','APURÍMAC','AREQUIPA','AYACUCHO','CAJAMARCA','CALLAO','CUSCO','HUANCAVELICA','HUÁNUCO','ICA','JUNÍN','LA LIBERTAD','LAMBAYEQUE','LIMA','LORETO','MADRE DE DIOS','MOQUEGUA','PASCO','PIURA','PUNO','SAN MARTÍN','TACNA','TUMBES','UCAYALI'] as $dep)
+                                    <option value="{{ $dep }}" {{ old('departamento', $proveedor->departamento) === $dep ? 'selected' : '' }}>{{ $dep }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Ciudad</label>
+                            <input type="text" name="provincia" maxlength="100"
+                                   placeholder="Ciudad"
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                   value="{{ old('provincia', $proveedor->provincia) }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Distrito</label>
+                            <input type="text" name="distrito" maxlength="100"
+                                   placeholder="Distrito"
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                   value="{{ old('distrito', $proveedor->distrito) }}">
                         </div>
 
                         <div>

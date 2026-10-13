@@ -97,12 +97,39 @@
                                    value="{{ old('nombre_comercial') }}">
                         </div>
 
-                        <div>
+                        <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Dirección</label>
                             <input type="text" name="direccion" x-model="direccion"
                                    placeholder="Dirección fiscal"
                                    class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                                    value="{{ old('direccion') }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Departamento / Región</label>
+                            <select name="departamento" x-model="departamento"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800">
+                                <option value="">— Seleccionar —</option>
+                                @foreach(['AMAZONAS','ÁNCASH','APURÍMAC','AREQUIPA','AYACUCHO','CAJAMARCA','CALLAO','CUSCO','HUANCAVELICA','HUÁNUCO','ICA','JUNÍN','LA LIBERTAD','LAMBAYEQUE','LIMA','LORETO','MADRE DE DIOS','MOQUEGUA','PASCO','PIURA','PUNO','SAN MARTÍN','TACNA','TUMBES','UCAYALI'] as $dep)
+                                    <option value="{{ $dep }}">{{ $dep }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Ciudad</label>
+                            <input type="text" name="provincia" x-model="provincia" maxlength="100"
+                                   placeholder="Ciudad"
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                   value="{{ old('provincia') }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Distrito</label>
+                            <input type="text" name="distrito" x-model="distrito" maxlength="100"
+                                   placeholder="Distrito"
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                   value="{{ old('distrito') }}">
                         </div>
 
                         <div>
@@ -164,6 +191,9 @@
             razonSocial: '{{ old('razon_social') }}',
             nombreComercial: '{{ old('nombre_comercial') }}',
             direccion: '{{ old('direccion') }}',
+            departamento: '{{ old('departamento') }}',
+            provincia: '{{ old('provincia') }}',
+            distrito: '{{ old('distrito') }}',
             cargando: false,
             mensajeSunat: '',
             sunatExito: false,
@@ -196,6 +226,9 @@
                         this.razonSocial    = data.data.razon_social;
                         this.nombreComercial = data.data.nombre_comercial || '';
                         this.direccion      = data.data.direccion || '';
+                        this.departamento   = data.data.departamento || '';
+                        this.provincia      = data.data.provincia || '';
+                        this.distrito       = data.data.distrito || '';
                         this.estadoRuc    = data.data.estado     || '';
                         this.condicionRuc = data.data.condicion || '';
                         this.mensajeSunat   = '✓ Datos encontrados en SUNAT';
