@@ -232,7 +232,11 @@
         @php $empresa = \App\Models\Empresa::instancia(); @endphp
         <div class="relative border-b border-blue-700">
             <div class="p-3">
-                @if(file_exists(public_path('images/logo-transparente.png')))
+                @if(file_exists(public_path('images/logo-blanco.png')))
+                    {{-- Variante blanca (misma que el panel de login): el logo a color
+                         se perdía contra el degradado azul del sidebar. --}}
+                    <img src="{{ asset('images/logo-blanco.png') }}" alt="{{ $empresa?->nombre_display ?? 'ADIVON' }}" class="w-full h-auto max-h-24 object-contain">
+                @elseif(file_exists(public_path('images/logo-transparente.png')))
                     <img src="{{ asset('images/logo-transparente.png') }}" alt="{{ $empresa?->nombre_display ?? 'ADIVON' }}" class="w-full h-auto max-h-24 object-contain">
                 @elseif($empresa?->logo_url)
                     <img src="{{ $empresa->logo_url }}" alt="{{ $empresa?->nombre_display ?? 'ADIVON' }}" class="w-full h-auto max-h-24 object-contain">
