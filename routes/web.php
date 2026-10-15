@@ -26,6 +26,7 @@ use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ImeiController;
 
 // ===================== NUEVOS MÓDULOS =====================
+use App\Http\Controllers\PortafolioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PedidoController;
@@ -280,6 +281,26 @@ Route::middleware('auth')->group(function () {
         Route::put('/{proveedor}', [ProveedorController::class, 'update'])->name('update');
         Route::delete('/{proveedor}', [ProveedorController::class, 'destroy'])->middleware('role:Administrador')->name('destroy');
         Route::post('/consultar-sunat', [ProveedorController::class, 'consultarSunat'])->name('consultar-sunat');
+    });
+
+    // ========================================
+    // MÓDULO DE PORTAFOLIOS (catálogo comercial en PDF — distinto del
+    // módulo "Catálogo" de datos maestros: Colores/Marcas/Modelos/etc.)
+    // ========================================
+    Route::prefix('portafolios')->name('portafolios.')->middleware('role:Administrador,Vendedor,Cajero,Tienda')->group(function () {
+        Route::get('/', [PortafolioController::class, 'index'])->name('index');
+
+        Route::middleware('role:Administrador,Vendedor')->group(function () {
+            Route::get('/create', [PortafolioController::class, 'create'])->name('create');
+            Route::post('/', [PortafolioController::class, 'store'])->name('store');
+            Route::get('/{portafolio}/edit', [PortafolioController::class, 'edit'])->name('edit');
+            Route::put('/{portafolio}', [PortafolioController::class, 'update'])->name('update');
+            Route::delete('/{portafolio}', [PortafolioController::class, 'destroy'])->name('destroy');
+            Route::post('/{portafolio}/marcar-vigente', [PortafolioController::class, 'marcarVigente'])->name('marcar-vigente');
+        });
+
+        Route::get('/{portafolio}', [PortafolioController::class, 'show'])->name('show');
+        Route::get('/{portafolio}/pdf', [PortafolioController::class, 'pdf'])->name('pdf');
     });
 
     // ========================================

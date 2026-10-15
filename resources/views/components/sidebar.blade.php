@@ -109,6 +109,7 @@
                     ['label'=>'Supervisión Cajas','icon'=>'fa-cash-register','route'=>route('admin.cajas.dashboard'),'active'=>request()->routeIs('admin.cajas.*'),'badge_html'=>$_alertasCaja > 0 ? $nb_count($_alertasCaja, 9) : null],
                 ]],
                 ['key'=>'usuarios','label'=>'Usuarios','icon'=>'fa-users','route'=>route('users.index'),'active'=>request()->routeIs('users.*'),'badge_html'=>null,'children'=>[]],
+                ['key'=>'portafolios','label'=>'Portafolios','icon'=>'fa-images','route'=>route('portafolios.index'),'active'=>request()->routeIs('portafolios.*'),'badge_html'=>null,'children'=>[]],
             ];
         } elseif ($role == 'Almacenero') {
             $modules = [
@@ -183,6 +184,7 @@
                     ['label'=>'Historial de Caja','icon'=>'fa-history','route'=>route('caja.index'),'active'=>request()->routeIs('caja.index'),'badge_html'=>null],
                 ]],
                 ['key'=>'comisiones','label'=>'Mis Comisiones','icon'=>'fa-percentage','route'=>route('mis-comisiones'),'active'=>request()->routeIs('mis-comisiones'),'badge_html'=>null,'children'=>[]],
+                ['key'=>'portafolios','label'=>'Portafolios','icon'=>'fa-images','route'=>route('portafolios.index'),'active'=>request()->routeIs('portafolios.*'),'badge_html'=>null,'children'=>[]],
             ];
         } elseif ($role == 'Vendedor') {
             $modules = [
@@ -191,6 +193,7 @@
                 ['key'=>'clientes','label'=>'Clientes','icon'=>'fa-users','route'=>route('clientes.index'),'active'=>request()->routeIs('clientes.*'),'badge_html'=>null,'children'=>[]],
                 ['key'=>'devoluciones','label'=>'Devoluciones','icon'=>'fa-undo-alt','route'=>route('devoluciones.index'),'active'=>request()->routeIs('devoluciones.*'),'badge_html'=>$tagNuevo,'children'=>[]],
                 ['key'=>'comisiones','label'=>'Mis Comisiones','icon'=>'fa-percentage','route'=>route('mis-comisiones'),'active'=>request()->routeIs('mis-comisiones'),'badge_html'=>null,'children'=>[]],
+                ['key'=>'portafolios','label'=>'Portafolios','icon'=>'fa-images','route'=>route('portafolios.index'),'active'=>request()->routeIs('portafolios.*'),'badge_html'=>null,'children'=>[]],
             ];
         } elseif ($role == 'Cajero') {
             $colaPendientes = 0;
@@ -209,6 +212,7 @@
                 ['key'=>'nueva-venta','label'=>'Nueva Venta (POS)','icon'=>'fa-plus-circle','route'=>route('ventas.create'),'active'=>request()->routeIs('ventas.create'),'badge_html'=>null,'children'=>[]],
                 ['key'=>'caja','label'=>'Mi Caja','icon'=>'fa-cash-register','route'=>route('caja.actual'),'active'=>request()->routeIs('caja.actual') || request()->routeIs('caja.abrir'),'badge_html'=>null,'children'=>[]],
                 ['key'=>'comisiones','label'=>'Mis Comisiones','icon'=>'fa-percentage','route'=>route('mis-comisiones'),'active'=>request()->routeIs('mis-comisiones'),'badge_html'=>null,'children'=>[]],
+                ['key'=>'portafolios','label'=>'Portafolios','icon'=>'fa-images','route'=>route('portafolios.index'),'active'=>request()->routeIs('portafolios.*'),'badge_html'=>null,'children'=>[]],
             ];
         } elseif ($role == 'Proveedor') {
             $modules = [
