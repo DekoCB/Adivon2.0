@@ -61,18 +61,22 @@
                     <i class="fas fa-box mr-2 text-blue-600 dark:text-blue-400"></i>Productos del portafolio
                 </h3>
 
-                <div class="relative mb-4">
+                <div class="relative mb-4" @click.outside="mostrarDropdown = false">
                     <input type="text" x-model="busqueda" @input.debounce.400ms="buscar()"
-                           placeholder="Buscar producto por nombre o código..."
+                           @focus="mostrarDropdown = true; if(resultados.length === 0) buscar()"
+                           placeholder="Buscar producto por nombre o código, o hacé clic para ver todos..."
                            class="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-800">
-                    <div x-show="resultados.length > 0" x-cloak
+                    <div x-show="mostrarDropdown && resultados.length > 0" x-cloak
                          class="absolute z-10 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
-                        <template x-for="r in resultados" :key="r.id">
+                        <template x-for="r in resultados.filter(r => !seleccionados.some(s => s.producto_id === r.id))" :key="r.id">
                             <button type="button" @click="agregar(r)"
                                     class="w-full text-left px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-slate-700 last:border-0">
                                 <span class="font-mono text-xs text-blue-700 dark:text-blue-300" x-text="r.codigo"></span>
                                 <span class="block text-sm text-gray-800 dark:text-slate-200" x-text="r.nombre"></span>
                             </button>
+                        </template>
+                        <template x-if="resultados.filter(r => !seleccionados.some(s => s.producto_id === r.id)).length === 0">
+                            <p class="px-4 py-3 text-sm text-gray-400 dark:text-slate-500 italic">No hay más productos para agregar.</p>
                         </template>
                     </div>
                 </div>
@@ -150,11 +154,13 @@ function portafolioForm() {
         busqueda: '',
         resultados: [],
         seleccionados: {!! json_encode($seleccionadosIniciales) !!},
+        mostrarDropdown: false,
 
         async buscar() {
-            if (this.busqueda.trim().length < 2) { this.resultados = []; return; }
+            // Sin término = catálogo completo (el endpoint ya lo soporta), así
+            // el usuario puede explorar la lista sin saber qué escribir.
             try {
-                const resp = await fetch('{{ route("inventario.productos.buscar-ajax") }}?q=' + encodeURIComponent(this.busqueda));
+                const resp = await fetch('{{ route("inventario.productos.buscar-ajax") }}?q=' + encodeURIComponent(this.busqueda.trim()));
                 this.resultados = await resp.json();
             } catch (e) {
                 this.resultados = [];
