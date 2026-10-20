@@ -15,10 +15,13 @@ class MovimientoCaja extends Model
         'caja_id', 'user_id', 'venta_id', 'compra_id',
         'tipo', 'metodo_pago', 'monto', 'concepto',
         'referencia', 'observaciones',
+        'verificado', 'verificado_por', 'verificado_en',
     ];
 
     protected $casts = [
         'monto' => 'decimal:2',
+        'verificado' => 'boolean',
+        'verificado_en' => 'datetime',
     ];
 
     public function caja()
@@ -29,6 +32,11 @@ class MovimientoCaja extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function verificadoPor()
+    {
+        return $this->belongsTo(User::class, 'verificado_por');
     }
 
     public function venta()

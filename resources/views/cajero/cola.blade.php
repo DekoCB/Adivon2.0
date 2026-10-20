@@ -405,15 +405,21 @@ function colaApp() {
             const esMixto    = this.pagos.length > 1;
             const metodoPago = esMixto ? 'mixto' : this.pagos[0].metodo;
 
+            // Siempre se manda el detalle (aunque la referencia quede vacía)
+            // para que el backend pueda exigirla en Yape/Plin/Transferencia —
+            // si solo se mandara cuando ya hay texto, nunca llegaría nada
+            // que validar.
             const pagosDetalle = esMixto
                 ? this.pagos.map(p => ({
                     metodo:     p.metodo,
                     monto:      parseFloat(p.monto) || 0,
                     referencia: p.referencia?.trim() || null,
                 }))
-                : (this.pagos[0].referencia?.trim()
-                    ? [{ metodo: this.pagos[0].metodo, monto: parseFloat(this.pagos[0].monto) || this.totalVenta, referencia: this.pagos[0].referencia.trim() }]
-                    : null);
+                : [{
+                    metodo:     this.pagos[0].metodo,
+                    monto:      parseFloat(this.pagos[0].monto) || this.totalVenta,
+                    referencia: this.pagos[0].referencia?.trim() || null,
+                }];
 
             try {
                 const res = await fetch(`/ventas/${this.ventaActual.id}/confirmar-pago`, {

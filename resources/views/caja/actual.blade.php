@@ -18,7 +18,16 @@
 @endsection
 
 @section('content')
-<div x-data="{ showGastoModal: false, showIngresoModal: false, showCierreModal: false, montoReal: '', saldoSistema: {{ $arqueo['saldo_esperado'] }} }">
+@php
+    // Operaciones digitales de la sesión — se usa tanto para el listado como
+    // para el checklist de verificación al cerrar caja.
+    $opsDigitales = $caja->movimientos
+        ->where('tipo', 'ingreso')
+        ->whereNotNull('referencia')
+        ->whereIn('metodo_pago', ['yape', 'plin', 'transferencia'])
+        ->sortBy('created_at');
+@endphp
+<div x-data="{ showGastoModal: false, showIngresoModal: false, showCierreModal: false, montoReal: '', saldoSistema: {{ $arqueo['saldo_esperado'] }}, verificados: [], idsDigitales: {{ Js::from($opsDigitales->pluck('id')->values()) }} }">
     {{-- Tarjetas de resumen --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl p-5 text-white shadow-lg">
@@ -473,18 +482,14 @@
                 </div>
                 @endif
 
-                {{-- Listado de operaciones digitales con N° referencia --}}
-                @php
-                    $opsDigitales = $caja->movimientos
-                        ->where('tipo', 'ingreso')
-                        ->whereNotNull('referencia')
-                        ->whereIn('metodo_pago', ['yape', 'plin', 'transferencia'])
-                        ->sortBy('created_at');
-                @endphp
+                {{-- Checklist de verificación: el cajero marca cada operación
+                     contra lo que ve en su propio Yape/Plin — no depende de
+                     que el cliente mande nada. No bloquea el cierre. --}}
                 @if($opsDigitales->isNotEmpty())
                 <div class="mt-3 pt-2 border-t border-dashed border-amber-200 dark:border-amber-800">
-                    <p class="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2 flex items-center gap-1">
-                        <i class="fas fa-list-ol text-[10px]"></i> Operaciones digitales registradas
+                    <p class="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2 flex items-center justify-between gap-1">
+                        <span><i class="fas fa-list-ol text-[10px]"></i> Operaciones digitales — verificar contra tu Yape/Plin</span>
+                        <span x-text="verificados.length + ' de ' + idsDigitales.length + ' verificadas'"></span>
                     </p>
                     <div class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
                         @foreach($opsDigitales as $op)
@@ -493,8 +498,10 @@
                             'plin' => 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/30 border-teal-200 dark:border-teal-700',
                             default => 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700',
                         }; @endphp
-                        <div class="flex items-center justify-between gap-2 rounded-lg border px-2 py-1 {{ $mpCol }}">
+                        <label class="flex items-center justify-between gap-2 rounded-lg border px-2 py-1 cursor-pointer {{ $mpCol }}">
                             <div class="flex items-center gap-1.5 min-w-0">
+                                <input type="checkbox" value="{{ $op->id }}" x-model.number="verificados"
+                                       class="rounded border-gray-300 dark:border-slate-600 text-green-600 focus:ring-green-500 shrink-0">
                                 <span class="text-[10px] font-bold capitalize shrink-0">{{ $op->metodo_pago }}</span>
                                 <span class="font-mono text-[10px] truncate">#{{ $op->referencia }}</span>
                             </div>
@@ -502,7 +509,7 @@
                                 <span class="font-bold text-xs">S/ {{ number_format($op->monto, 2) }}</span>
                                 <span class="block text-[9px] opacity-60">{{ $op->created_at->format('H:i') }}</span>
                             </div>
-                        </div>
+                        </label>
                         @endforeach
                     </div>
                 </div>
@@ -549,6 +556,17 @@
                               class="w-full py-2 px-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-500 text-sm"
                               placeholder="Notas sobre el cierre..."></textarea>
                 </div>
+
+                {{-- Aviso informativo, no bloquea el cierre --}}
+                <div x-show="idsDigitales.length > 0 && verificados.length < idsDigitales.length" x-cloak
+                     class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg p-3 text-xs text-amber-700 dark:text-amber-300 flex items-start gap-2">
+                    <i class="fas fa-triangle-exclamation mt-0.5"></i>
+                    <span>Quedan <span x-text="idsDigitales.length - verificados.length"></span> operación(es) digital(es) sin verificar. Podés cerrar caja igual, pero revisalas cuando puedas.</span>
+                </div>
+
+                <template x-for="id in verificados" :key="id">
+                    <input type="hidden" name="verificados[]" :value="id">
+                </template>
 
                 <div class="flex gap-3 pt-2">
                     <button type="button" @click="showCierreModal = false"

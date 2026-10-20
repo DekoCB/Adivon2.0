@@ -735,15 +735,16 @@ function posApp() {
             } else if (this.orden.tipoComprobante === 'cotizacion') {
                 metodoPago = null;
             } else {
-                // Pago único: también guardar referencia si existe
+                // Pago único: siempre se manda el detalle (aunque la
+                // referencia quede vacía) para que el backend pueda exigirla
+                // en Yape/Plin/Transferencia — si solo se mandara cuando ya
+                // hay texto, nunca llegaría nada que validar.
                 const p0 = this.orden.pagos[0];
-                if (p0.referencia?.trim()) {
-                    pagosDetalle = [{
-                        metodo:     p0.metodo,
-                        monto:      parseFloat(p0.monto) || 0,
-                        referencia: p0.referencia.trim(),
-                    }];
-                }
+                pagosDetalle = [{
+                    metodo:     p0.metodo,
+                    monto:      parseFloat(p0.monto) || 0,
+                    referencia: p0.referencia?.trim() || null,
+                }];
             }
 
             try {

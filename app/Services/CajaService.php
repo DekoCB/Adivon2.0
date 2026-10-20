@@ -143,9 +143,10 @@ class CajaService
     public function cerrarCaja(
         int $cajaId,
         float $montoRealEfectivo,
-        ?string $observaciones = null
+        ?string $observaciones = null,
+        array $verificados = []
     ): Caja {
-        return DB::transaction(function () use ($cajaId, $montoRealEfectivo, $observaciones) {
+        return DB::transaction(function () use ($cajaId, $montoRealEfectivo, $observaciones, $verificados) {
             $caja = Caja::with('movimientos')->findOrFail($cajaId);
 
             if ($caja->estado !== 'abierta') {
@@ -172,6 +173,20 @@ class CajaService
                     'concepto'    => $diferencia > 0 ? 'Sobrante en cierre de caja' : 'Faltante en cierre de caja',
                     'metodo_pago' => 'efectivo',
                 ]);
+            }
+
+            // Checklist de verificación de pagos digitales — no bloquea el
+            // cierre, solo registra lo que el cajero marcó contra su propio
+            // Yape/Plin. Restringido a movimientos de ESTA caja para que
+            // nadie pueda marcar movimientos de otra sesión.
+            if (!empty($verificados)) {
+                MovimientoCaja::where('caja_id', $cajaId)
+                    ->whereIn('id', $verificados)
+                    ->update([
+                        'verificado'     => true,
+                        'verificado_por' => auth()->id(),
+                        'verificado_en'  => now(),
+                    ]);
             }
 
             return $caja->fresh('movimientos');

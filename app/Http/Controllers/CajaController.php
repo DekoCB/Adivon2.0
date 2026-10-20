@@ -159,6 +159,8 @@ class CajaController extends Controller
             'caja_id'             => 'required|exists:caja,id',
             'monto_real_cierre'   => 'required|numeric|min:0',
             'observaciones_cierre'=> 'nullable|string|max:500',
+            'verificados'         => 'nullable|array',
+            'verificados.*'       => 'integer|exists:movimientos_caja,id',
         ]);
 
         $caja = Caja::findOrFail($validated['caja_id']);
@@ -168,7 +170,8 @@ class CajaController extends Controller
             $this->cajaService->cerrarCaja(
                 $validated['caja_id'],
                 (float) $validated['monto_real_cierre'],
-                $validated['observaciones_cierre'] ?? null
+                $validated['observaciones_cierre'] ?? null,
+                $validated['verificados'] ?? []
             );
 
             return redirect()->route('caja.index')

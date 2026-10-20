@@ -567,8 +567,10 @@ class VentaController extends Controller
             'pagos_detalle'            => 'nullable|array',
             'pagos_detalle.*.metodo'   => 'required_with:pagos_detalle|in:efectivo,transferencia,yape,plin',
             'pagos_detalle.*.monto'    => 'required_with:pagos_detalle|numeric|min:0.01',
-            'pagos_detalle.*.referencia' => 'nullable|string|max:100',
+            'pagos_detalle.*.referencia' => 'required_if:pagos_detalle.*.metodo,yape,plin,transferencia|nullable|string|max:100',
             'formato_impresion'        => 'nullable|in:ticket,a4',
+        ], [
+            'pagos_detalle.*.referencia.required_if' => 'El número de operación es obligatorio para pagos por Yape, Plin o Transferencia.',
         ]);
 
         try {
