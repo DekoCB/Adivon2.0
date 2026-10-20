@@ -1161,7 +1161,7 @@
                             $precioFinal = round((float) ($detalle->precio_con_igv ?? $detalle->precio_unitario * 1.18), 2);
                             $totalFinal  = round((float) ($detalle->subtotal_con_igv ?? $detalle->subtotal * 1.18), 2);
                         @endphp
-                        <tr class="{{ $i % 2 === 0 ? 'bg-white' : 'bg-gray-50 dark:bg-slate-800/40' }} hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
+                        <tr class="{{ $i % 2 === 0 ? 'bg-white dark:bg-slate-900' : 'bg-gray-50 dark:bg-slate-800/40' }} hover:bg-blue-50/20 dark:hover:bg-blue-900/20 transition-colors">
                             <td class="px-4 py-4 text-center text-sm text-gray-500 dark:text-slate-400 font-medium">{{ $i + 1 }}</td>
                             <td class="px-4 py-4 text-sm font-mono text-gray-700 dark:text-slate-300">{{ $detalle->producto->codigo ?? '—' }}</td>
                             <td class="px-4 py-4">
