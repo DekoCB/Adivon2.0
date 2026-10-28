@@ -46,6 +46,9 @@ class SunatGuiaService
         if (!$empresa->tieneCertificado()) {
             throw new \Exception('Certificado digital no configurado. Suba el archivo .pfx en Configuración de Empresa.');
         }
+        if ($empresa->certificadoVencido()) {
+            throw new \Exception('El certificado digital venció el ' . $empresa->certificadoFechaVencimiento()->format('d/m/Y') . '. Renuévelo en Configuración de Empresa.');
+        }
         if (!$empresa->tieneCredencialesSunat()) {
             throw new \Exception('Credenciales SOL no configuradas.');
         }
@@ -86,6 +89,14 @@ class SunatGuiaService
 
         $guia->load(['almacen.sucursal', 'almacenDestino.sucursal', 'detalles.producto.unidadMedida',
                       'cliente', 'proveedor', 'serieCombrobante']);
+
+        if (!$guia->ubigeo_llegada || !$guia->direccion_llegada) {
+            $msg = 'Falta la dirección/ubigeo de llegada. Sin este dato no se puede enviar una guía de remisión válida a SUNAT.';
+            $guia->sunat_estado      = 'rechazado';
+            $guia->sunat_descripcion = $msg;
+            $guia->save();
+            return ['success' => false, 'message' => $msg];
+        }
 
         try {
             $api      = $this->crearApi($empresa);
@@ -148,9 +159,13 @@ class SunatGuiaService
 
             if ($result->isSuccess()) {
                 $cdr = $result->getCdrResponse();
+                if (!$cdr) {
+                    // Ticket aún en proceso en SUNAT, todavía no hay CDR.
+                    return ['success' => true, 'message' => 'SUNAT aún está procesando el ticket.', 'estado' => $guia->sunat_estado];
+                }
                 $guia->sunat_cdr_code    = (string) $cdr->getCode();
                 $guia->sunat_descripcion = $cdr->getDescription();
-                $guia->sunat_estado      = $cdr->getCode() === '0' ? 'aceptado' : 'rechazado';
+                $guia->sunat_estado      = $cdr->isAccepted() ? 'aceptado' : 'rechazado';
 
                 try {
                     $cdrZip = $result->getCdrZip();

@@ -70,4 +70,24 @@ class Empresa extends Model
     {
         return !empty($this->sunat_usuario_sol) && !empty($this->sunat_clave_sol);
     }
+
+    /**
+     * Fecha de vencimiento del certificado digital (null si no se pudo leer).
+     */
+    public function certificadoFechaVencimiento(): ?\Carbon\Carbon
+    {
+        $pem = $this->certificado_pem_content;
+        if (!$pem) return null;
+
+        $datos = @openssl_x509_parse($pem);
+        if (!$datos || empty($datos['validTo_time_t'])) return null;
+
+        return \Carbon\Carbon::createFromTimestamp($datos['validTo_time_t']);
+    }
+
+    public function certificadoVencido(): bool
+    {
+        $fecha = $this->certificadoFechaVencimiento();
+        return $fecha !== null && $fecha->isPast();
+    }
 }

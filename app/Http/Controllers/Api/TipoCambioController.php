@@ -15,29 +15,36 @@ class TipoCambioController extends Controller
      */
     public function obtener()
     {
-        // Cachear por 6 horas
-        $tipoCambio = Cache::remember('tipo_cambio', 3600 * 6, function () {
+        $default = [
+            'compra' => 3.70,
+            'venta' => 3.75,
+            'fecha' => now()->format('Y-m-d'),
+        ];
+
+        // Cachear por 6 horas solo si se obtuvo un valor real de la API.
+        $tipoCambio = Cache::get('tipo_cambio');
+
+        if (!$tipoCambio) {
             try {
-                // Intentar obtener de SUNAT
-                $response = Http::get('https://api.apis.net.pe/v1/tipo-cambio-sunat');
-                
+                $response = Http::timeout(5)->get('https://api.apis.net.pe/v1/tipo-cambio-sunat');
+
                 if ($response->successful()) {
                     $data = $response->json();
-                    return [
-                        'compra' => $data['compra'] ?? 3.70,
-                        'venta' => $data['venta'] ?? 3.75,
-                        'fecha' => $data['fecha'] ?? now()->format('Y-m-d')
+                    $tipoCambio = [
+                        'compra' => $data['compra'] ?? $default['compra'],
+                        'venta' => $data['venta'] ?? $default['venta'],
+                        'fecha' => $data['fecha'] ?? $default['fecha'],
                     ];
+                    Cache::put('tipo_cambio', $tipoCambio, 3600 * 6);
+                } else {
+                    $tipoCambio = $default;
+                    Cache::put('tipo_cambio', $tipoCambio, 300); // reintentar pronto
                 }
             } catch (\Exception $e) {
-                // Si falla, usar valores por defecto
-                return [
-                    'compra' => 3.70,
-                    'venta' => 3.75,
-                    'fecha' => now()->format('Y-m-d')
-                ];
+                $tipoCambio = $default;
+                Cache::put('tipo_cambio', $tipoCambio, 300); // reintentar pronto
             }
-        });
+        }
 
         return response()->json($tipoCambio);
     }

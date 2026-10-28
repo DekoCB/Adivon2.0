@@ -36,6 +36,14 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
+        // Verificar que el usuario tenga un rol asignado
+        if (!auth()->user()->role) {
+            Auth::logout();
+            return back()->withErrors([
+                'email' => 'Tu cuenta no tiene un rol asignado. Contacta al administrador.',
+            ]);
+        }
+
         // Redirigir según el rol del usuario
         $role = auth()->user()->role->nombre;
 

@@ -28,6 +28,9 @@ class SunatComprobanteService
         if (!$empresa->tieneCertificado()) {
             throw new \Exception('Certificado digital no configurado. Suba el archivo .pfx en Configuración de Empresa.');
         }
+        if ($empresa->certificadoVencido()) {
+            throw new \Exception('El certificado digital venció el ' . $empresa->certificadoFechaVencimiento()->format('d/m/Y') . '. Renuévelo en Configuración de Empresa.');
+        }
         if (!$empresa->tieneCredencialesSunat()) {
             throw new \Exception('Credenciales SOL no configuradas. Configure Usuario y Clave SOL en Configuración de Empresa.');
         }
@@ -64,6 +67,17 @@ class SunatComprobanteService
 
         $venta->load(['cliente', 'serieComprobante', 'detalles.producto.unidadMedida', 'detalles.variante']);
 
+        if ($venta->tipo_comprobante === 'factura') {
+            $ruc = $venta->cliente?->numero_documento ?? $venta->cliente?->documento;
+            if (strtolower($venta->cliente?->tipo_documento ?? '') !== 'ruc' || !preg_match('/^\d{11}$/', (string) $ruc)) {
+                $msg = 'La factura requiere un cliente con RUC válido (11 dígitos). SUNAT rechazará el envío.';
+                $venta->estado_sunat      = 'rechazado';
+                $venta->sunat_descripcion = $msg;
+                $venta->save();
+                return ['success' => false, 'message' => $msg];
+            }
+        }
+
         try {
             $see = $this->crearSee($empresa);
 
@@ -76,13 +90,18 @@ class SunatComprobanteService
             $result = $see->send($document);
             $venta->sunat_enviado_at = now();
 
-            if ($result->isSuccess()) {
-                $cdr = $result->getCdrResponse();
+            $cdr = $result->isSuccess() ? $result->getCdrResponse() : null;
+
+            if ($cdr && $cdr->isAccepted()) {
                 $venta->estado_sunat      = 'aceptado';
                 $venta->sunat_descripcion = $cdr->getDescription();
 
                 $this->guardarXml($see, $venta);
                 $this->guardarCdr($result, $venta);
+            } elseif ($cdr) {
+                // CDR recibido pero con código de rechazo (distinto de 0 y < 4000).
+                $venta->estado_sunat      = 'rechazado';
+                $venta->sunat_descripcion = $cdr->getDescription();
             } else {
                 $error = $result->getError();
                 $venta->estado_sunat      = 'rechazado';
@@ -155,7 +174,7 @@ class SunatComprobanteService
                 $cdr = $result->getCdrResponse();
                 if ($cdr) {
                     $venta->sunat_descripcion = $cdr->getDescription();
-                    $venta->estado_sunat      = $cdr->getCode() === '0' ? 'aceptado' : 'rechazado';
+                    $venta->estado_sunat      = $cdr->isAccepted() ? 'aceptado' : 'rechazado';
                     $this->guardarCdr($result, $venta);
                 } else {
                     $venta->sunat_descripcion = $result->getMessage();

@@ -66,7 +66,7 @@ class CertificadoService
 
     private function resolveOpensslBinary(): string
     {
-        $windowsBin = 'C:\\xampp\\apache\\bin\\openssl.exe';
+        $windowsBin = env('OPENSSL_BIN_PATH', 'C:\\xampp\\apache\\bin\\openssl.exe');
 
         if (PHP_OS_FAMILY === 'Windows' && file_exists($windowsBin)) {
             return $windowsBin;
@@ -83,7 +83,7 @@ class CertificadoService
      */
     private function resolveOpensslEnv(): array
     {
-        $modulesDir = 'C:\\xampp\\php\\extras\\ssl';
+        $modulesDir = env('OPENSSL_MODULES_DIR', 'C:\\xampp\\php\\extras\\ssl');
 
         if (PHP_OS_FAMILY === 'Windows' && is_dir($modulesDir)) {
             return ['OPENSSL_MODULES' => $modulesDir];
