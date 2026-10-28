@@ -47,47 +47,56 @@ class CajaService
         float $montoInicial,
         ?string $observaciones = null
     ): Caja {
-        $cajaAbierta = Caja::where('user_id', $userId)
-            ->where('estado', 'abierta')
-            ->first();
+        return DB::transaction(function () use ($userId, $almacenId, $montoInicial, $observaciones) {
+            // lockForUpdate sobre el propio usuario: no hay una fila de caja
+            // que bloquear cuando aún no existe ninguna abierta, así que se
+            // serializa sobre el usuario para que dos "Abrir Caja" casi
+            // simultáneos (doble clic, reintento de red) no pasen ambos el
+            // chequeo "no tiene caja abierta" y terminen creando dos cajas.
+            User::where('id', $userId)->lockForUpdate()->first();
 
-        if ($cajaAbierta) {
-            // Si la caja abierta es de un día anterior, dar mensaje específico
-            if ($cajaAbierta->fecha < now()->toDateString()) {
-                $fechaFormateada = \Carbon\Carbon::parse($cajaAbierta->fecha)
-                    ->locale('es')
-                    ->isoFormat('D [de] MMMM [de] YYYY');
-                throw new \Exception(
-                    "Tienes una caja del {$fechaFormateada} que no fue cerrada. " .
-                    "Debes cerrarla antes de abrir una nueva caja para hoy."
-                );
+            $cajaAbierta = Caja::where('user_id', $userId)
+                ->where('estado', 'abierta')
+                ->first();
+
+            if ($cajaAbierta) {
+                // Si la caja abierta es de un día anterior, dar mensaje específico
+                if ($cajaAbierta->fecha < now()->toDateString()) {
+                    $fechaFormateada = \Carbon\Carbon::parse($cajaAbierta->fecha)
+                        ->locale('es')
+                        ->isoFormat('D [de] MMMM [de] YYYY');
+                    throw new \Exception(
+                        "Tienes una caja del {$fechaFormateada} que no fue cerrada. " .
+                        "Debes cerrarla antes de abrir una nueva caja para hoy."
+                    );
+                }
+                throw new \Exception('Ya tienes una caja abierta hoy. Ciérrala antes de abrir una nueva.');
             }
-            throw new \Exception('Ya tienes una caja abierta hoy. Ciérrala antes de abrir una nueva.');
-        }
 
-        if (!$almacenId) {
-            $user = User::find($userId);
-            $almacenId = $user?->almacen_id;
             if (!$almacenId) {
-                throw new \Exception('El usuario no tiene un almacén asignado. Contacta al administrador.');
+                $user = User::find($userId);
+                $almacenId = $user?->almacen_id;
+                if (!$almacenId) {
+                    throw new \Exception('El usuario no tiene un almacén asignado. Contacta al administrador.');
+                }
             }
-        }
 
-        // Obtener sucursal_id directamente del almacén (Almacen belongsTo Sucursal)
-        $almacen    = Almacen::find($almacenId);
-        $sucursalId = $almacen?->sucursal_id;
+            // Obtener sucursal_id directamente del almacén (Almacen belongsTo Sucursal)
+            $almacen    = Almacen::find($almacenId);
+            $sucursalId = $almacen?->sucursal_id;
 
-        return Caja::create([
-            'user_id'                => $userId,
-            'almacen_id'             => $almacenId,
-            'sucursal_id'            => $sucursalId,
-            'fecha'                  => now()->toDateString(),
-            'fecha_apertura'         => now(),
-            'monto_inicial'          => $montoInicial,
-            'monto_final'            => $montoInicial,
-            'estado'                 => 'abierta',
-            'observaciones_apertura' => $observaciones,
-        ]);
+            return Caja::create([
+                'user_id'                => $userId,
+                'almacen_id'             => $almacenId,
+                'sucursal_id'            => $sucursalId,
+                'fecha'                  => now()->toDateString(),
+                'fecha_apertura'         => now(),
+                'monto_inicial'          => $montoInicial,
+                'monto_final'            => $montoInicial,
+                'estado'                 => 'abierta',
+                'observaciones_apertura' => $observaciones,
+            ]);
+        });
     }
 
     /**
@@ -147,7 +156,10 @@ class CajaService
         array $verificados = []
     ): Caja {
         return DB::transaction(function () use ($cajaId, $montoRealEfectivo, $observaciones, $verificados) {
-            $caja = Caja::with('movimientos')->findOrFail($cajaId);
+            // lockForUpdate: evita que dos "Cerrar Caja" casi simultáneos
+            // (doble clic) pasen ambos el chequeo "está abierta" y cada uno
+            // inserte su propio ajuste de sobrante/faltante por duplicado.
+            $caja = Caja::with('movimientos')->lockForUpdate()->findOrFail($cajaId);
 
             if ($caja->estado !== 'abierta') {
                 throw new \Exception('Esta caja ya está cerrada.');

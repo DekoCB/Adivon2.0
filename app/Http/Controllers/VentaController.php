@@ -573,6 +573,20 @@ class VentaController extends Controller
             'pagos_detalle.*.referencia.required_if' => 'El número de operación es obligatorio para pagos por Yape, Plin o Transferencia.',
         ]);
 
+        // Pago mixto: la suma de las partes debe coincidir con el total de
+        // la venta — sin esto, el ledger de caja podía quedar por encima o
+        // por debajo del monto real de la venta sin ningún aviso.
+        if (!empty($validated['pagos_detalle']) && count($validated['pagos_detalle']) > 1) {
+            $sumaPartes = array_sum(array_column($validated['pagos_detalle'], 'monto'));
+            if (abs($sumaPartes - (float) $venta->total) > 0.01) {
+                $msg = 'La suma de los pagos (S/ ' . number_format($sumaPartes, 2) . ') no coincide con el total de la venta (S/ ' . number_format($venta->total, 2) . ').';
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => $msg], 422);
+                }
+                return back()->with('error', $msg);
+            }
+        }
+
         try {
             app(VentaService::class)->confirmarPago(
                 $venta->id,

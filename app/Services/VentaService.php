@@ -205,7 +205,9 @@ class VentaService
                 // Si hay pago, procesarlo y registrar en caja
                 if ($pago) {
                     $this->procesarPago($venta, $pago);
-                    $this->ventaCajaService->registrarEnCaja($venta, 'venta');
+                    if (!$this->ventaCajaService->registrarEnCaja($venta, 'venta')) {
+                        throw new \Exception('Debe abrir caja antes de registrar una venta al contado. Vaya a Caja → Abrir Caja.');
+                    }
                 }
             }
 
@@ -930,7 +932,15 @@ class VentaService
             }
 
             $venta->update($update);
-            $this->ventaCajaService->registrarEnCaja($venta, 'venta');
+
+            // Si no hay ninguna caja (ni abierta ahora, ni la original de la
+            // venta) a la que atribuir el ingreso, no se puede confirmar el
+            // pago como si el dinero ya estuviera registrado: antes esto se
+            // ignoraba en silencio y la venta quedaba "pagada" sin ningún
+            // MovimientoCaja — dinero invisible en todo arqueo/reporte.
+            if (!$this->ventaCajaService->registrarEnCaja($venta, 'venta')) {
+                throw new \Exception('Debes abrir caja antes de confirmar este pago.');
+            }
         });
 
         $ventaFresh = $venta->fresh();
