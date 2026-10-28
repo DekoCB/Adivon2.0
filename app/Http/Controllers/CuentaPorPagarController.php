@@ -171,12 +171,23 @@ class CuentaPorPagarController extends Controller
             'comprobante'   => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
-        if ($cuota->estado === 'pagado') {
-            return response()->json(['success' => false, 'message' => 'Esta cuota ya fue pagada.'], 422);
-        }
-
         try {
             DB::beginTransaction();
+
+            // Releer con lock para evitar que dos pagos concurrentes sobre la
+            // misma cuota/cuenta lean el mismo saldo y ambos pasen la validación.
+            $cuota  = Cuota::lockForUpdate()->findOrFail($cuota->id);
+            $cuenta = CuentaPorPagar::lockForUpdate()->findOrFail($cuenta->id);
+
+            if ($cuota->estado === 'pagado') {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Esta cuota ya fue pagada.'], 422);
+            }
+
+            if ((float) $request->monto > (float) $cuenta->saldo_pendiente + 0.01) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'El monto excede el saldo pendiente de la cuenta.'], 422);
+            }
 
             $comprobantePath = null;
             $comprobanteOriginalName = null;
@@ -314,6 +325,15 @@ class CuentaPorPagarController extends Controller
 
         try {
             DB::beginTransaction();
+
+            // Releer con lock para evitar que dos pagos concurrentes sobre la
+            // misma cuenta lean el mismo saldo y ambos pasen la validación.
+            $cuenta = CuentaPorPagar::lockForUpdate()->findOrFail($cuenta->id);
+
+            if ((float) $validated['monto'] > (float) $cuenta->saldo_pendiente + 0.01) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'El monto excede el saldo pendiente de la cuenta.'], 422);
+            }
 
             // Subir comprobante si existe
             $comprobantePath = null;
