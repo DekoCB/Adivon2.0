@@ -356,17 +356,31 @@ class InventarioReportesController extends Controller
         $categoriaId = $request->categoria_id;
         $soloConProrrateo = $request->boolean('solo_prorrateo', false);
 
-        // Último costo prorateado por producto desde detalle_compras
-        $costosPorProducto = DetalleCompra::selectRaw('
+        // Último costo prorateado por producto desde detalle_compras.
+        // "Último" = el de la compra más reciente (MAX(compra_id)), no el
+        // costo más alto que se haya pagado — usar MAX(costo_unitario_final_pen)
+        // aquí mostraba el costo de reposición más caro de toda la historia,
+        // no el real más reciente, inflando la valorización cuando el costo
+        // bajó con el tiempo (mejor tipo de cambio, menos flete, etc.).
+        $agregados = DetalleCompra::selectRaw('
                 producto_id,
                 MAX(compra_id) as ultima_compra_id,
-                AVG(costo_unitario_final_pen) as costo_prorateado_promedio,
-                MAX(costo_unitario_final_pen) as costo_prorateado_ultimo
+                AVG(costo_unitario_final_pen) as costo_prorateado_promedio
             ')
             ->where('costo_unitario_final_pen', '>', 0)
             ->groupBy('producto_id')
             ->get()
             ->keyBy('producto_id');
+
+        $ultimosCostos = DetalleCompra::whereIn('producto_id', $agregados->keys())
+            ->whereIn('compra_id', $agregados->pluck('ultima_compra_id'))
+            ->get(['producto_id', 'compra_id', 'costo_unitario_final_pen'])
+            ->keyBy('producto_id');
+
+        $costosPorProducto = $agregados->map(function ($agg) use ($ultimosCostos) {
+            $agg->costo_prorateado_ultimo = (float) ($ultimosCostos[$agg->producto_id]->costo_unitario_final_pen ?? 0);
+            return $agg;
+        });
 
         $productos = Producto::with('categoria')
             ->where('estado', 'activo')

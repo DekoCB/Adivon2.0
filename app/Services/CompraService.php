@@ -359,14 +359,27 @@ class CompraService
     /**
      * Actualizar precio de compra del producto
      */
+    /**
+     * Actualizar Costo Promedio Ponderado del producto (sin variante).
+     * CPP = SUM(qty * costo_unitario_final_pen) / SUM(qty) sobre todo el
+     * historial de compras — antes esto simplemente sobreescribía
+     * costo_promedio con el último precio de compra (no era un promedio),
+     * así que una sola compra cara reprecificaba de golpe todo el margen
+     * reportado para ese producto. Usa costo_unitario_final_pen (costo ya
+     * prorrateado en soles) cuando existe; si no, cae a precio_unitario
+     * (compras antiguas anteriores a esa columna) — mismo patrón que
+     * actualizarCostoVariante() para variantes.
+     */
     private function actualizarPrecioProducto(Producto $producto, float $precio): void
     {
-        // Guardar historial de precios (opcional)
-        // PrecioHistorico::create([...]);
-        
+        $cpp = DetalleCompra::where('producto_id', $producto->id)
+            ->whereNull('variante_id')
+            ->selectRaw('SUM(cantidad * COALESCE(NULLIF(costo_unitario_final_pen, 0), precio_unitario)) / NULLIF(SUM(cantidad), 0) AS cpp')
+            ->value('cpp');
+
         $producto->update([
             'ultimo_costo_compra' => $precio,
-            'costo_promedio'      => $precio,
+            'costo_promedio'      => $cpp ? round((float) $cpp, 2) : $precio,
             'fecha_ultima_compra' => now(),
         ]);
     }
