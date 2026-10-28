@@ -63,10 +63,23 @@ class SerieComprobante extends Model
     /**
      * Obtener y avanzar el correlativo.
      */
+    /**
+     * Lee y avanza el correlativo de forma atómica (lockForUpdate sobre una
+     * relectura fresca de la fila) — el resto del código (VentaService,
+     * GuiaRemisionService, TrasladoService) ya resuelve su propio
+     * correlativo con este mismo patrón en vez de llamar a este método, que
+     * hacía "leer en memoria, luego increment()" sin ningún lock: dos
+     * llamadas concurrentes podían leer el mismo correlativo_actual y
+     * devolver el mismo número a ambas. Debe llamarse dentro de una
+     * DB::transaction ya abierta por el caller (el lock solo se libera al
+     * terminar esa transacción).
+     */
     public function siguienteCorrelativo(): int
     {
-        $correlativo = $this->correlativo_actual;
-        $this->increment('correlativo_actual');
+        $fresco = static::where('id', $this->id)->lockForUpdate()->first();
+        $correlativo = $fresco->correlativo_actual;
+        $fresco->increment('correlativo_actual');
+        $this->correlativo_actual = $fresco->correlativo_actual;
         return $correlativo;
     }
 

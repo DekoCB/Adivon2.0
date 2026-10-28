@@ -481,8 +481,14 @@ class InventarioReportesController extends Controller
                 'precios' => fn($q) => $q->where('activo', true)->where('tipo_precio', 'venta_regular')->orderByDesc('prioridad'),
             ])->find($productoId);
 
-            $costoUnit = (float) ($productoSel?->costo_promedio ?: $productoSel?->ultimo_costo_compra ?: 0);
-            $pvUnit    = (float) ($productoSel?->precios?->first()?->precio ?? 0);
+            // Costo ACTUAL del producto — solo se usa como fallback para
+            // movimientos de ingreso anteriores a la columna
+            // movimientos_inventario.costo_unitario (no existía antes de esa
+            // migración), o para tipos de movimiento sin un costo real propio
+            // (ajuste manual, merma). Nunca se usa ya para valorar salidas:
+            // esas se valoran al costo promedio móvil calculado abajo.
+            $costoActual = (float) ($productoSel?->costo_promedio ?: $productoSel?->ultimo_costo_compra ?: 0);
+            $pvUnit      = (float) ($productoSel?->precios?->first()?->precio ?? 0);
 
             $rawMovs = MovimientoInventario::with(['almacen', 'usuario'])
                 ->where('producto_id', $productoId)
@@ -491,23 +497,37 @@ class InventarioReportesController extends Controller
                 ->orderBy('created_at')
                 ->get();
 
+            // Costo promedio móvil (kardex real): cada ingreso entra con SU
+            // propio costo (si no se conoce, cae al costo actual del
+            // producto), y cada salida se valora al promedio acumulado hasta
+            // ESE momento (saldoVal/saldoQty), no con un costo fijo para todo
+            // el período — así una venta de enero no cambia de valor solo
+            // porque el producto se compró más caro en junio.
             $saldoQty = $saldoVal = 0;
 
-            $movimientos = $rawMovs->map(function ($m) use (&$saldoQty, &$saldoVal, $costoUnit) {
+            $movimientos = $rawMovs->map(function ($m) use (&$saldoQty, &$saldoVal, $costoActual) {
                 $esEntrada = in_array($m->tipo_movimiento, ['ingreso', 'devolucion']);
-                $qty   = $m->cantidad;
-                $valor = $qty * $costoUnit;
+                $qty = $m->cantidad;
+
+                $costoPromedioAntes = $saldoQty > 0 ? $saldoVal / $saldoQty : $costoActual;
 
                 if ($esEntrada) {
+                    $costoEntrada = $m->costo_unitario !== null ? (float) $m->costo_unitario : $costoActual;
+                    $valor = $qty * $costoEntrada;
+
                     $saldoQty += $qty;
                     $saldoVal += $valor;
                     $inQty = $qty; $inVal = $valor;
                     $outQty = $outVal = 0;
+                    $costoUnitFila = $costoEntrada;
                 } else {
+                    $valor = $qty * $costoPromedioAntes;
+
                     $saldoQty -= $qty;
                     $saldoVal -= $valor;
                     $outQty = $qty; $outVal = $valor;
                     $inQty = $inVal = 0;
+                    $costoUnitFila = $costoPromedioAntes;
                 }
 
                 return [
@@ -517,7 +537,7 @@ class InventarioReportesController extends Controller
                     'usuario'     => $m->usuario?->name   ?? '—',
                     'motivo'      => $m->motivo ?? $m->observaciones ?? '—',
                     'doc_ref'     => $m->documento_referencia ?? '—',
-                    'costo_unit'  => $costoUnit,
+                    'costo_unit'  => round($costoUnitFila, 4),
                     'ingreso_qty' => $inQty,
                     'ingreso_val' => $inVal,
                     'salida_qty'  => $outQty,
@@ -534,7 +554,7 @@ class InventarioReportesController extends Controller
                 'total_salidas_val'  => $movimientos->sum('salida_val'),
                 'saldo_final_qty'    => $movimientos->last()['saldo_qty'] ?? 0,
                 'saldo_final_val'    => $movimientos->last()['saldo_val'] ?? 0,
-                'costo_unit'         => $costoUnit,
+                'costo_unit'         => $costoActual,
                 'precio_venta'       => $pvUnit,
             ];
         }

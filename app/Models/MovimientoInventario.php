@@ -28,6 +28,7 @@ class MovimientoInventario extends Model
         'user_id',
         'tipo_movimiento',
         'cantidad',
+        'costo_unitario',
         'stock_anterior',
         'stock_nuevo',
         'motivo',
@@ -57,6 +58,7 @@ class MovimientoInventario extends Model
      */
     protected $casts = [
         'cantidad' => 'integer',
+        'costo_unitario' => 'decimal:4',
         'stock_anterior' => 'integer',
         'stock_nuevo' => 'integer',
         'tipo_movimiento' => 'string',
