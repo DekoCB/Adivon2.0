@@ -159,6 +159,13 @@ class DevolucionController extends Controller
                 $numeroGuia = $guiaResuelta['numero'] ?? ('DEV-' . strtoupper(uniqid()));
 
                 $montosPorVenta = [];
+                // Esta devolución revierte stock/caja/comisión, pero NO genera
+                // Nota de Crédito ni toca estado_sunat — para una boleta/
+                // factura ya aceptada por SUNAT, esa venta sigue "viva" ante
+                // SUNAT aunque el producto físicamente ya volvió. Se avisa al
+                // usuario en vez de bloquear (decisión del negocio), para que
+                // sepa que debe generar la NC correspondiente aparte.
+                $ventasRequierenNc = [];
 
                 foreach ($cantidades as $detalleId => $cantidadSolicitada) {
                     $detalle = DetalleVenta::with(['producto', 'variante', 'movimientosDevolucion', 'venta'])
@@ -250,6 +257,12 @@ class DevolucionController extends Controller
                             + $cantidad * (float) $detalle->precio_con_igv;
                     }
 
+                    if ($detalle->venta
+                        && $detalle->venta->estado_sunat === 'aceptado'
+                        && in_array($detalle->venta->tipo_comprobante, ['boleta', 'factura'], true)) {
+                        $ventasRequierenNc[$detalle->venta_id] = $detalle->venta->codigo;
+                    }
+
                     // Prorratear (o eliminar) la comisión del vendedor por las
                     // unidades devueltas — no se le paga comisión por lo que el
                     // cliente terminó devolviendo.
@@ -310,13 +323,22 @@ class DevolucionController extends Controller
                     }
                 }
 
-                return ['caja_pendiente' => $cajaPendiente, 'monto_pendiente' => $montoPendiente];
+                return [
+                    'caja_pendiente'      => $cajaPendiente,
+                    'monto_pendiente'     => $montoPendiente,
+                    'ventas_requieren_nc' => $ventasRequierenNc,
+                ];
             });
 
             $mensaje = 'Devolución registrada exitosamente.';
             if ($resultado['caja_pendiente']) {
                 $mensaje .= ' Aviso: no se encontró ninguna caja asociada a esas ventas — registra manualmente el egreso de S/ '
                     . number_format($resultado['monto_pendiente'], 2) . ' cuando corresponda.';
+            }
+            if (!empty($resultado['ventas_requieren_nc'])) {
+                $codigos = implode(', ', $resultado['ventas_requieren_nc']);
+                $mensaje .= " Aviso SUNAT: {$codigos} ya fueron aceptadas por SUNAT — esta devolución NO genera Nota de Crédito automáticamente. "
+                    . "Genera la NC correspondiente desde Facturación Electrónica para que la venta quede en regla ante SUNAT.";
             }
 
             return redirect()

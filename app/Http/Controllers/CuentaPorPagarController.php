@@ -49,14 +49,15 @@ class CuentaPorPagarController extends Controller
 
         $cuentas = $query->paginate(20);
 
-        // Estadísticas
+        // Estadísticas (convertidas a soles — ver sumaMontoEnSoles())
         $stats = [
-            'total_pendiente' => CuentaPorPagar::whereIn('estado', ['pendiente', 'parcial'])->sum('monto_total'),
-            'total_vencido' => CuentaPorPagar::where('estado', 'vencido')->sum('monto_total'),
-            'total_pagado' => CuentaPorPagar::where('estado', 'pagado')->sum('monto_total'),
-            'proximos_7_dias' => CuentaPorPagar::whereBetween('fecha_vencimiento', [now(), now()->addDays(7)])
-                ->whereIn('estado', ['pendiente', 'parcial'])
-                ->sum('monto_total'),
+            'total_pendiente' => $this->sumaMontoEnSoles(CuentaPorPagar::whereIn('estado', ['pendiente', 'parcial'])),
+            'total_vencido' => $this->sumaMontoEnSoles(CuentaPorPagar::where('estado', 'vencido')),
+            'total_pagado' => $this->sumaMontoEnSoles(CuentaPorPagar::where('estado', 'pagado')),
+            'proximos_7_dias' => $this->sumaMontoEnSoles(
+                CuentaPorPagar::whereBetween('fecha_vencimiento', [now(), now()->addDays(7)])
+                    ->whereIn('estado', ['pendiente', 'parcial'])
+            ),
         ];
 
         $proveedores = Proveedor::where('estado', 'activo')->orderBy('razon_social')->get();
@@ -81,6 +82,13 @@ class CuentaPorPagarController extends Controller
      *                    no tiene ninguna caja abierta (el llamador debe avisar
      *                    al usuario para que lo registre manualmente).
      */
+    /**
+     * $monto viene en la moneda de la CUENTA (monto_total/monto_pagado son
+     * en esa moneda). La caja, en cambio, siempre opera en soles — sin
+     * convertir, pagar una deuda en USD retiraba de caja el mismo número de
+     * "soles" que de dólares (p.ej. $500 de deuda sacaban S/500 de caja en
+     * vez de ~S/1,875 al tipo de cambio real), descuadrando el arqueo.
+     */
     private function registrarEgresoCajaProveedor(CuentaPorPagar $cuenta, int $sucursalId, float $monto, string $concepto): ?\App\Models\MovimientoCaja
     {
         $caja = Caja::where('sucursal_id', $sucursalId)
@@ -91,10 +99,17 @@ class CuentaPorPagarController extends Controller
             return null;
         }
 
+        $montoEnSoles = $monto;
+        if (($cuenta->moneda ?? 'PEN') !== 'PEN') {
+            $tipoCambio = (float) ($cuenta->tipo_cambio ?: 1);
+            $montoEnSoles = round($monto * $tipoCambio, 2);
+            $concepto .= " ({$cuenta->moneda} {$monto} x {$tipoCambio})";
+        }
+
         return app(CajaService::class)->registrarMovimiento(
             $caja->id,
             'egreso',
-            $monto,
+            $montoEnSoles,
             $concepto,
             null,
             $cuenta->compra_id
@@ -444,14 +459,15 @@ class CuentaPorPagarController extends Controller
     public function dashboard()
     {
         $stats = [
-            'por_pagar' => CuentaPorPagar::whereIn('estado', ['pendiente', 'parcial'])->sum('monto_total'),
-            'vencido' => CuentaPorPagar::where('estado', 'vencido')->sum('monto_total'),
-            'pagado_mes' => CuentaPorPagar::where('estado', 'pagado')
-                ->whereMonth('fecha_ultimo_pago', now()->month)
-                ->sum('monto_total'),
-            'proyeccion_30_dias' => CuentaPorPagar::whereBetween('fecha_vencimiento', [now(), now()->addDays(30)])
-                ->whereIn('estado', ['pendiente', 'parcial'])
-                ->sum('monto_total'),
+            'por_pagar' => $this->sumaMontoEnSoles(CuentaPorPagar::whereIn('estado', ['pendiente', 'parcial'])),
+            'vencido' => $this->sumaMontoEnSoles(CuentaPorPagar::where('estado', 'vencido')),
+            'pagado_mes' => $this->sumaMontoEnSoles(
+                CuentaPorPagar::where('estado', 'pagado')->whereMonth('fecha_ultimo_pago', now()->month)
+            ),
+            'proyeccion_30_dias' => $this->sumaMontoEnSoles(
+                CuentaPorPagar::whereBetween('fecha_vencimiento', [now(), now()->addDays(30)])
+                    ->whereIn('estado', ['pendiente', 'parcial'])
+            ),
         ];
 
         $proximosVencimientos = CuentaPorPagar::with('proveedor')
@@ -462,5 +478,18 @@ class CuentaPorPagarController extends Controller
             ->get();
 
         return view('compras.cuentas-por-pagar.dashboard', compact('stats', 'proximosVencimientos'));
+    }
+
+    /**
+     * SUM(monto_total) convertido a soles. Sin esto, una cuenta en USD y
+     * otra en PEN se sumaban como si ambas fueran soles (p.ej. $5000 USD +
+     * S/5000 PEN = "10000"), inflando/distorsionando los totales del
+     * dashboard de cuentas por pagar.
+     */
+    private function sumaMontoEnSoles(\Illuminate\Database\Eloquent\Builder $query): float
+    {
+        return (float) $query->selectRaw(
+            "COALESCE(SUM(CASE WHEN moneda = 'PEN' OR moneda IS NULL THEN monto_total ELSE monto_total * COALESCE(tipo_cambio, 1) END), 0) as total"
+        )->value('total');
     }
 }
