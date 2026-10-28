@@ -120,6 +120,15 @@ class ReporteVentasController extends Controller
     // Queries
     // ─────────────────────────────────────────────
 
+    /**
+     * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio) en
+     * todo este archivo: dv.costo_unitario es el snapshot del costo al
+     * momento de la venta (desde la migración 2026_10_28). Para ventas
+     * anteriores a esa columna, cae al costo_promedio ACTUAL del producto/
+     * variante — el mismo comportamiento que había antes, así que el
+     * margen de ventas viejas sigue pudiendo variar si el costo cambió
+     * después, pero toda venta nueva ya queda con su margen fijo.
+     */
     private function baseQuery(string $desde, string $hasta, ?string $almacenId, ?string $categoriaId)
     {
         $q = DB::table('detalle_ventas as dv')
@@ -147,8 +156,8 @@ class ReporteVentasController extends Controller
         $row = $this->baseQuery($desde, $hasta, $almacenId, $categoriaId)
             ->selectRaw('
                 COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))), 0) as total_ventas,
-                COALESCE(SUM(dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio)), 0) as total_costo,
-                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio)), 0) as ganancia_bruta,
+                COALESCE(SUM(dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)), 0) as total_costo,
+                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)), 0) as ganancia_bruta,
                 COUNT(DISTINCT v.id) as num_ventas,
                 COALESCE(SUM(dv.cantidad), 0) as unidades_vendidas
             ')
@@ -174,7 +183,7 @@ class ReporteVentasController extends Controller
             ->selectRaw('
                 DATE(v.fecha) as fecha,
                 COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))), 0) as total_ventas,
-                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio)), 0) as ganancia
+                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)), 0) as ganancia
             ')
             ->groupBy(DB::raw('DATE(v.fecha)'))
             ->orderBy(DB::raw('DATE(v.fecha)'))
@@ -187,9 +196,9 @@ class ReporteVentasController extends Controller
             ->selectRaw('
                 p.nombre,
                 COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))), 0) as total_ventas,
-                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio)), 0) as ganancia,
+                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)), 0) as ganancia,
                 CASE WHEN SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))) > 0
-                    THEN SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio))
+                    THEN SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio))
                          / SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))) * 100
                     ELSE 0 END as margen
             ')
@@ -205,7 +214,7 @@ class ReporteVentasController extends Controller
             ->selectRaw('
                 COALESCE(c.nombre, "Sin categoría") as categoria,
                 COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))), 0) as total_ventas,
-                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(pv.costo_promedio, p.costo_promedio)), 0) as ganancia
+                COALESCE(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)) - dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)), 0) as ganancia
             ')
             ->groupBy('p.categoria_id', 'c.nombre')
             ->orderByDesc('total_ventas')
@@ -227,15 +236,15 @@ class ReporteVentasController extends Controller
                 COALESCE(c.nombre, "Sin categoría") as categoria,
                 SUM(dv.cantidad) as cantidad_vendida,
                 ROUND(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))) / NULLIF(SUM(dv.cantidad), 0), 2) as precio_promedio,
-                ROUND(COALESCE(pv.costo_promedio, p.costo_promedio), 2) as costo_unitario,
+                ROUND(SUM(dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)) / NULLIF(SUM(dv.cantidad), 0), 2) as costo_unitario,
                 ROUND(
                     SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))) / NULLIF(SUM(dv.cantidad), 0)
-                    - COALESCE(pv.costo_promedio, p.costo_promedio),
+                    - SUM(dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)) / NULLIF(SUM(dv.cantidad), 0),
                 2) as ganancia_unitaria,
                 ROUND(SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2))), 2) as total_vendido,
                 ROUND(
                     SUM(COALESCE(dv.subtotal_con_igv, ROUND(dv.subtotal * 1.18, 2)))
-                    - SUM(dv.cantidad) * COALESCE(pv.costo_promedio, p.costo_promedio),
+                    - SUM(dv.cantidad * COALESCE(dv.costo_unitario, pv.costo_promedio, p.costo_promedio)),
                 2) as total_ganancia
             ')
             ->groupBy(

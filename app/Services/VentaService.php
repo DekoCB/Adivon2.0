@@ -139,6 +139,14 @@ class VentaService
                 $subtotal       += $subtotalDetalle;
                 $totalExact     += round($precioConIgv * $qty, 4);
 
+                // Snapshot del costo al momento de la venta — sin esto, los
+                // reportes de margen recalculan el costo de ventas pasadas
+                // con el costo_promedio ACTUAL del producto, y cambian
+                // retroactivamente cada vez que entra una compra nueva.
+                $costoUnitario = !empty($detalle['variante_id'])
+                    ? \App\Models\ProductoVariante::where('id', $detalle['variante_id'])->value('costo_promedio')
+                    : \App\Models\Producto::where('id', $detalle['producto_id'])->value('costo_promedio');
+
                 $detalleVenta = DetalleVenta::create([
                     'venta_id'        => $venta->id,
                     'producto_id'     => $detalle['producto_id'],
@@ -148,6 +156,7 @@ class VentaService
                     'precio_con_igv'  => $precioConIgv,
                     'subtotal'        => $subtotalDetalle,
                     'subtotal_con_igv'=> round($precioConIgv * $qty, 4),
+                    'costo_unitario'  => $costoUnitario,
                 ]);
 
                 // Si es producto con IMEI, marcar los IMEIs como vendidos
@@ -636,6 +645,7 @@ class VentaService
                     'precio_con_igv'  => $det->precio_con_igv,
                     'subtotal'        => $det->subtotal,
                     'subtotal_con_igv'=> $det->subtotal_con_igv,
+                    'costo_unitario'  => $det->costo_unitario,
                 ]);
             }
 
