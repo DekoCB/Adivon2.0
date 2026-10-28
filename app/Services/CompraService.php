@@ -456,20 +456,31 @@ class CompraService
             }
 
             // ── Guardia 2: productos por cantidad ya consumidos parcialmente ─
-            foreach ($compra->detalles as $detalle) {
-                if ($detalle->producto->tipo_inventario !== 'serie') {
-                    $stockDisponible = StockAlmacen::where([
-                        'producto_id' => $detalle->producto_id,
-                        'almacen_id'  => $compra->almacen_id,
-                    ])->value('cantidad') ?? 0;
+            // Agrupado por producto_id (sumando todas las líneas de este
+            // mismo producto en la compra, p.ej. variantes distintas): antes
+            // cada línea se validaba por separado contra el MISMO stock total
+            // del almacén, así que dos líneas de 10 c/u con solo 15 en stock
+            // pasaban ambas la validación (15 >= 10 dos veces) y la reversión
+            // de las dos (20 en total) dejaba el stock en -5.
+            $cantidadesPorProducto = $compra->detalles
+                ->filter(fn($d) => $d->producto->tipo_inventario !== 'serie')
+                ->groupBy('producto_id');
 
-                    if ($stockDisponible < $detalle->cantidad) {
-                        throw new \Exception(
-                            "No se puede anular: «{$detalle->producto->nombre}» tiene {$stockDisponible} unidad(es) " .
-                            "disponibles pero la compra registró {$detalle->cantidad}. " .
-                            "Parte del stock ya fue vendida o trasladada."
-                        );
-                    }
+            foreach ($cantidadesPorProducto as $productoId => $lineas) {
+                $cantidadTotal = $lineas->sum('cantidad');
+
+                $stockDisponible = StockAlmacen::where([
+                    'producto_id' => $productoId,
+                    'almacen_id'  => $compra->almacen_id,
+                ])->value('cantidad') ?? 0;
+
+                if ($stockDisponible < $cantidadTotal) {
+                    $nombre = $lineas->first()->producto->nombre;
+                    throw new \Exception(
+                        "No se puede anular: «{$nombre}» tiene {$stockDisponible} unidad(es) " .
+                        "disponibles pero la compra registró {$cantidadTotal}. " .
+                        "Parte del stock ya fue vendida o trasladada."
+                    );
                 }
             }
 
@@ -717,9 +728,56 @@ class CompraService
         });
     }
 
+    /**
+     * Detecta si esta compra guardó los subtotales de detalle CON IGV
+     * incluido (ver comentario en actualizarCabecera) — se usa igual en
+     * eliminarDetalle()/eliminarImei() para no volver a sumar el 18% sobre
+     * un monto que ya lo tenía incluido, lo que antes inflaba el total
+     * (y la cuenta por pagar) de compras guardadas en ese formato cada vez
+     * que se borraba un detalle o un IMEI.
+     */
+    private function detalleIncluyeIgv(Compra $compra): bool
+    {
+        $tipoOp = $compra->tipo_operacion ?? '01';
+        if ($tipoOp !== '01' || !$compra->incluye_igv) {
+            return false;
+        }
+
+        $sumaDetalleActual = $compra->detalles->sum('subtotal');
+
+        return abs($sumaDetalleActual - (float) $compra->total) < 0.05
+            && abs($sumaDetalleActual - (float) $compra->subtotal) >= 0.05;
+    }
+
+    /**
+     * Recalcula subtotal/igv/total desde los detalles ya actualizados,
+     * aplicando el mismo formato ($incluyeIgvEnDetalle) con el que se
+     * guardaron originalmente.
+     */
+    private function recalcularTotalesCompra(Compra $compra, bool $incluyeIgvEnDetalle): array
+    {
+        $tipoOp = $compra->tipo_operacion ?? '01';
+        $sumaDetalleNueva = $compra->detalles->sum('subtotal');
+
+        if ($tipoOp !== '01' || !$compra->incluye_igv) {
+            return ['subtotal' => $sumaDetalleNueva, 'igv' => 0, 'total' => $sumaDetalleNueva];
+        }
+
+        if ($incluyeIgvEnDetalle) {
+            $subtotal = round($sumaDetalleNueva / 1.18, 2);
+            $igv      = round($sumaDetalleNueva - $subtotal, 2);
+            return ['subtotal' => $subtotal, 'igv' => $igv, 'total' => $sumaDetalleNueva];
+        }
+
+        $igv = round($sumaDetalleNueva * 0.18, 2);
+        return ['subtotal' => $sumaDetalleNueva, 'igv' => $igv, 'total' => round($sumaDetalleNueva + $igv, 2)];
+    }
+
     public function eliminarDetalle(Compra $compra, DetalleCompra $detalle): void
     {
         DB::transaction(function () use ($compra, $detalle) {
+            $incluyeIgvEnDetalle = $this->detalleIncluyeIgv($compra);
+
             // Verificar que no haya IMEIs vendidos
             if ($detalle->producto->tipo_inventario === 'serie') {
                 $vendidos = Imei::where('detalle_compra_id', $detalle->id)
@@ -767,16 +825,13 @@ class CompraService
 
             // Recalcular totales de la compra
             $compra->load('detalles');
-            $tipoOp  = $compra->tipo_operacion ?? '01';
-            $subtotal = $compra->detalles->sum('subtotal');
-            $igv      = $tipoOp === '01' ? round($subtotal * 0.18, 2) : 0;
-            $total    = round($subtotal + $igv, 2);
-            $compra->update(['subtotal' => $subtotal, 'igv' => $igv, 'total' => $total]);
+            $totales = $this->recalcularTotalesCompra($compra, $incluyeIgvEnDetalle);
+            $compra->update($totales);
 
             if ($compra->cuentaPorPagar) {
-                $saldo = $total - $compra->cuentaPorPagar->monto_pagado;
+                $saldo = $totales['total'] - $compra->cuentaPorPagar->monto_pagado;
                 $estadoCuenta = $saldo <= 0 ? 'pagado' : ($compra->cuentaPorPagar->monto_pagado > 0 ? 'parcial' : $compra->cuentaPorPagar->estado);
-                $compra->cuentaPorPagar->update(['monto_total' => $total, 'estado' => $estadoCuenta]);
+                $compra->cuentaPorPagar->update(['monto_total' => $totales['total'], 'estado' => $estadoCuenta]);
             }
 
             Log::info('Detalle de compra eliminado', ['compra_id' => $compra->id, 'detalle_id' => $detalle->id]);
@@ -786,6 +841,8 @@ class CompraService
     public function eliminarImei(Compra $compra, Imei $imei): void
     {
         DB::transaction(function () use ($compra, $imei) {
+            $incluyeIgvEnDetalle = $this->detalleIncluyeIgv($compra);
+
             if ($imei->estado_imei === Imei::ESTADO_VENDIDO) {
                 throw new \Exception('No se puede eliminar un IMEI ya vendido.');
             }
@@ -834,14 +891,11 @@ class CompraService
 
             // Recalcular totales de la compra
             $compra->load('detalles');
-            $tipoOp  = $compra->tipo_operacion ?? '01';
-            $subtotal = $compra->detalles->sum('subtotal');
-            $igv      = $tipoOp === '01' ? round($subtotal * 0.18, 2) : 0;
-            $total    = round($subtotal + $igv, 2);
-            $compra->update(['subtotal' => $subtotal, 'igv' => $igv, 'total' => $total]);
+            $totales = $this->recalcularTotalesCompra($compra, $incluyeIgvEnDetalle);
+            $compra->update($totales);
 
             if ($compra->cuentaPorPagar) {
-                $compra->cuentaPorPagar->update(['monto_total' => $total]);
+                $compra->cuentaPorPagar->update(['monto_total' => $totales['total']]);
             }
 
             Log::info('IMEI eliminado de compra', ['compra_id' => $compra->id, 'imei' => $imei->codigo_imei]);
