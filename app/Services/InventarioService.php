@@ -135,10 +135,15 @@ class InventarioService
         // Fuente real de stock para productos "cantidad": stock_almacen por
         // almacén. producto.stock_actual es solo un espejo =
         // SUM(stock_almacen.cantidad) de ese producto.
+        // lockForUpdate (misma razón que en VentaStockService): sin esto, dos
+        // ajustes/movimientos manuales concurrentes sobre el mismo producto+
+        // almacén pueden leer el mismo stock_anterior y ambos pasar el chequeo
+        // de "stock suficiente", dejando el stock en negativo.
         $stockAlmacen = StockAlmacen::firstOrCreate(
             ['producto_id' => $datos['producto_id'], 'almacen_id' => $datos['almacen_id']],
             ['cantidad' => 0]
         );
+        $stockAlmacen = StockAlmacen::where('id', $stockAlmacen->id)->lockForUpdate()->first();
 
         $stockAnterior = $stockAlmacen->cantidad;
         $cantidad      = $datos['cantidad'];

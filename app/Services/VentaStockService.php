@@ -135,7 +135,10 @@ class VentaStockService
             }
 
             if ($varianteId) {
-                $variante = ProductoVariante::find($varianteId);
+                // lockForUpdate: igual que el stock de almacén, evita que dos
+                // ventas concurrentes de la misma variante lean el mismo
+                // stock_actual y ambas pasen el chequeo de decrementarStock().
+                $variante = ProductoVariante::where('id', $varianteId)->lockForUpdate()->first();
                 if ($variante) {
                     $variante->decrementarStock($cantidad);
                 }
