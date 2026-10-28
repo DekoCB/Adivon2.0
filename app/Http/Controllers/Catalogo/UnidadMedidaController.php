@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Catalogo;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogo\UnidadMedida;
 use App\Models\Categoria;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class UnidadMedidaController extends Controller
@@ -118,6 +119,13 @@ class UnidadMedidaController extends Controller
 
     public function destroy(UnidadMedida $unidade)
     {
+        // Sin este chequeo, borrar una unidad en uso deja productos.
+        // unidad_medida_id en NULL silenciosamente (nullOnDelete), lo que
+        // puede corromper la lógica de cantidades/stock del producto.
+        if (Producto::where('unidad_medida_id', $unidade->id)->exists()) {
+            return back()->with('error', 'No se puede eliminar porque tiene productos asociados.');
+        }
+
         $unidade->delete();
 
         return redirect()

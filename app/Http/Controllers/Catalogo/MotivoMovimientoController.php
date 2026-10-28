@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalogo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catalogo\MotivoMovimiento;
+use App\Models\MovimientoInventario;
 use Illuminate\Http\Request;
 
 class MotivoMovimientoController extends Controller
@@ -79,10 +80,13 @@ class MotivoMovimientoController extends Controller
 
     public function destroy(MotivoMovimiento $motivo)
     {
-        // Verificar si está siendo usado
-        // if ($motivo->movimientos()->exists()) {
-        //     return back()->with('error', 'No se puede eliminar porque tiene movimientos asociados');
-        // }
+        // MovimientoInventario es un registro de trazabilidad permanente
+        // (no se puede eliminar, ver MovimientoInventario::boot()); borrar
+        // un motivo en uso dejaría esos movimientos históricos sin motivo
+        // (nullOnDelete) silenciosamente, corrompiendo el rastro de auditoría.
+        if (MovimientoInventario::where('motivo_movimiento_id', $motivo->id)->exists()) {
+            return back()->with('error', 'No se puede eliminar porque tiene movimientos de inventario asociados.');
+        }
 
         $motivo->delete();
 

@@ -4,6 +4,8 @@
 namespace App\Http\Controllers\Catalogo;
 
 use App\Models\Catalogo\Color;
+use App\Models\Producto;
+use App\Models\ProductoVariante;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -75,10 +77,13 @@ class ColorController extends Controller
 
     public function destroy(Color $color)
     {
-        // Verificar si el color está siendo usado
-        // if ($color->productos()->exists()) {
-        //     return back()->with('error', 'No se puede eliminar porque tiene productos asociados');
-        // }
+        // Sin este chequeo, borrar un color en uso deja productos.color_id /
+        // producto_variantes.color_id en NULL silenciosamente (nullOnDelete),
+        // perdiendo el dato sin ningún aviso.
+        if (Producto::where('color_id', $color->id)->exists()
+            || ProductoVariante::where('color_id', $color->id)->exists()) {
+            return back()->with('error', 'No se puede eliminar porque tiene productos o variantes asociadas.');
+        }
 
         $color->delete();
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Catalogo\Modelo;
 use App\Models\Catalogo\Marca;
 use App\Models\Categoria;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -124,6 +125,12 @@ class ModeloController extends Controller
 
     public function destroy(Modelo $modelo)
     {
+        // Sin este chequeo, borrar un modelo en uso deja productos.modelo_id
+        // en NULL silenciosamente (nullOnDelete), perdiendo el dato sin aviso.
+        if (Producto::where('modelo_id', $modelo->id)->exists()) {
+            return back()->with('error', 'No se puede eliminar porque tiene productos asociados.');
+        }
+
         // Eliminar imagen si existe
         if ($modelo->imagen_referencia) {
             Storage::disk('public')->delete($modelo->imagen_referencia);

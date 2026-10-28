@@ -30,7 +30,7 @@ class ClienteController extends Controller
     {
         $validated = $request->validate([
             'tipo_documento' => 'required|in:DNI,RUC,CE',
-            'numero_documento' => 'required|string|max:11|unique:clientes,numero_documento',
+            'numero_documento' => ['required', 'string', 'max:11', 'unique:clientes,numero_documento', $this->reglaNumeroDocumento($request->tipo_documento)],
             'nombre' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'distrito' => 'nullable|string|max:100',
@@ -42,6 +42,7 @@ class ClienteController extends Controller
             'estado' => 'required|in:activo,inactivo',
         ], [
             'numero_documento.unique' => 'Este documento ya está registrado',
+            'numero_documento.regex' => 'El número de documento no tiene el formato correcto para el tipo seleccionado.',
             'nombre.required' => 'El nombre es obligatorio',
         ]);
 
@@ -68,7 +69,7 @@ class ClienteController extends Controller
     {
         $validated = $request->validate([
             'tipo_documento' => 'required|in:DNI,RUC,CE',
-            'numero_documento' => 'required|string|max:11|unique:clientes,numero_documento,' . $cliente->id,
+            'numero_documento' => ['required', 'string', 'max:11', 'unique:clientes,numero_documento,' . $cliente->id, $this->reglaNumeroDocumento($request->tipo_documento)],
             'nombre' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'distrito' => 'nullable|string|max:100',
@@ -78,6 +79,8 @@ class ClienteController extends Controller
             'telefono' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
             'estado' => 'required|in:activo,inactivo',
+        ], [
+            'numero_documento.regex' => 'El número de documento no tiene el formato correcto para el tipo seleccionado.',
         ]);
 
         $cliente->update($validated);
@@ -137,5 +140,20 @@ class ClienteController extends Controller
         return response()->json([
             'nombre' => $result['data']['nombre'] ?? '',
         ]);
+    }
+
+    /**
+     * Sin esto, numero_documento solo validaba "string, máx. 11 caracteres"
+     * sin exigir dígitos ni la longitud exacta por tipo — un DNI de 2
+     * caracteres o un RUC con letras pasaba la validación y recién fallaba
+     * (o peor, se enviaba mal) al intentar facturar por SUNAT.
+     */
+    private function reglaNumeroDocumento(?string $tipoDocumento): string
+    {
+        return match (strtoupper($tipoDocumento ?? '')) {
+            'DNI' => 'regex:/^\d{8}$/',
+            'RUC' => 'regex:/^\d{11}$/',
+            default => 'regex:/^[A-Za-z0-9]+$/', // CE: alfanumérico, longitud variable
+        };
     }
 }
