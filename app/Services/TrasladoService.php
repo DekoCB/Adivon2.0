@@ -196,6 +196,15 @@ class TrasladoService
         // Sincronizar stock_actual del producto con la suma real de almacenes
         $totalStock = StockAlmacen::where('producto_id', $producto->id)->sum('cantidad');
         $producto->update(['stock_actual' => $totalStock]);
+
+        // Si la línea es de una variante, descontarla también en SU stock por
+        // almacén (ver StockAlmacenVariante) — antes esto nunca se tocaba:
+        // el traslado restaba del stock del PRODUCTO pero la variante
+        // seguía mostrando el mismo stock_actual de antes.
+        if (!empty($linea['variante_id'])) {
+            \App\Models\StockAlmacenVariante::obtenerOCrear($producto->id, $linea['variante_id'], $origenId)
+                ->decrementar($cantidad);
+        }
     }
 
     // ───────────────────────────────────────────────────────────────────────
@@ -270,6 +279,14 @@ class TrasladoService
                     // Sincronizar stock_actual con la suma real de todos los almacenes
                     $totalStock = StockAlmacen::where('producto_id', $movimiento->producto_id)->sum('cantidad');
                     $movimiento->producto->update(['stock_actual' => $totalStock]);
+
+                    // Acreditar la variante en destino (ver crearLineaAccesorio,
+                    // que la descontó en origen al crear el traslado).
+                    if ($movimiento->variante_id) {
+                        \App\Models\StockAlmacenVariante::obtenerOCrear(
+                            $movimiento->producto_id, $movimiento->variante_id, $movimiento->almacen_destino_id
+                        )->incrementar($movimiento->cantidad);
+                    }
                 }
 
                 $movimiento->update([
@@ -345,6 +362,12 @@ class TrasladoService
 
                     $totalStock = StockAlmacen::where('producto_id', $movimiento->producto_id)->sum('cantidad');
                     $movimiento->producto->update(['stock_actual' => $totalStock]);
+
+                    if ($movimiento->variante_id) {
+                        \App\Models\StockAlmacenVariante::obtenerOCrear(
+                            $movimiento->producto_id, $movimiento->variante_id, $movimiento->almacen_id
+                        )->incrementar($movimiento->cantidad);
+                    }
                 }
 
                 $obsActual = $movimiento->observaciones;
@@ -456,6 +479,12 @@ class TrasladoService
                             ['cantidad' => 0]
                         );
                         $stockOrigen->increment('cantidad', $movimiento->cantidad);
+
+                        if ($movimiento->variante_id) {
+                            \App\Models\StockAlmacenVariante::obtenerOCrear(
+                                $movimiento->producto_id, $movimiento->variante_id, $movimiento->almacen_id
+                            )->incrementar($movimiento->cantidad);
+                        }
                     }
                 } elseif ($movimiento->estado === 'confirmado') {
                     $huboReversion = true;
@@ -476,6 +505,15 @@ class TrasladoService
                             ['cantidad' => 0]
                         );
                         $stockOrigen->increment('cantidad', $movimiento->cantidad);
+
+                        if ($movimiento->variante_id) {
+                            \App\Models\StockAlmacenVariante::obtenerOCrear(
+                                $movimiento->producto_id, $movimiento->variante_id, $movimiento->almacen_destino_id
+                            )->decrementar($movimiento->cantidad);
+                            \App\Models\StockAlmacenVariante::obtenerOCrear(
+                                $movimiento->producto_id, $movimiento->variante_id, $movimiento->almacen_id
+                            )->incrementar($movimiento->cantidad);
+                        }
                     }
                 }
                 // estado === 'anulado': el stock ya se devolvió antes, no se toca.

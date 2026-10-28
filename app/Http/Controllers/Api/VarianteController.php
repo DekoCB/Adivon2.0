@@ -72,6 +72,7 @@ class VarianteController extends Controller
             'capacidad'    => 'nullable|string|max:50',
             'sobreprecio'  => 'nullable|numeric|min:0',
             'stock_inicial'=> 'nullable|integer|min:0',
+            'almacen_id'   => 'nullable|exists:almacenes,id',
         ]);
 
         $producto = Producto::findOrFail($validated['producto_id']);
@@ -84,7 +85,19 @@ class VarianteController extends Controller
         );
 
         if (!empty($validated['stock_inicial']) && $validated['stock_inicial'] > 0) {
-            $variante->incrementarStock($validated['stock_inicial']);
+            // El stock de variante vive por almacén (StockAlmacenVariante) —
+            // sin almacen_id explícito, cae al del usuario autenticado o, si
+            // tampoco tiene, al primer almacén activo, para que el stock
+            // inicial quede en un almacén real en vez de perderse en el
+            // contador global sin dueño.
+            $almacenId = $validated['almacen_id']
+                ?? auth()->user()?->almacen_id
+                ?? \App\Models\Almacen::where('estado', 'activo')->value('id');
+
+            if ($almacenId) {
+                \App\Models\StockAlmacenVariante::obtenerOCrear($producto->id, $variante->id, $almacenId)
+                    ->incrementar($validated['stock_inicial']);
+            }
         }
 
         $variante->load('color');

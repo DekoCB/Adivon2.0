@@ -296,9 +296,11 @@ class CompraService
         $stockAnterior = $stock->cantidad;
         $stock->increment('cantidad', $detalle['cantidad']);
 
-        // Si hay variante, actualizar su stock también
+        // Si hay variante, actualizar su stock en ESTE almacén (no solo el
+        // contador global) — ver StockAlmacenVariante.
         if ($variante) {
-            $variante->increment('stock_actual', $detalle['cantidad']);
+            \App\Models\StockAlmacenVariante::obtenerOCrear($producto->id, $variante->id, $compra->almacen_id)
+                ->incrementar($detalle['cantidad']);
         }
 
         // Sincronizar stock_actual del producto base (suma de todos los almacenes)
@@ -501,6 +503,7 @@ class CompraService
 
                         MovimientoInventario::create([
                             'producto_id'          => $detalle->producto_id,
+                            'variante_id'          => $detalle->variante_id,
                             'almacen_id'           => $compra->almacen_id,
                             'user_id'              => auth()->id(),
                             'tipo_movimiento'      => 'salida',
@@ -515,7 +518,8 @@ class CompraService
 
                         // Sincronizar stock: variante primero (sincroniza producto), o directo si no hay variante
                         if ($detalle->variante_id && $detalle->variante) {
-                            $detalle->variante->decrementarStock($detalle->cantidad);
+                            \App\Models\StockAlmacenVariante::obtenerOCrear($detalle->producto_id, $detalle->variante_id, $compra->almacen_id)
+                                ->decrementar($detalle->cantidad);
                         } else {
                             $totalStock = StockAlmacen::where('producto_id', $detalle->producto_id)->sum('cantidad');
                             $detalle->producto->update(['stock_actual' => $totalStock]);
@@ -628,13 +632,18 @@ class CompraService
                     $totalStock = StockAlmacen::where('producto_id', $detalle->producto_id)->sum('cantidad');
                     $detalle->producto->update(['stock_actual' => $totalStock]);
 
-                    // Actualizar variante si existe
+                    // Actualizar variante si existe — en ESTE almacén, no solo
+                    // el contador global (ver StockAlmacenVariante).
                     if ($detalle->variante_id) {
-                        $detalle->variante?->increment('stock_actual', $diff);
+                        $stockVariante = \App\Models\StockAlmacenVariante::obtenerOCrear(
+                            $detalle->producto_id, $detalle->variante_id, $compra->almacen_id
+                        );
+                        $diff > 0 ? $stockVariante->incrementar($diff) : $stockVariante->decrementar(abs($diff));
                     }
 
                     MovimientoInventario::create([
                         'producto_id'          => $detalle->producto_id,
+                        'variante_id'          => $detalle->variante_id,
                         'almacen_id'           => $compra->almacen_id,
                         'user_id'              => auth()->id(),
                         'tipo_movimiento'      => $tipoMov,
@@ -803,11 +812,13 @@ class CompraService
                 $detalle->producto->update(['stock_actual' => $totalStock]);
 
                 if ($detalle->variante_id) {
-                    $detalle->variante?->decrement('stock_actual', $detalle->cantidad);
+                    \App\Models\StockAlmacenVariante::obtenerOCrear($detalle->producto_id, $detalle->variante_id, $compra->almacen_id)
+                        ->decrementar($detalle->cantidad);
                 }
 
                 MovimientoInventario::create([
                     'producto_id'          => $detalle->producto_id,
+                    'variante_id'          => $detalle->variante_id,
                     'almacen_id'           => $compra->almacen_id,
                     'user_id'              => auth()->id(),
                     'tipo_movimiento'      => 'salida',

@@ -135,18 +135,21 @@ class VentaStockService
             }
 
             if ($varianteId) {
-                // lockForUpdate: igual que el stock de almacén, evita que dos
-                // ventas concurrentes de la misma variante lean el mismo
-                // stock_actual y ambas pasen el chequeo de decrementarStock().
-                $variante = ProductoVariante::where('id', $varianteId)->lockForUpdate()->first();
-                if ($variante) {
-                    $variante->decrementarStock($cantidad);
-                }
+                // El stock de la variante se descuenta POR ALMACÉN (ver
+                // StockAlmacenVariante) — stock_actual de la variante es solo
+                // un espejo global, igual que el de Producto. lockForUpdate:
+                // mismo motivo que StockAlmacen, evita que dos ventas
+                // concurrentes de la misma variante+almacén lean la misma
+                // cantidad y ambas pasen el chequeo de stock suficiente.
+                $stockVariante = \App\Models\StockAlmacenVariante::obtenerOCrear($productoId, $varianteId, $almacenId);
+                $stockVariante = \App\Models\StockAlmacenVariante::where('id', $stockVariante->id)->lockForUpdate()->first();
+                $stockVariante->decrementar($cantidad);
             }
         }
 
         MovimientoInventario::create([
             'producto_id'     => $productoId,
+            'variante_id'     => $varianteId,
             'almacen_id'      => $almacenId,
             'user_id'         => auth()->id(),
             'tipo_movimiento' => 'salida',
@@ -227,7 +230,8 @@ class VentaStockService
                 // total real de stock_almacen, si no quedan desfasados tras cada
                 // anulación/eliminación/NC.
                 if ($detalle->variante_id) {
-                    $detalle->variante?->incrementarStock($detalle->cantidad);
+                    \App\Models\StockAlmacenVariante::obtenerOCrear($detalle->producto_id, $detalle->variante_id, $venta->almacen_id)
+                        ->incrementar($detalle->cantidad);
                 } else {
                     $totalStock = StockAlmacen::where('producto_id', $detalle->producto_id)->sum('cantidad');
                     Producto::where('id', $detalle->producto_id)->update(['stock_actual' => $totalStock]);
@@ -236,6 +240,7 @@ class VentaStockService
 
             MovimientoInventario::create([
                 'producto_id'     => $detalle->producto_id,
+                'variante_id'     => $detalle->variante_id,
                 'almacen_id'      => $venta->almacen_id,
                 'user_id'         => auth()->id(),
                 'tipo_movimiento' => 'ingreso',

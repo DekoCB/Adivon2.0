@@ -217,6 +217,11 @@ class GuiaRemisionService
                             ['cantidad' => 0]
                         );
                         $stockDestino->increment('cantidad', $mov->cantidad);
+
+                        if ($mov->variante_id) {
+                            \App\Models\StockAlmacenVariante::obtenerOCrear($mov->producto_id, $mov->variante_id, $guia->almacen_destino_id)
+                                ->incrementar($mov->cantidad);
+                        }
                     }
 
                     $totalStock = $this->calcularStockTotal($mov->producto_id, $esSerie, $guia->almacen_destino_id);
@@ -281,6 +286,11 @@ class GuiaRemisionService
 
                     $totalStock = StockAlmacen::where('producto_id', $mov->producto_id)->sum('cantidad');
                     $mov->producto->update(['stock_actual' => $totalStock]);
+
+                    if ($mov->variante_id) {
+                        \App\Models\StockAlmacenVariante::obtenerOCrear($mov->producto_id, $mov->variante_id, $guia->almacen_id)
+                            ->incrementar($mov->cantidad);
+                    }
                 }
 
                 $mov->update(['estado' => 'anulado']);
@@ -385,6 +395,11 @@ class GuiaRemisionService
 
             $total = StockAlmacen::where('producto_id', $producto->id)->sum('cantidad');
             $producto->update(['stock_actual' => $total]);
+
+            if (!empty($linea['variante_id'])) {
+                \App\Models\StockAlmacenVariante::obtenerOCrear($producto->id, $linea['variante_id'], $almacenId)
+                    ->decrementar($cantidad);
+            }
         }
     }
 

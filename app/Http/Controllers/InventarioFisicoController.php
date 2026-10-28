@@ -349,11 +349,21 @@ class InventarioFisicoController extends Controller
 
             if ($prod->variantesActivas->isNotEmpty()) {
                 foreach ($prod->variantesActivas as $variante) {
+                    // stock_actual de la variante es un contador GLOBAL (suma
+                    // de todos los almacenes) — usarlo aquí comparaba, en una
+                    // tienda, contra el stock de TODAS las tiendas juntas, así
+                    // que casi cualquier conteo mostraba un faltante/sobrante
+                    // falso. El stock real de ESTE almacén vive en
+                    // StockAlmacenVariante.
+                    $stockEnEsteAlmacen = \App\Models\StockAlmacenVariante::where('variante_id', $variante->id)
+                        ->where('almacen_id', $almacenId)
+                        ->value('cantidad') ?? 0;
+
                     $rows[] = [
                         'conteo_id'     => $conteo->id,
                         'producto_id'   => $prod->id,
                         'variante_id'   => $variante->id,
-                        'stock_sistema' => max(0, (int) $variante->stock_actual),
+                        'stock_sistema' => max(0, (int) $stockEnEsteAlmacen),
                         'created_at'    => now(),
                         'updated_at'    => now(),
                     ];

@@ -696,6 +696,7 @@ public function storeVariante(Request $request, Producto $producto, VarianteServ
         'capacidad'    => 'nullable|string|max:50',
         'sobreprecio'  => 'nullable|numeric|min:0',
         'stock_inicial'=> 'nullable|integer|min:0',
+        'almacen_id'   => 'nullable|exists:almacenes,id',
     ]);
 
     try {
@@ -719,7 +720,15 @@ public function storeVariante(Request $request, Producto $producto, VarianteServ
         );
 
         if (!empty($validated['stock_inicial']) && $validated['stock_inicial'] > 0) {
-            $variante->incrementarStock($validated['stock_inicial']);
+            // Ver comentario equivalente en Api\VarianteController::store().
+            $almacenId = $validated['almacen_id']
+                ?? auth()->user()?->almacen_id
+                ?? \App\Models\Almacen::where('estado', 'activo')->value('id');
+
+            if ($almacenId) {
+                \App\Models\StockAlmacenVariante::obtenerOCrear($producto->id, $variante->id, $almacenId)
+                    ->incrementar($validated['stock_inicial']);
+            }
         }
 
         return redirect()

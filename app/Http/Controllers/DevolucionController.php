@@ -243,7 +243,8 @@ class DevolucionController extends Controller
                             ->incrementar($cantidad);
 
                         if ($detalle->variante) {
-                            $detalle->variante->incrementarStock($cantidad);
+                            \App\Models\StockAlmacenVariante::obtenerOCrear($detalle->producto_id, $detalle->variante_id, $almacenId)
+                                ->incrementar($cantidad);
                         } else {
                             $totalStock = StockAlmacen::where('producto_id', $detalle->producto_id)->sum('cantidad');
                             $detalle->producto->update(['stock_actual' => $totalStock]);
@@ -462,7 +463,8 @@ class DevolucionController extends Controller
                         $stockAlm->decrement('cantidad', $mov->cantidad);
 
                         if ($mov->variante) {
-                            $mov->variante->decrementarStock($mov->cantidad);
+                            \App\Models\StockAlmacenVariante::obtenerOCrear($mov->producto_id, $mov->variante_id, $mov->almacen_id)
+                                ->decrementar($mov->cantidad);
                         } else {
                             $totalStock = StockAlmacen::where('producto_id', $mov->producto_id)->sum('cantidad');
                             $mov->producto->update(['stock_actual' => $totalStock]);

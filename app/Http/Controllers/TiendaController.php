@@ -46,12 +46,16 @@ class TiendaController extends Controller
 
         $productoIds = $productos->pluck('id');
 
-        // Stock por almacén (productos de cantidad; el stock por variante NO está
-        // desglosado por almacén en el esquema actual — producto_variantes.stock_actual
-        // es global, así que aquí solo se puede mostrar a nivel de producto).
+        // Stock por almacén (productos de cantidad sin variante).
         $stocksPorProducto = StockAlmacen::whereIn('producto_id', $productoIds)
             ->get()
             ->groupBy('producto_id')
+            ->map(fn($rows) => $rows->keyBy('almacen_id'));
+
+        // Stock por almacén de variantes de cantidad (ver StockAlmacenVariante).
+        $stocksPorVariante = \App\Models\StockAlmacenVariante::whereIn('producto_id', $productoIds)
+            ->get()
+            ->groupBy('variante_id')
             ->map(fn($rows) => $rows->keyBy('almacen_id'));
 
         // Conteo de IMEIs en_stock por variante y almacén (productos de serie:
@@ -94,10 +98,18 @@ class TiendaController extends Controller
                 $producto->filas = $filas;
             } else {
                 $producto->es_serie = false;
-                $producto->filas = collect([(object) [
-                    'variante' => null,
-                    'stocks'   => $stocksPorProducto[$producto->id] ?? collect(),
-                ]]);
+
+                if ($producto->variantesActivas->isNotEmpty()) {
+                    $producto->filas = $producto->variantesActivas->map(fn($variante) => (object) [
+                        'variante' => $variante,
+                        'stocks'   => $stocksPorVariante[$variante->id] ?? collect(),
+                    ]);
+                } else {
+                    $producto->filas = collect([(object) [
+                        'variante' => null,
+                        'stocks'   => $stocksPorProducto[$producto->id] ?? collect(),
+                    ]]);
+                }
             }
         }
 
