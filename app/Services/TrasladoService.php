@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Almacen;
+use App\Models\GuiaRemision;
 use App\Models\MovimientoInventario;
 use App\Models\SerieComprobante;
 use App\Models\StockAlmacen;
@@ -206,7 +207,10 @@ class TrasladoService
     {
         DB::transaction(function () use ($movimientoId, $usuarioConfirmaId) {
 
-            $representante = MovimientoInventario::with('producto')->findOrFail($movimientoId);
+            // lockForUpdate: evita que dos confirmaciones casi simultáneas
+            // (doble clic) pasen ambas el chequeo "pendiente" y acrediten el
+            // stock de destino por duplicado para el mismo traslado.
+            $representante = MovimientoInventario::with('producto')->lockForUpdate()->findOrFail($movimientoId);
 
             if ($representante->estado !== 'pendiente') {
                 throw new \Exception('Este traslado ya fue procesado.');
@@ -218,6 +222,7 @@ class TrasladoService
                     ->where('numero_guia', $representante->numero_guia)
                     ->where('tipo_movimiento', 'transferencia')
                     ->where('estado', 'pendiente')
+                    ->lockForUpdate()
                     ->get()
                 : collect([$representante->load('imeisTrasladados')]);
 
@@ -273,6 +278,19 @@ class TrasladoService
                     'fecha_confirmacion'  => $confirmadoEn,
                     'fecha_recepcion'     => $confirmadoEn->toDateString(),
                 ]);
+            }
+
+            // La GuiaRemision ligada a este traslado (mismo numero_guia) debe
+            // quedar en sincronía con el movimiento de inventario: si no se
+            // actualiza aquí, se queda en 'pendiente'/'en_transito' para
+            // siempre aunque el stock ya esté acreditado en destino — y
+            // GuiaRemisionService::anular() la sigue viendo como anulable,
+            // acreditando el stock de ORIGEN otra vez sobre un traslado que
+            // ya fue confirmado (duplica stock en destino + origen a la vez).
+            if ($representante->numero_guia) {
+                GuiaRemision::where('numero_guia', $representante->numero_guia)
+                    ->where('estado', '!=', 'entregada')
+                    ->update(['estado' => 'entregada']);
             }
         });
     }

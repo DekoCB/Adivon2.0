@@ -185,6 +185,11 @@ class GuiaRemisionService
     public function confirmarEntrega(GuiaRemision $guia, int $userId): void
     {
         DB::transaction(function () use ($guia, $userId) {
+            // Releer con lock: evita que dos confirmaciones casi simultáneas
+            // (doble clic) pasen ambas puedeConfirmar() y ambas acrediten el
+            // stock de destino por duplicado para la misma entrega.
+            $guia = GuiaRemision::where('id', $guia->id)->lockForUpdate()->first();
+
             if (!$guia->puedeConfirmar()) {
                 throw new \Exception('Esta guía no puede confirmarse en su estado actual.');
             }
@@ -192,6 +197,7 @@ class GuiaRemisionService
             $movimientos = MovimientoInventario::with(['producto', 'imeisTrasladados'])
                 ->where('numero_guia', $guia->numero_guia)
                 ->where('estado', 'pendiente')
+                ->lockForUpdate()
                 ->get();
 
             foreach ($movimientos as $mov) {
@@ -239,6 +245,8 @@ class GuiaRemisionService
     public function anular(GuiaRemision $guia, string $motivo, int $userId): void
     {
         DB::transaction(function () use ($guia, $motivo, $userId) {
+            $guia = GuiaRemision::where('id', $guia->id)->lockForUpdate()->first();
+
             if (!$guia->puedeAnular()) {
                 throw new \Exception('Esta guía no puede anularse en su estado actual.');
             }
@@ -246,6 +254,7 @@ class GuiaRemisionService
             $movimientos = MovimientoInventario::with(['producto', 'imeisTrasladados'])
                 ->where('numero_guia', $guia->numero_guia)
                 ->whereIn('estado', ['pendiente', 'confirmado'])
+                ->lockForUpdate()
                 ->get();
 
             foreach ($movimientos as $mov) {
@@ -298,10 +307,13 @@ class GuiaRemisionService
                 throw new \Exception("Producto «{$producto->nombre}»: debe seleccionar al menos un IMEI.");
             }
 
+            // lockForUpdate: mismo motivo que en VentaStockService/TrasladoService
+            // — evita que dos guías concurrentes se lleven el mismo IMEI.
             $validos = Imei::whereIn('id', $imeiIds)
                 ->where('producto_id', $producto->id)
                 ->where('almacen_id', $almacenId)
                 ->where('estado_imei', Imei::ESTADO_EN_STOCK)
+                ->lockForUpdate()
                 ->count();
 
             if ($validos !== $cantidad) {
@@ -342,8 +354,10 @@ class GuiaRemisionService
                 throw new \Exception("Producto «{$producto->nombre}»: la cantidad debe ser al menos 1.");
             }
 
+            // lockForUpdate: mismo motivo — evita que dos guías concurrentes
+            // decrementen el mismo stock leyendo la misma cantidad base.
             $stockOrigen = StockAlmacen::where('producto_id', $producto->id)
-                ->where('almacen_id', $almacenId)->first();
+                ->where('almacen_id', $almacenId)->lockForUpdate()->first();
 
             if (!$stockOrigen || $stockOrigen->cantidad < $cantidad) {
                 throw new \Exception(
