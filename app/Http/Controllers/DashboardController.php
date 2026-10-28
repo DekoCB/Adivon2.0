@@ -443,13 +443,19 @@ public function tienda()
 
         $cajaAtrasada = $this->cajaService->cajaAtrasada($user->id);
 
+        // Con when(), si el Cajero no tiene almacen_id asignado el filtro
+        // simplemente no se aplicaba — este dashboard terminaba mostrando
+        // ventas/pendientes de TODAS las sucursales en vez de "ninguna",
+        // una fuga de datos entre sucursales para un rol que no debería
+        // ver más que la suya. Ahora, sin almacén asignado, no se cuenta
+        // nada (falla cerrado) en vez de mostrar todo (fallaba abierto).
         $ventasHoy = Venta::where('estado_pago', 'pagado')
             ->whereDate('fecha', $hoy)
-            ->when($user->almacen_id, fn($q) => $q->where('almacen_id', $user->almacen_id))
+            ->where('almacen_id', $user->almacen_id ?? -1)
             ->sum('total');
 
         $ventasPendientesCount = Venta::where('estado_pago', 'pendiente')
-            ->when($user->almacen_id, fn($q) => $q->where('almacen_id', $user->almacen_id))
+            ->where('almacen_id', $user->almacen_id ?? -1)
             ->count();
 
         return view('dashboards.cajero', compact('caja', 'cajaAtrasada', 'ventasHoy', 'ventasPendientesCount'));

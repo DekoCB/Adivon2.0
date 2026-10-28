@@ -64,7 +64,11 @@ class CuentaPorPagar extends Model
 
     public function getEstaVencidaAttribute()
     {
-        return $this->estado != 'pagado' && now()->greaterThan($this->fecha_vencimiento);
+        // startOfDay(): fecha_vencimiento es una fecha (medianoche), pero
+        // now() lleva la hora actual — sin truncar, una cuenta se marcaba
+        // "vencida" desde las 00:00:01 del mismo día de vencimiento, un día
+        // antes de lo esperado ("vence al final del día de vencimiento").
+        return $this->estado != 'pagado' && now()->startOfDay()->greaterThan($this->fecha_vencimiento);
     }
 
     public function getPorVencerAttribute()

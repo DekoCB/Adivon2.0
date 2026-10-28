@@ -21,6 +21,7 @@ use App\Services\CodigoBarrasService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CompraController extends Controller
 {
@@ -127,7 +128,12 @@ class CompraController extends Controller
         // Validación extendida y completa (PRIMERO)
         $validated = $request->validate([
             // Datos principales
-            'proveedor_id' => 'required|exists:proveedores,id',
+            // Rule::exists() en vez de "exists:proveedores,id": la vista solo
+            // lista proveedores activos, pero sin este chequeo del lado del
+            // servidor un POST directo con el id de un proveedor inactivo/
+            // dado de baja (p.ej. por fraude) pasaba igual y registraba la
+            // compra contra él.
+            'proveedor_id' => ['required', Rule::exists('proveedores', 'id')->where('estado', 'activo')],
             'pedido_id' => 'nullable|exists:pedidos,id',
             'almacen_id' => 'required|exists:almacenes,id',
             'numero_factura' => 'required|string|max:50|unique:compras,numero_factura,NULL,id,proveedor_id,' . $request->proveedor_id,
@@ -392,7 +398,15 @@ class CompraController extends Controller
         }
 
         $validated = $request->validate([
-            'proveedor_id'              => 'required|exists:proveedores,id',
+            // Permite mantener el proveedor actual aunque haya sido
+            // desactivado después de registrar la compra, pero no cambiarlo
+            // a otro proveedor inactivo (mismo motivo que en store()).
+            'proveedor_id' => [
+                'required',
+                Rule::exists('proveedores', 'id')->where(
+                    fn($q) => $q->where('estado', 'activo')->orWhere('id', $compra->proveedor_id)
+                ),
+            ],
             'numero_factura'            => 'required|string|max:50',
             'almacen_id'                => 'required|exists:almacenes,id',
             'fecha'                     => 'required|date',

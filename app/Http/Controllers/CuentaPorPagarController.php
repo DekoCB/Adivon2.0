@@ -246,7 +246,7 @@ class CuentaPorPagarController extends Controller
             $saldoPendiente = $cuenta->monto_total - $nuevoPagado;
             $nuevoEstado    = $saldoPendiente <= 0 ? 'pagado' : 'parcial';
 
-            if ($saldoPendiente > 0 && $cuenta->fecha_vencimiento && now()->greaterThan($cuenta->fecha_vencimiento)) {
+            if ($saldoPendiente > 0 && $cuenta->fecha_vencimiento && now()->startOfDay()->greaterThan($cuenta->fecha_vencimiento)) {
                 $nuevoEstado = 'vencido';
             }
 
@@ -392,7 +392,7 @@ class CuentaPorPagarController extends Controller
 
             $nuevoEstado = $saldoPendiente <= 0 ? 'pagado' : 'parcial';
 
-            if ($saldoPendiente > 0 && $cuenta->fecha_vencimiento && now()->greaterThan($cuenta->fecha_vencimiento)) {
+            if ($saldoPendiente > 0 && $cuenta->fecha_vencimiento && now()->startOfDay()->greaterThan($cuenta->fecha_vencimiento)) {
                 $nuevoEstado = 'vencido';
             }
 

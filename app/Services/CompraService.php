@@ -121,26 +121,25 @@ class CompraService
             $estadoInicial = $compra->forma_pago === 'contado' ? 'pagado' : 'pendiente';
             $montoPagadoInicial = $compra->forma_pago === 'contado' ? $compra->total : 0;
 
-            try {
-                CuentaPorPagar::create([
-                    'compra_id' => $compra->id,
-                    'proveedor_id' => $compra->proveedor_id,
-                    'numero_factura' => $compra->numero_factura,
-                    'fecha_emision' => $compra->fecha,
-                    'fecha_vencimiento' => $fechaVencimiento,
-                    'monto_total' => $compra->total,
-                    'monto_pagado' => $montoPagadoInicial,
-                    'moneda' => $compra->tipo_moneda,
-                    'tipo_cambio' => $compra->tipo_cambio,
-                    'estado' => $estadoInicial,
-                    'dias_credito' => $compra->condicion_pago,
-                ]);
-            } catch (\Exception $e) {
-                Log::error('Error al crear cuenta por pagar', [
-                    'compra_id' => $compra->id,
-                    'error' => $e->getMessage()
-                ]);
-            }
+            // Sin try/catch: este método ya corre dentro de un DB::transaction
+            // (registrarCompra). Tragarse la excepción aquí dejaba la compra
+            // completa — con todo su stock ya aplicado — sin ninguna cuenta
+            // por pagar asociada: una compra a crédito que simplemente
+            // desaparece del seguimiento de cuentas por pagar sin que nadie
+            // se entere. Mejor que falle toda la operación y se reintente.
+            CuentaPorPagar::create([
+                'compra_id' => $compra->id,
+                'proveedor_id' => $compra->proveedor_id,
+                'numero_factura' => $compra->numero_factura,
+                'fecha_emision' => $compra->fecha,
+                'fecha_vencimiento' => $fechaVencimiento,
+                'monto_total' => $compra->total,
+                'monto_pagado' => $montoPagadoInicial,
+                'moneda' => $compra->tipo_moneda,
+                'tipo_cambio' => $compra->tipo_cambio,
+                'estado' => $estadoInicial,
+                'dias_credito' => $compra->condicion_pago,
+            ]);
             // 4. Registrar movimiento de caja si aplica
             if ($compra->forma_pago === 'contado' && $compra->estado === 'completado') {
                 $this->registrarMovimientoCaja($compra);
