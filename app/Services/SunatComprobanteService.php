@@ -125,6 +125,55 @@ class SunatComprobanteService
     }
 
     /**
+     * Devuelve el XML del comprobante para descarga. Si ya fue enviado a
+     * SUNAT, devuelve el XML real firmado que se transmitió (guardado por
+     * guardarXml()). Si todavía no se envió, lo construye y firma con el
+     * mismo builder (buildInvoice/buildNote) y el mismo motor (Greenter)
+     * que usa enviar() — así nunca hay una segunda implementación de la
+     * estructura UBL que pueda desincronizarse ni quedar mal armada para
+     * Notas de Crédito/Débito (que usan CreditNote/DebitNote, no Invoice).
+     */
+    public function obtenerXml(Venta $venta): string
+    {
+        $serie       = $venta->serieComprobante?->serie ?? 'B001';
+        $correlativo = str_pad($venta->correlativo ?? 1, 8, '0', STR_PAD_LEFT);
+        $path        = "sunat/xml/{$serie}-{$correlativo}.xml";
+
+        if ($venta->sunat_enviado_at && Storage::disk('local')->exists($path)) {
+            return Storage::disk('local')->get($path);
+        }
+
+        $empresa = Empresa::instancia();
+        if (!$empresa) {
+            throw new \Exception('Empresa no configurada.');
+        }
+        if (!$empresa->tieneCertificado()) {
+            throw new \Exception('Certificado digital no configurado. Suba el archivo .pfx en Configuración de Empresa.');
+        }
+
+        $venta->load(['cliente', 'serieComprobante', 'detalles.producto.unidadMedida', 'detalles.variante']);
+
+        // Para firmar (sin enviar) solo hace falta el certificado, no las
+        // credenciales SOL (esas son para autenticarse ante el servicio SOAP).
+        $see = new See();
+        $see->setCertificate($empresa->certificado_pem_content);
+        $cachePath = storage_path('app/greenter/cache');
+        if (!is_dir($cachePath)) mkdir($cachePath, 0755, true);
+        $see->setCachePath($cachePath);
+
+        $document = in_array($venta->tipo_comprobante, ['nc_factura', 'nc_boleta', 'nota_credito', 'nota_debito'])
+            ? $this->buildNote($venta, $empresa)
+            : $this->buildInvoice($venta, $empresa);
+
+        $xml = $see->getXmlSigned($document);
+        if (!$xml) {
+            throw new \Exception('No se pudo generar el XML.');
+        }
+
+        return $xml;
+    }
+
+    /**
      * Consulta en SUNAT el estado de un comprobante ya enviado, usando el
      * servicio oficial de consulta por RUC+tipo+serie+correlativo (no
      * requiere ticket: Facturas/Boletas se procesan de forma síncrona).
