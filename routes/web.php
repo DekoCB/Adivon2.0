@@ -83,7 +83,9 @@ Route::get('/dashboard', function () {
 */
 Route::middleware('guest')->group(function () {
     Route::get('/master-password', [MasterPasswordController::class, 'show'])->name('master-password.show');
-    Route::post('/master-password', [MasterPasswordController::class, 'verify'])->name('master-password.verify');
+    Route::post('/master-password', [MasterPasswordController::class, 'verify'])
+        ->middleware('throttle:6,1') // máx. 6 intentos por minuto por IP, frena fuerza bruta sobre el secreto estático
+        ->name('master-password.verify');
 });
 
 /*

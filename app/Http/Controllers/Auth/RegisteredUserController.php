@@ -20,9 +20,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        // Obtener todos los roles para el formulario
-        $roles = Role::all();
-        
+        // El autorregistro (vía contraseña maestra) no puede crear cuentas de
+        // Administrador — ese rol solo se asigna desde Usuarios (autenticado
+        // como admin). Evita que cualquiera con la contraseña maestra se
+        // autoasigne acceso total al sistema.
+        $roles = Role::where('nombre', '!=', 'Administrador')->get();
+
         return view('auth.register', compact('roles'));
     }
 
@@ -52,6 +55,16 @@ class RegisteredUserController extends Controller
             'password.required' => 'La contraseña es obligatoria.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
+
+        // Defensa en profundidad: aunque el formulario ya no ofrece
+        // "Administrador", un POST directo con ese role_id debe rechazarse.
+        // Cuentas de Administrador solo se crean autenticado, desde Usuarios.
+        $rolSolicitado = Role::find($request->role_id);
+        if ($rolSolicitado && $rolSolicitado->nombre === 'Administrador') {
+            return back()->withErrors([
+                'role_id' => 'No se puede crear una cuenta de Administrador desde el autorregistro.',
+            ])->withInput();
+        }
 
         $user = User::create([
             'name' => $request->name,

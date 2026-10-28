@@ -39,6 +39,16 @@ class DirectPasswordResetController extends Controller
         // Buscar el usuario
         $user = User::where('email', $request->email)->first();
 
+        // La contraseña maestra es un secreto compartido por todo el
+        // personal operativo — no debe poder usarse para tomar el control
+        // de una cuenta de Administrador. El reseteo de un admin debe
+        // hacerlo otro administrador autenticado, desde Usuarios.
+        if ($user->role?->nombre === 'Administrador') {
+            return back()->withErrors([
+                'email' => 'La contraseña de una cuenta de Administrador no se puede restablecer por esta vía. Pide a otro administrador que la restablezca desde Usuarios.',
+            ])->withInput();
+        }
+
         // Actualizar la contraseña
         $user->update([
             'password' => Hash::make($request->password)
