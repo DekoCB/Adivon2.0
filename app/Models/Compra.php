@@ -49,6 +49,8 @@ class Compra extends Model
         'impuestos_usd',
         'impuestos_pen',
         'percepcion_pen',
+        'ad_valorem_pct',
+        'percepcion_pct',
         'estado',
         'fecha_anulacion',
         'motivo_anulacion',
@@ -74,6 +76,8 @@ class Compra extends Model
         'impuestos_usd' => 'decimal:2',
         'impuestos_pen' => 'decimal:2',
         'percepcion_pen' => 'decimal:2',
+        'ad_valorem_pct' => 'decimal:4',
+        'percepcion_pct' => 'decimal:4',
     ];
 
     // Constantes para valores fijos

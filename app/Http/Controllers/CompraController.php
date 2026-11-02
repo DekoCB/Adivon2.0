@@ -169,7 +169,12 @@ class CompraController extends Controller
             'impuestos_usd' => 'nullable|numeric|min:0',
             'impuestos_pen' => 'nullable|numeric|min:0',
             'percepcion_pen' => 'nullable|numeric|min:0',
-            
+            // % usados por la calculadora de tributos (solo trazabilidad —
+            // ver resources/views/compras/create.blade.php,
+            // calcularTributosImportacion()). 0.5 = 50%, por eso max:1.
+            'ad_valorem_pct' => 'nullable|numeric|min:0|max:1',
+            'percepcion_pct' => 'nullable|numeric|min:0|max:1',
+
             // Detalles de productos
             'detalles' => 'required|array|min:1',
             'detalles.*.producto_id' => 'required|exists:productos,id',
@@ -307,6 +312,8 @@ class CompraController extends Controller
                 'impuestos_usd' => $impuestosUsd,
                 'impuestos_pen' => $impuestosPen,
                 'percepcion_pen' => $percepcionPen,
+                'ad_valorem_pct' => $esImportacion ? ($validated['ad_valorem_pct'] ?? null) : null,
+                'percepcion_pct' => $esImportacion ? ($validated['percepcion_pct'] ?? null) : null,
             ];
 
             // Registrar la compra usando el servicio

@@ -281,6 +281,60 @@
                             </div>
                         </div>
 
+                        <!-- Calculadora de Tributos Aduaneros -->
+                        <div class="mt-3 bg-white dark:bg-slate-800 border border-orange-200 dark:border-orange-800 rounded-lg p-3">
+                            <p class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-2">
+                                <i class="fas fa-calculator mr-1"></i>Calculadora de Tributos Aduaneros
+                                <span class="text-gray-400 dark:text-slate-500 font-normal normal-case">(CIF → Ad Valorem → IPM → IGV → Percepción)</span>
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                                <div>
+                                    <label for="ad_valorem_pct" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                        Ad Valorem (%)
+                                        <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">0%, 6% u 11% según partida</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="ad_valorem_pct_ui" min="0" max="100" step="0.01"
+                                               oninput="document.getElementById('ad_valorem_pct').value = (parseFloat(this.value) || 0) / 100"
+                                               class="w-full pr-8 pl-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                               placeholder="6">
+                                        <span class="absolute right-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">%</span>
+                                    </div>
+                                    <input type="hidden" name="ad_valorem_pct" id="ad_valorem_pct" value="{{ old('ad_valorem_pct') }}">
+                                </div>
+                                <div>
+                                    <label for="percepcion_pct" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
+                                        Percepción (%)
+                                        <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">10% nueva empresa / 3.5% usual / 5% usado</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="percepcion_pct_ui" min="0" max="100" step="0.01"
+                                               oninput="document.getElementById('percepcion_pct').value = (parseFloat(this.value) || 0) / 100"
+                                               class="w-full pr-8 pl-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                                               placeholder="3.5">
+                                        <span class="absolute right-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">%</span>
+                                    </div>
+                                    <input type="hidden" name="percepcion_pct" id="percepcion_pct" value="{{ old('percepcion_pct') }}">
+                                </div>
+                                <div>
+                                    <button type="button" onclick="calcularTributosImportacion()"
+                                            class="w-full px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                        <i class="fas fa-magic mr-1"></i>Calcular tributos
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="tributos_resultado" class="hidden mt-3 pt-3 border-t border-orange-100 dark:border-orange-800 text-xs text-gray-600 dark:text-slate-400 space-y-1">
+                                <div class="flex justify-between"><span>CIF (FOB + Flete + Seguro):</span><span id="trib_cif" class="font-medium">US$ 0.00</span></div>
+                                <div class="flex justify-between"><span>Ad Valorem (→ Impuestos USD):</span><span id="trib_adv" class="font-medium">US$ 0.00</span></div>
+                                <div class="flex justify-between"><span>IPM (2%, crédito fiscal):</span><span id="trib_ipm" class="font-medium">US$ 0.00</span></div>
+                                <div class="flex justify-between"><span>IGV Aduanas (16%, crédito fiscal):</span><span id="trib_igv" class="font-medium">US$ 0.00</span></div>
+                                <div class="flex justify-between"><span>Percepción (crédito fiscal):</span><span id="trib_percep" class="font-medium">US$ 0.00</span></div>
+                                <p class="text-[11px] text-gray-400 dark:text-slate-500 pt-1">
+                                    Se llenaron "Impuestos (USD)", "Impuestos (S/)" y "Percepción (S/)" abajo — revísalos contra la liquidación real de tu agente y corrígelos a mano si hace falta.
+                                </p>
+                            </div>
+                        </div>
+
                         <!-- Prorrateo -->
                         <div id="prorrateo_section" class="hidden mt-3 bg-white dark:bg-slate-800 border border-orange-200 dark:border-orange-800 rounded-lg p-3">
                             <p class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-3">
@@ -1702,6 +1756,75 @@
             igvLabel.classList.remove('opacity-40', 'pointer-events-none');
             toggleWrap.classList.remove('opacity-40', 'pointer-events-none');
         }
+    }
+
+    /**
+     * Calcula el motor tributario de una importación (Perú) a partir del
+     * FOB total de los productos, el Flete y el Seguro ya ingresados, y los
+     * dos % que el usuario escribe aquí (Ad Valorem y Percepción — varían
+     * por partida arancelaria y tipo de importador, así que no se pueden
+     * fijar). IGV (16%) e IPM (2%) SÍ son tasas fijas de ley, no variables.
+     *
+     * CIF = FOB + Flete + Seguro
+     * Ad Valorem (ADV) = CIF × %Ad Valorem               → COSTO real
+     * IPM            = (CIF + ADV) × 2%                  → crédito fiscal
+     * IGV Aduanas    = (CIF + ADV) × 16%                 → crédito fiscal
+     * Deuda Aduanera = ADV + IPM + IGV Aduanas
+     * Percepción     = (CIF + Deuda Aduanera) × %Percepción → crédito fiscal
+     *
+     * Llena impuestos_usd (= ADV), impuestos_pen (= (IPM+IGV)×TC) y
+     * percepcion_pen (= Percepción×TC) — los tres SIGUEN siendo editables
+     * a mano después, por si la liquidación real del agente difiere por
+     * redondeo o algún gasto adicional.
+     */
+    function calcularTributosImportacion() {
+        const advPct   = (parseFloat(document.getElementById('ad_valorem_pct_ui')?.value) || 0) / 100;
+        const percPct  = (parseFloat(document.getElementById('percepcion_pct_ui')?.value) || 0) / 100;
+        const fleteUsd = parseFloat(document.getElementById('flete_usd')?.value) || 0;
+        const seguroUsd= parseFloat(document.getElementById('seguro_usd')?.value) || 0;
+        const tc       = parseFloat(document.getElementById('tipo_cambio')?.value) || 0;
+
+        // FOB total = suma de (cantidad × precio) de los productos ya agregados.
+        let fobTotal = 0;
+        document.querySelectorAll('#detallesBody tr').forEach(row => {
+            const match = row.id?.match(/producto_(\d+)/);
+            if (match) {
+                const el = document.getElementById(`subtotal_${match[1]}`);
+                fobTotal += el ? (parseFloat(el.innerText.replace(/[^\d.]/g, '')) || 0) : 0;
+            }
+        });
+
+        if (fobTotal <= 0) {
+            alert('Agrega los productos (con su FOB) antes de calcular los tributos.');
+            return;
+        }
+        if (!tc || tc <= 0) {
+            alert('Ingresa el Tipo de Cambio antes de calcular los tributos (se usa para convertir IPM/IGV/Percepción a soles).');
+            return;
+        }
+
+        const IGV_ADUANAS_PCT = 0.16; // fijo por ley
+        const IPM_PCT         = 0.02; // fijo por ley
+
+        const cif            = fobTotal + fleteUsd + seguroUsd;
+        const adv             = Math.round(cif * advPct * 100) / 100;
+        const ipm             = Math.round((cif + adv) * IPM_PCT * 100) / 100;
+        const igvAduanas      = Math.round((cif + adv) * IGV_ADUANAS_PCT * 100) / 100;
+        const deudaAduanera   = adv + ipm + igvAduanas;
+        const percepcionUsd   = Math.round((cif + deudaAduanera) * percPct * 100) / 100;
+
+        document.getElementById('impuestos_usd').value = adv.toFixed(2);
+        document.getElementById('impuestos_pen').value = ((ipm + igvAduanas) * tc).toFixed(2);
+        document.getElementById('percepcion_pen').value = (percepcionUsd * tc).toFixed(2);
+
+        document.getElementById('trib_cif').textContent    = `US$ ${cif.toFixed(2)}`;
+        document.getElementById('trib_adv').textContent    = `US$ ${adv.toFixed(2)}`;
+        document.getElementById('trib_ipm').textContent    = `US$ ${ipm.toFixed(2)}`;
+        document.getElementById('trib_igv').textContent    = `US$ ${igvAduanas.toFixed(2)}`;
+        document.getElementById('trib_percep').textContent = `US$ ${percepcionUsd.toFixed(2)}`;
+        document.getElementById('tributos_resultado').classList.remove('hidden');
+
+        calcularTotales();
     }
 
     function actualizarProrrateo(filas, sumaBruta, totalCIF, tipoCompra) {
