@@ -181,7 +181,20 @@ class CompraService
         $tc = (float)($compra->tipo_cambio ?? 1);
         if ($tc <= 0) $tc = 1;
 
-        // Total gastos de importación convertidos a PEN
+        // Total gastos de importación convertidos a PEN — SOLO lo que es
+        // costo real. impuestos_pen (IGV de importación) y percepcion_pen
+        // NO son costo: son crédito fiscal, se recuperan al vender y
+        // declarar el IGV cobrado a SUNAT (misma lógica que ya usa
+        // '🏦 Crédito Fiscal' en la plantilla de costeo de importaciones:
+        // "SOLO el Ad Valorem es un costo real de importación"). Antes se
+        // sumaban aquí también, inflando costo_unitario_final_pen y
+        // costo_promedio de cada producto — y por tanto subestimando el
+        // margen real en todos los reportes de ventas. impuestos_usd SÍ es
+        // costo real (es el Ad Valorem / arancel, ver etiqueta del campo en
+        // el formulario de compra). Esos dos montos recuperables se siguen
+        // guardando en la compra (para la cuenta por pagar y el total
+        // pagado al proveedor/agente) — solo se excluyen de lo que se
+        // reparte como costo entre los productos.
         $gastosPen = 0;
         if ($compra->tipo_compra === 'importacion') {
             $gastosPen =
@@ -189,9 +202,7 @@ class CompraService
                 + ((float)($compra->seguro_usd   ?? 0))
                 + ((float)($compra->otros_usd    ?? 0))
                 + ((float)($compra->impuestos_usd ?? 0))) * $tc
-                + (float)($compra->transporte_local_pen ?? 0)
-                + (float)($compra->impuestos_pen        ?? 0)
-                + (float)($compra->percepcion_pen       ?? 0);
+                + (float)($compra->transporte_local_pen ?? 0);
         }
 
         // Valor total de productos en PEN (base del prorrateo)

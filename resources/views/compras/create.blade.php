@@ -219,7 +219,7 @@
                             <div>
                                 <label for="impuestos_pen" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Impuestos (S/)
-                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">IGV importación, ISC</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal" title="Es crédito fiscal recuperable — se declara ante SUNAT al vender, no se suma al costo del producto.">IGV importación, ISC — recuperable, no es costo ⓘ</span>
                                 </label>
                                 <div class="relative">
                                     <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">S/</span>
@@ -249,7 +249,7 @@
                             <div>
                                 <label for="percepcion_pen" class="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1">
                                     Percepción (S/)
-                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal">Percepción SUNAT</span>
+                                    <span class="text-xs text-gray-400 dark:text-slate-500 font-normal" title="Es crédito fiscal recuperable — se declara ante SUNAT al vender, no se suma al costo del producto.">Percepción SUNAT — recuperable, no es costo ⓘ</span>
                                 </label>
                                 <div class="relative">
                                     <span class="absolute left-3 top-2.5 text-gray-500 dark:text-slate-400 text-sm font-medium">S/</span>

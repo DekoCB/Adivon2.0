@@ -276,34 +276,51 @@
                                 <span class="font-medium">$ {{ number_format($compra->impuestos_usd ?? 0, 2) }}</span>
                             </div>
                             @endif
-                            @if(($compra->impuestos_pen ?? 0) > 0)
-                            <div class="flex justify-between">
-                                <span class="text-gray-500 dark:text-slate-400">Impuestos (S/):</span>
-                                <span class="font-medium">S/ {{ number_format($compra->impuestos_pen ?? 0, 2) }}</span>
-                            </div>
-                            @endif
                             @if(($compra->transporte_local_pen ?? 0) > 0)
                             <div class="flex justify-between">
                                 <span class="text-gray-500 dark:text-slate-400">Transporte local (S/):</span>
                                 <span class="font-medium">S/ {{ number_format($compra->transporte_local_pen ?? 0, 2) }}</span>
                             </div>
                             @endif
-                            @if(($compra->percepcion_pen ?? 0) > 0)
-                            <div class="flex justify-between">
-                                <span class="text-gray-500 dark:text-slate-400">Percepción (S/):</span>
-                                <span class="font-medium">S/ {{ number_format($compra->percepcion_pen ?? 0, 2) }}</span>
-                            </div>
-                            @endif
                             @php
-                                $cifTotal = ($compra->flete_usd ?? 0) + ($compra->seguro_usd ?? 0)
-                                          + ($compra->otros_usd ?? 0) + ($compra->impuestos_usd ?? 0)
-                                          + ($compra->impuestos_pen ?? 0) + ($compra->transporte_local_pen ?? 0)
-                                          + ($compra->percepcion_pen ?? 0);
+                                // Costo real: lo único que entra al costo del producto
+                                // en aplicarProrrateo() — flete/seguro/otros/Ad Valorem
+                                // (impuestos_usd) convertidos con el TC de la compra, más
+                                // transporte local (ya en soles).
+                                $tcCompra = (float) ($compra->tipo_cambio ?? 1) ?: 1;
+                                $costoRealPen = (((float)($compra->flete_usd ?? 0))
+                                              + ((float)($compra->seguro_usd ?? 0))
+                                              + ((float)($compra->otros_usd ?? 0))
+                                              + ((float)($compra->impuestos_usd ?? 0))) * $tcCompra
+                                              + (float)($compra->transporte_local_pen ?? 0);
                             @endphp
                             <div class="flex justify-between pt-1 border-t border-orange-200 dark:border-orange-800 font-bold text-orange-800 dark:text-orange-300">
-                                <span>Total Costos Imp.:</span>
-                                <span>{{ number_format($cifTotal, 2) }}</span>
+                                <span>Costo Real de Importación (S/):</span>
+                                <span>{{ number_format($costoRealPen, 2) }}</span>
                             </div>
+                            @if((($compra->impuestos_pen ?? 0) + ($compra->percepcion_pen ?? 0)) > 0)
+                            <div class="pt-2 mt-1 border-t border-dashed border-gray-200 dark:border-slate-700 space-y-1.5">
+                                <p class="text-[11px] text-gray-400 dark:text-slate-500">
+                                    No es costo del producto — se recupera al vender y declarar el IGV ante SUNAT.
+                                </p>
+                                @if(($compra->impuestos_pen ?? 0) > 0)
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500 dark:text-slate-400">IGV Importación (S/):</span>
+                                    <span class="font-medium">S/ {{ number_format($compra->impuestos_pen ?? 0, 2) }}</span>
+                                </div>
+                                @endif
+                                @if(($compra->percepcion_pen ?? 0) > 0)
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500 dark:text-slate-400">Percepción (S/):</span>
+                                    <span class="font-medium">S/ {{ number_format($compra->percepcion_pen ?? 0, 2) }}</span>
+                                </div>
+                                @endif
+                                <div class="flex justify-between font-semibold text-blue-700 dark:text-blue-300">
+                                    <span>Crédito Fiscal Recuperable (S/):</span>
+                                    <span>{{ number_format(($compra->impuestos_pen ?? 0) + ($compra->percepcion_pen ?? 0), 2) }}</span>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -442,7 +459,7 @@
 
                                 @if($tc === 'importacion' && $cifTotal > 0)
                                 <div class="flex justify-between text-orange-700 dark:text-orange-300">
-                                    <span>Costos de Importación:</span>
+                                    <span title="Incluye IGV y Percepción recuperables — no todo es costo del producto, ver Datos de Importación">Gastos + Tributos Imp.:</span>
                                     <span>{{ number_format($cifTotal, 2) }}</span>
                                 </div>
                                 @endif
