@@ -67,6 +67,7 @@
                 ['key'=>'compras','label'=>'Compras','icon'=>'fa-shopping-bag','route'=>null,'active'=>request()->routeIs('compras.*') || request()->routeIs('pedidos.*') || request()->routeIs('proveedores.*') || request()->routeIs('cuentas-por-pagar.*'),'badge_html'=>null,'children'=>[
                     ['label'=>'Proveedores','icon'=>'fa-truck','route'=>route('proveedores.index'),'active'=>request()->routeIs('proveedores.*'),'badge_html'=>null],
                     ['label'=>'Registrar Compras','icon'=>'fa-file-invoice','route'=>route('compras.index'),'active'=>request()->routeIs('compras.*'),'badge_html'=>null],
+                    ['label'=>'Simulador de Importación','icon'=>'fa-calculator','route'=>route('simulaciones-importacion.index'),'active'=>request()->routeIs('simulaciones-importacion.*'),'badge_html'=>null],
                     ['label'=>'Cuentas por Pagar','icon'=>'fa-credit-card','route'=>route('cuentas-por-pagar.index'),'active'=>request()->routeIs('cuentas-por-pagar.*'),'badge_html'=>null],
                     ['label'=>'Dashboard Financiero','icon'=>'fa-chart-pie','route'=>route('finanzas.dashboard'),'active'=>request()->routeIs('finanzas.*'),'badge_html'=>null],
                     ['label'=>'Pedidos a Proveedor','icon'=>'fa-clipboard-list','route'=>route('pedidos.index'),'active'=>request()->routeIs('pedidos.*'),'badge_html'=>null],
@@ -124,6 +125,7 @@
                 ['key'=>'compras','label'=>'Compras','icon'=>'fa-shopping-bag','route'=>null,'active'=>request()->routeIs('compras.*') || request()->routeIs('pedidos.*') || request()->routeIs('proveedores.*') || request()->routeIs('cuentas-por-pagar.*'),'badge_html'=>null,'children'=>[
                     ['label'=>'Proveedores','icon'=>'fa-truck','route'=>route('proveedores.index'),'active'=>request()->routeIs('proveedores.*'),'badge_html'=>null],
                     ['label'=>'Registrar Compras','icon'=>'fa-file-invoice','route'=>route('compras.index'),'active'=>request()->routeIs('compras.*'),'badge_html'=>null],
+                    ['label'=>'Simulador de Importación','icon'=>'fa-calculator','route'=>route('simulaciones-importacion.index'),'active'=>request()->routeIs('simulaciones-importacion.*'),'badge_html'=>null],
                     ['label'=>'Cuentas por Pagar','icon'=>'fa-credit-card','route'=>route('cuentas-por-pagar.index'),'active'=>request()->routeIs('cuentas-por-pagar.*'),'badge_html'=>null],
                     ['label'=>'Dashboard Financiero','icon'=>'fa-chart-pie','route'=>route('finanzas.dashboard'),'active'=>request()->routeIs('finanzas.*'),'badge_html'=>null],
                     ['label'=>'Pedidos a Proveedor','icon'=>'fa-clipboard-list','route'=>route('pedidos.index'),'active'=>request()->routeIs('pedidos.*'),'badge_html'=>null],

@@ -360,6 +360,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/importar-imei', [CompraController::class, 'importarIMEI'])->name('importar-imei');
         Route::post('/importar-imei/procesar', [CompraController::class, 'procesarImportacionIMEI'])->name('procesar-importacion');
     });
+
+    // ========================================
+    // SIMULADOR DE COSTOS DE IMPORTACIÓN (cotizador previo a la compra real)
+    // ========================================
+    Route::prefix('simulaciones-importacion')->name('simulaciones-importacion.')->middleware('role:Administrador,Almacenero')->group(function () {
+        Route::get('/', [\App\Http\Controllers\SimulacionImportacionController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\SimulacionImportacionController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\SimulacionImportacionController::class, 'store'])->name('store');
+        Route::get('/{simulacion}', [\App\Http\Controllers\SimulacionImportacionController::class, 'show'])->name('show');
+        Route::get('/{simulacion}/edit', [\App\Http\Controllers\SimulacionImportacionController::class, 'edit'])->name('edit');
+        Route::put('/{simulacion}', [\App\Http\Controllers\SimulacionImportacionController::class, 'update'])->name('update');
+        Route::delete('/{simulacion}', [\App\Http\Controllers\SimulacionImportacionController::class, 'destroy'])->name('destroy');
+        Route::post('/{simulacion}/descartar', [\App\Http\Controllers\SimulacionImportacionController::class, 'descartar'])->name('descartar');
+        Route::get('/{simulacion}/convertir', [\App\Http\Controllers\SimulacionImportacionController::class, 'convertirForm'])->name('convertir-form');
+        Route::post('/{simulacion}/convertir', [\App\Http\Controllers\SimulacionImportacionController::class, 'convertir'])->name('convertir');
+    });
+
    // ========================================
     // MÓDULO DE CUENTAS POR PAGAR
     // ========================================
