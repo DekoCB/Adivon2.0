@@ -133,7 +133,14 @@ class VentaService
 
                 // precio_unitario en detalle_ventas siempre sin IGV (base imponible)
                 $precioSinIgv   = $incluyeIgv ? round($precioRecibido / 1.18, 4) : $precioRecibido;
-                $precioConIgv   = $incluyeIgv ? $precioRecibido : round($precioRecibido * 1.18, 4);
+                // precio_con_igv se redondea a 2 decimales AQUÍ (no a 4) porque es
+                // literalmente lo que se imprime como "P.UNIT." en la boleta/factura
+                // — si subtotal_con_igv se calculaba con el valor sin redondear
+                // (p.ej. 12.862) en vez del valor mostrado (12.86), "CANT. x P.UNIT."
+                // no coincidía con el TOTAL impreso de esa línea (diferencia de
+                // S/0.01 en cantidades impares). Redondear aquí, antes de
+                // multiplicar, garantiza que lo impreso siempre cuadre.
+                $precioConIgv   = $incluyeIgv ? round($precioRecibido, 2) : round($precioRecibido * 1.18, 2);
 
                 $subtotalDetalle = round($precioSinIgv * $qty, 4);
                 $subtotal       += $subtotalDetalle;
@@ -818,7 +825,10 @@ class VentaService
                 $qty             = (int)   $detalle['cantidad'];
 
                 $precioSinIgv    = $incluyeIgv ? round($precioRecibido / 1.18, 4) : $precioRecibido;
-                $precioConIgv    = $incluyeIgv ? $precioRecibido : round($precioRecibido * 1.18, 4);
+                // Ver comentario equivalente en crearVenta(): redondear a 2
+                // decimales aquí (lo que se imprime) antes de multiplicar, para
+                // que "CANT. x P.UNIT." cuadre exacto con el TOTAL de la línea.
+                $precioConIgv    = $incluyeIgv ? round($precioRecibido, 2) : round($precioRecibido * 1.18, 2);
                 $subtotalDetalle = round($precioSinIgv * $qty, 4);
                 $subtotal       += $subtotalDetalle;
                 $totalExact     += round($precioConIgv * $qty, 4);
