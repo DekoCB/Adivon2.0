@@ -19,14 +19,34 @@ Cloud o VPS) — no un hosting compartido básico sin SSH.
   prueba) — estos últimos NO corren si `APP_ENV` no es
   `local`/`development`/`testing`.
 - No hay rutas de archivo ni URLs de `localhost`/XAMPP hardcodeadas en el
-  código de la aplicación (`app/`, `resources/`). La única referencia a una
-  ruta de Windows (`CertificadoService.php`, para convertir certificados
-  SUNAT .pfx a .pem) solo se usa si `PHP_OS_FAMILY === 'Windows'`; en Linux
-  usa automáticamente el `openssl` del sistema — ver advertencia en el
-  paso 7.
+  código de la aplicación (`app/`, `resources/`).
 - No se usan colas (`QUEUE_CONNECTION`) de verdad — ningún Job implementa
   `ShouldQueue` todavía, así que `QUEUE_CONNECTION=sync` es suficiente, no
   se necesita un worker corriendo todo el tiempo.
+- `CertificadoService` (conversión de certificados SUNAT .pfx → .pem) ya
+  usa `openssl_pkcs12_read()` nativo de PHP como método principal — no
+  depende de `proc_open`/`exec`, así que funciona aunque el hosting los
+  tenga deshabilitados (ver paso 8 para la limitación real que esto sí
+  tiene con certificados muy antiguos).
+
+## 0.1 Ya verificado en el servidor real de este proyecto (`adivon2.leongrup.com`)
+
+Esto ya se probó por SSH contra el subdominio real, no es solo teoría:
+
+| Verificación | Resultado |
+|---|---|
+| Ruta real del subdominio | `~/domains/adivon2.leongrup.com/public_html` (hay un archivo `DO_NOT_UPLOAD_HERE` en la carpeta padre — **subir el proyecto dentro de `public_html`**, no al nivel de arriba) |
+| PHP (SSH/CLI) | 8.2.35 |
+| PHP (web, LiteSpeed) | 8.3.36 — **distinto al de CLI**, ambos ≥ 8.2 así que son compatibles con `composer.json`, pero correr `composer install`/`artisan` por SSH usa la 8.2 mientras la app real corre en 8.3; si algo se comporta distinto entre CLI y web, es la primera cosa a revisar |
+| Extensiones PHP | `bcmath curl dom exif fileinfo gd mbstring openssl pdo_mysql soap xml zip` — todas las que necesita el sistema (dompdf, phpspreadsheet, simple-qrcode, intervention/image) están presentes |
+| `proc_open`/`exec`/`shell_exec`/`passthru`/`popen` | **Deshabilitados** (`disable_functions` del PHP de este hosting) — confirmado con una prueba real. Por eso `CertificadoService` ya no depende de ellos como método principal (ver paso 8) |
+| `.user.ini` / `auto_prepend_file` | Deshabilitado (`user_ini.filename` vacío) — no sirve como mecanismo para configurar nada a nivel de proceso |
+| `open_basedir` | Sin restricción |
+| Node.js / npm por SSH | No está instalado — confirma que hay que compilar los assets (`npm run build`) en otra parte y subir `public/build/` (ver paso 5) |
+| Composer por SSH | Disponible (`composer -V` funciona) |
+| Conectividad saliente a SUNAT | **Probada y funciona**: los 3 endpoints de Greenter (`FE_BETA`, `FE_PRODUCCION`, `FE_CONSULTA_CDR`) respondieron HTTP 200 en menos de 1 segundo desde este servidor |
+| Lectura de certificados .pfx con cifrado moderno (AES) | **Probada y funciona** con `openssl_pkcs12_read()` nativo, sin necesitar `proc_open` |
+| Lectura de certificados .pfx con cifrado antiguo (RC2/3DES) | **Confirmado que NO funciona** en este hosting — ver la explicación completa y qué hacer en el paso 8 |
 
 ## 1. Crear el subdominio en hPanel
 
@@ -38,6 +58,13 @@ Cloud o VPS) — no un hosting compartido básico sin SSH.
    deja elegir una subcarpeta como raíz, usa la carpeta que te dé por
    defecto — el `.htaccess` de la raíz del repo ya hace el reenvío a
    `public/`.
+   - En la cuenta real de este proyecto (`adivon2.leongrup.com`), hPanel
+     creó la ruta `~/domains/adivon2.leongrup.com/public_html` como
+     document root fijo, con un archivo `DO_NOT_UPLOAD_HERE` en la carpeta
+     padre advirtiendo que NO se suba nada ahí — todo el proyecto (tal cual,
+     con `public/` como subcarpeta) va dentro de ese `public_html`. El
+     `.htaccess` de la raíz del repo ya maneja el reenvío a `public/` para
+     este caso exacto.
 3. Activa el certificado SSL (Hostinger ofrece Let's Encrypt gratis desde
    hPanel → SSL) y fuerza HTTPS.
 
@@ -181,34 +208,48 @@ minuto:
 * * * * * cd /ruta/completa/al/proyecto && php artisan schedule:run >> /dev/null 2>&1
 ```
 
-Usa la ruta absoluta real del proyecto en el servidor y el binario de PHP
-correcto (en Hostinger a veces es `/usr/bin/php8.2` en vez de `php` dentro
-de cron — probarlo a mano primero).
+Usa la ruta absoluta real del proyecto en el servidor. Por SSH, `php` ya
+resuelve a la 8.2.35 sin necesitar ruta completa, pero el entorno de cron
+es más limitado que una sesión interactiva — si la tarea no corre, probar
+con la ruta completa del binario (verla con `which php` por SSH) antes de
+asumir que es otro el problema.
 
-## 8. Verificaciones específicas de este sistema (probar después de desplegar)
+## 8. Verificaciones específicas de este sistema
 
-- **Extensiones PHP**: el sistema usa `barryvdh/laravel-dompdf` (PDFs de
-  boletas/facturas), `phpoffice/phpspreadsheet` / `maatwebsite/excel`
-  (reportes Excel), `simplesoftwareio/simple-qrcode` e
-  `intervention/image`. Verificar en hPanel → PHP → Extensiones (o
-  `php -m`) que estén activas: `gd`, `zip`, `xml`, `mbstring`, `bcmath`,
-  `fileinfo`, `curl`, `openssl`, `pdo_mysql`. Si falta alguna, se activa
-  desde el selector de PHP de hPanel, no se instala por composer.
-- **Certificados digitales SUNAT (.pfx → .pem)**: `CertificadoService`
-  llama al binario `openssl` del sistema con la opción `-legacy` (los
-  certificados SUNAT suelen venir cifrados con RC2/3DES, que OpenSSL 3.x
-  desactiva por defecto). Esto requiere que PHP pueda ejecutar procesos
-  externos (`proc_open`/`exec` no deshabilitados) y que el `openssl` del
-  servidor tenga el *provider* `legacy` disponible. **Probar subiendo un
-  certificado real apenas se despliegue** — si falla, revisar
-  `disable_functions` en el PHP de Hostinger (hPanel → PHP → Configuración)
-  y si el error es sobre el provider "legacy", puede necesitarse ajustar
-  `OPENSSL_CONF`/`OPENSSL_MODULES` vía variable de entorno, igual que ya se
-  hace para XAMPP en Windows en este mismo archivo.
-- **Emisión de comprobantes a SUNAT (Greenter)**: requiere que el servidor
-  pueda hacer peticiones salientes HTTPS a los endpoints de SUNAT — esto
-  normalmente no está bloqueado en Hostinger, pero probarlo con una venta
-  de prueba antes de dar por cerrado el despliegue.
+Ya probadas contra el servidor real de este proyecto (ver tabla del
+paso 0.1) — esto es lo que encontramos y cómo quedó resuelto:
+
+- **Extensiones PHP**: todas las que usa el sistema (`barryvdh/laravel-dompdf`,
+  `phpoffice/phpspreadsheet`/`maatwebsite/excel`,
+  `simplesoftwareio/simple-qrcode`, `intervention/image`) ya están activas
+  en el PHP de este hosting — no requiere ningún cambio en el selector de
+  PHP de hPanel.
+- **`proc_open`/`exec` deshabilitados**: confirmado, es una restricción real
+  de este hosting (no un supuesto). `CertificadoService` ya se adaptó: usa
+  `openssl_pkcs12_read()` nativo de PHP como método principal (no necesita
+  `proc_open`), con el método anterior (proceso externo `openssl -legacy`)
+  como *fallback* solo para cuando `proc_open` sí esté disponible (p.ej. en
+  desarrollo local).
+- **Certificados digitales SUNAT (.pfx → .pem) — limitación real confirmada**:
+  un certificado con cifrado **moderno (AES)** se lee perfecto en este
+  servidor con el método nativo. Un certificado con cifrado **antiguo
+  (RC2/3DES, típico en certificados SUNAT viejos)** **no se puede leer en
+  este hosting**: OpenSSL 3.x necesita activar su *provider* "legacy" para
+  esos algoritmos, y eso solo se puede hacer con la variable de entorno
+  `OPENSSL_CONF` leída *antes* de que el proceso de PHP arranque — algo que
+  no se puede cambiar desde dentro de un request (se probó con `putenv()` y
+  con `.user.ini`/`auto_prepend_file`; este hosting además tiene
+  `.user.ini` deshabilitado por completo). Si al subir un certificado real
+  aparece el mensaje "cifrado antiguo (RC2 o 3DES)...", la solución es
+  pedir al proveedor del certificado un .pfx re-exportado con cifrado AES
+  (o convertirlo una vez en una PC local con openssl, como indica el propio
+  mensaje de error), no es un bug a perseguir en el código.
+- **Emisión de comprobantes a SUNAT (Greenter)**: probado — los 3 endpoints
+  (`FE_BETA`, `FE_PRODUCCION`, `FE_CONSULTA_CDR`) responden correctamente
+  desde este servidor. Aun así, probar con una venta real de prueba antes
+  de dar por cerrado el despliegue, porque esto solo confirma que el WSDL
+  responde, no que el envío SOAP completo con el certificado real funcione
+  de punta a punta.
 - **Zona horaria del servidor vs `APP_TIMEZONE`**: Laravel ya fuerza
   `America/Lima` vía `config/app.php`, así que no debería requerir cambios
   en el PHP del servidor, pero si ves fechas corridas revisa también
