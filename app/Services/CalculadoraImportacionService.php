@@ -103,7 +103,15 @@ class CalculadoraImportacionService
             'credito_fiscal_pen'       => round($creditoFiscal * $tc, 2),
             'costo_real_importacion_usd' => round($costoRealImportacionUsd, 2),
             'costo_real_importacion_pen' => round($costoRealImportacionUsd * $tc, 2),
-            'total_desembolso_usd'     => round($cif + $deudaAduanera + $otrosUsd, 2), // lo que realmente se paga (incluye crédito fiscal, como el total real de la compra)
+            // Lo que realmente se paga: CIF + Deuda Aduanera (ADV+IPM+IGV) +
+            // Percepción + Otros Gastos. Antes este total NO incluía la
+            // Percepción (solo la Deuda Aduanera) — subestimaba el monto real
+            // pagado al proveedor/SUNAT, y como convertir() usa este valor
+            // directo como compra.total/total_pen (que a su vez alimenta
+            // CuentaPorPagar.monto_total), una compra a crédito generada
+            // desde una simulación quedaba con una deuda registrada MENOR a
+            // la real, por el monto exacto de la Percepción.
+            'total_desembolso_usd'     => round($cif + $deudaAduanera + $percepcion + $otrosUsd, 2),
             'lineas'                   => $lineas,
             'tiene_productos_nuevos'   => $detalles->contains(fn ($d) => is_null($d->producto_id)),
         ];

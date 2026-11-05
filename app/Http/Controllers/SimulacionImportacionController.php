@@ -10,6 +10,7 @@ use App\Services\CalculadoraImportacionService;
 use App\Services\CompraService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class SimulacionImportacionController extends Controller
 {
@@ -146,7 +147,7 @@ class SimulacionImportacionController extends Controller
      */
     public function convertirForm(SimulacionImportacion $simulacion)
     {
-        [$bloqueo, $detallesInvalidos] = $this->validarConvertible($simulacion);
+        $bloqueo = $this->validarConvertible($simulacion);
         if ($bloqueo) {
             return redirect()->route('simulaciones-importacion.show', $simulacion)
                 ->with('error', $bloqueo);
@@ -166,7 +167,7 @@ class SimulacionImportacionController extends Controller
      */
     public function convertir(Request $request, SimulacionImportacion $simulacion, CompraService $compraService)
     {
-        [$bloqueo] = $this->validarConvertible($simulacion);
+        $bloqueo = $this->validarConvertible($simulacion);
         if ($bloqueo) {
             return redirect()->route('simulaciones-importacion.show', $simulacion)->with('error', $bloqueo);
         }
@@ -181,6 +182,10 @@ class SimulacionImportacionController extends Controller
 
         if (!$simulacion->proveedor_id) {
             return back()->withInput()->with('error', 'Esta simulación no tiene un proveedor del catálogo asignado. Edítala y selecciona un proveedor antes de convertirla en compra.');
+        }
+
+        if ($simulacion->proveedor?->estado !== 'activo') {
+            return back()->withInput()->with('error', 'El proveedor de esta simulación ya no está activo. Edítala y selecciona un proveedor activo antes de convertirla en compra.');
         }
 
         $resultado = $this->calculadora->calcular($simulacion);
@@ -240,38 +245,38 @@ class SimulacionImportacionController extends Controller
      * compra real — ninguna de estas limitaciones existe para simular
      * (a propósito, para que cotizar sea libre), solo para el paso final.
      */
-    private function validarConvertible(SimulacionImportacion $simulacion): array
+    private function validarConvertible(SimulacionImportacion $simulacion): ?string
     {
         if ($simulacion->estado !== 'borrador') {
-            return ['Esta simulación ya fue convertida o descartada.', []];
+            return 'Esta simulación ya fue convertida o descartada.';
         }
 
         $simulacion->load('detalles.producto');
 
         if ($simulacion->detalles->isEmpty()) {
-            return ['Agrega al menos un producto antes de convertir.', []];
+            return 'Agrega al menos un producto antes de convertir.';
         }
 
         $nuevos = $simulacion->detalles->filter(fn ($d) => is_null($d->producto_id));
         if ($nuevos->isNotEmpty()) {
             $nombres = $nuevos->pluck('descripcion')->implode(', ');
-            return ["Primero crea estos productos en el catálogo (Inventario → Productos): {$nombres}. Luego vuelve a editar la simulación y referéncialos para poder convertirla.", []];
+            return "Primero crea estos productos en el catálogo (Inventario → Productos): {$nombres}. Luego vuelve a editar la simulación y referéncialos para poder convertirla.";
         }
 
         $serie = $simulacion->detalles->filter(fn ($d) => $d->producto?->tipo_inventario === 'serie');
         if ($serie->isNotEmpty()) {
             $nombres = $serie->pluck('descripcion')->implode(', ');
-            return ["Estos productos son de tipo serie/IMEI y necesitan sus códigos IMEI reales: {$nombres}. Regístralos directamente como una compra normal (Compras → Nueva Compra), no desde el conversor de simulaciones.", []];
+            return "Estos productos son de tipo serie/IMEI y necesitan sus códigos IMEI reales: {$nombres}. Regístralos directamente como una compra normal (Compras → Nueva Compra), no desde el conversor de simulaciones.";
         }
 
-        return [null, []];
+        return null;
     }
 
     private function validarDatos(Request $request): array
     {
         $validated = $request->validate([
             'nombre'                 => 'required|string|max:150',
-            'proveedor_id'           => 'nullable|exists:proveedores,id',
+            'proveedor_id'           => ['nullable', Rule::exists('proveedores', 'id')->where('estado', 'activo')],
             'proveedor_nombre_libre' => 'nullable|string|max:255',
             'pais_origen'            => 'nullable|string|max:100',
             'incoterm'               => 'nullable|string|max:20',

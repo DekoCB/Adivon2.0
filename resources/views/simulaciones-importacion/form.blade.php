@@ -294,6 +294,12 @@
     let timeoutBusqueda;
     function buscarProductoLinea(idx, termino) {
         clearTimeout(timeoutBusqueda);
+        // El usuario está buscando de nuevo: lo que tenga seleccionado hasta
+        // ahora queda obsoleto. Si no vuelve a elegir un resultado, no debe
+        // enviarse el producto anterior con un texto de búsqueda distinto.
+        document.getElementById(`producto_id_${idx}`).value = '';
+        document.getElementById(`variante_id_${idx}`).value = '';
+        document.getElementById(`descripcion_${idx}`).value = '';
         const resDiv = document.getElementById(`resultados_${idx}`);
         if (termino.trim().length < 2) { resDiv.classList.add('hidden'); resDiv.innerHTML = ''; return; }
         timeoutBusqueda = setTimeout(() => {
