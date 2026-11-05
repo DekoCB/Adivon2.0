@@ -40,7 +40,12 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Apunta directo a public/storage en vez de storage/app/public +
+            // symlink: algunos hostings (p.ej. el de producción de este
+            // proyecto) tienen symlink()/exec() deshabilitados por completo,
+            // así que `artisan storage:link` no puede crear el enlace. Esto
+            // funciona igual en cualquier entorno, sin depender de symlinks.
+            'root' => public_path('storage'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,

@@ -39,7 +39,7 @@ Esto ya se probó por SSH contra el subdominio real, no es solo teoría:
 | PHP (SSH/CLI) | 8.2.35 |
 | PHP (web, LiteSpeed) | 8.3.36 — **distinto al de CLI**, ambos ≥ 8.2 así que son compatibles con `composer.json`, pero correr `composer install`/`artisan` por SSH usa la 8.2 mientras la app real corre en 8.3; si algo se comporta distinto entre CLI y web, es la primera cosa a revisar |
 | Extensiones PHP | `bcmath curl dom exif fileinfo gd mbstring openssl pdo_mysql soap xml zip` — todas las que necesita el sistema (dompdf, phpspreadsheet, simple-qrcode, intervention/image) están presentes |
-| `proc_open`/`exec`/`shell_exec`/`passthru`/`popen` | **Deshabilitados** (`disable_functions` del PHP de este hosting) — confirmado con una prueba real. Por eso `CertificadoService` ya no depende de ellos como método principal (ver paso 8) |
+| `proc_open`/`exec`/`shell_exec`/`passthru`/`popen`/`symlink`/`link` | **Deshabilitados** (`disable_functions` del PHP de este hosting) — confirmado con una prueba real y también en el despliegue real: rompe el hook `post-autoload-dump` de Composer (hay que usar `--no-scripts` + `package:discover` manual) y `artisan storage:link` (symlink real imposible; el disco `public` ahora apunta directo a `public/storage`, sin symlink). Ver paso 6. `CertificadoService` tampoco depende de `proc_open` como método principal (ver paso 8) |
 | `.user.ini` / `auto_prepend_file` | Deshabilitado (`user_ini.filename` vacío) — no sirve como mecanismo para configurar nada a nivel de proceso |
 | `open_basedir` | Sin restricción |
 | Node.js / npm por SSH | No está instalado — confirma que hay que compilar los assets (`npm run build`) en otra parte y subir `public/build/` (ver paso 5) |
@@ -158,9 +158,13 @@ Notas:
 ## 5. Dependencias y build de assets
 
 ```bash
-composer install --no-dev --optimize-autoloader --no-interaction
+composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+php artisan package:discover --ansi
 php artisan key:generate --force
 ```
+
+(El `--no-scripts` y el `package:discover` manual son por el mismo motivo
+que se explica en el paso 6 — `proc_open` deshabilitado en este hosting.)
 
 **Compilar los assets (Vite/Tailwind/Vue):** `public/build/` está en
 `.gitignore` y no se sube por git, así que tiene que generarse en algún
@@ -182,13 +186,32 @@ lado antes de que la app sirva nada con estilos/JS.
 ```bash
 php artisan migrate --force
 php artisan db:seed --force      # crea roles, catálogo base y el admin de ADMIN_EMAIL
-php artisan storage:link
+mkdir -p public/storage          # ver nota abajo — reemplaza a "artisan storage:link"
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan event:cache
 chmod -R ug+rwX storage bootstrap/cache
 ```
+
+**Nota sobre `composer install` y `storage:link` en este hosting específico**
+(ya resuelto en el código, se explica para que no sorprenda al leer los
+logs): este hosting tiene `symlink()`, `exec()` y `proc_open` deshabilitados.
+Por eso:
+- `composer install` debe correr con `--no-scripts`, y después correr
+  manualmente `php artisan package:discover --ansi` — el hook
+  `post-autoload-dump` de Composer necesita `proc_open` para ejecutar ese
+  comando como subproceso, y sin `--no-scripts` el `composer install`
+  completo falla ahí (aunque ya haya instalado todo lo demás
+  correctamente).
+- `artisan storage:link` no se usa: necesita `symlink()`/`exec()` para crear
+  el enlace `public/storage → storage/app/public`, y ninguno de los dos
+  está disponible. En su lugar, `config/filesystems.php` ya configura el
+  disco `public` para apuntar directamente a `public/storage` (sin pasar
+  por `storage/app/public` ni por ningún symlink) — por eso acá solo hace
+  falta crear esa carpeta, no enlazarla.
+
+`deploy/deploy.sh` ya hace ambas cosas correctamente.
 
 (Todo esto ya está encapsulado en `deploy/deploy.sh` — para despliegues
 posteriores basta con `git pull && bash deploy/deploy.sh`, el seed no se
